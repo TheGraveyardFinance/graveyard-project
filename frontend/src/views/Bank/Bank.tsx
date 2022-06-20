@@ -101,7 +101,7 @@ const Bank: React.FC = () => {
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const graveyardFinance = useGraveyardFinance();
   const xgraveAddr = graveyardFinance.XGRAVE.address;
-  const tshareAddr = graveyardFinance.XSHARE.address;
+  const xshareAddr = graveyardFinance.XSHARE.address;
 
   let pairName: string;
   let uniswapUrl: string;
@@ -110,7 +110,7 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xgraveAddr;
   } else {
     pairName = '3SHARE-COUSD pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xshareAddr;
   }
   return (
     <Card>

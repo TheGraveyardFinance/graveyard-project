@@ -3486,7 +3486,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "address",
@@ -3628,7 +3628,7 @@
           },
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -12365,7 +12365,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -12603,7 +12603,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -12851,7 +12851,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -13089,7 +13089,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -13337,7 +13337,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -13575,7 +13575,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -13816,14 +13816,14 @@
       }
     ]
   },
-  "TshareFtmLPTShareRewardPool": {
+  "XshareFtmLPTShareRewardPool": {
     "address": "0x1040085D268253e8D4f932399a8019f527e58d04",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -14061,7 +14061,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -14309,7 +14309,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -14547,7 +14547,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -16711,7 +16711,7 @@
       }
     ]
   },
-  "TShareSwapper": {
+  "XShareSwapper": {
     "address": "0x2942168Fa8A39d070cB1173a54479F7C6A94604d",
     "abi": [
       {
@@ -16728,7 +16728,7 @@
           },
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -16743,7 +16743,7 @@
           },
           {
             "internalType": "address",
-            "name": "_tshareSpookyLpPair",
+            "name": "_xshareSpookyLpPair",
             "type": "address"
           },
           {
@@ -16805,17 +16805,17 @@
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "tbondAmount",
+            "name": "xbondAmount",
             "type": "uint256"
           },
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "tshareAmount",
+            "name": "xshareAmount",
             "type": "uint256"
           }
         ],
-        "name": "TBondSwapPerformed",
+        "name": "XBondSwapPerformed",
         "type": "event"
       },
       {
@@ -16835,11 +16835,11 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "_tbondAmount",
+            "name": "_xbondAmount",
             "type": "uint256"
           }
         ],
-        "name": "estimateAmountOfTShare",
+        "name": "estimateAmountOfXshare",
         "outputs": [
           {
             "internalType": "uint256",
@@ -16858,7 +16858,7 @@
             "type": "address"
           }
         ],
-        "name": "getTBondBalance",
+        "name": "getXBondBalance",
         "outputs": [
           {
             "internalType": "uint256",
@@ -16971,11 +16971,11 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "_tbondAmount",
+            "name": "_xbondAmount",
             "type": "uint256"
           }
         ],
-        "name": "swapTBondToTShare",
+        "name": "swapXBondToTShare",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -17047,7 +17047,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -17060,7 +17060,7 @@
       },
       {
         "inputs": [],
-        "name": "tshareSpookyLpPair",
+        "name": "xshareSpookyLpPair",
         "outputs": [
           {
             "internalType": "address",

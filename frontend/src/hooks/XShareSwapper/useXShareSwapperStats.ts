@@ -1,28 +1,28 @@
 import { useEffect, useState } from 'react';
 import useGraveyardFinance from '../useGraveyardFinance';
-import { TShareSwapperStat } from '../../graveyard-finance/types';
+import { XShareSwapperStat } from '../../graveyard-finance/types';
 import useRefresh from '../useRefresh';
 
-const useTShareSwapperStats = (account: string) => {
-  const [stat, setStat] = useState<TShareSwapperStat>();
+const useXShareSwapperStats = (account: string) => {
+  const [stat, setStat] = useState<XShareSwapperStat>();
   const { fastRefresh/*, slowRefresh*/ } = useRefresh();
   const graveyardFinance = useGraveyardFinance();
 
   useEffect(() => {
-    async function fetchTShareSwapperStat() {
+    async function fetchXShareSwapperStat() {
       try{
         if(graveyardFinance.myAccount) {
-          setStat(await graveyardFinance.getTShareSwapperStat(account));
+          setStat(await graveyardFinance.getXShareSwapperStat(account));
         }
       }
       catch(err){
         console.error(err);
       }
     }
-    fetchTShareSwapperStat();
+    fetchXShareSwapperStat();
   }, [setStat, graveyardFinance, fastRefresh, account]);
 
   return stat;
 };
 
-export default useTShareSwapperStats;
+export default useXShareSwapperStats;

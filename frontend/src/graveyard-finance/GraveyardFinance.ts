@@ -2,7 +2,7 @@
 import { Fetcher as FetcherSpirit, Token as TokenSpirit } from '@spiritswap/sdk';
 import { Fetcher, Route, Token } from '@spookyswap/sdk';
 import { Configuration } from './config';
-import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, TShareSwapperStat } from './types';
+import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, XShareSwapperStat } from './types';
 import { BigNumber, Contract, ethers, EventFilter } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
@@ -160,11 +160,11 @@ export class GraveyardFinance {
     const bondXgraveRatioBN = await Treasury.getBondPremiumRate();
     const modifier = bondXgraveRatioBN / 1e18 > 1 ? bondXgraveRatioBN / 1e18 : 1;
     const bondPriceInFTM = (Number(xgraveStat.tokenInFtm) * modifier).toFixed(2);
-    const priceOfTBondInDollars = (Number(xgraveStat.priceInDollars) * modifier).toFixed(2);
+    const priceOfXBondInDollars = (Number(xgraveStat.priceInDollars) * modifier).toFixed(2);
     const supply = await this.XBOND.displayedTotalSupply();
     return {
       tokenInFtm: bondPriceInFTM,
-      priceInDollars: priceOfTBondInDollars,
+      priceInDollars: priceOfXBondInDollars,
       totalSupply: supply,
       circulatingSupply: supply,
     };
@@ -808,7 +808,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
         assetUrl = 'https://xgrave.finance/presskit/xgrave_icon_noBG.png';
       } else if (assetName === 'XSHARE') {
         asset = this.XSHARE;
-        assetUrl = 'https://xgrave.finance/presskit/tshare_icon_noBG.png';
+        assetUrl = 'https://xgrave.finance/presskit/xshare_icon_noBG.png';
       } else if (assetName === 'XBOND') {
         asset = this.XBOND;
         assetUrl = 'https://xgrave.finance/presskit/tbond_icon_noBG.png';
@@ -958,34 +958,34 @@ async get2ShareStatFake(): Promise<TokenStat> {
       );
     }
   }
-  async swapTBondToTShare(tbondAmount: BigNumber): Promise<TransactionResponse> {
-    const { TShareSwapper } = this.contracts;
-    return await TShareSwapper.swapTBondToTShare(tbondAmount);
+  async swapXbondToXshare(xbondAmount: BigNumber): Promise<TransactionResponse> {
+    const { XShareSwapper } = this.contracts;
+    return await XShareSwapper.swapXbondToXshare(xbondAmount);
   }
-  async estimateAmountOfTShare(tbondAmount: string): Promise<string> {
-    const { TShareSwapper } = this.contracts;
+  async estimateAmountOfXshare(xbondAmount: string): Promise<string> {
+    const { XShareSwapper } = this.contracts;
     try {
-      const estimateBN = await TShareSwapper.estimateAmountOfTShare(parseUnits(tbondAmount, 18));
+      const estimateBN = await XShareSwapper.estimateAmountOfXshare(parseUnits(xbondAmount, 18));
       return getDisplayBalance(estimateBN, 18, 6);
     } catch (err) {
-      console.error(`Failed to fetch estimate tshare amount: ${err}`);
+      console.error(`Failed to fetch estimate xshare amount: ${err}`);
     }
   }
 
-  async getTShareSwapperStat(address: string): Promise<TShareSwapperStat> {
-    const { TShareSwapper } = this.contracts;
-    const xshareBalanceBN = await TShareSwapper.getTShareBalance();
-    const xbondBalanceBN = await TShareSwapper.getTBondBalance(address);
-    // const xgravePriceBN = await TShareSwapper.getXgravePrice();
-    // const tsharePriceBN = await TShareSwapper.getTSharePrice();
-    const rateTSharePerXgraveBN = await TShareSwapper.getTShareAmountPerXgrave();
+  async getXShareSwapperStat(address: string): Promise<XShareSwapperStat> {
+    const { XShareSwapper } = this.contracts;
+    const xshareBalanceBN = await XShareSwapper.getTShareBalance();
+    const xbondBalanceBN = await XShareSwapper.getXBondBalance(address);
+    // const xgravePriceBN = await XShareSwapper.getXgravePrice();
+    // const xsharePriceBN = await XShareSwapper.getTSharePrice();
+    const rateTSharePerXgraveBN = await XShareSwapper.getTShareAmountPerXgrave();
     const xshareBalance = getDisplayBalance(xshareBalanceBN, 18, 5);
     const xbondBalance = getDisplayBalance(xbondBalanceBN, 18, 5);
     return {
       xshareBalance: xshareBalance.toString(),
       xbondBalance: xbondBalance.toString(),
       // xgravePrice: xgravePriceBN.toString(),
-      // tsharePrice: tsharePriceBN.toString(),
+      // xsharePrice: xsharePriceBN.toString(),
       rateTSharePerXgrave: rateTSharePerXgraveBN.toString(),
     };
   }

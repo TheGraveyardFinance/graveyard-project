@@ -3486,7 +3486,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "address",
@@ -3628,7 +3628,7 @@
           },
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -7500,7 +7500,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -7738,7 +7738,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -7979,14 +7979,14 @@
       }
     ]
   },
-  "TshareFtmLPTShareRewardPool": {
+  "XshareFtmLPTShareRewardPool": {
     "address": "0xE9A9242b5aBd050ec714EDfF53ff08dfA066aaf0",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_tshare",
+            "name": "_xshare",
             "type": "address"
           },
           {
@@ -8224,7 +8224,7 @@
       },
       {
         "inputs": [],
-        "name": "tshare",
+        "name": "xshare",
         "outputs": [
           {
             "internalType": "contract IERC20",

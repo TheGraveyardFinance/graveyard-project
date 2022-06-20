@@ -8,7 +8,7 @@ import xShareLogoPNG from '../../assets/img/xSHARES.png';
 import tBondLogo from '../../assets/img/xBOND-01.png';
 
 import xgraveFtmLpLogo from '../../assets/img/xgrave_cousd_lp.png';
-import tshareFtmLpLogo from '../../assets/img/tshare_cousd_lp.png';
+import xshareFtmLpLogo from '../../assets/img/Xshare_cousd_lp.png';
 
 import wftmLogo from '../../assets/img/fantom-ftm-logo.png';
 import cousdLogo from '../../assets/img/cousd-logo.png';
@@ -60,7 +60,7 @@ const logosBySymbol: { [title: string]: string } = {
   '2OMB': twoombLogo,
   '2SHARES': twoshareLogo,
   'XGRAVE-COUSD-LP': xgraveFtmLpLogo,
-  'XSHARE-COUSD-LP': tshareFtmLpLogo,
+  'XSHARE-COUSD-LP': xshareFtmLpLogo,
 };
 
 type LogoProps = {

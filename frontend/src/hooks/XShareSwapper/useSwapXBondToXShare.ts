@@ -5,21 +5,21 @@ import useHandleTransactionReceipt from '../useHandleTransactionReceipt';
 import { parseUnits } from 'ethers/lib/utils';
 
 
-const useSwapTBondToTShare = () => {
+const useSwapXbondToXshare = () => {
   const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
-  const handleSwapTShare = useCallback(
-  	(tbondAmount: string) => {
-	  	const tbondAmountBn = parseUnits(tbondAmount, 18);
+  const handleSwapXShare = useCallback(
+  	(xbondAmount: string) => {
+	  	const xbondAmountBn = parseUnits(xbondAmount, 18);
 	  	handleTransactionReceipt(
-	  		graveyardFinance.swapTBondToTShare(tbondAmountBn),
-	  		`Swap ${tbondAmount} TBond to TShare`
+	  		graveyardFinance.swapXbondToXshare(xbondAmountBn),
+	  		`Swap ${xbondAmount} XBond to Xshare`
 	  	);
   	},
   	[graveyardFinance, handleTransactionReceipt]
   );
-  return { onSwapTShare: handleSwapTShare };
+  return { onSwapXShare: handleSwapXShare };
 };
 
-export default useSwapTBondToTShare;
+export default useSwapXbondToXshare;

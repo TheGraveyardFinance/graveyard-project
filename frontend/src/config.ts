@@ -237,11 +237,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 8,
     closedForStaking: false,
   },
-  TshareFtmLPTShareRewardPool: {
+  XshareFtmLPTShareRewardPool: {
     name: 'Earn xSHARES by xSHARES-COUSD LP',
     poolId: 1,
     sectionInUI: 2,
-    contract: 'TshareFtmLPTShareRewardPool',
+    contract: 'XshareFtmLPTShareRewardPool',
     depositTokenName: 'xSHARES-COUSD LP',
     earnTokenName: 'xSHARES',
     finished: false,
