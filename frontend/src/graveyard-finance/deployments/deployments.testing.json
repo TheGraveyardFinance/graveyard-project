@@ -7493,7 +7493,7 @@
       }
     ]
   },
-  "XgraveFtmLPTShareRewardPool": {
+  "XgraveFtmLPXShareRewardPool": {
     "address": "0xE9A9242b5aBd050ec714EDfF53ff08dfA066aaf0",
     "abi": [
       {
@@ -7672,7 +7672,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accTSharePerShare",
+            "name": "accXSharePerShare",
             "type": "uint256"
           },
           {
@@ -7979,7 +7979,7 @@
       }
     ]
   },
-  "XshareFtmLPTShareRewardPool": {
+  "XshareFtmLPXShareRewardPool": {
     "address": "0xE9A9242b5aBd050ec714EDfF53ff08dfA066aaf0",
     "abi": [
       {
@@ -8158,7 +8158,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accTSharePerShare",
+            "name": "accXSharePerShare",
             "type": "uint256"
           },
           {

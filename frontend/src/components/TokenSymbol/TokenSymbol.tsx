@@ -5,7 +5,7 @@ import xgraveLogo from '../../assets/img/xGRAVE.svg';
 import xShareLogo from '../../assets/img/xSHARES.svg';
 import xgraveLogoPNG from '../../assets/img/xGRAVE.png';
 import xShareLogoPNG from '../../assets/img/xSHARES.png';
-import tBondLogo from '../../assets/img/xBOND-01.png';
+import xBondLogo from '../../assets/img/xBOND-01.png';
 
 import xgraveFtmLpLogo from '../../assets/img/xgrave_usdc_lp.png';
 import xshareFtmLpLogo from '../../assets/img/Xshare_usdc_lp.png';
@@ -37,7 +37,7 @@ const logosBySymbol: { [title: string]: string } = {
   XGRAVEPNG: xgraveLogoPNG,
   XSHAREPNG: xShareLogoPNG,
   XSHARE: xShareLogo,
-  XBOND: tBondLogo,
+  XBOND: xBondLogo,
   BOO: booLogo,
   SHIBA: shibaLogo,
   ZOO: zooLogo,

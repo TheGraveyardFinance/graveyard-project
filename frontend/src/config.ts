@@ -222,11 +222,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 9,
     closedForStaking: true,
   },
-  XgraveFtmLPTShareRewardPool: {
+  XgraveFtmLPXShareRewardPool: {
     name: 'Earn xSHARES by xGRAVE-USDC LP',
     poolId: 0,
     sectionInUI: 2,
-    contract: 'XgraveFtmLPTShareRewardPool',
+    contract: 'XgraveFtmLPXShareRewardPool',
     depositTokenName: 'xGRAVE-USDC LP',
     earnTokenName: 'xSHARES',
     finished: false,
@@ -236,11 +236,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 8,
     closedForStaking: false,
   },
-  XshareFtmLPTShareRewardPool: {
+  XshareFtmLPXShareRewardPool: {
     name: 'Earn xSHARES by xSHARES-USDC LP',
     poolId: 1,
     sectionInUI: 2,
-    contract: 'XshareFtmLPTShareRewardPool',
+    contract: 'XshareFtmLPXShareRewardPool',
     depositTokenName: 'xSHARES-USDC LP',
     earnTokenName: 'xSHARES',
     finished: false,
@@ -250,11 +250,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 9,
     closedForStaking: false,
   },
-  TwoshareFtmLPTShareRewardPool: {
+  TwoshareFtmLPXShareRewardPool: {
     name: 'Earn xSHARES by 2SHARES-USDC LP',
     poolId: 2,
     sectionInUI: 2,
-    contract: 'TwoshareFtmLPTShareRewardPool',
+    contract: 'TwoshareFtmLPXShareRewardPool',
     depositTokenName: '2SHARES-USDC LP',
     earnTokenName: 'xSHARES',
     finished: false,
@@ -264,11 +264,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 10,
     closedForStaking: false,
   },
-  TwoombFtmLPTShareRewardPool: {
+  TwoombFtmLPXShareRewardPool: {
     name: 'Earn xSHARES by 2OMB-USDC LP',
     poolId: 3,
     sectionInUI: 2,
-    contract: 'TwoombFtmLPTShareRewardPool',
+    contract: 'TwoombFtmLPXShareRewardPool',
     depositTokenName: '2OMB-USDC LP',
     earnTokenName: 'xSHARES',
     finished: false,
@@ -278,11 +278,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 11,
     closedForStaking: false,
   },
-  // TwoombTwosharesLPTShareRewardPool: {
+  // TwoombTwosharesLPXShareRewardPool: {
   //   name: 'Earn xSHARES by 2OMB-2SHARES LP',
   //   poolId: 4,
   //   sectionInUI: 2,
-  //   contract: 'TwoombTwosharesLPTShareRewardPool',
+  //   contract: 'TwoombTwosharesLPXShareRewardPool',
   //   depositTokenName: '2OMB-2SHARESLP',
   //   earnTokenName: 'XSHARE',
   //   finished: false,

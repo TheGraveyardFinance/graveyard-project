@@ -54,5 +54,5 @@ export type XShareSwapperStat = {
   xbondBalance: string;
   // xgravePrice: string;
   // xsharePrice: string;
-  rateTSharePerXgrave: string;
+  rateXSharePerXgrave: string;
 };

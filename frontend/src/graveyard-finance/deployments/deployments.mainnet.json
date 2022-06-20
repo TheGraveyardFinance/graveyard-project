@@ -12358,7 +12358,7 @@
       }
     ]
   },
-  "XgraveFtmLPTShareRewardPool": {
+  "XgraveFtmLPXShareRewardPool": {
     "address": "0x1040085D268253e8D4f932399a8019f527e58d04",
     "abi": [
       {
@@ -12537,7 +12537,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accTSharePerShare",
+            "name": "accXSharePerShare",
             "type": "uint256"
           },
           {
@@ -12844,7 +12844,7 @@
       }
     ]
   },
-  "TwoombTwoshareFtmLPTShareRewardPool": {
+  "TwoombTwoshareFtmLPXShareRewardPool": {
     "address": "0x1040085D268253e8D4f932399a8019f527e58d04",
     "abi": [
       {
@@ -13023,7 +13023,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accTSharePerShare",
+            "name": "accXSharePerShare",
             "type": "uint256"
           },
           {
@@ -13330,7 +13330,7 @@
       }
     ]
   },
-  "TwoshareFtmLPTShareRewardPool": {
+  "TwoshareFtmLPXShareRewardPool": {
     "address": "0x1040085D268253e8D4f932399a8019f527e58d04",
     "abi": [
       {
@@ -13509,7 +13509,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accTSharePerShare",
+            "name": "accXSharePerShare",
             "type": "uint256"
           },
           {
@@ -13816,7 +13816,7 @@
       }
     ]
   },
-  "XshareFtmLPTShareRewardPool": {
+  "XshareFtmLPXShareRewardPool": {
     "address": "0x1040085D268253e8D4f932399a8019f527e58d04",
     "abi": [
       {
@@ -13995,7 +13995,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accTSharePerShare",
+            "name": "accXSharePerShare",
             "type": "uint256"
           },
           {
@@ -14302,7 +14302,7 @@
       }
     ]
   },
-  "TwoombFtmLPTShareRewardPool": {
+  "TwoombFtmLPXShareRewardPool": {
     "address": "0x1040085D268253e8D4f932399a8019f527e58d04",
     "abi": [
       {
@@ -14481,7 +14481,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accTSharePerShare",
+            "name": "accXSharePerShare",
             "type": "uint256"
           },
           {
@@ -16871,7 +16871,7 @@
       },
       {
         "inputs": [],
-        "name": "getTShareAmountPerXgrave",
+        "name": "getXShareAmountPerXgrave",
         "outputs": [
           {
             "internalType": "uint256",
@@ -16884,7 +16884,7 @@
       },
       {
         "inputs": [],
-        "name": "getTShareBalance",
+        "name": "getXShareBalance",
         "outputs": [
           {
             "internalType": "uint256",
@@ -16897,7 +16897,7 @@
       },
       {
         "inputs": [],
-        "name": "getTSharePrice",
+        "name": "getXSharePrice",
         "outputs": [
           {
             "internalType": "uint256",
@@ -16975,7 +16975,7 @@
             "type": "uint256"
           }
         ],
-        "name": "swapXBondToTShare",
+        "name": "swapXBondToXShare",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -17092,7 +17092,7 @@
             "type": "uint256"
           }
         ],
-        "name": "withdrawTShare",
+        "name": "withdrawXShare",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

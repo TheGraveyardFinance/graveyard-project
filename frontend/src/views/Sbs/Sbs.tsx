@@ -53,24 +53,24 @@ const Sbs: React.FC = () => {
     }
     if (!isNumeric(e.currentTarget.value)) return;
     setTbondAmount(e.currentTarget.value);
-    const updateTShareAmount = await graveyardFinance.estimateAmountOfXshare(e.currentTarget.value);
-    setXshareAmount(updateTShareAmount);  
+    const updateXShareAmount = await graveyardFinance.estimateAmountOfXshare(e.currentTarget.value);
+    setXshareAmount(updateXShareAmount);  
   };
 
   const handleXBondSelectMax = async () => {
     setTbondAmount(String(bondBalance));
-    const updateTShareAmount = await graveyardFinance.estimateAmountOfXshare(String(bondBalance));
-    setXshareAmount(updateTShareAmount); 
+    const updateXShareAmount = await graveyardFinance.estimateAmountOfXshare(String(bondBalance));
+    setXshareAmount(updateXShareAmount); 
   };
 
-  const handleTShareSelectMax = async () => {
+  const handleXShareSelectMax = async () => {
     setXshareAmount(String(xshareBalance));
-    const rateTSharePerXgrave = (await graveyardFinance.getXShareSwapperStat(account)).rateTSharePerXgrave;
-    const updateXBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerXgrave))).mul(Number(xshareBalance) * 1e6);
+    const rateXSharePerXgrave = (await graveyardFinance.getXShareSwapperStat(account)).rateXSharePerXgrave;
+    const updateXBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateXSharePerXgrave))).mul(Number(xshareBalance) * 1e6);
     setTbondAmount(getDisplayBalance(updateXBondAmount, 18, 6));
   };
 
-  const handleTShareChange = async (e: any) => {
+  const handleXShareChange = async (e: any) => {
     const inputData = e.currentTarget.value;
     if (inputData === '') {
       setXshareAmount('');
@@ -79,8 +79,8 @@ const Sbs: React.FC = () => {
     }
     if (!isNumeric(inputData)) return;
     setXshareAmount(inputData);
-    const rateTSharePerXgrave = (await graveyardFinance.getXShareSwapperStat(account)).rateTSharePerXgrave;
-    const updateXBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerXgrave))).mul(Number(inputData) * 1e6);
+    const rateXSharePerXgrave = (await graveyardFinance.getXShareSwapperStat(account)).rateXSharePerXgrave;
+    const updateXBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateXSharePerXgrave))).mul(Number(inputData) * 1e6);
     setTbondAmount(getDisplayBalance(updateXBondAmount, 18, 6));
   }
 
@@ -91,7 +91,7 @@ const Sbs: React.FC = () => {
         {!!account ? (
           <>
             <Route exact path={path}>
-              <PageHeader icon={'🏦'} title="XBond -> TShare Swap" subtitle="Swap XBond to TShare" />
+              <PageHeader icon={'🏦'} title="XBond -> XShare Swap" subtitle="Swap XBond to XShare" />
             </Route>
             <Box mt={5}>
               <Grid container justify="center" spacing={6}>
@@ -128,7 +128,7 @@ const Sbs: React.FC = () => {
                       <Card>
                         <CardContent>
                           <StyledCardContentInner>
-                            <StyledCardTitle>TShare</StyledCardTitle>
+                            <StyledCardTitle>XShare</StyledCardTitle>
                             <StyledExchanger>
                               <StyledToken>
                                 <StyledCardIcon>
@@ -138,11 +138,11 @@ const Sbs: React.FC = () => {
                             </StyledExchanger>
                             <Grid item xs={12}>
                               <TokenInput
-                                onSelectMax={handleTShareSelectMax}
-                                onChange={handleTShareChange}
+                                onSelectMax={handleXShareSelectMax}
+                                onChange={handleXShareChange}
                                 value={xshareAmount}
                                 max={xshareBalance}
-                                symbol="TShare"
+                                symbol="XShare"
                               ></TokenInput>
                             </Grid>
                             <StyledDesc>{`${xshareBalance} XSHARE Available in Swapper`}</StyledDesc>

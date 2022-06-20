@@ -178,12 +178,12 @@ export class GraveyardFinance {
    * CirculatingSupply (always equal to total supply for bonds)
    */
   async gexShareStat(): Promise<TokenStat> {
-    const { XgraveFtmLPTShareRewardPool } = this.contracts;
+    const { XgraveFtmLPXShareRewardPool } = this.contracts;
 
     const supply = await this.XSHARE.totalSupply();
 
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.XSHARE);
-    const xgraveRewardPoolSupply = await this.XSHARE.balanceOf(XgraveFtmLPTShareRewardPool.address);
+    const xgraveRewardPoolSupply = await this.XSHARE.balanceOf(XgraveFtmLPXShareRewardPool.address);
     const xShareCirculatingSupply = supply.sub(xgraveRewardPoolSupply);
     const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
@@ -974,11 +974,11 @@ async get2ShareStatFake(): Promise<TokenStat> {
 
   async getXShareSwapperStat(address: string): Promise<XShareSwapperStat> {
     const { XShareSwapper } = this.contracts;
-    const xshareBalanceBN = await XShareSwapper.getTShareBalance();
+    const xshareBalanceBN = await XShareSwapper.getXShareBalance();
     const xbondBalanceBN = await XShareSwapper.getXBondBalance(address);
     // const xgravePriceBN = await XShareSwapper.getXgravePrice();
-    // const xsharePriceBN = await XShareSwapper.getTSharePrice();
-    const rateTSharePerXgraveBN = await XShareSwapper.getTShareAmountPerXgrave();
+    // const xsharePriceBN = await XShareSwapper.getXSharePrice();
+    const rateXSharePerXgraveBN = await XShareSwapper.getXShareAmountPerXgrave();
     const xshareBalance = getDisplayBalance(xshareBalanceBN, 18, 5);
     const xbondBalance = getDisplayBalance(xbondBalanceBN, 18, 5);
     return {
@@ -986,7 +986,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
       xbondBalance: xbondBalance.toString(),
       // xgravePrice: xgravePriceBN.toString(),
       // xsharePrice: xsharePriceBN.toString(),
-      rateTSharePerXgrave: rateTSharePerXgraveBN.toString(),
+      rateXSharePerXgrave: rateXSharePerXgraveBN.toString(),
     };
   }
 }
