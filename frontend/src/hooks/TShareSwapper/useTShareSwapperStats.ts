@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import useTombFinance from '../useTombFinance';
+import useGraveyardFinance from '../useGraveyardFinance';
 import { TShareSwapperStat } from '../../tomb-finance/types';
 import useRefresh from '../useRefresh';
 
 const useTShareSwapperStats = (account: string) => {
   const [stat, setStat] = useState<TShareSwapperStat>();
   const { fastRefresh/*, slowRefresh*/ } = useRefresh();
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
 
   useEffect(() => {
     async function fetchTShareSwapperStat() {
       try{
-        if(tombFinance.myAccount) {
-          setStat(await tombFinance.getTShareSwapperStat(account));
+        if(graveyardFinance.myAccount) {
+          setStat(await graveyardFinance.getTShareSwapperStat(account));
         }
       }
       catch(err){
@@ -20,7 +20,7 @@ const useTShareSwapperStats = (account: string) => {
       }
     }
     fetchTShareSwapperStat();
-  }, [setStat, tombFinance, fastRefresh, account]);
+  }, [setStat, graveyardFinance, fastRefresh, account]);
 
   return stat;
 };

@@ -10,7 +10,7 @@ import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
-import useTombFinance from '../../hooks/useTombFinance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import { useTransactionAdder } from '../../state/transactions/hooks';
 import ExchangeStat from './components/ExchangeStat';
@@ -37,30 +37,30 @@ const BackgroundImage = createGlobalStyle`
 const Pit: React.FC = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
   const addTransaction = useTransactionAdder();
   const bondStat = useBondStats();
   const cashPrice = useCashPriceInLastTWAP();
   const bondsPurchasable = useBondsPurchasable();
 
-  const bondBalance = useTokenBalance(tombFinance?.TBOND);
+  const bondBalance = useTokenBalance(graveyardFinance?.TBOND);
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
-      const tx = await tombFinance.buyBonds(amount);
+      const tx = await graveyardFinance.buyBonds(amount);
       addTransaction(tx, {
         summary: `Buy ${Number(amount).toFixed(2)} TBOND with ${amount} TOMB`,
       });
     },
-    [tombFinance, addTransaction],
+    [graveyardFinance, addTransaction],
   );
 
   const handleRedeemBonds = useCallback(
     async (amount: string) => {
-      const tx = await tombFinance.redeemBonds(amount);
+      const tx = await graveyardFinance.redeemBonds(amount);
       addTransaction(tx, { summary: `Redeem ${amount} TBOND` });
     },
-    [tombFinance, addTransaction],
+    [graveyardFinance, addTransaction],
   );
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
   const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
@@ -81,9 +81,9 @@ const Pit: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Purchase"
-                  fromToken={tombFinance.TOMB}
+                  fromToken={graveyardFinance.TOMB}
                   fromTokenName="xGRAVE"
-                  toToken={tombFinance.TBOND}
+                  toToken={graveyardFinance.TBOND}
                   toTokenName="xBOND"
                   priceDesc={
                     !isBondPurchasable
@@ -110,9 +110,9 @@ const Pit: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Redeem"
-                  fromToken={tombFinance.TBOND}
+                  fromToken={graveyardFinance.TBOND}
                   fromTokenName="xBOND"
-                  toToken={tombFinance.TOMB}
+                  toToken={graveyardFinance.TOMB}
                   toTokenName="xGRAVE"
                   priceDesc={`${getDisplayBalance(bondBalance)} xBOND Available in wallet`}
                   onExchange={handleRedeemBonds}

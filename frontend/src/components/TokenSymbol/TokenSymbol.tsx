@@ -59,8 +59,8 @@ const logosBySymbol: { [title: string]: string } = {
   'CoUSD': cousdLogo,
   '2OMB': twoombLogo,
   '2SHARES': twoshareLogo,
-  'TOMB-FTM-LP': tombFtmLpLogo,
-  'TSHARE-FTM-LP': tshareFtmLpLogo,
+  'XGRAVE-COUSD-LP': tombFtmLpLogo,
+  'XSHARE-COUSD-LP': tshareFtmLpLogo,
 };
 
 type LogoProps = {

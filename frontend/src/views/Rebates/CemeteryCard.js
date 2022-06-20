@@ -6,7 +6,7 @@ import useApprove, { ApprovalState } from '../../hooks/useApprove';
 import useModal from '../../hooks/useModal';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import DepositModal from './components/DepositModal';
-import useTombFinance from '../../hooks/useTombFinance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 import TokenSymbol from '../../components/TokenSymbol';
 import Web3 from "web3"
 
@@ -14,13 +14,13 @@ const web3 = new Web3()
 const BN = n => new web3.utils.BN(n)
 
 const CemeteryCard = ({ bank }) => {
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
 
   const rebateStats = useRebateTreasury()
 
-  const [approveStatus, approve] = useApprove(tombFinance.externalTokens[bank.depositTokenName], "0x8f555E00ea0FAc871b3Aa70C015915dB094E7f88");
+  const [approveStatus, approve] = useApprove(graveyardFinance.externalTokens[bank.depositTokenName], "0x8f555E00ea0FAc871b3Aa70C015915dB094E7f88");
 
-  const tokenBalance = useTokenBalance(tombFinance.externalTokens[bank.depositTokenName]);
+  const tokenBalance = useTokenBalance(graveyardFinance.externalTokens[bank.depositTokenName]);
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -37,13 +37,13 @@ const CemeteryCard = ({ bank }) => {
            params: [{
               from: account,
               to: rebateStats.RebateTreasury._address,
-              data: rebateStats.RebateTreasury.methods.bond(tombFinance.externalTokens[bank.depositTokenName].address, BN(Math.floor(value * 10000)).mul(BN(10).pow(BN(14)))).encodeABI()
+              data: rebateStats.RebateTreasury.methods.bond(graveyardFinance.externalTokens[bank.depositTokenName].address, BN(Math.floor(value * 10000)).mul(BN(10).pow(BN(14)))).encodeABI()
           }]
         })
         
       }}
       tokenName={bank.depositTokenName}
-      token={rebateStats.assets.find( token => token.token === tombFinance.externalTokens[bank.depositTokenName].address)}
+      token={rebateStats.assets.find( token => token.token === graveyardFinance.externalTokens[bank.depositTokenName].address)}
     />,
   );
 

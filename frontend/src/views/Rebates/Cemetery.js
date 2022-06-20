@@ -17,7 +17,7 @@ import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP
 
 import useBanks from '../../hooks/useBanks';
 import useRebateTreasury from "../../hooks/useRebateTreasury"
-import useTombStats from '../../hooks/useTombStats';
+import useXgraveStats from '../../hooks/useXgraveStats';
 
 const web3 = new Web3()
 const BN = n => new web3.utils.BN(n)
@@ -46,13 +46,13 @@ const Cemetery = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
   const cashStat = useCashPriceInEstimatedTWAP();
-  const tombStats = useTombStats();
+  const xgraveStats = useXgraveStats();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const activeBanks = banks.filter((bank) => !bank.finished);
 
   console.log(cashStat)
 
-  const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
+  const tombPriceInFTM = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
 
   const rebateStats = useRebateTreasury()
   console.log(rebateStats)

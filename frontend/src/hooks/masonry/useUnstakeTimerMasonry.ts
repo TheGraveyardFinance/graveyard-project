@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useTombFinance from './../useTombFinance';
+import useGraveyardFinance from './../useGraveyardFinance';
 import { AllocationTime } from '../../tomb-finance/types';
 
 const useUnstakeTimerMasonry = () => {
@@ -7,13 +7,13 @@ const useUnstakeTimerMasonry = () => {
     from: new Date(),
     to: new Date(),
   });
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
 
   useEffect(() => {
-    if (tombFinance) {
-      tombFinance.getUserUnstakeTime().then(setTime);
+    if (graveyardFinance) {
+      graveyardFinance.getUserUnstakeTime().then(setTime);
     }
-  }, [tombFinance]);
+  }, [graveyardFinance]);
   return time;
 };
 

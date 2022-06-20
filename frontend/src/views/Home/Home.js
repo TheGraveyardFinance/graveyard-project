@@ -9,16 +9,16 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-import useTombStats from '../../hooks/useTombStats';
+import useXgraveStats from '../../hooks/useXgraveStats';
 import useLpStats from '../../hooks/useLpStats';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
-import usetShareStats from '../../hooks/usetShareStats';
+import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import useFantomPrice from '../../hooks/useFantomPrice';
-import { tomb as tombTesting, tShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
-import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
+import useCousdPrice from '../../hooks/useCousdPrice';
+import { tomb as xgraveTesting, tShare as xShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
+import { tomb as xgraveProd, tShare as xShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
 
 import useTotalTreasuryBalance from '../../hooks/useTotalTreasuryBalance.js';
 
@@ -26,7 +26,7 @@ import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
-import useTombFinance from '../../hooks/useTombFinance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -50,66 +50,66 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const tombFtmLpStats = useLpStats('TOMB-FTM-LP');
-  const tShareFtmLpStats = useLpStats('TSHARE-FTM-LP');
-  const tombStats = useTombStats();
-  const tShareStats = usetShareStats();
-  const tBondStats = useBondStats();
-  const tombFinance = useTombFinance();
-  const { price: cousdPrice, marketCap: cousdMarketCap, priceChange: cousdPriceChange } = useFantomPrice();
+  const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
+  const xShareCousdLpStats = useLpStats('XSHARE-COUSD-LP');
+  const xgraveStats = useXgraveStats();
+  const xShareStats = usexShareStats();
+  const xBondStats = useBondStats();
+  const graveyardFinance = useGraveyardFinance();
+  const { price: cousdPrice, marketCap: cousdMarketCap, priceChange: cousdPriceChange } = useCousdPrice();
   const { balance: rebatesTVL } = useTotalTreasuryBalance();
   const totalTVL = TVL + rebatesTVL;
 
   let tomb;
   let tShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    tomb = tombTesting;
-    tShare = tShareTesting;
+    tomb = xgraveTesting;
+    tShare = xShareTesting;
   } else {
-    tomb = tombProd;
-    tShare = tShareProd;
+    tomb = xgraveProd;
+    tShare = xShareProd;
   }
 
   const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
   const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
 
-  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
-  const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
+  const tombLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
   const tombPriceInDollars = useMemo(
-    () => (tombStats ? Number(tombStats.priceInDollars).toFixed(2) : null),
-    [tombStats],
+    () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
+    [xgraveStats],
   );
-  const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
-  const tombCirculatingSupply = useMemo(() => (tombStats ? String(tombStats.circulatingSupply) : null), [tombStats]);
-  const tombTotalSupply = useMemo(() => (tombStats ? String(tombStats.totalSupply) : null), [tombStats]);
+  const tombPriceInFTM = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const tombCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
+  const tombTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
 
   const tSharePriceInDollars = useMemo(
-    () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
-    [tShareStats],
+    () => (xShareStats ? Number(xShareStats.priceInDollars).toFixed(2) : null),
+    [xShareStats],
   );
   const tSharePriceInFTM = useMemo(
-    () => (tShareStats ? Number(tShareStats.tokenInFtm).toFixed(4) : null),
-    [tShareStats],
+    () => (xShareStats ? Number(xShareStats.tokenInFtm).toFixed(4) : null),
+    [xShareStats],
   );
   const tShareCirculatingSupply = useMemo(
-    () => (tShareStats ? String(tShareStats.circulatingSupply) : null),
-    [tShareStats],
+    () => (xShareStats ? String(xShareStats.circulatingSupply) : null),
+    [xShareStats],
   );
-  const tShareTotalSupply = useMemo(() => (tShareStats ? String(tShareStats.totalSupply) : null), [tShareStats]);
+  const tShareTotalSupply = useMemo(() => (xShareStats ? String(xShareStats.totalSupply) : null), [xShareStats]);
 
   const tBondPriceInDollars = useMemo(
-    () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
-    [tBondStats],
+    () => (xBondStats ? Number(xBondStats.priceInDollars).toFixed(2) : null),
+    [xBondStats],
   );
-  const tBondPriceInFTM = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
+  const tBondPriceInFTM = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
   const tBondCirculatingSupply = useMemo(
-    () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
-    [tBondStats],
+    () => (xBondStats ? String(xBondStats.circulatingSupply) : null),
+    [xBondStats],
   );
-  const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
+  const tBondTotalSupply = useMemo(() => (xBondStats ? String(xBondStats.totalSupply) : null), [xBondStats]);
 
-  const tombLpZap = useZap({ depositTokenName: 'TOMB-FTM-LP' });
-  const tshareLpZap = useZap({ depositTokenName: 'TSHARE-FTM-LP' });
+  const xgraveLpZap = useZap({ depositTokenName: 'XGRAVE-COUSD-LP' });
+  const xshareLpZap = useZap({ depositTokenName: 'XSHARE-COUSD-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -117,27 +117,27 @@ const Home = () => {
     color: var(--accent-light);
   `;
 
-  const [onPresentTombZap, onDissmissTombZap] = useModal(
+  const [onPresentXgraveZap, onDissmissXgraveZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        tombLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissTombZap();
+        xgraveLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissXgraveZap();
       }}
-      tokenName={'TOMB-FTM-LP'}
+      tokenName={'XGRAVE-COUSD-LP'}
     />,
   );
 
-  const [onPresentTshareZap, onDissmissTshareZap] = useModal(
+  const [onPresentXshareZap, onDissmissXshareZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        tshareLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissTshareZap();
+        xshareLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissXshareZap();
       }}
-      tokenName={'TSHARE-FTM-LP'}
+      tokenName={'XSHARE-COUSD-LP'}
     />,
   );
 
@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.tomb.finance">documentation</StyledLink> before purchasing TOMB or TSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.tomb.finance">documentation</StyledLink> before purchasing XGRAVE or TSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}
@@ -231,7 +231,7 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TOMB */}
+        {/* XGRAVE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
@@ -255,14 +255,14 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TOMB */}
+        {/* XGRAVE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
               <h2>xGRAVE</h2>
               {/* <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TOMB');
+                  graveyardFinance.watchAssetInMetamask('XGRAVE');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -273,7 +273,7 @@ const Home = () => {
               </Button> */}
               <Box mt={2} style={{ backgroundColor: "transparent !important" }}>
                 <CardIcon style={{ backgroundColor: "transparent !important" }}>
-                  <TokenSymbol symbol="TOMB" style={{ backgroundColor: "transparent !important" }} />
+                  <TokenSymbol symbol="XGRAVE" style={{ backgroundColor: "transparent !important" }} />
                 </CardIcon>
               </Box>
               Current Price
@@ -301,7 +301,7 @@ const Home = () => {
               <h2>xSHARES</h2>
               {/* <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TSHARE');
+                  graveyardFinance.watchAssetInMetamask('TSHARE');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -338,7 +338,7 @@ const Home = () => {
               <h2>xBOND</h2>
               {/* <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TBOND');
+                  graveyardFinance.watchAssetInMetamask('TBOND');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -373,12 +373,12 @@ const Home = () => {
               <h2>xGRAVE-CoUSD Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TOMB-FTM-LP" />
+                  <TokenSymbol symbol="XGRAVE-COUSD-LP" />
                 </CardIcon>
               </Box>
               {/*
               <Box mt={2}>
-                <Button color="primary" disabled={true} onClick={onPresentTombZap} variant="contained">
+                <Button color="primary" disabled={true} onClick={onPresentXgraveZap} variant="contained">
                   Zap In
                 </Button>
               </Box>*/}
@@ -402,25 +402,25 @@ const Home = () => {
               <h2>xSHARES-CoUSD Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TSHARE-FTM-LP" />
+                  <TokenSymbol symbol="XSHARE-COUSD-LP" />
                 </CardIcon>
               </Box>
               {/*<Box mt={2}>
-                <Button color="primary" onClick={onPresentTshareZap} variant="contained">
+                <Button color="primary" onClick={onPresentXshareZap} variant="contained">
                   Zap In
                 </Button>
             </Box>*/}
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {tshareLPStats?.tokenAmount ? tshareLPStats?.tokenAmount : '-.--'} 3SHARE /{' '}
-                  {tshareLPStats?.cousdAmount ? tshareLPStats?.cousdAmount : '-.--'} FTM
+                  {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} 3SHARE /{' '}
+                  {xshareLPStats?.cousdAmount ? xshareLPStats?.cousdAmount : '-.--'} FTM
                 </span>
               </Box>
-              <Box>${tshareLPStats?.priceOfOne ? tshareLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${xshareLPStats?.priceOfOne ? xshareLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${tshareLPStats?.totalLiquidity ? tshareLPStats.totalLiquidity : '-.--'}
+                Liquidity: ${xshareLPStats?.totalLiquidity ? xshareLPStats.totalLiquidity : '-.--'}
                 <br />
-                Total supply: {tshareLPStats?.totalSupply ? tshareLPStats.totalSupply : '-.--'}
+                Total supply: {xshareLPStats?.totalSupply ? xshareLPStats.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>

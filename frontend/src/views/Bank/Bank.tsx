@@ -16,7 +16,7 @@ import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useRedeem from '../../hooks/useRedeem';
 import { Bank as BankEntity } from '../../tomb-finance';
-import useTombFinance from '../../hooks/useTombFinance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -99,9 +99,9 @@ const Bank: React.FC = () => {
 };
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
-  const tombFinance = useTombFinance();
-  const tombAddr = tombFinance.TOMB.address;
-  const tshareAddr = tombFinance.TSHARE.address;
+  const graveyardFinance = useGraveyardFinance();
+  const tombAddr = graveyardFinance.TOMB.address;
+  const tshareAddr = graveyardFinance.TSHARE.address;
 
   let pairName: string;
   let uniswapUrl: string;
