@@ -50,8 +50,8 @@ export type AllocationTime = {
 };
 
 export type TShareSwapperStat = {
-  tshareBalance: string;
-  tbondBalance: string;
+  xshareBalance: string;
+  xbondBalance: string;
   // tombPrice: string;
   // tsharePrice: string;
   rateTSharePerTomb: string;

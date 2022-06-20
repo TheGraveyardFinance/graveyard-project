@@ -33,7 +33,7 @@ const ProvideLiquidity = () => {
   const xgraveStats = useXgraveStats();
   const graveyardFinance = useGraveyardFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
-  const tombBalance = useTokenBalance(graveyardFinance.XGRAVE);
+  const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
   const ftmBalance = (balance / 1e18).toFixed(4);
   const { onProvideTombFtmLP } = useProvideTombFtmLP();
   const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
@@ -66,8 +66,8 @@ const ProvideLiquidity = () => {
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.tokenAmount);
   };
   const handleTombSelectMax = async () => {
-    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(tombBalance), 'XGRAVE');
-    setTombAmount(getDisplayBalance(tombBalance));
+    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(xgraveBalance), 'XGRAVE');
+    setTombAmount(getDisplayBalance(xgraveBalance));
     setFtmAmount(quoteFromSpooky);
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
   };
@@ -100,7 +100,7 @@ const ProvideLiquidity = () => {
                           onSelectMax={handleTombSelectMax}
                           onChange={handleTombChange}
                           value={tombAmount}
-                          max={getDisplayBalance(tombBalance)}
+                          max={getDisplayBalance(xgraveBalance)}
                           symbol={'XGRAVE'}
                         ></TokenInput>
                       </Grid>

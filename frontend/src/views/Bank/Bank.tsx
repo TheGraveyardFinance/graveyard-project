@@ -106,10 +106,10 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let pairName: string;
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('xGRAVE')) {
-    pairName = 'xGRAVE-WFTM pair';
+    pairName = 'xGRAVE-COUSD pair';
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tombAddr;
   } else {
-    pairName = '3SHARE-WFTM pair';
+    pairName = '3SHARE-COUSD pair';
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
   }
   return (

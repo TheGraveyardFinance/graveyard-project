@@ -28,8 +28,8 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const graveyardFinance = useGraveyardFinance();
   const { balance } = useWallet();
   const ftmBalance = (Number(balance) / 1e18).toFixed(4).toString();
-  const tombBalance = useTokenBalance(graveyardFinance.XGRAVE);
-  const tshareBalance = useTokenBalance(graveyardFinance.XSHARE);
+  const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
+  const xshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const [val, setVal] = useState('');
   const [zappingToken, setZappingToken] = useState(FTM_TICKER);
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
@@ -53,10 +53,10 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
     setZappingToken(value);
     setZappingTokenBalance(ftmBalance);
     if (event.target.value === XSHARE_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(tshareBalance, decimals));
+      setZappingTokenBalance(getDisplayBalance(xshareBalance, decimals));
     }
     if (event.target.value === XGRAVE_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(tombBalance, decimals));
+      setZappingTokenBalance(getDisplayBalance(xgraveBalance, decimals));
     }
   };
 

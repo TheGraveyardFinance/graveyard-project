@@ -42,8 +42,8 @@ const Sbs: React.FC = () => {
   const { onSwapTShare } = useSwapTBondToTShare();
   const tshareSwapperStat = useTShareSwapperStats(account);
 
-  const tshareBalance = useMemo(() => (tshareSwapperStat ? Number(tshareSwapperStat.tshareBalance) : 0), [tshareSwapperStat]);
-  const bondBalance = useMemo(() => (tshareSwapperStat ? Number(tshareSwapperStat.tbondBalance) : 0), [tshareSwapperStat]);
+  const xshareBalance = useMemo(() => (tshareSwapperStat ? Number(tshareSwapperStat.xshareBalance) : 0), [tshareSwapperStat]);
+  const bondBalance = useMemo(() => (tshareSwapperStat ? Number(tshareSwapperStat.xbondBalance) : 0), [tshareSwapperStat]);
 
   const handleTBondChange = async (e: any) => {
     if (e.currentTarget.value === '') {
@@ -64,9 +64,9 @@ const Sbs: React.FC = () => {
   };
 
   const handleTShareSelectMax = async () => {
-    setTshareAmount(String(tshareBalance));
+    setTshareAmount(String(xshareBalance));
     const rateTSharePerTomb = (await graveyardFinance.getTShareSwapperStat(account)).rateTSharePerTomb;
-    const updateTBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerTomb))).mul(Number(tshareBalance) * 1e6);
+    const updateTBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerTomb))).mul(Number(xshareBalance) * 1e6);
     setTbondAmount(getDisplayBalance(updateTBondAmount, 18, 6));
   };
 
@@ -141,11 +141,11 @@ const Sbs: React.FC = () => {
                                 onSelectMax={handleTShareSelectMax}
                                 onChange={handleTShareChange}
                                 value={tshareAmount}
-                                max={tshareBalance}
+                                max={xshareBalance}
                                 symbol="TShare"
                               ></TokenInput>
                             </Grid>
-                            <StyledDesc>{`${tshareBalance} XSHARE Available in Swapper`}</StyledDesc>
+                            <StyledDesc>{`${xshareBalance} XSHARE Available in Swapper`}</StyledDesc>
                           </StyledCardContentInner>
                         </CardContent>
                       </Card>
