@@ -9,7 +9,7 @@ import ModalTitle from '../../../components/ModalTitle';
 import TokenInput from '../../../components/TokenInput';
 import useRebateTreasury from "../../../hooks/useRebateTreasury"
 import useGraveyardFinance from '../../../hooks/useGraveyardFinance';
-import useCousdPrice from '../../../hooks/useCousdPrice';
+import useUsdcPrice from '../../../hooks/useUsdcPrice';
 
 
 import { getFullDisplayBalance } from '../../../utils/formatBalance';
@@ -28,7 +28,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
 
   const graveyardFinance = useGraveyardFinance();
   const rebateStats = useRebateTreasury();
-  const { price: cousdPrice, marketCap: cousdMarketCap, priceChange: cousdPriceChange } = useCousdPrice();
+  const { price: usdcPrice, marketCap: usdcMarketCap, priceChange: usdcPriceChange } = useUsdcPrice();
 
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(max, tokenName === 'USDC' ? 6 : 18);
@@ -59,11 +59,11 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
 
   function formatOutAmount() {
     const outAmount = getOutAmount()
-    return `Receiving: ${outAmount.toFixed(4)} xGRAVE ($${(outAmount * rebateStats.xgravePrice * cousdPrice).toFixed(2)})`
+    return `Receiving: ${outAmount.toFixed(4)} xGRAVE ($${(outAmount * rebateStats.xgravePrice * usdcPrice).toFixed(2)})`
   }
 
   function formatInAmount() {
-    return `Input: ${(+val).toFixed(4)} ${tokenName} ($${((+val) * getAssetPrice(tokenName) * cousdPrice).toFixed(2)})`
+    return `Input: ${(+val).toFixed(4)} ${tokenName} ($${((+val) * getAssetPrice(tokenName) * usdcPrice).toFixed(2)})`
   }
 
   return (

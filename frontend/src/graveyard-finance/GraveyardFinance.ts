@@ -27,7 +27,7 @@ export class GraveyardFinance {
   externalTokens: { [name: string]: ERC20 };
   masonryVersionOfUser?: string;
 
-  XGRAVECOUSD_LP: Contract;
+  XGRAVEUSDC_LP: Contract;
   XGRAVE: ERC20;
   XSHARE: ERC20;
   XBOND: ERC20;
@@ -49,10 +49,10 @@ export class GraveyardFinance {
     this.XGRAVE = new ERC20(deployments.xgrave.address, provider, 'xGRAVE');
     this.XSHARE = new ERC20(deployments.xShare.address, provider, 'xSHARE');
     this.XBOND = new ERC20(deployments.tBond.address, provider, 'xBOND');
-    this.FTM = this.externalTokens['COUSD'];
+    this.FTM = this.externalTokens['USDC'];
 
     // Uniswap V2 Pair
-    this.XGRAVECOUSD_LP = new Contract(externalTokens['XGRAVE-COUSD-LP'][0], IUniswapV2PairABI, provider);
+    this.XGRAVEUSDC_LP = new Contract(externalTokens['XGRAVE-USDC-LP'][0], IUniswapV2PairABI, provider);
 
     this.config = cfg;
     this.provider = provider;
@@ -73,7 +73,7 @@ export class GraveyardFinance {
     for (const token of tokens) {
       token.connect(this.signer);
     }
-    this.XGRAVECOUSD_LP = this.XGRAVECOUSD_LP.connect(this.signer);
+    this.XGRAVEUSDC_LP = this.XGRAVEUSDC_LP.connect(this.signer);
     console.log(`🔓 Wallet is unlocked. Welcome, ${account}!`);
     this.fetchMasonryVersionOfUser()
       .then((version) => (this.masonryVersionOfUser = version))
@@ -105,7 +105,7 @@ export class GraveyardFinance {
       .sub(xgraveRewardPoolSupplyOld);
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.XGRAVE);
     console.log("price in ftm:", priceInFTM)
-    const priceOfOneFTM = await this.getCOUSDPriceFromPancakeswap();
+    const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
     const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
     return {
@@ -130,16 +130,16 @@ export class GraveyardFinance {
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
-    const cousdAmountBN = await this.FTM.balanceOf(lpToken.address);
-    const cousdAmount = getDisplayBalance(cousdAmountBN, 18);
+    const usdcAmountBN = await this.FTM.balanceOf(lpToken.address);
+    const usdcAmount = getDisplayBalance(usdcAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
-    const cousdAmountInOneLP = Number(cousdAmount) / Number(lpTokenSupply);
+    const usdcAmountInOneLP = Number(usdcAmount) / Number(lpTokenSupply);
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isXgrave, false);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
     return {
       tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
-      cousdAmount: cousdAmountInOneLP.toFixed(2).toString(),
+      usdcAmount: usdcAmountInOneLP.toFixed(2).toString(),
       priceOfOne: lpTokenPriceFixed,
       totalLiquidity: liquidity,
       totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
@@ -185,7 +185,7 @@ export class GraveyardFinance {
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.XSHARE);
     const xgraveRewardPoolSupply = await this.XSHARE.balanceOf(XgraveFtmLPTShareRewardPool.address);
     const xShareCirculatingSupply = supply.sub(xgraveRewardPoolSupply);
-    const priceOfOneFTM = await this.getCOUSDPriceFromPancakeswap();
+    const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
     return {
@@ -281,11 +281,11 @@ export class GraveyardFinance {
           return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
         } else if (depositTokenName === 'BIFI') {
           return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
-        } else if (depositTokenName === 'COUSD') {
+        } else if (depositTokenName === 'USDC') {
           return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
-        } else if (depositTokenName === '2OMB-COUSD LP') {
+        } else if (depositTokenName === '2OMB-USDC LP') {
           return rewardPerSecond.mul(6000).div(25000).div(24).mul(20);
-        } else if (depositTokenName === '2SHARES-COUSD LP') {
+        } else if (depositTokenName === '2SHARES-USDC LP') {
           return rewardPerSecond.mul(6000).div(25000).div(24).mul(20);
         } else if (depositTokenName === 'BLOOM') {
           return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
@@ -322,18 +322,18 @@ export class GraveyardFinance {
    */
   async getDepositTokenPriceInDollars(tokenName: string, token: ERC20) {
     let tokenPrice;
-    const priceOfOneFtmInDollars = await this.getCOUSDPriceFromPancakeswap();
+    const priceOfOneFtmInDollars = await this.getUSDCPriceFromPancakeswap();
     if (tokenName === 'wFTM') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
       console.log("token name:", tokenName)
-      if (tokenName === 'xGRAVE-COUSD LP') {
+      if (tokenName === 'xGRAVE-USDC LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.XGRAVE, true, false);
-      } else if (tokenName === 'xSHARES-COUSD LP') {
+      } else if (tokenName === 'xSHARES-USDC LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.XSHARE, false, false);
-      } else if (tokenName === "2SHARES-COUSD LP") {
+      } else if (tokenName === "2SHARES-USDC LP") {
         tokenPrice = await this.getLPTokenPrice(token, new ERC20("0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca", this.provider, "2SHARES"), false, true);
-      } else if (tokenName === "2OMB-COUSD LP") {
+      } else if (tokenName === "2OMB-USDC LP") {
         console.log("getting the LP token price here")
         tokenPrice = await this.getLPTokenPrice(token, new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB"), true, true);
         console.log("my token price:", tokenPrice)
@@ -447,7 +447,7 @@ async get2ombStatFake(): Promise<TokenStat> {
     .sub(xgraveRewardPoolSupply2)
     .sub(xgraveRewardPoolSupplyOld);
   const priceInFTM = await this.getTokenPriceFromPancakeswap(XGRAVE);
-  const priceOfOneFTM = await this.getCOUSDPriceFromPancakeswap();
+  const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
   const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
   return {
@@ -470,7 +470,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
     .sub(xgraveRewardPoolSupply2)
     .sub(xgraveRewardPoolSupplyOld);
   const priceInFTM = await this.getTokenPriceFromPancakeswap(XSHARE);
-  const priceOfOneFTM = await this.getCOUSDPriceFromPancakeswap();
+  const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
   const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
   return {
@@ -570,9 +570,9 @@ async get2ShareStatFake(): Promise<TokenStat> {
     const ready = await this.provider.ready;
     if (!ready) return;
     const { chainId } = this.config;
-    const { COUSD } = this.config.externalTokens;
+    const { USDC } = this.config.externalTokens;
 
-    const wftm = new Token(chainId, COUSD[0], COUSD[1]);
+    const wftm = new Token(chainId, USDC[0], USDC[1]);
     const token = new Token(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
       const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
@@ -589,38 +589,38 @@ async get2ShareStatFake(): Promise<TokenStat> {
     if (!ready) return;
     const { chainId } = this.config;
 
-    const { COUSD } = this.externalTokens;
+    const { USDC } = this.externalTokens;
 
-    const wftm = new TokenSpirit(chainId, COUSD.address, COUSD.decimal);
+    const wftm = new TokenSpirit(chainId, USDC.address, USDC.decimal);
     const token = new TokenSpirit(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
       const wftmToToken = await FetcherSpirit.fetchPairData(wftm, token, this.provider);
       const liquidityToken = wftmToToken.liquidityToken;
-      let ftmBalanceInLP = await COUSD.balanceOf(liquidityToken.address);
-      let cousdAmount = Number(getFullDisplayBalance(ftmBalanceInLP, COUSD.decimal));
+      let ftmBalanceInLP = await USDC.balanceOf(liquidityToken.address);
+      let usdcAmount = Number(getFullDisplayBalance(ftmBalanceInLP, USDC.decimal));
       let shibaBalanceInLP = await tokenContract.balanceOf(liquidityToken.address);
       let shibaAmount = Number(getFullDisplayBalance(shibaBalanceInLP, tokenContract.decimal));
-      const priceOfOneFtmInDollars = await this.getCOUSDPriceFromPancakeswap();
-      let priceOfShiba = (cousdAmount / shibaAmount) * Number(priceOfOneFtmInDollars);
+      const priceOfOneFtmInDollars = await this.getUSDCPriceFromPancakeswap();
+      let priceOfShiba = (usdcAmount / shibaAmount) * Number(priceOfOneFtmInDollars);
       return priceOfShiba.toString();
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
   }
 
-  async getCOUSDPriceFromPancakeswap(): Promise<string> {
+  async getUSDCPriceFromPancakeswap(): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
-    const { COUSD, USDC } = this.externalTokens;
+    const { USDC } = this.externalTokens;
     try {
-      const fusdt_wcousd_lp_pair = this.externalTokens['USDT-FTM-LP'];
-      let cousd_amount_BN = await COUSD.balanceOf(fusdt_wcousd_lp_pair.address);
-      let cousd_amount = Number(getFullDisplayBalance(cousd_amount_BN, COUSD.decimal));
-      let USDC_amount_BN = await USDC.balanceOf(fusdt_wcousd_lp_pair.address);
+      const fusdt_wusdc_lp_pair = this.externalTokens['USDT-FTM-LP'];
+      let usdc_amount_BN = await USDC.balanceOf(fusdt_wusdc_lp_pair.address);
+      let usdc_amount = Number(getFullDisplayBalance(usdc_amount_BN, USDC.decimal));
+      let USDC_amount_BN = await USDC.balanceOf(fusdt_wusdc_lp_pair.address);
       let USDC_amount = Number(getFullDisplayBalance(USDC_amount_BN, USDC.decimal));
-      return (USDC_amount / cousd_amount).toString();
+      return (USDC_amount / usdc_amount).toString();
     } catch (err) {
-      console.error(`Failed to fetch token price of COUSD: ${err}`);
+      console.error(`Failed to fetch token price of USDC: ${err}`);
     }
   }
 
@@ -829,17 +829,17 @@ async get2ShareStatFake(): Promise<TokenStat> {
     return true;
   }
 
-  async provideXgraveFtmLP(cousdAmount: string, xgraveAmount: BigNumber): Promise<TransactionResponse> {
+  async provideXgraveFtmLP(usdcAmount: string, xgraveAmount: BigNumber): Promise<TransactionResponse> {
     const { TaxOffice } = this.contracts;
     let overrides = {
-      value: parseUnits(cousdAmount, 18),
+      value: parseUnits(usdcAmount, 18),
     };
-    return await TaxOffice.addLiquidityETHTaxFree(xgraveAmount, xgraveAmount.mul(992).div(1000), parseUnits(cousdAmount, 18).mul(992).div(1000), overrides);
+    return await TaxOffice.addLiquidityETHTaxFree(xgraveAmount, xgraveAmount.mul(992).div(1000), parseUnits(usdcAmount, 18).mul(992).div(1000), overrides);
   }
 
   async quoteFromSpooky(tokenAmount: string, tokenName: string): Promise<string> {
     const { SpookyRouter } = this.contracts;
-    const { _reserve0, _reserve1 } = await this.XGRAVECOUSD_LP.getReserves();
+    const { _reserve0, _reserve1 } = await this.XGRAVEUSDC_LP.getReserves();
     let quote;
     if (tokenName === 'XGRAVE') {
       quote = await SpookyRouter.quote(parseUnits(tokenAmount), _reserve1, _reserve0);

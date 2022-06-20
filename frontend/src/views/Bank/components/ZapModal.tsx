@@ -35,11 +35,11 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
-  const xShareCousdLpStats = useLpStats('XSHARE-COUSD-LP');
+  const xgraveCousdLpStats = useLpStats('XGRAVE-USDC-LP');
+  const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
-  const cousdAmountPerLP = tokenName.startsWith(XGRAVE_TICKER) ? xgraveLPStats?.cousdAmount : xshareLPStats?.cousdAmount;
+  const usdcAmountPerLP = tokenName.startsWith(XGRAVE_TICKER) ? xgraveLPStats?.usdcAmount : xshareLPStats?.usdcAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -113,7 +113,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       <Label text="Zap Estimations" />
       <StyledDescriptionText>
         {' '}
-        {tokenName}: {Number(estimate.token0) / Number(cousdAmountPerLP)}
+        {tokenName}: {Number(estimate.token0) / Number(usdcAmountPerLP)}
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}

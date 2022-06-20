@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-const useCousdPrice = () => {
+const useUsdcPrice = () => {
     const [price, setPrice] = useState(0);
     const [marketCap, setMarketCap] = useState(0);
     const [priceChange, setPriceChange] = useState(0);
@@ -24,4 +24,4 @@ const useCousdPrice = () => {
         setPriceChange(data[0].price_change_percentage_24h);
     }
 }
-export default useCousdPrice;
+export default useUsdcPrice;

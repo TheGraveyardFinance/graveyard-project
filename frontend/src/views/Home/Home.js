@@ -16,7 +16,7 @@ import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
 import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import useCousdPrice from '../../hooks/useCousdPrice';
+import useUsdcPrice from '../../hooks/useUsdcPrice';
 import { xgrave as xgraveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
 import { xgrave as xgraveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
 
@@ -50,13 +50,13 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
-  const xShareCousdLpStats = useLpStats('XSHARE-COUSD-LP');
+  const xgraveCousdLpStats = useLpStats('XGRAVE-USDC-LP');
+  const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
   const xgraveStats = useXgraveStats();
   const xShareStats = usexShareStats();
   const xBondStats = useBondStats();
   const graveyardFinance = useGraveyardFinance();
-  const { price: cousdPrice, marketCap: cousdMarketCap, priceChange: cousdPriceChange } = useCousdPrice();
+  const { price: usdcPrice, marketCap: usdcMarketCap, priceChange: usdcPriceChange } = useUsdcPrice();
   const { balance: rebatesTVL } = useTotalTreasuryBalance();
   const totalTVL = TVL + rebatesTVL;
 
@@ -79,7 +79,7 @@ const Home = () => {
     () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
     [xgraveStats],
   );
-  const xgravePriceInCoUSD = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
   const xgraveCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
   const xgraveTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
 
@@ -101,15 +101,15 @@ const Home = () => {
     () => (xBondStats ? Number(xBondStats.priceInDollars).toFixed(2) : null),
     [xBondStats],
   );
-  const xBondPriceInCoUSD = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
+  const xBondPriceInUSDC = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
   const xBondCirculatingSupply = useMemo(
     () => (xBondStats ? String(xBondStats.circulatingSupply) : null),
     [xBondStats],
   );
   const xBondTotalSupply = useMemo(() => (xBondStats ? String(xBondStats.totalSupply) : null), [xBondStats]);
 
-  const xgraveLpZap = useZap({ depositTokenName: 'XGRAVE-COUSD-LP' });
-  const xshareLpZap = useZap({ depositTokenName: 'XSHARE-COUSD-LP' });
+  const xgraveLpZap = useZap({ depositTokenName: 'XGRAVE-USDC-LP' });
+  const xshareLpZap = useZap({ depositTokenName: 'XSHARE-USDC-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -125,7 +125,7 @@ const Home = () => {
         xgraveLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissXgraveZap();
       }}
-      tokenName={'XGRAVE-COUSD-LP'}
+      tokenName={'XGRAVE-USDC-LP'}
     />,
   );
 
@@ -137,7 +137,7 @@ const Home = () => {
         xshareLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissXshareZap();
       }}
-      tokenName={'XSHARE-COUSD-LP'}
+      tokenName={'XSHARE-USDC-LP'}
     />,
   );
 
@@ -155,11 +155,11 @@ const Home = () => {
           <Paper style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <Box p={4}>
               <h2>Welcome to Graveyard Finance!</h2>
-              <p>An algorithmic stablecoin on the Fantom Opera blockchain, pegged to the price of 1 CoUSD</p>
+              <p>An algorithmic stablecoin on the Fantom Opera blockchain, pegged to the price of 1 USDC</p>
               <p>xGRAVE utilizes multiple bonding mechanisms at the <StyledLink href="/">3DAO</StyledLink> as well as seigniorage.</p>
               <p>Built on top of <StyledLink target="_blank" href="https://2omb.finance">2omb.finance</StyledLink>.</p>
               <p>
-                Stake your xGRAVE-CoUSD LP in the <StyledLink href="/farms">Farms</StyledLink> to earn xSHARES rewards.
+                Stake your xGRAVE-USDC LP in the <StyledLink href="/farms">Farms</StyledLink> to earn xSHARES rewards.
                 Then stake your earned xSHARES in the <StyledLink href="/">Mausoleum</StyledLink> to maximize profits!
               </p>
             </Box>
@@ -235,19 +235,19 @@ const Home = () => {
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>CoUSD</h2>
+              <h2>USDC</h2>
               <Box mt={2} style={{ backgroundColor: "transparent !important" }}>
                 <CardIcon style={{ backgroundColor: "transparent !important" }}>
-                  <TokenSymbol symbol="CoUSD" style={{ backgroundColor: "transparent !important" }} />
+                  <TokenSymbol symbol="USDC" style={{ backgroundColor: "transparent !important" }} />
                 </CardIcon>
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>${cousdPrice ? cousdPrice : '-.----'} USD</span>
+                <span style={{ fontSize: '30px' }}>${usdcPrice ? usdcPrice : '-.----'} USD</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${cousdMarketCap} <br />
-                Price Change 24h: {cousdPriceChange.toFixed(2)}% <br />
+                Market Cap: ${usdcMarketCap} <br />
+                Price Change 24h: {usdcPriceChange.toFixed(2)}% <br />
                 <br />
                 <br />
               </span>
@@ -278,7 +278,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{xgravePriceInCoUSD ? xgravePriceInCoUSD : '-.----'} CoUSD</span>
+                <span style={{ fontSize: '30px' }}>{xgravePriceInUSDC ? xgravePriceInUSDC : '-.----'} USDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
@@ -317,7 +317,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{xSharePriceInFTM ? xSharePriceInFTM : '-.----'} CoUSD</span>
+                <span style={{ fontSize: '30px' }}>{xSharePriceInFTM ? xSharePriceInFTM : '-.----'} USDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${xSharePriceInDollars ? xSharePriceInDollars : '-.--'}</span>
@@ -354,7 +354,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{xBondPriceInCoUSD ? xBondPriceInCoUSD : '-.----'} CoUSD</span>
+                <span style={{ fontSize: '30px' }}>{xBondPriceInUSDC ? xBondPriceInUSDC : '-.----'} USDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${xBondPriceInDollars ? xBondPriceInDollars : '-.--'}</span>
@@ -370,10 +370,10 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center">
-              <h2>xGRAVE-CoUSD Spooky LP</h2>
+              <h2>xGRAVE-USDC Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="XGRAVE-COUSD-LP" />
+                  <TokenSymbol symbol="XGRAVE-USDC-LP" />
                 </CardIcon>
               </Box>
               {/*
@@ -385,7 +385,7 @@ const Home = () => {
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {xgraveLPStats?.tokenAmount ? xgraveLPStats?.tokenAmount : '-.--'} xGRAVE /{' '}
-                  {xgraveLPStats?.cousdAmount ? xgraveLPStats?.cousdAmount : '-.--'} CoUSD
+                  {xgraveLPStats?.usdcAmount ? xgraveLPStats?.usdcAmount : '-.--'} USDC
                 </span>
               </Box>
               <Box>${xgraveLPStats?.priceOfOne ? xgraveLPStats.priceOfOne : '-.--'}</Box>
@@ -399,10 +399,10 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center">
-              <h2>xSHARES-CoUSD Spooky LP</h2>
+              <h2>xSHARES-USDC Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="XSHARE-COUSD-LP" />
+                  <TokenSymbol symbol="XSHARE-USDC-LP" />
                 </CardIcon>
               </Box>
               {/*<Box mt={2}>
@@ -413,7 +413,7 @@ const Home = () => {
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} xSHARE /{' '}
-                  {xshareLPStats?.cousdAmount ? xshareLPStats?.cousdAmount : '-.--'} CoUSD
+                  {xshareLPStats?.usdcAmount ? xshareLPStats?.usdcAmount : '-.--'} USDC
                 </span>
               </Box>
               <Box>${xshareLPStats?.priceOfOne ? xshareLPStats.priceOfOne : '-.--'}</Box>

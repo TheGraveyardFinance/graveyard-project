@@ -27,7 +27,7 @@ function isNumeric(n) {
 
 const ProvideLiquidity = () => {
   const [xgraveAmount, setXgraveAmount] = useState(0);
-  const [cousdAmount, setFtmAmount] = useState(0);
+  const [usdcAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
   const xgraveStats = useXgraveStats();
@@ -36,11 +36,11 @@ const ProvideLiquidity = () => {
   const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
   const ftmBalance = (balance / 1e18).toFixed(4);
   const { onProvideXgraveFtmLP } = useProvideXgraveFtmLP();
-  const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
+  const xgraveCousdLpStats = useLpStats('XGRAVE-USDC-LP');
 
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
-  const xgravePriceInCoUSD = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
-  const cousdPriceInXGRAVE = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
+  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
+  const usdcPriceInXGRAVE = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
   // const classes = useStyles();
 
   const handleXgraveChange = async (e) => {
@@ -51,7 +51,7 @@ const ProvideLiquidity = () => {
     setXgraveAmount(e.currentTarget.value);
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'XGRAVE');
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
+    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.usdcAmount);
   };
 
   const handleFtmChange = async (e) => {
@@ -69,13 +69,13 @@ const ProvideLiquidity = () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(xgraveBalance), 'XGRAVE');
     setXgraveAmount(getDisplayBalance(xgraveBalance));
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
+    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.usdcAmount);
   };
   const handleFtmSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(ftmBalance, 'FTM');
     setFtmAmount(ftmBalance);
     setXgraveAmount(quoteFromSpooky);
-    setLpTokensAmount(ftmBalance / xgraveLPStats.cousdAmount);
+    setLpTokensAmount(ftmBalance / xgraveLPStats.usdcAmount);
   };
   return (
     <Page>
@@ -108,21 +108,21 @@ const ProvideLiquidity = () => {
                         <TokenInput
                           onSelectMax={handleFtmSelectMax}
                           onChange={handleFtmChange}
-                          value={cousdAmount}
+                          value={usdcAmount}
                           max={ftmBalance}
                           symbol={'FTM'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 XGRAVE = {xgravePriceInCoUSD} FTM</p>
-                        <p>1 FTM = {cousdPriceInXGRAVE} XGRAVE</p>
+                        <p>1 XGRAVE = {xgravePriceInUSDC} FTM</p>
+                        <p>1 FTM = {usdcPriceInXGRAVE} XGRAVE</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
                       <Grid xs={12} justifyContent="center" style={{ textAlign: 'center' }}>
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideXgraveFtmLP(cousdAmount.toString(), xgraveAmount.toString())}
+                            onClick={() => onProvideXgraveFtmLP(usdcAmount.toString(), xgraveAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >
