@@ -12,10 +12,10 @@ import { getDisplayBalance } from '../../../utils/formatBalance';
 import Label from '../../../components/Label';
 import useLpStats from '../../../hooks/useLpStats';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useTombFinance from '../../../hooks/useTombFinance';
+import useGraveyardFinance from '../../../hooks/useGraveyardFinance';
 import { useWallet } from 'use-wallet';
 import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
-import { TOMB_TICKER, TSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
+import { XGRAVE_TICKER, XSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
 import { Alert } from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
@@ -25,21 +25,21 @@ interface ZapProps extends ModalProps {
 }
 
 const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', decimals = 18 }) => {
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
   const { balance } = useWallet();
   const ftmBalance = (Number(balance) / 1e18).toFixed(4).toString();
-  const tombBalance = useTokenBalance(tombFinance.TOMB);
-  const tshareBalance = useTokenBalance(tombFinance.TSHARE);
+  const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
+  const xshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const [val, setVal] = useState('');
   const [zappingToken, setZappingToken] = useState(FTM_TICKER);
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const tombFtmLpStats = useLpStats('TOMB-FTM-LP');
-  const tShareFtmLpStats = useLpStats('TSHARE-FTM-LP');
-  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
-  const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
-  const ftmAmountPerLP = tokenName.startsWith(TOMB_TICKER) ? tombLPStats?.ftmAmount : tshareLPStats?.ftmAmount;
+  const xgraveCousdLpStats = useLpStats('XGRAVE-USDC-LP');
+  const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
+  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
+  const usdcAmountPerLP = tokenName.startsWith(XGRAVE_TICKER) ? xgraveLPStats?.usdcAmount : xshareLPStats?.usdcAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -52,11 +52,11 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
     const value = event.target.value;
     setZappingToken(value);
     setZappingTokenBalance(ftmBalance);
-    if (event.target.value === TSHARE_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(tshareBalance, decimals));
+    if (event.target.value === XSHARE_TICKER) {
+      setZappingTokenBalance(getDisplayBalance(xshareBalance, decimals));
     }
-    if (event.target.value === TOMB_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(tombBalance, decimals));
+    if (event.target.value === XGRAVE_TICKER) {
+      setZappingTokenBalance(getDisplayBalance(xgraveBalance, decimals));
     }
   };
 
@@ -67,13 +67,13 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
     }
     if (!isNumeric(e.currentTarget.value)) return;
     setVal(e.currentTarget.value);
-    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, String(e.currentTarget.value));
+    const estimateZap = await graveyardFinance.estimateZapIn(zappingToken, tokenName, String(e.currentTarget.value));
     setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
   const handleSelectMax = async () => {
     setVal(zappingTokenBalance);
-    const estimateZap = await tombFinance.estimateZapIn(zappingToken, tokenName, String(zappingTokenBalance));
+    const estimateZap = await graveyardFinance.estimateZapIn(zappingToken, tokenName, String(zappingTokenBalance));
     setEstimate({ token0: estimateZap[0].toString(), token1: estimateZap[1].toString() });
   };
 
@@ -99,9 +99,9 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
         value={zappingToken}
       >
         <StyledMenuItem value={FTM_TICKER}>FTM</StyledMenuItem>
-        <StyledMenuItem value={TSHARE_TICKER}>TSHARE</StyledMenuItem>
-        {/* Tomb as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
-        {/* <StyledMenuItem value={TOMB_TICKER}>TOMB</StyledMenuItem> */}
+        <StyledMenuItem value={XSHARE_TICKER}>XSHARE</StyledMenuItem>
+        {/* Xgrave as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
+        {/* <StyledMenuItem value={XGRAVE_TICKER}>XGRAVE</StyledMenuItem> */}
       </Select>
       <TokenInput
         onSelectMax={handleSelectMax}
@@ -113,12 +113,12 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       <Label text="Zap Estimations" />
       <StyledDescriptionText>
         {' '}
-        {tokenName}: {Number(estimate.token0) / Number(ftmAmountPerLP)}
+        {tokenName}: {Number(estimate.token0) / Number(usdcAmountPerLP)}
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}
         ({Number(estimate.token0)} {FTM_TICKER} / {Number(estimate.token1)}{' '}
-        {tokenName.startsWith(TOMB_TICKER) ? TOMB_TICKER : TSHARE_TICKER}){' '}
+        {tokenName.startsWith(XGRAVE_TICKER) ? XGRAVE_TICKER : XSHARE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>
         <Button

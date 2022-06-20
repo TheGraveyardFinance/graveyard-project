@@ -14,9 +14,9 @@ import useHarvest from '../../../hooks/useHarvest';
 
 import { getDisplayBalance } from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
-import { Bank } from '../../../tomb-finance';
-import useTombStats from '../../../hooks/useTombStats';
-import useShareStats from '../../../hooks/usetShareStats';
+import { Bank } from '../../../graveyard-finance';
+import useXgraveStats from '../../../hooks/useXgraveStats';
+import useShareStats from '../../../hooks/usexShareStats';
 
 interface HarvestProps {
   bank: Bank;
@@ -25,12 +25,12 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const { onReward } = useHarvest(bank);
-  const tombStats = useTombStats();
-  const tShareStats = useShareStats();
+  const xgraveStats = useXgraveStats();
+  const xShareStats = useShareStats();
 
-  const tokenName = bank.earnTokenName === '3SHARES' ? '3SHARES' : '3OMB';
-  const tokenEarn = bank.earnTokenName === '3OMB' ? 'TOMB' : 'TSHARE';
-  const tokenStats = bank.earnTokenName === '3SHARES' ? tShareStats : tombStats;
+  const tokenName = bank.earnTokenName === 'xSHARES' ? 'xSHARES' : 'xGRAVE';
+  const tokenEarn = bank.earnTokenName === 'xGRAVE' ? 'XGRAVE' : 'XSHARE';
+  const tokenStats = bank.earnTokenName === 'xSHARES' ? xShareStats : xgraveStats;
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
     [tokenStats],

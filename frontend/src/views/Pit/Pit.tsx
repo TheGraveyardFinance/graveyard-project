@@ -10,14 +10,14 @@ import ExchangeCard from './components/ExchangeCard';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
 import useBondStats from '../../hooks/useBondStats';
-import useTombFinance from '../../hooks/useTombFinance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 import useCashPriceInLastTWAP from '../../hooks/useCashPriceInLastTWAP';
 import { useTransactionAdder } from '../../state/transactions/hooks';
 import ExchangeStat from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import { getDisplayBalance } from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../tomb-finance/constants';
+import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../graveyard-finance/constants';
 import { Typography } from '@material-ui/core';
 
 
@@ -37,30 +37,30 @@ const BackgroundImage = createGlobalStyle`
 const Pit: React.FC = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
   const addTransaction = useTransactionAdder();
   const bondStat = useBondStats();
   const cashPrice = useCashPriceInLastTWAP();
   const bondsPurchasable = useBondsPurchasable();
 
-  const bondBalance = useTokenBalance(tombFinance?.TBOND);
+  const bondBalance = useTokenBalance(graveyardFinance?.XBOND);
 
   const handleBuyBonds = useCallback(
     async (amount: string) => {
-      const tx = await tombFinance.buyBonds(amount);
+      const tx = await graveyardFinance.buyBonds(amount);
       addTransaction(tx, {
-        summary: `Buy ${Number(amount).toFixed(2)} TBOND with ${amount} TOMB`,
+        summary: `Buy ${Number(amount).toFixed(2)} XBOND with ${amount} XGRAVE`,
       });
     },
-    [tombFinance, addTransaction],
+    [graveyardFinance, addTransaction],
   );
 
   const handleRedeemBonds = useCallback(
     async (amount: string) => {
-      const tx = await tombFinance.redeemBonds(amount);
-      addTransaction(tx, { summary: `Redeem ${amount} TBOND` });
+      const tx = await graveyardFinance.redeemBonds(amount);
+      addTransaction(tx, { summary: `Redeem ${amount} XBOND` });
     },
-    [tombFinance, addTransaction],
+    [graveyardFinance, addTransaction],
   );
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
   const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
@@ -72,7 +72,7 @@ const Pit: React.FC = () => {
         {!!account ? (
           <>
             <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
-              3Bonds
+              Bonds
             </Typography>
             <Route exact path={path}>
               <PageHeader icon={'🏦'} subtitle="Earn premiums upon redemption" />
@@ -81,14 +81,14 @@ const Pit: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Purchase"
-                  fromToken={tombFinance.TOMB}
-                  fromTokenName="3OMB"
-                  toToken={tombFinance.TBOND}
-                  toTokenName="3BOND"
+                  fromToken={graveyardFinance.XGRAVE}
+                  fromTokenName="xGRAVE"
+                  toToken={graveyardFinance.XBOND}
+                  toTokenName="xBOND"
                   priceDesc={
                     !isBondPurchasable
-                      ? '3OMB is over peg'
-                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' 3BOND available for purchase'
+                      ? 'xGRAVE is over peg'
+                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' xBOND available for purchase'
                   }
                   onExchange={handleBuyBonds}
                   disabled={!bondStat || isBondRedeemable}
@@ -96,28 +96,28 @@ const Pit: React.FC = () => {
               </StyledCardWrapper>
               <StyledStatsWrapper>
                 <ExchangeStat
-                  tokenName="3OMB"
+                  tokenName="xGRAVE"
                   description="Last-Hour TWAP Price"
                   price={getDisplayBalance(cashPrice, 18, 4)}
                 />
                 <Spacer size="md" />
                 <ExchangeStat
-                  tokenName="3BOND"
-                  description="Current Price: (3OMB)^2"
+                  tokenName="xBOND"
+                  description="Current Price: (xGRAVE)^2"
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Redeem"
-                  fromToken={tombFinance.TBOND}
-                  fromTokenName="3BOND"
-                  toToken={tombFinance.TOMB}
-                  toTokenName="3OMB"
-                  priceDesc={`${getDisplayBalance(bondBalance)} 3BOND Available in wallet`}
+                  fromToken={graveyardFinance.XBOND}
+                  fromTokenName="xBOND"
+                  toToken={graveyardFinance.XGRAVE}
+                  toTokenName="xGRAVE"
+                  priceDesc={`${getDisplayBalance(bondBalance)} xBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when 3OMB > ${BOND_REDEEM_PRICE}FTM` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when xGRAVE > ${BOND_REDEEM_PRICE}FTM` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

@@ -38,7 +38,7 @@ export type TokenStat = {
 
 export type LPStat = {
   tokenAmount: string;
-  ftmAmount: string;
+  usdcAmount: string;
   priceOfOne: string;
   totalLiquidity: string;
   totalSupply: string;
@@ -49,10 +49,10 @@ export type AllocationTime = {
   to: Date;
 };
 
-export type TShareSwapperStat = {
-  tshareBalance: string;
-  tbondBalance: string;
-  // tombPrice: string;
-  // tsharePrice: string;
-  rateTSharePerTomb: string;
+export type XShareSwapperStat = {
+  xshareBalance: string;
+  xbondBalance: string;
+  // xgravePrice: string;
+  // xsharePrice: string;
+  rateXSharePerXgrave: string;
 };

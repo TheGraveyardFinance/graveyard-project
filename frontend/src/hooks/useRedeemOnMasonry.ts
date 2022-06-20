@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
-import useTombFinance from './useTombFinance';
+import useGraveyardFinance from './useGraveyardFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useRedeemOnMasonry = (description?: string) => {
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleRedeem = useCallback(() => {
-    const alertDesc = description || 'Redeem 3SHARES from 3Room ';
-    handleTransactionReceipt(tombFinance.exitFromMasonry(), alertDesc);
-  }, [tombFinance, description, handleTransactionReceipt]);
+    const alertDesc = description || 'Redeem xSHARES from Mausoleum ';
+    handleTransactionReceipt(graveyardFinance.exitFromMasonry(), alertDesc);
+  }, [graveyardFinance, description, handleTransactionReceipt]);
   return { onRedeem: handleRedeem };
 };
 

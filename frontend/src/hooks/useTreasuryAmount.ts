@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
-import useTombFinance from './useTombFinance';
+import useGraveyardFinance from './useGraveyardFinance';
 
 const useTreasuryAmount = () => {
   const [amount, setAmount] = useState(BigNumber.from(0));
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
 
   useEffect(() => {
-    if (tombFinance) {
-      const { Treasury } = tombFinance.contracts;
-      tombFinance.TOMB.balanceOf(Treasury.address).then(setAmount);
+    if (graveyardFinance) {
+      const { Treasury } = graveyardFinance.contracts;
+      graveyardFinance.XGRAVE.balanceOf(Treasury.address).then(setAmount);
     }
-  }, [tombFinance]);
+  }, [graveyardFinance]);
   return amount;
 };
 

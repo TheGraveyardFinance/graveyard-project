@@ -15,8 +15,8 @@ import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useRedeem from '../../hooks/useRedeem';
-import { Bank as BankEntity } from '../../tomb-finance';
-import useTombFinance from '../../hooks/useTombFinance';
+import { Bank as BankEntity } from '../../graveyard-finance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -99,18 +99,18 @@ const Bank: React.FC = () => {
 };
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
-  const tombFinance = useTombFinance();
-  const tombAddr = tombFinance.TOMB.address;
-  const tshareAddr = tombFinance.TSHARE.address;
+  const graveyardFinance = useGraveyardFinance();
+  const xgraveAddr = graveyardFinance.XGRAVE.address;
+  const xshareAddr = graveyardFinance.XSHARE.address;
 
   let pairName: string;
   let uniswapUrl: string;
-  if (bank.depositTokenName.includes('3OMB')) {
-    pairName = '3OMB-WFTM pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tombAddr;
+  if (bank.depositTokenName.includes('xGRAVE')) {
+    pairName = 'xGRAVE-USDC pair';
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xgraveAddr;
   } else {
-    pairName = '3SHARE-WFTM pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + tshareAddr;
+    pairName = '3SHARE-USDC pair';
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xshareAddr;
   }
   return (
     <Card>

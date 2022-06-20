@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Page from '../../components/Page';
 import HomeImage from '../../assets/img/home.png';
-import CashImage from '../../assets/img/3OMB.svg';
+import CashImage from '../../assets/img/xGRAVE.svg';
 import Image from 'material-ui-image';
 import styled from 'styled-components';
 import { Alert } from '@material-ui/lab';
@@ -9,16 +9,16 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-import useTombStats from '../../hooks/useTombStats';
+import useXgraveStats from '../../hooks/useXgraveStats';
 import useLpStats from '../../hooks/useLpStats';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
 import useBondStats from '../../hooks/useBondStats';
-import usetShareStats from '../../hooks/usetShareStats';
+import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
-import useFantomPrice from '../../hooks/useFantomPrice';
-import { tomb as tombTesting, tShare as tShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
-import { tomb as tombProd, tShare as tShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
+import useUsdcPrice from '../../hooks/useUsdcPrice';
+import { xgrave as xgraveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
+import { xgrave as xgraveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
 
 import useTotalTreasuryBalance from '../../hooks/useTotalTreasuryBalance.js';
 
@@ -26,7 +26,7 @@ import { Box, Button, Card, CardContent, Grid, Paper } from '@material-ui/core';
 import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
-import useTombFinance from '../../hooks/useTombFinance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -50,66 +50,66 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const tombFtmLpStats = useLpStats('TOMB-FTM-LP');
-  const tShareFtmLpStats = useLpStats('TSHARE-FTM-LP');
-  const tombStats = useTombStats();
-  const tShareStats = usetShareStats();
-  const tBondStats = useBondStats();
-  const tombFinance = useTombFinance();
-  const { price: ftmPrice, marketCap: ftmMarketCap, priceChange: ftmPriceChange } = useFantomPrice();
+  const xgraveCousdLpStats = useLpStats('XGRAVE-USDC-LP');
+  const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
+  const xgraveStats = useXgraveStats();
+  const xShareStats = usexShareStats();
+  const xBondStats = useBondStats();
+  const graveyardFinance = useGraveyardFinance();
+  const { price: usdcPrice, marketCap: usdcMarketCap, priceChange: usdcPriceChange } = useUsdcPrice();
   const { balance: rebatesTVL } = useTotalTreasuryBalance();
   const totalTVL = TVL + rebatesTVL;
 
-  let tomb;
-  let tShare;
+  let xgrave;
+  let xShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    tomb = tombTesting;
-    tShare = tShareTesting;
+    xgrave = xgraveTesting;
+    xShare = xShareTesting;
   } else {
-    tomb = tombProd;
-    tShare = tShareProd;
+    xgrave = xgraveProd;
+    xShare = xShareProd;
   }
 
-  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
+  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xgrave.address;
+  const buyXShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
-  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
-  const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
-  const tombPriceInDollars = useMemo(
-    () => (tombStats ? Number(tombStats.priceInDollars).toFixed(2) : null),
-    [tombStats],
+  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
+  const xgravePriceInDollars = useMemo(
+    () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
+    [xgraveStats],
   );
-  const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
-  const tombCirculatingSupply = useMemo(() => (tombStats ? String(tombStats.circulatingSupply) : null), [tombStats]);
-  const tombTotalSupply = useMemo(() => (tombStats ? String(tombStats.totalSupply) : null), [tombStats]);
+  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const xgraveCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
+  const xgraveTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
 
-  const tSharePriceInDollars = useMemo(
-    () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
-    [tShareStats],
+  const xSharePriceInDollars = useMemo(
+    () => (xShareStats ? Number(xShareStats.priceInDollars).toFixed(2) : null),
+    [xShareStats],
   );
-  const tSharePriceInFTM = useMemo(
-    () => (tShareStats ? Number(tShareStats.tokenInFtm).toFixed(4) : null),
-    [tShareStats],
+  const xSharePriceInFTM = useMemo(
+    () => (xShareStats ? Number(xShareStats.tokenInFtm).toFixed(4) : null),
+    [xShareStats],
   );
-  const tShareCirculatingSupply = useMemo(
-    () => (tShareStats ? String(tShareStats.circulatingSupply) : null),
-    [tShareStats],
+  const xShareCirculatingSupply = useMemo(
+    () => (xShareStats ? String(xShareStats.circulatingSupply) : null),
+    [xShareStats],
   );
-  const tShareTotalSupply = useMemo(() => (tShareStats ? String(tShareStats.totalSupply) : null), [tShareStats]);
+  const xShareTotalSupply = useMemo(() => (xShareStats ? String(xShareStats.totalSupply) : null), [xShareStats]);
 
-  const tBondPriceInDollars = useMemo(
-    () => (tBondStats ? Number(tBondStats.priceInDollars).toFixed(2) : null),
-    [tBondStats],
+  const xBondPriceInDollars = useMemo(
+    () => (xBondStats ? Number(xBondStats.priceInDollars).toFixed(2) : null),
+    [xBondStats],
   );
-  const tBondPriceInFTM = useMemo(() => (tBondStats ? Number(tBondStats.tokenInFtm).toFixed(4) : null), [tBondStats]);
-  const tBondCirculatingSupply = useMemo(
-    () => (tBondStats ? String(tBondStats.circulatingSupply) : null),
-    [tBondStats],
+  const xBondPriceInUSDC = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
+  const xBondCirculatingSupply = useMemo(
+    () => (xBondStats ? String(xBondStats.circulatingSupply) : null),
+    [xBondStats],
   );
-  const tBondTotalSupply = useMemo(() => (tBondStats ? String(tBondStats.totalSupply) : null), [tBondStats]);
+  const xBondTotalSupply = useMemo(() => (xBondStats ? String(xBondStats.totalSupply) : null), [xBondStats]);
 
-  const tombLpZap = useZap({ depositTokenName: 'TOMB-FTM-LP' });
-  const tshareLpZap = useZap({ depositTokenName: 'TSHARE-FTM-LP' });
+  const xgraveLpZap = useZap({ depositTokenName: 'XGRAVE-USDC-LP' });
+  const xshareLpZap = useZap({ depositTokenName: 'XSHARE-USDC-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -117,27 +117,27 @@ const Home = () => {
     color: var(--accent-light);
   `;
 
-  const [onPresentTombZap, onDissmissTombZap] = useModal(
+  const [onPresentXgraveZap, onDissmissXgraveZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        tombLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissTombZap();
+        xgraveLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissXgraveZap();
       }}
-      tokenName={'TOMB-FTM-LP'}
+      tokenName={'XGRAVE-USDC-LP'}
     />,
   );
 
-  const [onPresentTshareZap, onDissmissTshareZap] = useModal(
+  const [onPresentXshareZap, onDissmissXshareZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        tshareLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissTshareZap();
+        xshareLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissXshareZap();
       }}
-      tokenName={'TSHARE-FTM-LP'}
+      tokenName={'XSHARE-USDC-LP'}
     />,
   );
 
@@ -154,13 +154,13 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Paper style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <Box p={4}>
-              <h2>Welcome to 3omb Finance!</h2>
-              <p>An algorithmic stablecoin on the Fantom Opera blockchain, pegged to the price of 1 FTM</p>
-              <p>3omb utilizes multiple bonding mechanisms at the <StyledLink href="/">3DAO</StyledLink> as well as seigniorage.</p>
+              <h2>Welcome to Graveyard Finance!</h2>
+              <p>An algorithmic stablecoin on the Fantom Opera blockchain, pegged to the price of 1 USDC</p>
+              <p>xGRAVE utilizes multiple bonding mechanisms at the <StyledLink href="/">3DAO</StyledLink> as well as seigniorage.</p>
               <p>Built on top of <StyledLink target="_blank" href="https://2omb.finance">2omb.finance</StyledLink>.</p>
               <p>
-                Stake your 3OMB-WFTM LP in the <StyledLink href="/farms">3Farms</StyledLink> to earn 3SHARES rewards.
-                Then stake your earned 3SHARES in the <StyledLink href="/">3Room</StyledLink> to maximize profits!
+                Stake your xGRAVE-USDC LP in the <StyledLink href="/farms">Farms</StyledLink> to earn xSHARES rewards.
+                Then stake your earned xSHARES in the <StyledLink href="/">Mausoleum</StyledLink> to maximize profits!
               </p>
             </Box>
           </Paper>
@@ -168,7 +168,7 @@ const Home = () => {
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
             <Alert variant="filled" severity="warning">
-                Do your own research before investing. Investing is risky and may result in monetary loss. 3omb is beta software and may contain bugs. By using 3omb, you agree that the 2omb and 3omb team is not responsible for any financial losses from investing in 2omb or 3omb.
+                Do your own research before investing. Investing is risky and may result in monetary loss. xGRAVE is beta software and may contain bugs. By using xGRAVE, you agree that the 2omb and xGRAVE team is not responsible for any financial losses from investing in 2omb or xGRAVE.
             </Alert>
             </Box>
         </Grid>
@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.tomb.finance">documentation</StyledLink> before purchasing TOMB or TSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing XGRAVE or XSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}
@@ -216,38 +216,38 @@ const Home = () => {
                 style={{ marginRight: '10px' }}
                 className={classes.button}
               >
-                Buy 3OMB
+                Buy xGRAVE
               </Button>
               <Button variant="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=0x6437adac543583c4b31bf0323a0870430f5cc2e7" style={{ marginRight: '10px' }} className={classes.button}>
-                Buy 3SHARES
+                Buy xSHARES
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0x83a52eff2e9d112e9b022399a9fd22a9db7d33ae" style={{ marginRight: '10px' }} className={classes.button}>
-                3OMB Chart
+                xGRAVE Chart
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0xd352dac95a91afefb112dbbb3463ccfa5ec15b65" className={classes.button}>
-                3SHARES Chart
+                xSHARES Chart
               </Button>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* TOMB */}
+        {/* XGRAVE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>FTM</h2>
+              <h2>USDC</h2>
               <Box mt={2} style={{ backgroundColor: "transparent !important" }}>
                 <CardIcon style={{ backgroundColor: "transparent !important" }}>
-                  <TokenSymbol symbol="wFTM" style={{ backgroundColor: "transparent !important" }} />
+                  <TokenSymbol symbol="USDC" style={{ backgroundColor: "transparent !important" }} />
                 </CardIcon>
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>${ftmPrice ? ftmPrice : '-.----'} USD</span>
+                <span style={{ fontSize: '30px' }}>${usdcPrice ? usdcPrice : '-.----'} USD</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${ftmMarketCap} <br />
-                Price Change 24h: {ftmPriceChange.toFixed(2)}% <br />
+                Market Cap: ${usdcMarketCap} <br />
+                Price Change 24h: {usdcPriceChange.toFixed(2)}% <br />
                 <br />
                 <br />
               </span>
@@ -255,14 +255,14 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TOMB */}
+        {/* XGRAVE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>3OMB</h2>
+              <h2>xGRAVE</h2>
               {/* <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TOMB');
+                  graveyardFinance.watchAssetInMetamask('XGRAVE');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -273,35 +273,35 @@ const Home = () => {
               </Button> */}
               <Box mt={2} style={{ backgroundColor: "transparent !important" }}>
                 <CardIcon style={{ backgroundColor: "transparent !important" }}>
-                  <TokenSymbol symbol="TOMB" style={{ backgroundColor: "transparent !important" }} />
+                  <TokenSymbol symbol="XGRAVE" style={{ backgroundColor: "transparent !important" }} />
                 </CardIcon>
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tombPriceInFTM ? tombPriceInFTM : '-.----'} FTM</span>
+                <span style={{ fontSize: '30px' }}>{xgravePriceInUSDC ? xgravePriceInUSDC : '-.----'} USDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${tombPriceInDollars ? tombPriceInDollars : '-.--'}
+                  ${xgravePriceInDollars ? xgravePriceInDollars : '-.--'}
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tombCirculatingSupply * tombPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tombCirculatingSupply} <br />
-                Total Supply: {tombTotalSupply}
+                Market Cap: ${(xgraveCirculatingSupply * xgravePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {xgraveCirculatingSupply} <br />
+                Total Supply: {xgraveTotalSupply}
               </span>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* TSHARE */}
+        {/* XSHARE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>3SHARES</h2>
+              <h2>xSHARES</h2>
               {/* <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TSHARE');
+                  graveyardFinance.watchAssetInMetamask('XSHARE');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -312,33 +312,33 @@ const Home = () => {
               </Button> */}
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TSHARE" />
+                  <TokenSymbol symbol="XSHARE" />
                 </CardIcon>
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tSharePriceInFTM ? tSharePriceInFTM : '-.----'} FTM</span>
+                <span style={{ fontSize: '30px' }}>{xSharePriceInFTM ? xSharePriceInFTM : '-.----'} USDC</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${tSharePriceInDollars ? tSharePriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${xSharePriceInDollars ? xSharePriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tShareCirculatingSupply * tSharePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tShareCirculatingSupply} <br />
-                Total Supply: {tShareTotalSupply}
+                Market Cap: ${(xShareCirculatingSupply * xSharePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {xShareCirculatingSupply} <br />
+                Total Supply: {xShareTotalSupply}
               </span>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* TBOND */}
+        {/* XBOND */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>3BOND</h2>
+              <h2>xBOND</h2>
               {/* <Button
                 onClick={() => {
-                  tombFinance.watchAssetInMetamask('TBOND');
+                  graveyardFinance.watchAssetInMetamask('XBOND');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -349,20 +349,20 @@ const Home = () => {
               </Button> */}
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TBOND" />
+                  <TokenSymbol symbol="XBOND" />
                 </CardIcon>
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tBondPriceInFTM ? tBondPriceInFTM : '-.----'} FTM</span>
+                <span style={{ fontSize: '30px' }}>{xBondPriceInUSDC ? xBondPriceInUSDC : '-.----'} USDC</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${tBondPriceInDollars ? tBondPriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${xBondPriceInDollars ? xBondPriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tBondCirculatingSupply * tBondPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tBondCirculatingSupply} <br />
-                Total Supply: {tBondTotalSupply}
+                Market Cap: ${(xBondCirculatingSupply * xBondPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {xBondCirculatingSupply} <br />
+                Total Supply: {xBondTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -370,28 +370,27 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center">
-              <h2>3OMB-WFTM Spooky LP</h2>
+              <h2>xGRAVE-USDC Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TOMB-FTM-LP" />
+                  <TokenSymbol symbol="XGRAVE-USDC-LP" />
                 </CardIcon>
               </Box>
-              {/*
               <Box mt={2}>
-                <Button color="primary" disabled={true} onClick={onPresentTombZap} variant="contained">
+                <Button color="primary" disabled={true} onClick={onPresentXgraveZap} variant="contained">
                   Zap In
                 </Button>
-              </Box>*/}
+              </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {tombLPStats?.tokenAmount ? tombLPStats?.tokenAmount : '-.--'} 3OMB /{' '}
-                  {tombLPStats?.ftmAmount ? tombLPStats?.ftmAmount : '-.--'} FTM
+                  {xgraveLPStats?.tokenAmount ? xgraveLPStats?.tokenAmount : '-.--'} xGRAVE /{' '}
+                  {xgraveLPStats?.usdcAmount ? xgraveLPStats?.usdcAmount : '-.--'} USDC
                 </span>
               </Box>
-              <Box>${tombLPStats?.priceOfOne ? tombLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${xgraveLPStats?.priceOfOne ? xgraveLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${tombLPStats?.totalLiquidity ? tombLPStats.totalLiquidity : '-.--'} <br />
-                Total supply: {tombLPStats?.totalSupply ? tombLPStats.totalSupply : '-.--'}
+                Liquidity: ${xgraveLPStats?.totalLiquidity ? xgraveLPStats.totalLiquidity : '-.--'} <br />
+                Total supply: {xgraveLPStats?.totalSupply ? xgraveLPStats.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>
@@ -399,28 +398,28 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center">
-              <h2>3SHARES-WFTM Spooky LP</h2>
+              <h2>xSHARES-USDC Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TSHARE-FTM-LP" />
+                  <TokenSymbol symbol="XSHARE-USDC-LP" />
                 </CardIcon>
               </Box>
-              {/*<Box mt={2}>
-                <Button color="primary" onClick={onPresentTshareZap} variant="contained">
+              <Box mt={2}>
+                <Button color="primary" onClick={onPresentXshareZap} variant="contained">
                   Zap In
                 </Button>
-            </Box>*/}
+              </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {tshareLPStats?.tokenAmount ? tshareLPStats?.tokenAmount : '-.--'} 3SHARE /{' '}
-                  {tshareLPStats?.ftmAmount ? tshareLPStats?.ftmAmount : '-.--'} FTM
+                  {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} xSHARE /{' '}
+                  {xshareLPStats?.usdcAmount ? xshareLPStats?.usdcAmount : '-.--'} USDC
                 </span>
               </Box>
-              <Box>${tshareLPStats?.priceOfOne ? tshareLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${xshareLPStats?.priceOfOne ? xshareLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${tshareLPStats?.totalLiquidity ? tshareLPStats.totalLiquidity : '-.--'}
+                Liquidity: ${xshareLPStats?.totalLiquidity ? xshareLPStats.totalLiquidity : '-.--'}
                 <br />
-                Total supply: {tshareLPStats?.totalSupply ? tshareLPStats.totalSupply : '-.--'}
+                Total supply: {xshareLPStats?.totalSupply ? xshareLPStats.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>

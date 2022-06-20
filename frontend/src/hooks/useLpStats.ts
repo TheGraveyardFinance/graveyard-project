@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
-import useTombFinance from './useTombFinance';
-import { LPStat } from '../tomb-finance/types';
+import useGraveyardFinance from './useGraveyardFinance';
+import { LPStat } from '../graveyard-finance/types';
 import useRefresh from './useRefresh';
 
 const useLpStats = (lpTicker: string) => {
   const [stat, setStat] = useState<LPStat>();
   const { slowRefresh } = useRefresh();
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
 
   useEffect(() => {
     async function fetchLpPrice() {
       try{
-        setStat(await tombFinance.getLPStat(lpTicker));
+        setStat(await graveyardFinance.getLPStat(lpTicker));
       }
       catch(err){
         console.error(err);
       }
     }
     fetchLpPrice();
-  }, [setStat, tombFinance, slowRefresh, lpTicker]);
+  }, [setStat, graveyardFinance, slowRefresh, lpTicker]);
 
   return stat;
 };

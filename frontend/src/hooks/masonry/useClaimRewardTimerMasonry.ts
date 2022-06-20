@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import useTombFinance from '../useTombFinance';
-import { AllocationTime } from '../../tomb-finance/types';
+import useGraveyardFinance from '../useGraveyardFinance';
+import { AllocationTime } from '../../graveyard-finance/types';
 
 const useClaimRewardTimerMasonry = () => {
   const [time, setTime] = useState<AllocationTime>({
     from: new Date(),
     to: new Date(),
   });
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
 
   useEffect(() => {
-    if (tombFinance) {
-      tombFinance.getUserClaimRewardTime().then(setTime);
+    if (graveyardFinance) {
+      graveyardFinance.getUserClaimRewardTime().then(setTime);
     }
-  }, [tombFinance]);
+  }, [graveyardFinance]);
   return time;
 };
 

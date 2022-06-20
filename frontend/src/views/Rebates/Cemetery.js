@@ -17,7 +17,7 @@ import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP
 
 import useBanks from '../../hooks/useBanks';
 import useRebateTreasury from "../../hooks/useRebateTreasury"
-import useTombStats from '../../hooks/useTombStats';
+import useXgraveStats from '../../hooks/useXgraveStats';
 
 const web3 = new Web3()
 const BN = n => new web3.utils.BN(n)
@@ -46,17 +46,17 @@ const Cemetery = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
   const cashStat = useCashPriceInEstimatedTWAP();
-  const tombStats = useTombStats();
+  const xgraveStats = useXgraveStats();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const activeBanks = banks.filter((bank) => !bank.finished);
 
   console.log(cashStat)
 
-  const tombPriceInFTM = useMemo(() => (tombStats ? Number(tombStats.tokenInFtm).toFixed(4) : null), [tombStats]);
+  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
 
   const rebateStats = useRebateTreasury()
   console.log(rebateStats)
-  const [claimable3omb, setClaimable3omb] = useState(0);
+  const [claimablexGRAVE, setClaimablexGRAVE] = useState(0);
   const [ vested, setVested ] = useState(0)
 
   useEffect(() => {
@@ -70,14 +70,14 @@ const Cemetery = () => {
     const address = (await window.ethereum.request({ method: "eth_accounts" }))[0]
     if (!address) return
 
-    const claimable = await rebateStats.RebateTreasury.methods.claimableTomb(address).call()
+    const claimable = await rebateStats.RebateTreasury.methods.claimableXgrave(address).call()
     const vesting = await rebateStats.RebateTreasury.methods.vesting(address).call()
-    setClaimable3omb(+web3.utils.fromWei(claimable))
+    setClaimablexGRAVE(+web3.utils.fromWei(claimable))
     setVested(+web3.utils.fromWei(BN(vesting.amount).sub(BN(vesting.claimed))))
 }
 
-  async function claimTomb() {
-    console.log("claiming the tomb")
+  async function claimXgrave() {
+    console.log("claiming the xgrave")
     if (!window.ethereum) return
     const address = (await window.ethereum.request({ method: "eth_accounts" }))[0]
     if (!address) return
@@ -107,9 +107,9 @@ const Cemetery = () => {
                     <Card className={classes.gridItem}>
                       <CardContent align="center">
                         <Typography variant="h5">
-                          3OMB Price <small>(TWAP)</small>
+                          xGRAVE Price <small>(TWAP)</small>
                         </Typography>
-                        <Typography variant="h6">{tombPriceInFTM ? tombPriceInFTM : '-.----'} FTM</Typography>
+                        <Typography variant="h6">{xgravePriceInUSDC ? xgravePriceInUSDC : '-.----'} FTM</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -148,11 +148,11 @@ const Cemetery = () => {
                     <Card style={{ height: "auto" }}>
                       <CardContent align="center">
                         <Typography variant="h5">
-                          3OMB Vesting
+                          xGRAVE Vesting
                         </Typography>
                         <Typography variant="h6">{vested.toFixed(4)} Total Vested</Typography>
-                        <Typography variant="h6">{claimable3omb.toFixed(4)} Claimable</Typography>
-                        <Button color="primary" size="small" variant="contained" onClick={claimTomb} style={{ marginTop: "8px" }}>
+                        <Typography variant="h6">{claimablexGRAVE.toFixed(4)} Claimable</Typography>
+                        <Button color="primary" size="small" variant="contained" onClick={claimXgrave} style={{ marginTop: "8px" }}>
                           CLAIM
                         </Button>
                       </CardContent>

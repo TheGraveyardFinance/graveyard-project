@@ -6,7 +6,7 @@ import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import Page from '../../components/Page';
 import RegulationsImage from '../../assets/img/regulations_bg.png';
 import { createGlobalStyle } from 'styled-components';
-import useTombFinance from '../../hooks/useTombFinance';
+import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 
 const BackgroundImage = createGlobalStyle`
   body, html {
@@ -45,15 +45,15 @@ const StyledTableRow = withStyles((theme) => ({
 
 const Regulations = () => {
   const classes = useStyles();
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
   const [rows, setRows] = useState(null);
   function createData(epoch, dao, dev, masonry, bondsBought, bondsRedeemed) {
     var sum = (Number(dao) + Number(dev) + Number(masonry)).toFixed(2);
     return { epoch, dao, dev, masonry, sum, bondsBought, bondsRedeemed };
   }
   useEffect(() => {
-    if (tombFinance) {
-      const thisData = tombFinance.listenForRegulationsEvents();
+    if (graveyardFinance) {
+      const thisData = graveyardFinance.listenForRegulationsEvents();
       thisData.then((elements) => {
         setRows(
           elements
@@ -71,7 +71,7 @@ const Regulations = () => {
         );
       });
     }
-  }, [tombFinance]);
+  }, [graveyardFinance]);
 
   return (
     <Page>

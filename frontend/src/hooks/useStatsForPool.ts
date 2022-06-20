@@ -1,23 +1,23 @@
 import { useCallback, useState, useEffect } from 'react';
-import useTombFinance from './useTombFinance';
-import { Bank } from '../tomb-finance';
-import { PoolStats } from '../tomb-finance/types';
+import useGraveyardFinance from './useGraveyardFinance';
+import { Bank } from '../graveyard-finance';
+import { PoolStats } from '../graveyard-finance/types';
 import config from '../config';
 
 const useStatsForPool = (bank: Bank) => {
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
 
   const [poolAPRs, setPoolAPRs] = useState<PoolStats>();
 
   const fetchAPRsForPool = useCallback(async () => {
-    setPoolAPRs(await tombFinance.getPoolAPRs(bank));
-  }, [tombFinance, bank]);
+    setPoolAPRs(await graveyardFinance.getPoolAPRs(bank));
+  }, [graveyardFinance, bank]);
 
   useEffect(() => {
-    fetchAPRsForPool().catch((err) => console.error(`Failed to fetch TBOND price: ${err.stack}`));
+    fetchAPRsForPool().catch((err) => console.error(`Failed to fetch XBOND price: ${err.stack}`));
     const refreshInterval = setInterval(fetchAPRsForPool, config.refreshInterval);
     return () => clearInterval(refreshInterval);
-  }, [setPoolAPRs, tombFinance, fetchAPRsForPool]);
+  }, [setPoolAPRs, graveyardFinance, fetchAPRsForPool]);
 
   return poolAPRs;
 };

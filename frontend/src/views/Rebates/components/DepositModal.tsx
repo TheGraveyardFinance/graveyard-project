@@ -8,8 +8,8 @@ import ModalActions from '../../../components/ModalActions';
 import ModalTitle from '../../../components/ModalTitle';
 import TokenInput from '../../../components/TokenInput';
 import useRebateTreasury from "../../../hooks/useRebateTreasury"
-import useTombFinance from '../../../hooks/useTombFinance';
-import useFantomPrice from '../../../hooks/useFantomPrice';
+import useGraveyardFinance from '../../../hooks/useGraveyardFinance';
+import useUsdcPrice from '../../../hooks/useUsdcPrice';
 
 
 import { getFullDisplayBalance } from '../../../utils/formatBalance';
@@ -26,9 +26,9 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
   const [val, setVal] = useState('');
   const [out, setOut] = useState(0);
 
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
   const rebateStats = useRebateTreasury();
-  const { price: ftmPrice, marketCap: ftmMarketCap, priceChange: ftmPriceChange } = useFantomPrice();
+  const { price: usdcPrice, marketCap: usdcMarketCap, priceChange: usdcPriceChange } = useUsdcPrice();
 
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(max, tokenName === 'USDC' ? 6 : 18);
@@ -42,28 +42,28 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
   );
 
   const handleSelectMax = useCallback(() => {
-    setVal((rebateStats.tombAvailable > +fullBalance ? fullBalance : rebateStats.tombAvailable.toString()));
+    setVal((rebateStats.xgraveAvailable > +fullBalance ? fullBalance : rebateStats.xgraveAvailable.toString()));
   }, [fullBalance, setVal, rebateStats]);
 
   function getAssetPrice(token: String) {
-    const address = tombFinance.externalTokens[tokenName].address
+    const address = graveyardFinance.externalTokens[tokenName].address
     const assetPrice = rebateStats.assets.find((a: any) => a.token === address).price
     return assetPrice
   }
 
   function getOutAmount() {
     const toBondPrice = getAssetPrice(tokenName)
-    const outAmount = +val * (toBondPrice / rebateStats.tombPrice * (1 + (rebateStats.bondPremium / 100)) * (token.params.multiplier / 1000000))
+    const outAmount = +val * (toBondPrice / rebateStats.xgravePrice * (1 + (rebateStats.bondPremium / 100)) * (token.params.multiplier / 1000000))
     return outAmount
   }
 
   function formatOutAmount() {
     const outAmount = getOutAmount()
-    return `Receiving: ${outAmount.toFixed(4)} 3OMB ($${(outAmount * rebateStats.tombPrice * ftmPrice).toFixed(2)})`
+    return `Receiving: ${outAmount.toFixed(4)} xGRAVE ($${(outAmount * rebateStats.xgravePrice * usdcPrice).toFixed(2)})`
   }
 
   function formatInAmount() {
-    return `Input: ${(+val).toFixed(4)} ${tokenName} ($${((+val) * getAssetPrice(tokenName) * ftmPrice).toFixed(2)})`
+    return `Input: ${(+val).toFixed(4)} ${tokenName} ($${((+val) * getAssetPrice(tokenName) * usdcPrice).toFixed(2)})`
   }
 
   return (
@@ -82,11 +82,11 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
       <StyledMaxText>
         { formatOutAmount() }
       </StyledMaxText>
-      <StyledMaxText style = {{color: getOutAmount() < rebateStats.tombAvailable ? "black" : "var(--accent)"}}>
-        {rebateStats.tombAvailable > 0 ? `${rebateStats.tombAvailable.toFixed(4)} 3OMB Available` : "Bond Sold Out"}
+      <StyledMaxText style = {{color: getOutAmount() < rebateStats.xgraveAvailable ? "black" : "var(--accent)"}}>
+        {rebateStats.xgraveAvailable > 0 ? `${rebateStats.xgraveAvailable.toFixed(4)} xGRAVE Available` : "Bond Sold Out"}
       </StyledMaxText>
       <ModalActions>
-        <Button color={ (getOutAmount() < rebateStats.tombAvailable ? "primary" : "secondary") } variant="contained" disabled = { getOutAmount() >= rebateStats.tombAvailable } onClick={() => onConfirm(+val)}>
+        <Button color={ (getOutAmount() < rebateStats.xgraveAvailable ? "primary" : "secondary") } variant="contained" disabled = { getOutAmount() >= rebateStats.xgraveAvailable } onClick={() => onConfirm(+val)}>
           Confirm
         </Button>
       </ModalActions>

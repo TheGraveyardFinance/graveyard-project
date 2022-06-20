@@ -1,24 +1,24 @@
 import { useCallback } from 'react';
-import useTombFinance from './useTombFinance';
+import useGraveyardFinance from './useGraveyardFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 import { parseUnits } from 'ethers/lib/utils';
 import { TAX_OFFICE_ADDR } from './../utils/constants'
 
-const useProvideTombFtmLP = () => {
-  const tombFinance = useTombFinance();
+const useProvideXgraveFtmLP = () => {
+  const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
-  const handleProvideTombFtmLP = useCallback(
-    (ftmAmount: string, tombAmount: string) => {
-      const tombAmountBn = parseUnits(tombAmount);
+  const handleProvideXgraveFtmLP = useCallback(
+    (usdcAmount: string, xgraveAmount: string) => {
+      const xgraveAmountBn = parseUnits(xgraveAmount);
       handleTransactionReceipt(
-        tombFinance.provideTombFtmLP(ftmAmount, tombAmountBn),
-        `Provide Tomb-FTM LP ${tombAmount} ${ftmAmount} using ${TAX_OFFICE_ADDR}`,
+        graveyardFinance.provideXgraveFtmLP(usdcAmount, xgraveAmountBn),
+        `Provide Xgrave-FTM LP ${xgraveAmount} ${usdcAmount} using ${TAX_OFFICE_ADDR}`,
       );
     },
-    [tombFinance, handleTransactionReceipt],
+    [graveyardFinance, handleTransactionReceipt],
   );
-  return { onProvideTombFtmLP: handleProvideTombFtmLP };
+  return { onProvideXgraveFtmLP: handleProvideXgraveFtmLP };
 };
 
-export default useProvideTombFtmLP;
+export default useProvideXgraveFtmLP;

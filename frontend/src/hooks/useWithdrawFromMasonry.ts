@@ -1,19 +1,19 @@
 import { useCallback } from 'react';
-import useTombFinance from './useTombFinance';
+import useGraveyardFinance from './useGraveyardFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useWithdrawFromMasonry = () => {
-  const tombFinance = useTombFinance();
+  const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleWithdraw = useCallback(
     (amount: string) => {
       handleTransactionReceipt(
-        tombFinance.withdrawShareFromMasonry(amount),
-        `Withdraw ${amount} 3SHARES from the 3Room `,
+        graveyardFinance.withdrawShareFromMasonry(amount),
+        `Withdraw ${amount} xSHARES from the Mausoleum `,
       );
     },
-    [tombFinance, handleTransactionReceipt],
+    [graveyardFinance, handleTransactionReceipt],
   );
   return { onWithdraw: handleWithdraw };
 };
