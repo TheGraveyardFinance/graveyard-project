@@ -47,7 +47,7 @@ export class TombFinance {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
     this.TOMB = new ERC20(deployments.tomb.address, provider, 'xGRAVE');
-    this.TSHARE = new ERC20(deployments.tShare.address, provider, '3SHARE');
+    this.TSHARE = new ERC20(deployments.xShare.address, provider, '3SHARE');
     this.TBOND = new ERC20(deployments.tBond.address, provider, 'xBOND');
     this.FTM = this.externalTokens['WFTM'];
 
@@ -177,14 +177,14 @@ export class TombFinance {
    * TotalSupply
    * CirculatingSupply (always equal to total supply for bonds)
    */
-  async getShareStat(): Promise<TokenStat> {
+  async gexShareStat(): Promise<TokenStat> {
     const { TombFtmLPTShareRewardPool } = this.contracts;
 
     const supply = await this.TSHARE.totalSupply();
 
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.TSHARE);
     const tombRewardPoolSupply = await this.TSHARE.balanceOf(TombFtmLPTShareRewardPool.address);
-    const tShareCirculatingSupply = supply.sub(tombRewardPoolSupply);
+    const xShareCirculatingSupply = supply.sub(tombRewardPoolSupply);
     const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
@@ -192,7 +192,7 @@ export class TombFinance {
       tokenInFtm: priceInFTM,
       priceInDollars: priceOfSharesInDollars,
       totalSupply: getDisplayBalance(supply, this.TSHARE.decimal, 0),
-      circulatingSupply: getDisplayBalance(tShareCirculatingSupply, this.TSHARE.decimal, 0),
+      circulatingSupply: getDisplayBalance(xShareCirculatingSupply, this.TSHARE.decimal, 0),
     };
   }
 
@@ -234,7 +234,7 @@ export class TombFinance {
     console.log("deposit token price:", depositTokenPrice)
     const stakeInPool = await depositToken.balanceOf(bank.address);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const stat = bank.earnTokenName === 'xGRAVE' ? await this.getTombStat() : await this.getShareStat();
+    const stat = bank.earnTokenName === 'xGRAVE' ? await this.getTombStat() : await this.gexShareStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
@@ -300,7 +300,7 @@ export class TombFinance {
       }
       return await poolContract.epochTombPerSecond(0);
     }
-    const rewardPerSecond = await poolContract.tSharePerSecond();
+    const rewardPerSecond = await poolContract.xSharePerSecond();
     if (depositTokenName.startsWith('xGRAVE')) {
       return rewardPerSecond.mul(35500).div(89500);
     } else if (depositTokenName.startsWith('2OMB')) {
@@ -397,9 +397,9 @@ export class TombFinance {
       totalValue += poolValue;
     }
 
-    const TSHAREPrice = (await this.getShareStat()).priceInDollars;
-    const masonrytShareBalanceOf = await this.TSHARE.balanceOf(this.currentMasonry().address);
-    const masonryTVL = Number(getDisplayBalance(masonrytShareBalanceOf, this.TSHARE.decimal)) * Number(TSHAREPrice);
+    const TSHAREPrice = (await this.gexShareStat()).priceInDollars;
+    const masonryxShareBalanceOf = await this.TSHARE.balanceOf(this.currentMasonry().address);
+    const masonryTVL = Number(getDisplayBalance(masonryxShareBalanceOf, this.TSHARE.decimal)) * Number(TSHAREPrice);
 
     return totalValue + masonryTVL;
   }
@@ -409,14 +409,14 @@ export class TombFinance {
    * Reference https://github.com/DefiDebauchery/discordpricebot/blob/4da3cdb57016df108ad2d0bb0c91cd8dd5f9d834/pricebot/pricebot.py#L150
    * @param lpToken the token under calculation
    * @param token the token pair used as reference (the other one would be FTM in most cases)
-   * @param isTomb sanity check for usage of tomb token or tShare
+   * @param isTomb sanity check for usage of tomb token or xShare
    * @returns price of the LP token
    */
   async getLPTokenPrice(lpToken: ERC20, token: ERC20, isTomb: boolean, isFake: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
-    const stat = isFake === true ? isTomb === true ? await this.get2ombStatFake() : await this.get2ShareStatFake() : isTomb === true ? await this.getTombStat() : await this.getShareStat();
+    const stat = isFake === true ? isTomb === true ? await this.get2ombStatFake() : await this.get2ShareStatFake() : isTomb === true ? await this.getTombStat() : await this.gexShareStat();
     const priceOfToken = stat.priceInDollars;
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
@@ -430,7 +430,7 @@ export class TombFinance {
     return { priceInDollars: price["2omb-finance"].usd }
   }
 
-  async getShareStatFake() {
+  async gexShareStatFake() {
     const price = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=2share&vs_currencies=usd").then(res => res.json())
     return { priceInDollars: price["2share"].usd }
   }
@@ -637,14 +637,14 @@ async get2ShareStatFake(): Promise<TokenStat> {
 
     const lastRewardsReceived = lastHistory[1];
 
-    const TSHAREPrice = (await this.getShareStat()).priceInDollars;
+    const TSHAREPrice = (await this.gexShareStat()).priceInDollars;
     const TOMBPrice = (await this.getTombStat()).priceInDollars;
     const epochRewardsPerShare = lastRewardsReceived / 1e18;
 
     //Mgod formula
     const amountOfRewardsPerDay = epochRewardsPerShare * Number(TOMBPrice) * 4;
-    const masonrytShareBalanceOf = await this.TSHARE.balanceOf(Masonry.address);
-    const masonryTVL = Number(getDisplayBalance(masonrytShareBalanceOf, this.TSHARE.decimal)) * Number(TSHAREPrice);
+    const masonryxShareBalanceOf = await this.TSHARE.balanceOf(Masonry.address);
+    const masonryTVL = Number(getDisplayBalance(masonryxShareBalanceOf, this.TSHARE.decimal)) * Number(TSHAREPrice);
     const realAPR = ((amountOfRewardsPerDay * 100) / masonryTVL) * 365;
     return realAPR;
   }
@@ -693,7 +693,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
   async getStakedSharesOnMasonry(): Promise<BigNumber> {
     const Masonry = this.currentMasonry();
     if (this.masonryVersionOfUser === 'v1') {
-      return await Masonry.getShareOf(this.myAccount);
+      return await Masonry.gexShareOf(this.myAccount);
     }
     return await Masonry.balanceOf(this.myAccount);
   }

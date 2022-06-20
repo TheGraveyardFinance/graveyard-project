@@ -1753,7 +1753,7 @@
       }
     ]
   },
-  "tShare": {
+  "xShare": {
     "address": "0x6437adac543583c4b31bf0323a0870430f5cc2e7",
     "abi": [
       {
@@ -12577,7 +12577,7 @@
       },
       {
         "inputs": [],
-        "name": "tSharePerSecond",
+        "name": "xSharePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -13063,7 +13063,7 @@
       },
       {
         "inputs": [],
-        "name": "tSharePerSecond",
+        "name": "xSharePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -13549,7 +13549,7 @@
       },
       {
         "inputs": [],
-        "name": "tSharePerSecond",
+        "name": "xSharePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -14035,7 +14035,7 @@
       },
       {
         "inputs": [],
-        "name": "tSharePerSecond",
+        "name": "xSharePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -14521,7 +14521,7 @@
       },
       {
         "inputs": [],
-        "name": "tSharePerSecond",
+        "name": "xSharePerSecond",
         "outputs": [
           {
             "internalType": "uint256",

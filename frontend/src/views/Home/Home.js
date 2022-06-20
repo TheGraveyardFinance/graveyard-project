@@ -17,8 +17,8 @@ import useBondStats from '../../hooks/useBondStats';
 import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useCousdPrice from '../../hooks/useCousdPrice';
-import { tomb as xgraveTesting, tShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
-import { tomb as xgraveProd, tShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
+import { tomb as xgraveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
+import { tomb as xgraveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
 
 import useTotalTreasuryBalance from '../../hooks/useTotalTreasuryBalance.js';
 
@@ -61,17 +61,17 @@ const Home = () => {
   const totalTVL = TVL + rebatesTVL;
 
   let tomb;
-  let tShare;
+  let xShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     tomb = xgraveTesting;
-    tShare = xShareTesting;
+    xShare = xShareTesting;
   } else {
     tomb = xgraveProd;
-    tShare = xShareProd;
+    xShare = xShareProd;
   }
 
   const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
+  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
@@ -83,19 +83,19 @@ const Home = () => {
   const tombCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
   const tombTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
 
-  const tSharePriceInDollars = useMemo(
+  const xSharePriceInDollars = useMemo(
     () => (xShareStats ? Number(xShareStats.priceInDollars).toFixed(2) : null),
     [xShareStats],
   );
-  const tSharePriceInFTM = useMemo(
+  const xSharePriceInFTM = useMemo(
     () => (xShareStats ? Number(xShareStats.tokenInFtm).toFixed(4) : null),
     [xShareStats],
   );
-  const tShareCirculatingSupply = useMemo(
+  const xShareCirculatingSupply = useMemo(
     () => (xShareStats ? String(xShareStats.circulatingSupply) : null),
     [xShareStats],
   );
-  const tShareTotalSupply = useMemo(() => (xShareStats ? String(xShareStats.totalSupply) : null), [xShareStats]);
+  const xShareTotalSupply = useMemo(() => (xShareStats ? String(xShareStats.totalSupply) : null), [xShareStats]);
 
   const tBondPriceInDollars = useMemo(
     () => (xBondStats ? Number(xBondStats.priceInDollars).toFixed(2) : null),
@@ -317,15 +317,15 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tSharePriceInFTM ? tSharePriceInFTM : '-.----'} CoUSD</span>
+                <span style={{ fontSize: '30px' }}>{xSharePriceInFTM ? xSharePriceInFTM : '-.----'} CoUSD</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${tSharePriceInDollars ? tSharePriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${xSharePriceInDollars ? xSharePriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tShareCirculatingSupply * tSharePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tShareCirculatingSupply} <br />
-                Total Supply: {tShareTotalSupply}
+                Market Cap: ${(xShareCirculatingSupply * xSharePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {xShareCirculatingSupply} <br />
+                Total Supply: {xShareTotalSupply}
               </span>
             </CardContent>
           </Card>

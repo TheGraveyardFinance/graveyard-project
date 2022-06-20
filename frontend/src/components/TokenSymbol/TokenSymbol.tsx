@@ -2,9 +2,9 @@ import React from 'react';
 
 //Graveyard ecosystem logos
 import tombLogo from '../../assets/img/xGRAVE.svg';
-import tShareLogo from '../../assets/img/xSHARES.svg';
+import xShareLogo from '../../assets/img/xSHARES.svg';
 import tombLogoPNG from '../../assets/img/xGRAVE.png';
-import tShareLogoPNG from '../../assets/img/xSHARES.png';
+import xShareLogoPNG from '../../assets/img/xSHARES.png';
 import tBondLogo from '../../assets/img/xBOND-01.png';
 
 import tombFtmLpLogo from '../../assets/img/tomb_ftm_lp.png';
@@ -35,8 +35,8 @@ const logosBySymbol: { [title: string]: string } = {
   //=====================
   TOMB: tombLogo,
   TOMBPNG: tombLogoPNG,
-  TSHAREPNG: tShareLogoPNG,
-  TSHARE: tShareLogo,
+  TSHAREPNG: xShareLogoPNG,
+  TSHARE: xShareLogo,
   TBOND: tBondLogo,
   WFTM: wftmLogo,
   BOO: booLogo,

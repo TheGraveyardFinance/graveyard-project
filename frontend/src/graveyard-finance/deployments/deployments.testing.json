@@ -1753,7 +1753,7 @@
       }
     ]
   },
-  "tShare": {
+  "xShare": {
     "address": "0x8F5Ba67C2C9613A3C1A9Eae62eEde11515110C96",
     "abi": [
       {
@@ -7712,7 +7712,7 @@
       },
       {
         "inputs": [],
-        "name": "tSharePerSecond",
+        "name": "xSharePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8198,7 +8198,7 @@
       },
       {
         "inputs": [],
-        "name": "tSharePerSecond",
+        "name": "xSharePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
