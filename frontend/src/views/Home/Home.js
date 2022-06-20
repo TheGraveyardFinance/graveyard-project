@@ -376,12 +376,11 @@ const Home = () => {
                   <TokenSymbol symbol="XGRAVE-USDC-LP" />
                 </CardIcon>
               </Box>
-              {/*
               <Box mt={2}>
                 <Button color="primary" disabled={true} onClick={onPresentXgraveZap} variant="contained">
                   Zap In
                 </Button>
-              </Box>*/}
+              </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {xgraveLPStats?.tokenAmount ? xgraveLPStats?.tokenAmount : '-.--'} xGRAVE /{' '}
@@ -405,11 +404,11 @@ const Home = () => {
                   <TokenSymbol symbol="XSHARE-USDC-LP" />
                 </CardIcon>
               </Box>
-              {/*<Box mt={2}>
+              <Box mt={2}>
                 <Button color="primary" onClick={onPresentXshareZap} variant="contained">
                   Zap In
                 </Button>
-            </Box>*/}
+              </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} xSHARE /{' '}
