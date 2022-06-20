@@ -28,7 +28,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
 
   const tombFinance = useTombFinance();
   const rebateStats = useRebateTreasury();
-  const { price: ftmPrice, marketCap: ftmMarketCap, priceChange: ftmPriceChange } = useFantomPrice();
+  const { price: cousdPrice, marketCap: cousdMarketCap, priceChange: cousdPriceChange } = useFantomPrice();
 
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(max, tokenName === 'USDC' ? 6 : 18);
@@ -59,11 +59,11 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
 
   function formatOutAmount() {
     const outAmount = getOutAmount()
-    return `Receiving: ${outAmount.toFixed(4)} xGRAVE ($${(outAmount * rebateStats.tombPrice * ftmPrice).toFixed(2)})`
+    return `Receiving: ${outAmount.toFixed(4)} xGRAVE ($${(outAmount * rebateStats.tombPrice * cousdPrice).toFixed(2)})`
   }
 
   function formatInAmount() {
-    return `Input: ${(+val).toFixed(4)} ${tokenName} ($${((+val) * getAssetPrice(tokenName) * ftmPrice).toFixed(2)})`
+    return `Input: ${(+val).toFixed(4)} ${tokenName} ($${((+val) * getAssetPrice(tokenName) * cousdPrice).toFixed(2)})`
   }
 
   return (
