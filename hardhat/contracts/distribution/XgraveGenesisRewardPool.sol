@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
-// Note that this pool has no minter key of tSHARE (rewards).
-// Instead, the governance will call tSHARE distributeReward method and send reward to this pool at the beginning.
-contract TShareRewardPool {
+// Note that this pool has no minter key of XGRAVE (rewards).
+// Instead, the governance will call XGRAVE distributeReward method and send reward to this pool at the beginning.
+contract XgraveGenesisRewardPool {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -17,20 +17,21 @@ contract TShareRewardPool {
 
     // Info of each user.
     struct UserInfo {
-        uint256 amount; // How many LP tokens the user has provided.
+        uint256 amount; // How many tokens the user has provided.
         uint256 rewardDebt; // Reward debt. See explanation below.
     }
 
     // Info of each pool.
     struct PoolInfo {
         IERC20 token; // Address of LP token contract.
-        uint256 allocPoint; // How many allocation points assigned to this pool. tSHAREs to distribute per block.
-        uint256 lastRewardTime; // Last time that tSHAREs distribution occurs.
-        uint256 accTSharePerShare; // Accumulated tSHAREs per share, times 1e18. See below.
-        bool isStarted; // if lastRewardTime has passed
+        uint256 allocPoint; // How many allocation points assigned to this pool. XGRAVE to distribute.
+        uint256 lastRewardTime; // Last time that XGRAVE distribution occurs.
+        uint256 accXgravePerShare; // Accumulated XGRAVE per share, times 1e18. See below.
+        bool isStarted; // if lastRewardBlock has passed
     }
 
-    IERC20 public tshare;
+    IERC20 public xgrave;
+    address public shiba;
 
     // Info of each pool.
     PoolInfo[] public poolInfo;
@@ -41,15 +42,17 @@ contract TShareRewardPool {
     // Total allocation points. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
 
-    // The time when tSHARE mining starts.
+    // The time when XGRAVE mining starts.
     uint256 public poolStartTime;
 
-    // The time when tSHARE mining ends.
+    // The time when XGRAVE mining ends.
     uint256 public poolEndTime;
 
-    uint256 public tSharePerSecond = 0.00187687 ether; // 60000 3share / (370 days * 24h * 60min * 60s)
-    uint256 public runningTime = 370 days; // 370 days
-    uint256 public constant TOTAL_REWARDS = 60000 ether;
+    // MAINNET
+    uint256 public xgravePerSecond = 0.09645 ether; // 25000 XGRAVE / (72h * 60min * 60s)
+    uint256 public runningTime = 3 days; // 1 days
+    uint256 public constant TOTAL_REWARDS = 25000 ether;
+    // END MAINNET
 
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
     event Withdraw(address indexed user, uint256 indexed pid, uint256 amount);
@@ -57,29 +60,31 @@ contract TShareRewardPool {
     event RewardPaid(address indexed user, uint256 amount);
 
     constructor(
-        address _tshare,
+        address _xgrave,
+        address _shiba,
         uint256 _poolStartTime
     ) public {
         require(block.timestamp < _poolStartTime, "late");
-        if (_tshare != address(0)) tshare = IERC20(_tshare);
+        if (_xgrave != address(0)) xgrave = IERC20(_xgrave);
+        if (_shiba != address(0)) shiba = _shiba;
         poolStartTime = _poolStartTime;
         poolEndTime = poolStartTime + runningTime;
         operator = msg.sender;
     }
 
     modifier onlyOperator() {
-        require(operator == msg.sender, "TShareRewardPool: caller is not the operator");
+        require(operator == msg.sender, "XgraveGenesisPool: caller is not the operator");
         _;
     }
 
     function checkPoolDuplicate(IERC20 _token) internal view {
         uint256 length = poolInfo.length;
         for (uint256 pid = 0; pid < length; ++pid) {
-            require(poolInfo[pid].token != _token, "TShareRewardPool: existing pool?");
+            require(poolInfo[pid].token != _token, "XgraveGenesisPool: existing pool?");
         }
     }
 
-    // Add a new lp to the pool. Can only be called by the owner.
+    // Add a new token to the pool. Can only be called by the owner.
     function add(
         uint256 _allocPoint,
         IERC20 _token,
@@ -112,7 +117,7 @@ contract TShareRewardPool {
             token : _token,
             allocPoint : _allocPoint,
             lastRewardTime : _lastRewardTime,
-            accTSharePerShare : 0,
+            accXgravePerShare : 0,
             isStarted : _isStarted
             }));
         if (_isStarted) {
@@ -120,7 +125,7 @@ contract TShareRewardPool {
         }
     }
 
-    // Update the given pool's tSHARE allocation point. Can only be called by the owner.
+    // Update the given pool's XGRAVE allocation point. Can only be called by the owner.
     function set(uint256 _pid, uint256 _allocPoint) public onlyOperator {
         massUpdatePools();
         PoolInfo storage pool = poolInfo[_pid];
@@ -137,27 +142,27 @@ contract TShareRewardPool {
         if (_fromTime >= _toTime) return 0;
         if (_toTime >= poolEndTime) {
             if (_fromTime >= poolEndTime) return 0;
-            if (_fromTime <= poolStartTime) return poolEndTime.sub(poolStartTime).mul(tSharePerSecond);
-            return poolEndTime.sub(_fromTime).mul(tSharePerSecond);
+            if (_fromTime <= poolStartTime) return poolEndTime.sub(poolStartTime).mul(xgravePerSecond);
+            return poolEndTime.sub(_fromTime).mul(xgravePerSecond);
         } else {
             if (_toTime <= poolStartTime) return 0;
-            if (_fromTime <= poolStartTime) return _toTime.sub(poolStartTime).mul(tSharePerSecond);
-            return _toTime.sub(_fromTime).mul(tSharePerSecond);
+            if (_fromTime <= poolStartTime) return _toTime.sub(poolStartTime).mul(xgravePerSecond);
+            return _toTime.sub(_fromTime).mul(xgravePerSecond);
         }
     }
 
-    // View function to see pending tSHAREs on frontend.
-    function pendingShare(uint256 _pid, address _user) external view returns (uint256) {
+    // View function to see pending XGRAVE on frontend.
+    function pendingXGRAVE(uint256 _pid, address _user) external view returns (uint256) {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][_user];
-        uint256 accTSharePerShare = pool.accTSharePerShare;
+        uint256 accXgravePerShare = pool.accXgravePerShare;
         uint256 tokenSupply = pool.token.balanceOf(address(this));
         if (block.timestamp > pool.lastRewardTime && tokenSupply != 0) {
             uint256 _generatedReward = getGeneratedReward(pool.lastRewardTime, block.timestamp);
-            uint256 _tshareReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
-            accTSharePerShare = accTSharePerShare.add(_tshareReward.mul(1e18).div(tokenSupply));
+            uint256 _xgraveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
+            accXgravePerShare = accXgravePerShare.add(_xgraveReward.mul(1e18).div(tokenSupply));
         }
-        return user.amount.mul(accTSharePerShare).div(1e18).sub(user.rewardDebt);
+        return user.amount.mul(accXgravePerShare).div(1e18).sub(user.rewardDebt);
     }
 
     // Update reward variables for all pools. Be careful of gas spending!
@@ -185,8 +190,8 @@ contract TShareRewardPool {
         }
         if (totalAllocPoint > 0) {
             uint256 _generatedReward = getGeneratedReward(pool.lastRewardTime, block.timestamp);
-            uint256 _tshareReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
-            pool.accTSharePerShare = pool.accTSharePerShare.add(_tshareReward.mul(1e18).div(tokenSupply));
+            uint256 _xgraveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
+            pool.accXgravePerShare = pool.accXgravePerShare.add(_xgraveReward.mul(1e18).div(tokenSupply));
         }
         pool.lastRewardTime = block.timestamp;
     }
@@ -198,17 +203,21 @@ contract TShareRewardPool {
         UserInfo storage user = userInfo[_pid][_sender];
         updatePool(_pid);
         if (user.amount > 0) {
-            uint256 _pending = user.amount.mul(pool.accTSharePerShare).div(1e18).sub(user.rewardDebt);
+            uint256 _pending = user.amount.mul(pool.accXgravePerShare).div(1e18).sub(user.rewardDebt);
             if (_pending > 0) {
-                safeTShareTransfer(_sender, _pending);
+                safeXgraveTransfer(_sender, _pending);
                 emit RewardPaid(_sender, _pending);
             }
         }
         if (_amount > 0) {
             pool.token.safeTransferFrom(_sender, address(this), _amount);
-            user.amount = user.amount.add(_amount);
+            if(address(pool.token) == shiba) {
+                user.amount = user.amount.add(_amount.mul(9900).div(10000));
+            } else {
+                user.amount = user.amount.add(_amount);
+            }
         }
-        user.rewardDebt = user.amount.mul(pool.accTSharePerShare).div(1e18);
+        user.rewardDebt = user.amount.mul(pool.accXgravePerShare).div(1e18);
         emit Deposit(_sender, _pid, _amount);
     }
 
@@ -219,16 +228,16 @@ contract TShareRewardPool {
         UserInfo storage user = userInfo[_pid][_sender];
         require(user.amount >= _amount, "withdraw: not good");
         updatePool(_pid);
-        uint256 _pending = user.amount.mul(pool.accTSharePerShare).div(1e18).sub(user.rewardDebt);
+        uint256 _pending = user.amount.mul(pool.accXgravePerShare).div(1e18).sub(user.rewardDebt);
         if (_pending > 0) {
-            safeTShareTransfer(_sender, _pending);
+            safeXgraveTransfer(_sender, _pending);
             emit RewardPaid(_sender, _pending);
         }
         if (_amount > 0) {
             user.amount = user.amount.sub(_amount);
             pool.token.safeTransfer(_sender, _amount);
         }
-        user.rewardDebt = user.amount.mul(pool.accTSharePerShare).div(1e18);
+        user.rewardDebt = user.amount.mul(pool.accXgravePerShare).div(1e18);
         emit Withdraw(_sender, _pid, _amount);
     }
 
@@ -243,14 +252,14 @@ contract TShareRewardPool {
         emit EmergencyWithdraw(msg.sender, _pid, _amount);
     }
 
-    // Safe tshare transfer function, just in case if rounding error causes pool to not have enough tSHAREs.
-    function safeTShareTransfer(address _to, uint256 _amount) internal {
-        uint256 _tshareBal = tshare.balanceOf(address(this));
-        if (_tshareBal > 0) {
-            if (_amount > _tshareBal) {
-                tshare.safeTransfer(_to, _tshareBal);
+    // Safe XGRAVE transfer function, just in case if rounding error causes pool to not have enough XGRAVEs.
+    function safeXgraveTransfer(address _to, uint256 _amount) internal {
+        uint256 _xgraveBalance = xgrave.balanceOf(address(this));
+        if (_xgraveBalance > 0) {
+            if (_amount > _xgraveBalance) {
+                xgrave.safeTransfer(_to, _xgraveBalance);
             } else {
-                tshare.safeTransfer(_to, _amount);
+                xgrave.safeTransfer(_to, _amount);
             }
         }
     }
@@ -261,8 +270,8 @@ contract TShareRewardPool {
 
     function governanceRecoverUnsupported(IERC20 _token, uint256 amount, address to) external onlyOperator {
         if (block.timestamp < poolEndTime + 90 days) {
-            // do not allow to drain core token (tSHARE or lps) if less than 90 days after pool ends
-            require(_token != tshare, "tshare");
+            // do not allow to drain core token (XGRAVE or lps) if less than 90 days after pool ends
+            require(_token != xgrave, "xgrave");
             uint256 length = poolInfo.length;
             for (uint256 pid = 0; pid < length; ++pid) {
                 PoolInfo storage pool = poolInfo[pid];

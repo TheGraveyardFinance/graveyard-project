@@ -7,13 +7,13 @@ import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
 
 import "./owner/Operator.sol";
 
-contract TShare is ERC20Burnable, Operator {
+contract XShare is ERC20Burnable, Operator {
     using SafeMath for uint256;
 
-    // TOTAL MAX SUPPLY = 70,000 tSHAREs
-    uint256 public constant FARMING_POOL_REWARD_ALLOCATION = 60000 ether;
-    uint256 public constant COMMUNITY_FUND_POOL_ALLOCATION = 0 ether;
-    uint256 public constant DEV_FUND_POOL_ALLOCATION = 5000 ether;
+    // TOTAL MAX SUPPLY = 70,000 xSHAREs
+    uint256 public constant FARMING_POOL_REWARD_ALLOCATION = 41000 ether;
+    uint256 public constant COMMUNITY_FUND_POOL_ALLOCATION = 4500 ether;
+    uint256 public constant DEV_FUND_POOL_ALLOCATION = 4500 ether;
 
     uint256 public constant VESTING_DURATION = 365 days;
     uint256 public startTime;
@@ -30,8 +30,8 @@ contract TShare is ERC20Burnable, Operator {
 
     bool public rewardPoolDistributed = false;
 
-    constructor(uint256 _startTime, address _communityFund, address _devFund) public ERC20("3SHARES", "3SHARE Token") {
-        _mint(msg.sender, 1 ether); // mint 1 TOMB Share for initial pools deployment
+    constructor(uint256 _startTime, address _communityFund, address _devFund) public ERC20("xSHARES", "xSHARE Token") {
+        _mint(msg.sender, 1 ether); // mint 1 XGRAVE Share for initial pools deployment
 
         startTime = _startTime;
         endTime = startTime + VESTING_DURATION;
