@@ -8,7 +8,7 @@ import "./owner/Operator.sol";
 
 contract XBond is ERC20Burnable, Operator {
     /**
-     * @notice Constructs the TOMB Bond ERC-20 contract.
+     * @notice Constructs the XGRAVE Bond ERC-20 contract.
      */
     constructor() public ERC20("xBOND", "xBOND") {}
 

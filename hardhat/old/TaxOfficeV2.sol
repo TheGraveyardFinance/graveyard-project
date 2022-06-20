@@ -74,9 +74,9 @@ contract TaxOfficeV2 is Operator {
 
     function addLiquidityTaxFree(
         address token,
-        uint256 amtTomb,
+        uint256 amtXgrave,
         uint256 amtToken,
-        uint256 amtTombMin,
+        uint256 amtXgraveMin,
         uint256 amtTokenMin
     )
         external
@@ -86,42 +86,42 @@ contract TaxOfficeV2 is Operator {
             uint256
         )
     {
-        require(amtTomb != 0 && amtToken != 0, "amounts can't be 0");
+        require(amtXgrave != 0 && amtToken != 0, "amounts can't be 0");
         _excludeAddressFromTax(msg.sender);
 
-        IERC20(xgrave).transferFrom(msg.sender, address(this), amtTomb);
+        IERC20(xgrave).transferFrom(msg.sender, address(this), amtXgrave);
         IERC20(token).transferFrom(msg.sender, address(this), amtToken);
         _approveTokenIfNeeded(xgrave, uniRouter);
         _approveTokenIfNeeded(token, uniRouter);
 
         _includeAddressInTax(msg.sender);
 
-        uint256 resultAmtTomb;
+        uint256 resultAmtXgrave;
         uint256 resultAmtToken;
         uint256 liquidity;
-        (resultAmtTomb, resultAmtToken, liquidity) = IUniswapV2Router(uniRouter).addLiquidity(
+        (resultAmtXgrave, resultAmtToken, liquidity) = IUniswapV2Router(uniRouter).addLiquidity(
             xgrave,
             token,
-            amtTomb,
+            amtXgrave,
             amtToken,
-            amtTombMin,
+            amtXgraveMin,
             amtTokenMin,
             msg.sender,
             block.timestamp
         );
 
-        if(amtTomb.sub(resultAmtTomb) > 0) {
-            IERC20(xgrave).transfer(msg.sender, amtTomb.sub(resultAmtTomb));
+        if(amtXgrave.sub(resultAmtXgrave) > 0) {
+            IERC20(xgrave).transfer(msg.sender, amtXgrave.sub(resultAmtXgrave));
         }
         if(amtToken.sub(resultAmtToken) > 0) {
             IERC20(token).transfer(msg.sender, amtToken.sub(resultAmtToken));
         }
-        return (resultAmtTomb, resultAmtToken, liquidity);
+        return (resultAmtXgrave, resultAmtToken, liquidity);
     }
 
     function addLiquidityETHTaxFree(
-        uint256 amtTomb,
-        uint256 amtTombMin,
+        uint256 amtXgrave,
+        uint256 amtXgraveMin,
         uint256 amtFtmMin
     )
         external
@@ -132,34 +132,34 @@ contract TaxOfficeV2 is Operator {
             uint256
         )
     {
-        require(amtTomb != 0 && msg.value != 0, "amounts can't be 0");
+        require(amtXgrave != 0 && msg.value != 0, "amounts can't be 0");
         _excludeAddressFromTax(msg.sender);
 
-        IERC20(xgrave).transferFrom(msg.sender, address(this), amtTomb);
+        IERC20(xgrave).transferFrom(msg.sender, address(this), amtXgrave);
         _approveTokenIfNeeded(xgrave, uniRouter);
 
         _includeAddressInTax(msg.sender);
 
-        uint256 resultAmtTomb;
+        uint256 resultAmtXgrave;
         uint256 resultAmtFtm;
         uint256 liquidity;
-        (resultAmtTomb, resultAmtFtm, liquidity) = IUniswapV2Router(uniRouter).addLiquidityETH{value: msg.value}(
+        (resultAmtXgrave, resultAmtFtm, liquidity) = IUniswapV2Router(uniRouter).addLiquidityETH{value: msg.value}(
             xgrave,
-            amtTomb,
-            amtTombMin,
+            amtXgrave,
+            amtXgraveMin,
             amtFtmMin,
             msg.sender,
             block.timestamp
         );
 
-        if(amtTomb.sub(resultAmtTomb) > 0) {
-            IERC20(xgrave).transfer(msg.sender, amtTomb.sub(resultAmtTomb));
+        if(amtXgrave.sub(resultAmtXgrave) > 0) {
+            IERC20(xgrave).transfer(msg.sender, amtXgrave.sub(resultAmtXgrave));
         }
-        return (resultAmtTomb, resultAmtFtm, liquidity);
+        return (resultAmtXgrave, resultAmtFtm, liquidity);
     }
 
-    function setTaxableTombOracle(address _xgraveOracle) external onlyOperator {
-        ITaxable(xgrave).setTombOracle(_xgraveOracle);
+    function setTaxableXgraveOracle(address _xgraveOracle) external onlyOperator {
+        ITaxable(xgrave).setXgraveOracle(_xgraveOracle);
     }
 
     function transferTaxOffice(address _newTaxOffice) external onlyOperator {

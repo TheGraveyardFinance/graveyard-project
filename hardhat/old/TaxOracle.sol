@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 /*
     https://graveyard.fi/
 */
-contract TombTaxOracle is Ownable {
+contract XgraveTaxOracle is Ownable {
     using SafeMath for uint256;
 
     IERC20 public xgrave;
@@ -36,7 +36,7 @@ contract TombTaxOracle is Ownable {
         return uint144(xgraveBalance.div(wftmBalance));
     }
 
-    function setTomb(address _xgrave) external onlyOwner {
+    function setXgrave(address _xgrave) external onlyOwner {
         require(_xgrave != address(0), "xgrave address cannot be 0");
         xgrave = IERC20(_xgrave);
     }

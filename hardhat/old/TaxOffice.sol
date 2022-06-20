@@ -52,8 +52,8 @@ contract TaxOffice is Operator {
         return ITaxable(xgrave).includeAddress(_address);
     }
 
-    function setTaxableTombOracle(address _xgraveOracle) external onlyOperator {
-        ITaxable(xgrave).setTombOracle(_xgraveOracle);
+    function setTaxableXgraveOracle(address _xgraveOracle) external onlyOperator {
+        ITaxable(xgrave).setXgraveOracle(_xgraveOracle);
     }
 
     function transferTaxOffice(address _newTaxOffice) external onlyOperator {
