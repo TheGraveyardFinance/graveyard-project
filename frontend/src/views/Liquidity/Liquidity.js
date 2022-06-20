@@ -12,7 +12,7 @@ import useTokenBalance from '../../hooks/useTokenBalance';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useApproveTaxOffice from '../../hooks/useApproveTaxOffice';
 import { ApprovalState } from '../../hooks/useApprove';
-import useProvideTombFtmLP from '../../hooks/useProvideTombFtmLP';
+import useProvideXgraveFtmLP from '../../hooks/useProvideXgraveFtmLP';
 import { Alert } from '@material-ui/lab';
 
 const BackgroundImage = createGlobalStyle`
@@ -26,7 +26,7 @@ function isNumeric(n) {
 }
 
 const ProvideLiquidity = () => {
-  const [tombAmount, setTombAmount] = useState(0);
+  const [xgraveAmount, setXgraveAmount] = useState(0);
   const [cousdAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
@@ -35,7 +35,7 @@ const ProvideLiquidity = () => {
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
   const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
   const ftmBalance = (balance / 1e18).toFixed(4);
-  const { onProvideTombFtmLP } = useProvideTombFtmLP();
+  const { onProvideXgraveFtmLP } = useProvideXgraveFtmLP();
   const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
 
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
@@ -43,12 +43,12 @@ const ProvideLiquidity = () => {
   const cousdPriceInXGRAVE = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
   // const classes = useStyles();
 
-  const handleTombChange = async (e) => {
+  const handleXgraveChange = async (e) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
-      setTombAmount(e.currentTarget.value);
+      setXgraveAmount(e.currentTarget.value);
     }
     if (!isNumeric(e.currentTarget.value)) return;
-    setTombAmount(e.currentTarget.value);
+    setXgraveAmount(e.currentTarget.value);
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'XGRAVE');
     setFtmAmount(quoteFromSpooky);
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
@@ -61,20 +61,20 @@ const ProvideLiquidity = () => {
     if (!isNumeric(e.currentTarget.value)) return;
     setFtmAmount(e.currentTarget.value);
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'FTM');
-    setTombAmount(quoteFromSpooky);
+    setXgraveAmount(quoteFromSpooky);
 
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.tokenAmount);
   };
-  const handleTombSelectMax = async () => {
+  const handleXgraveSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(xgraveBalance), 'XGRAVE');
-    setTombAmount(getDisplayBalance(xgraveBalance));
+    setXgraveAmount(getDisplayBalance(xgraveBalance));
     setFtmAmount(quoteFromSpooky);
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
   };
   const handleFtmSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(ftmBalance, 'FTM');
     setFtmAmount(ftmBalance);
-    setTombAmount(quoteFromSpooky);
+    setXgraveAmount(quoteFromSpooky);
     setLpTokensAmount(ftmBalance / xgraveLPStats.cousdAmount);
   };
   return (
@@ -97,9 +97,9 @@ const ProvideLiquidity = () => {
                     <Grid container>
                       <Grid item xs={12}>
                         <TokenInput
-                          onSelectMax={handleTombSelectMax}
-                          onChange={handleTombChange}
-                          value={tombAmount}
+                          onSelectMax={handleXgraveSelectMax}
+                          onChange={handleXgraveChange}
+                          value={xgraveAmount}
                           max={getDisplayBalance(xgraveBalance)}
                           symbol={'XGRAVE'}
                         ></TokenInput>
@@ -122,7 +122,7 @@ const ProvideLiquidity = () => {
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideTombFtmLP(cousdAmount.toString(), tombAmount.toString())}
+                            onClick={() => onProvideXgraveFtmLP(cousdAmount.toString(), xgraveAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >

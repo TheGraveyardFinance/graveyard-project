@@ -65,8 +65,8 @@ const Sbs: React.FC = () => {
 
   const handleTShareSelectMax = async () => {
     setTshareAmount(String(xshareBalance));
-    const rateTSharePerTomb = (await graveyardFinance.getTShareSwapperStat(account)).rateTSharePerTomb;
-    const updateTBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerTomb))).mul(Number(xshareBalance) * 1e6);
+    const rateTSharePerXgrave = (await graveyardFinance.getTShareSwapperStat(account)).rateTSharePerXgrave;
+    const updateTBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerXgrave))).mul(Number(xshareBalance) * 1e6);
     setTbondAmount(getDisplayBalance(updateTBondAmount, 18, 6));
   };
 
@@ -79,8 +79,8 @@ const Sbs: React.FC = () => {
     }
     if (!isNumeric(inputData)) return;
     setTshareAmount(inputData);
-    const rateTSharePerTomb = (await graveyardFinance.getTShareSwapperStat(account)).rateTSharePerTomb;
-    const updateTBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerTomb))).mul(Number(inputData) * 1e6);
+    const rateTSharePerXgrave = (await graveyardFinance.getTShareSwapperStat(account)).rateTSharePerXgrave;
+    const updateTBondAmount = ((BigNumber.from(10).pow(30)).div(BigNumber.from(rateTSharePerXgrave))).mul(Number(inputData) * 1e6);
     setTbondAmount(getDisplayBalance(updateTBondAmount, 18, 6));
   }
 

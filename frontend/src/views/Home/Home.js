@@ -17,8 +17,8 @@ import useBondStats from '../../hooks/useBondStats';
 import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useCousdPrice from '../../hooks/useCousdPrice';
-import { tomb as xgraveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
-import { tomb as xgraveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
+import { xgrave as xgraveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
+import { xgrave as xgraveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
 
 import useTotalTreasuryBalance from '../../hooks/useTotalTreasuryBalance.js';
 
@@ -60,17 +60,17 @@ const Home = () => {
   const { balance: rebatesTVL } = useTotalTreasuryBalance();
   const totalTVL = TVL + rebatesTVL;
 
-  let tomb;
+  let xgrave;
   let xShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    tomb = xgraveTesting;
+    xgrave = xgraveTesting;
     xShare = xShareTesting;
   } else {
-    tomb = xgraveProd;
+    xgrave = xgraveProd;
     xShare = xShareProd;
   }
 
-  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
+  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xgrave.address;
   const buyXShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.tomb.finance">documentation</StyledLink> before purchasing XGRAVE or XSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing XGRAVE or XSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}

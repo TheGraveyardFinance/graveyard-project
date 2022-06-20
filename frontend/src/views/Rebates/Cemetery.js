@@ -70,14 +70,14 @@ const Cemetery = () => {
     const address = (await window.ethereum.request({ method: "eth_accounts" }))[0]
     if (!address) return
 
-    const claimable = await rebateStats.RebateTreasury.methods.claimableTomb(address).call()
+    const claimable = await rebateStats.RebateTreasury.methods.claimableXgrave(address).call()
     const vesting = await rebateStats.RebateTreasury.methods.vesting(address).call()
     setClaimablexGRAVE(+web3.utils.fromWei(claimable))
     setVested(+web3.utils.fromWei(BN(vesting.amount).sub(BN(vesting.claimed))))
 }
 
-  async function claimTomb() {
-    console.log("claiming the tomb")
+  async function claimXgrave() {
+    console.log("claiming the xgrave")
     if (!window.ethereum) return
     const address = (await window.ethereum.request({ method: "eth_accounts" }))[0]
     if (!address) return
@@ -152,7 +152,7 @@ const Cemetery = () => {
                         </Typography>
                         <Typography variant="h6">{vested.toFixed(4)} Total Vested</Typography>
                         <Typography variant="h6">{claimablexGRAVE.toFixed(4)} Claimable</Typography>
-                        <Button color="primary" size="small" variant="contained" onClick={claimTomb} style={{ marginTop: "8px" }}>
+                        <Button color="primary" size="small" variant="contained" onClick={claimXgrave} style={{ marginTop: "8px" }}>
                           CLAIM
                         </Button>
                       </CardContent>

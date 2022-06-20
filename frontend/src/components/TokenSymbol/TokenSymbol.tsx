@@ -1,14 +1,14 @@
 import React from 'react';
 
 //Graveyard ecosystem logos
-import tombLogo from '../../assets/img/xGRAVE.svg';
+import xgraveLogo from '../../assets/img/xGRAVE.svg';
 import xShareLogo from '../../assets/img/xSHARES.svg';
-import tombLogoPNG from '../../assets/img/xGRAVE.png';
+import xgraveLogoPNG from '../../assets/img/xGRAVE.png';
 import xShareLogoPNG from '../../assets/img/xSHARES.png';
 import tBondLogo from '../../assets/img/xBOND-01.png';
 
-import tombFtmLpLogo from '../../assets/img/tomb_ftm_lp.png';
-import tshareFtmLpLogo from '../../assets/img/tshare_ftm_lp.png';
+import xgraveFtmLpLogo from '../../assets/img/xgrave_cousd_lp.png';
+import tshareFtmLpLogo from '../../assets/img/tshare_cousd_lp.png';
 
 import wftmLogo from '../../assets/img/fantom-ftm-logo.png';
 import cousdLogo from '../../assets/img/cousd-logo.png';
@@ -33,8 +33,8 @@ import ThreesharesLPLogo from '../../assets/img/xSHARES-COUSD.png';
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
   //=====================
-  XGRAVE: tombLogo,
-  XGRAVEPNG: tombLogoPNG,
+  XGRAVE: xgraveLogo,
+  XGRAVEPNG: xgraveLogoPNG,
   XSHAREPNG: xShareLogoPNG,
   XSHARE: xShareLogo,
   XBOND: tBondLogo,
@@ -59,7 +59,7 @@ const logosBySymbol: { [title: string]: string } = {
   'CoUSD': cousdLogo,
   '2OMB': twoombLogo,
   '2SHARES': twoshareLogo,
-  'XGRAVE-COUSD-LP': tombFtmLpLogo,
+  'XGRAVE-COUSD-LP': xgraveFtmLpLogo,
   'XSHARE-COUSD-LP': tshareFtmLpLogo,
 };
 
