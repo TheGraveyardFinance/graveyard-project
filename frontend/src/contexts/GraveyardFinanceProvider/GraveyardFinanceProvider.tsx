@@ -9,7 +9,7 @@ export interface TombFinanceContext {
 
 export const Context = createContext<TombFinanceContext>({ graveyardFinance: null });
 
-export const TombFinanceProvider: React.FC = ({ children }) => {
+export const GraveyardFinanceProvider: React.FC = ({ children }) => {
   const { ethereum, account } = useWallet();
   const [graveyardFinance, setTombFinance] = useState<TombFinance>();
 
