@@ -37,9 +37,9 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
   const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
   const xShareCousdLpStats = useLpStats('XSHARE-COUSD-LP');
-  const tombLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
-  const cousdAmountPerLP = tokenName.startsWith(TOMB_TICKER) ? tombLPStats?.cousdAmount : xshareLPStats?.cousdAmount;
+  const cousdAmountPerLP = tokenName.startsWith(TOMB_TICKER) ? xgraveLPStats?.cousdAmount : xshareLPStats?.cousdAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number

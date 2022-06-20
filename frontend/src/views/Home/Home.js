@@ -73,7 +73,7 @@ const Home = () => {
   const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
   const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tShare.address;
 
-  const tombLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
   const tombPriceInDollars = useMemo(
     () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
@@ -384,14 +384,14 @@ const Home = () => {
               </Box>*/}
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {tombLPStats?.tokenAmount ? tombLPStats?.tokenAmount : '-.--'} xGRAVE /{' '}
-                  {tombLPStats?.cousdAmount ? tombLPStats?.cousdAmount : '-.--'} FTM
+                  {xgraveLPStats?.tokenAmount ? xgraveLPStats?.tokenAmount : '-.--'} xGRAVE /{' '}
+                  {xgraveLPStats?.cousdAmount ? xgraveLPStats?.cousdAmount : '-.--'} CoUSD
                 </span>
               </Box>
-              <Box>${tombLPStats?.priceOfOne ? tombLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${xgraveLPStats?.priceOfOne ? xgraveLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${tombLPStats?.totalLiquidity ? tombLPStats.totalLiquidity : '-.--'} <br />
-                Total supply: {tombLPStats?.totalSupply ? tombLPStats.totalSupply : '-.--'}
+                Liquidity: ${xgraveLPStats?.totalLiquidity ? xgraveLPStats.totalLiquidity : '-.--'} <br />
+                Total supply: {xgraveLPStats?.totalSupply ? xgraveLPStats.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>
@@ -412,8 +412,8 @@ const Home = () => {
             </Box>*/}
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} 3SHARE /{' '}
-                  {xshareLPStats?.cousdAmount ? xshareLPStats?.cousdAmount : '-.--'} FTM
+                  {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} xSHARE /{' '}
+                  {xshareLPStats?.cousdAmount ? xshareLPStats?.cousdAmount : '-.--'} CoUSD
                 </span>
               </Box>
               <Box>${xshareLPStats?.priceOfOne ? xshareLPStats.priceOfOne : '-.--'}</Box>

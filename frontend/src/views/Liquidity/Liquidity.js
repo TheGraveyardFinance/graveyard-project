@@ -38,7 +38,7 @@ const ProvideLiquidity = () => {
   const { onProvideTombFtmLP } = useProvideTombFtmLP();
   const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
 
-  const tombLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const tombPriceInFTM = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
   const cousdPriceInTOMB = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
   // const classes = useStyles();
@@ -51,7 +51,7 @@ const ProvideLiquidity = () => {
     setTombAmount(e.currentTarget.value);
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'TOMB');
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / tombLPStats.cousdAmount);
+    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
   };
 
   const handleFtmChange = async (e) => {
@@ -63,19 +63,19 @@ const ProvideLiquidity = () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'FTM');
     setTombAmount(quoteFromSpooky);
 
-    setLpTokensAmount(quoteFromSpooky / tombLPStats.tokenAmount);
+    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.tokenAmount);
   };
   const handleTombSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(tombBalance), 'TOMB');
     setTombAmount(getDisplayBalance(tombBalance));
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / tombLPStats.cousdAmount);
+    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
   };
   const handleFtmSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(ftmBalance, 'FTM');
     setFtmAmount(ftmBalance);
     setTombAmount(quoteFromSpooky);
-    setLpTokensAmount(ftmBalance / tombLPStats.cousdAmount);
+    setLpTokensAmount(ftmBalance / xgraveLPStats.cousdAmount);
   };
   return (
     <Page>
