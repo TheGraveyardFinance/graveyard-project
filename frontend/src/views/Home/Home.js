@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.tomb.finance">documentation</StyledLink> before purchasing XGRAVE or TSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.tomb.finance">documentation</StyledLink> before purchasing XGRAVE or XSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}
@@ -294,14 +294,14 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TSHARE */}
+        {/* XSHARE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
               <h2>xSHARES</h2>
               {/* <Button
                 onClick={() => {
-                  graveyardFinance.watchAssetInMetamask('TSHARE');
+                  graveyardFinance.watchAssetInMetamask('XSHARE');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -312,7 +312,7 @@ const Home = () => {
               </Button> */}
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TSHARE" />
+                  <TokenSymbol symbol="XSHARE" />
                 </CardIcon>
               </Box>
               Current Price
@@ -331,14 +331,14 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* TBOND */}
+        {/* XBOND */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
               <h2>xBOND</h2>
               {/* <Button
                 onClick={() => {
-                  graveyardFinance.watchAssetInMetamask('TBOND');
+                  graveyardFinance.watchAssetInMetamask('XBOND');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -349,7 +349,7 @@ const Home = () => {
               </Button> */}
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="TBOND" />
+                  <TokenSymbol symbol="XBOND" />
                 </CardIcon>
               </Box>
               Current Price

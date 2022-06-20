@@ -48,7 +48,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   sectionInUI: way to distinguish in which of the 3 pool groups it should be listed
         - 0 = Single asset stake pools
         - 1 = LP asset staking rewarding TOMB
-        - 2 = LP asset staking rewarding TSHARE
+        - 2 = LP asset staking rewarding XSHARE
   contract: the contract name which will be loaded from the deployment.environmnet.json
   depositTokenName : the name of the token to be deposited
   earnTokenName: the rewarded token
@@ -285,7 +285,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   //   sectionInUI: 2,
   //   contract: 'TwoombTwosharesLPTShareRewardPool',
   //   depositTokenName: '2OMB-2SHARESLP',
-  //   earnTokenName: 'TSHARE',
+  //   earnTokenName: 'XSHARE',
   //   finished: false,
   //   multiplier: '0',
   //   buyLink: '',

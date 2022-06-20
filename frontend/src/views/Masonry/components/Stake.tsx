@@ -32,13 +32,13 @@ import useWithdrawFromMasonry from '../../../hooks/useWithdrawFromMasonry';
 
 const Stake: React.FC = () => {
   const graveyardFinance = useGraveyardFinance();
-  const [approveStatus, approve] = useApprove(graveyardFinance.TSHARE, graveyardFinance.contracts.Masonry.address);
+  const [approveStatus, approve] = useApprove(graveyardFinance.XSHARE, graveyardFinance.contracts.Masonry.address);
 
-  const tokenBalance = useTokenBalance(graveyardFinance.TSHARE);
+  const tokenBalance = useTokenBalance(graveyardFinance.XSHARE);
   const stakedBalance = useStakedBalanceOnMasonry();
   const { from, to } = useUnstakeTimerMasonry();
 
-  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('TSHARE', graveyardFinance.TSHARE);
+  const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('XSHARE', graveyardFinance.XSHARE);
   const tokenPriceInDollars = useMemo(
     () =>
       stakedTokenPriceInDollars
@@ -81,7 +81,7 @@ const Stake: React.FC = () => {
           <StyledCardContentInner>
             <StyledCardHeader>
               <CardIcon>
-                <TokenSymbol symbol="TSHARE" />
+                <TokenSymbol symbol="XSHARE" />
               </CardIcon>
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={`≈ $${tokenPriceInDollars}`} />

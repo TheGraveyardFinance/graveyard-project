@@ -22,7 +22,7 @@ function useApproveTaxOffice(): [ApprovalState, () => Promise<void>] {
   let token: ERC20 = graveyardFinance.TOMB;
   // if (zappingToken === FTM_TICKER) token = graveyardFinance.FTM;
   // else if (zappingToken === TOMB_TICKER) token = graveyardFinance.TOMB;
-  // else if (zappingToken === TSHARE_TICKER) token = graveyardFinance.TSHARE;
+  // else if (zappingToken === XSHARE_TICKER) token = graveyardFinance.XSHARE;
   const pendingApproval = useHasPendingApproval(token.address, TAX_OFFICE_ADDR);
   const currentAllowance = useAllowance(token, TAX_OFFICE_ADDR, pendingApproval);
 

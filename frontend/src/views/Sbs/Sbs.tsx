@@ -38,7 +38,7 @@ const Sbs: React.FC = () => {
   const [tbondAmount, setTbondAmount] = useState('');
   const [tshareAmount, setTshareAmount] = useState('');
 
-  const [approveStatus, approve] = useApprove(graveyardFinance.TBOND, graveyardFinance.contracts.TShareSwapper.address);
+  const [approveStatus, approve] = useApprove(graveyardFinance.XBOND, graveyardFinance.contracts.TShareSwapper.address);
   const { onSwapTShare } = useSwapTBondToTShare();
   const tshareSwapperStat = useTShareSwapperStats(account);
 
@@ -105,7 +105,7 @@ const Sbs: React.FC = () => {
                             <StyledExchanger>
                               <StyledToken>
                                 <StyledCardIcon>
-                                  <TokenSymbol symbol={graveyardFinance.TBOND.symbol} size={54} />
+                                  <TokenSymbol symbol={graveyardFinance.XBOND.symbol} size={54} />
                                 </StyledCardIcon>
                               </StyledToken>
                             </StyledExchanger>
@@ -118,7 +118,7 @@ const Sbs: React.FC = () => {
                                 symbol="TBond"
                               ></TokenInput>
                             </Grid>
-                            <StyledDesc>{`${bondBalance} TBOND Available in Wallet`}</StyledDesc>
+                            <StyledDesc>{`${bondBalance} XBOND Available in Wallet`}</StyledDesc>
                           </StyledCardContentInner>
                         </CardContent>
                       </Card>
@@ -132,7 +132,7 @@ const Sbs: React.FC = () => {
                             <StyledExchanger>
                               <StyledToken>
                                 <StyledCardIcon>
-                                  <TokenSymbol symbol={graveyardFinance.TSHARE.symbol} size={54} />
+                                  <TokenSymbol symbol={graveyardFinance.XSHARE.symbol} size={54} />
                                 </StyledCardIcon>
                               </StyledToken>
                             </StyledExchanger>
@@ -145,7 +145,7 @@ const Sbs: React.FC = () => {
                                 symbol="TShare"
                               ></TokenInput>
                             </Grid>
-                            <StyledDesc>{`${tshareBalance} TSHARE Available in Swapper`}</StyledDesc>
+                            <StyledDesc>{`${tshareBalance} XSHARE Available in Swapper`}</StyledDesc>
                           </StyledCardContentInner>
                         </CardContent>
                       </Card>
@@ -170,7 +170,7 @@ const Sbs: React.FC = () => {
                           onClick={approve}
                           size="medium"
                         >
-                          Approve TBOND
+                          Approve XBOND
                         </Button>
                       ) : (
                         <Button

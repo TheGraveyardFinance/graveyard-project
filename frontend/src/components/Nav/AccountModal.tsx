@@ -15,10 +15,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const tombBalance = useTokenBalance(graveyardFinance.TOMB);
   const displayTombBalance = useMemo(() => getDisplayBalance(tombBalance), [tombBalance]);
 
-  const tshareBalance = useTokenBalance(graveyardFinance.TSHARE);
+  const tshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const displayTshareBalance = useMemo(() => getDisplayBalance(tshareBalance), [tshareBalance]);
 
-  const tbondBalance = useTokenBalance(graveyardFinance.TBOND);
+  const tbondBalance = useTokenBalance(graveyardFinance.XBOND);
   const displayTbondBalance = useMemo(() => getDisplayBalance(tbondBalance), [tbondBalance]);
 
   return (
@@ -35,15 +35,15 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         </StyledBalanceWrapper>
 
         <StyledBalanceWrapper>
-          <TokenSymbol symbol="TSHARE" />
+          <TokenSymbol symbol="XSHARE" />
           <StyledBalance>
             <StyledValue>{displayTshareBalance}</StyledValue>
-            <Label text="3SHARE Available" variant="primary" />
+            <Label text="xSHARE Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
         <StyledBalanceWrapper>
-          <TokenSymbol symbol="TBOND" />
+          <TokenSymbol symbol="XBOND" />
           <StyledBalance>
             <StyledValue>{displayTbondBalance}</StyledValue>
             <Label text="xBOND Available" variant="primary" />

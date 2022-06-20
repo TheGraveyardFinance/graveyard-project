@@ -35,9 +35,9 @@ const logosBySymbol: { [title: string]: string } = {
   //=====================
   TOMB: tombLogo,
   TOMBPNG: tombLogoPNG,
-  TSHAREPNG: xShareLogoPNG,
-  TSHARE: xShareLogo,
-  TBOND: tBondLogo,
+  XSHAREPNG: xShareLogoPNG,
+  XSHARE: xShareLogo,
+  XBOND: tBondLogo,
   WFTM: wftmLogo,
   BOO: booLogo,
   SHIBA: shibaLogo,
