@@ -33,15 +33,15 @@ contract ShareWrapper {
     }
 
     function withdraw(uint256 amount) public virtual {
-        uint256 masonShare = _balances[msg.sender];
-        require(masonShare >= amount, "Masonry: withdraw request greater than staked amount");
+        uint256 mausoleShare = _balances[msg.sender];
+        require(mausoleShare >= amount, "Mausoleum: withdraw request greater than staked amount");
         _totalSupply = _totalSupply.sub(amount);
-        _balances[msg.sender] = masonShare.sub(amount);
+        _balances[msg.sender] = mausoleShare.sub(amount);
         share.safeTransfer(msg.sender, amount);
     }
 }
 
-contract Masonry is ShareWrapper, ContractGuard {
+contract Mausoleum is ShareWrapper, ContractGuard {
     using SafeERC20 for IERC20;
     using Address for address;
     using SafeMath for uint256;
@@ -54,7 +54,7 @@ contract Masonry is ShareWrapper, ContractGuard {
         uint256 epochTimerStart;
     }
 
-    struct MasonrySnapshot {
+    struct MausoleumSnapshot {
         uint256 time;
         uint256 rewardReceived;
         uint256 rewardPerShare;
@@ -68,11 +68,11 @@ contract Masonry is ShareWrapper, ContractGuard {
     // flags
     bool public initialized = false;
 
-    IERC20 public tomb;
+    IERC20 public xgrave;
     ITreasury public treasury;
 
-    mapping(address => Masonseat) public masons;
-    MasonrySnapshot[] public masonryHistory;
+    mapping(address => Masonseat) public mausoles;
+    MausoleumSnapshot[] public mausoleumHistory;
 
     uint256 public withdrawLockupEpochs;
     uint256 public rewardLockupEpochs;
@@ -88,43 +88,43 @@ contract Masonry is ShareWrapper, ContractGuard {
     /* ========== Modifiers =============== */
 
     modifier onlyOperator() {
-        require(operator == msg.sender, "Masonry: caller is not the operator");
+        require(operator == msg.sender, "Mausoleum: caller is not the operator");
         _;
     }
 
-    modifier masonExists {
-        require(balanceOf(msg.sender) > 0, "Masonry: The mason does not exist");
+    modifier mausoleExists {
+        require(balanceOf(msg.sender) > 0, "Mausoleum: The mausole does not exist");
         _;
     }
 
-    modifier updateReward(address mason) {
-        if (mason != address(0)) {
-            Masonseat memory seat = masons[mason];
-            seat.rewardEarned = earned(mason);
+    modifier updateReward(address mausole) {
+        if (mausole != address(0)) {
+            Masonseat memory seat = mausoles[mausole];
+            seat.rewardEarned = earned(mausole);
             seat.lastSnapshotIndex = latestSnapshotIndex();
-            masons[mason] = seat;
+            mausoles[mausole] = seat;
         }
         _;
     }
 
     modifier notInitialized {
-        require(!initialized, "Masonry: already initialized");
+        require(!initialized, "Mausoleum: already initialized");
         _;
     }
 
     /* ========== GOVERNANCE ========== */
 
     function initialize(
-        IERC20 _tomb,
+        IERC20 _xgrave,
         IERC20 _share,
         ITreasury _treasury
     ) public notInitialized {
-        tomb = _tomb;
+        xgrave = _xgrave;
         share = _share;
         treasury = _treasury;
 
-        MasonrySnapshot memory genesisSnapshot = MasonrySnapshot({time : block.number, rewardReceived : 0, rewardPerShare : 0});
-        masonryHistory.push(genesisSnapshot);
+        MausoleumSnapshot memory genesisSnapshot = MausoleumSnapshot({time : block.number, rewardReceived : 0, rewardPerShare : 0});
+        mausoleumHistory.push(genesisSnapshot);
 
         withdrawLockupEpochs = 3; // Lock for 6 epochs (36h) before release withdraw
         rewardLockupEpochs = 1; // Lock for 3 epochs (18h) before release claimReward
@@ -149,27 +149,27 @@ contract Masonry is ShareWrapper, ContractGuard {
     // =========== Snapshot getters
 
     function latestSnapshotIndex() public view returns (uint256) {
-        return masonryHistory.length.sub(1);
+        return mausoleumHistory.length.sub(1);
     }
 
-    function getLatestSnapshot() internal view returns (MasonrySnapshot memory) {
-        return masonryHistory[latestSnapshotIndex()];
+    function getLatestSnapshot() internal view returns (MausoleumSnapshot memory) {
+        return mausoleumHistory[latestSnapshotIndex()];
     }
 
-    function getLastSnapshotIndexOf(address mason) public view returns (uint256) {
-        return masons[mason].lastSnapshotIndex;
+    function getLastSnapshotIndexOf(address mausole) public view returns (uint256) {
+        return mausoles[mausole].lastSnapshotIndex;
     }
 
-    function getLastSnapshotOf(address mason) internal view returns (MasonrySnapshot memory) {
-        return masonryHistory[getLastSnapshotIndexOf(mason)];
+    function getLastSnapshotOf(address mausole) internal view returns (MausoleumSnapshot memory) {
+        return mausoleumHistory[getLastSnapshotIndexOf(mausole)];
     }
 
-    function canWithdraw(address mason) external view returns (bool) {
-        return masons[mason].epochTimerStart.add(withdrawLockupEpochs) <= treasury.epoch();
+    function canWithdraw(address mausole) external view returns (bool) {
+        return mausoles[mausole].epochTimerStart.add(withdrawLockupEpochs) <= treasury.epoch();
     }
 
-    function canClaimReward(address mason) external view returns (bool) {
-        return masons[mason].epochTimerStart.add(rewardLockupEpochs) <= treasury.epoch();
+    function canClaimReward(address mausole) external view returns (bool) {
+        return mausoles[mausole].epochTimerStart.add(rewardLockupEpochs) <= treasury.epoch();
     }
 
     function epoch() external view returns (uint256) {
@@ -180,8 +180,8 @@ contract Masonry is ShareWrapper, ContractGuard {
         return treasury.nextEpochPoint();
     }
 
-    function getTombPrice() external view returns (uint256) {
-        return treasury.getTombPrice();
+    function getXgravePrice() external view returns (uint256) {
+        return treasury.getXgravePrice();
     }
 
     // =========== Mason getters
@@ -190,25 +190,25 @@ contract Masonry is ShareWrapper, ContractGuard {
         return getLatestSnapshot().rewardPerShare;
     }
 
-    function earned(address mason) public view returns (uint256) {
+    function earned(address mausole) public view returns (uint256) {
         uint256 latestRPS = getLatestSnapshot().rewardPerShare;
-        uint256 storedRPS = getLastSnapshotOf(mason).rewardPerShare;
+        uint256 storedRPS = getLastSnapshotOf(mausole).rewardPerShare;
 
-        return balanceOf(mason).mul(latestRPS.sub(storedRPS)).div(1e18).add(masons[mason].rewardEarned);
+        return balanceOf(mausole).mul(latestRPS.sub(storedRPS)).div(1e18).add(mausoles[mausole].rewardEarned);
     }
 
     /* ========== MUTATIVE FUNCTIONS ========== */
 
     function stake(uint256 amount) public override onlyOneBlock updateReward(msg.sender) {
-        require(amount > 0, "Masonry: Cannot stake 0");
+        require(amount > 0, "Mausoleum: Cannot stake 0");
         super.stake(amount);
-        masons[msg.sender].epochTimerStart = treasury.epoch(); // reset timer
+        mausoles[msg.sender].epochTimerStart = treasury.epoch(); // reset timer
         emit Staked(msg.sender, amount);
     }
 
-    function withdraw(uint256 amount) public override onlyOneBlock masonExists updateReward(msg.sender) {
-        require(amount > 0, "Masonry: Cannot withdraw 0");
-        require(masons[msg.sender].epochTimerStart.add(withdrawLockupEpochs) <= treasury.epoch(), "Masonry: still in withdraw lockup");
+    function withdraw(uint256 amount) public override onlyOneBlock mausoleExists updateReward(msg.sender) {
+        require(amount > 0, "Mausoleum: Cannot withdraw 0");
+        require(mausoles[msg.sender].epochTimerStart.add(withdrawLockupEpochs) <= treasury.epoch(), "Mausoleum: still in withdraw lockup");
         claimReward();
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
@@ -219,38 +219,38 @@ contract Masonry is ShareWrapper, ContractGuard {
     }
 
     function claimReward() public updateReward(msg.sender) {
-        uint256 reward = masons[msg.sender].rewardEarned;
+        uint256 reward = mausoles[msg.sender].rewardEarned;
         if (reward > 0) {
-            require(masons[msg.sender].epochTimerStart.add(rewardLockupEpochs) <= treasury.epoch(), "Masonry: still in reward lockup");
-            masons[msg.sender].epochTimerStart = treasury.epoch(); // reset timer
-            masons[msg.sender].rewardEarned = 0;
-            tomb.safeTransfer(msg.sender, reward);
+            require(mausoles[msg.sender].epochTimerStart.add(rewardLockupEpochs) <= treasury.epoch(), "Mausoleum: still in reward lockup");
+            mausoles[msg.sender].epochTimerStart = treasury.epoch(); // reset timer
+            mausoles[msg.sender].rewardEarned = 0;
+            xgrave.safeTransfer(msg.sender, reward);
             emit RewardPaid(msg.sender, reward);
         }
     }
 
     function allocateSeigniorage(uint256 amount) external onlyOneBlock onlyOperator {
-        require(amount > 0, "Masonry: Cannot allocate 0");
-        require(totalSupply() > 0, "Masonry: Cannot allocate when totalSupply is 0");
+        require(amount > 0, "Mausoleum: Cannot allocate 0");
+        require(totalSupply() > 0, "Mausoleum: Cannot allocate when totalSupply is 0");
 
         // Create & add new snapshot
         uint256 prevRPS = getLatestSnapshot().rewardPerShare;
         uint256 nextRPS = prevRPS.add(amount.mul(1e18).div(totalSupply()));
 
-        MasonrySnapshot memory newSnapshot = MasonrySnapshot({
+        MausoleumSnapshot memory newSnapshot = MausoleumSnapshot({
             time: block.number,
             rewardReceived: amount,
             rewardPerShare: nextRPS
         });
-        masonryHistory.push(newSnapshot);
+        mausoleumHistory.push(newSnapshot);
 
-        tomb.safeTransferFrom(msg.sender, address(this), amount);
+        xgrave.safeTransferFrom(msg.sender, address(this), amount);
         emit RewardAdded(msg.sender, amount);
     }
 
     function governanceRecoverUnsupported(IERC20 _token, uint256 _amount, address _to) external onlyOperator {
         // do not allow to drain core tokens
-        require(address(_token) != address(tomb), "tomb");
+        require(address(_token) != address(xgrave), "xgrave");
         require(address(_token) != address(share), "share");
         _token.safeTransfer(_to, _amount);
     }
