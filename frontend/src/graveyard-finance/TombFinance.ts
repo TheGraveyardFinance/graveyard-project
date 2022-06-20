@@ -99,7 +99,7 @@ export class TombFinance {
     const tombRewardPoolSupply = await this.TOMB.balanceOf(TombFtmRewardPool.address);
     const tombRewardPoolSupply2 = await this.TOMB.balanceOf(TombFtmLpTombRewardPool.address);
     const tombRewardPoolSupplyOld = await this.TOMB.balanceOf(TombFtmLpTombRewardPoolOld.address);
-    const tombCirculatingSupply = supply
+    const xgraveCirculatingSupply = supply
       .sub(tombRewardPoolSupply)
       .sub(tombRewardPoolSupply2)
       .sub(tombRewardPoolSupplyOld);
@@ -112,7 +112,7 @@ export class TombFinance {
       tokenInFtm: priceInFTM,
       priceInDollars: priceOfTombInDollars,
       totalSupply: getDisplayBalance(supply, this.TOMB.decimal, 0),
-      circulatingSupply: getDisplayBalance(tombCirculatingSupply, this.TOMB.decimal, 0),
+      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.TOMB.decimal, 0),
     };
   }
 
@@ -202,12 +202,12 @@ export class TombFinance {
 
     const supply = await this.TOMB.totalSupply();
     const tombRewardPoolSupply = await this.TOMB.balanceOf(TombFtmRewardPool.address);
-    const tombCirculatingSupply = supply.sub(tombRewardPoolSupply);
+    const xgraveCirculatingSupply = supply.sub(tombRewardPoolSupply);
     return {
       tokenInFtm: getDisplayBalance(expectedPrice),
       priceInDollars: getDisplayBalance(expectedPrice),
       totalSupply: getDisplayBalance(supply, this.TOMB.decimal, 0),
-      circulatingSupply: getDisplayBalance(tombCirculatingSupply, this.TOMB.decimal, 0),
+      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.TOMB.decimal, 0),
     };
   }
 
@@ -442,7 +442,7 @@ async get2ombStatFake(): Promise<TokenStat> {
   const tombRewardPoolSupply = await TOMB.balanceOf(TwoOmbFtmRewardPool.address);
   const tombRewardPoolSupply2 = await TOMB.balanceOf(TwoOmbFtmLpTombRewardPool.address);
   const tombRewardPoolSupplyOld = await TOMB.balanceOf(TwoOmbFtmLpTombRewardPoolOld.address);
-  const tombCirculatingSupply = supply
+  const xgraveCirculatingSupply = supply
     .sub(tombRewardPoolSupply)
     .sub(tombRewardPoolSupply2)
     .sub(tombRewardPoolSupplyOld);
@@ -454,7 +454,7 @@ async get2ombStatFake(): Promise<TokenStat> {
     tokenInFtm: priceInFTM,
     priceInDollars: priceOfTombInDollars,
     totalSupply: getDisplayBalance(supply, TOMB.decimal, 0),
-    circulatingSupply: getDisplayBalance(tombCirculatingSupply, TOMB.decimal, 0),
+    circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, TOMB.decimal, 0),
   };
 }
 
@@ -465,7 +465,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
   const tombRewardPoolSupply = await TSHARE.balanceOf(TwoOmbFtmRewardPool.address);
   const tombRewardPoolSupply2 = await TSHARE.balanceOf(TwoOmbFtmLpTombRewardPool.address);
   const tombRewardPoolSupplyOld = await TSHARE.balanceOf(TwoOmbFtmLpTombRewardPoolOld.address);
-  const tombCirculatingSupply = supply
+  const xgraveCirculatingSupply = supply
     .sub(tombRewardPoolSupply)
     .sub(tombRewardPoolSupply2)
     .sub(tombRewardPoolSupplyOld);
@@ -477,7 +477,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
     tokenInFtm: priceInFTM,
     priceInDollars: priceOfTombInDollars,
     totalSupply: getDisplayBalance(supply, TSHARE.decimal, 0),
-    circulatingSupply: getDisplayBalance(tombCirculatingSupply, TSHARE.decimal, 0),
+    circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, TSHARE.decimal, 0),
   };
 }
 

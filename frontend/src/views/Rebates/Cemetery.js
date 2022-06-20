@@ -52,7 +52,7 @@ const Cemetery = () => {
 
   console.log(cashStat)
 
-  const tombPriceInFTM = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const xgravePriceInCoUSD = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
 
   const rebateStats = useRebateTreasury()
   console.log(rebateStats)
@@ -109,7 +109,7 @@ const Cemetery = () => {
                         <Typography variant="h5">
                           xGRAVE Price <small>(TWAP)</small>
                         </Typography>
-                        <Typography variant="h6">{tombPriceInFTM ? tombPriceInFTM : '-.----'} FTM</Typography>
+                        <Typography variant="h6">{xgravePriceInCoUSD ? xgravePriceInCoUSD : '-.----'} FTM</Typography>
                       </CardContent>
                     </Card>
                   </Grid>

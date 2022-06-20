@@ -39,7 +39,7 @@ const ProvideLiquidity = () => {
   const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
 
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
-  const tombPriceInFTM = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
+  const xgravePriceInCoUSD = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
   const cousdPriceInTOMB = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
   // const classes = useStyles();
 
@@ -114,7 +114,7 @@ const ProvideLiquidity = () => {
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 TOMB = {tombPriceInFTM} FTM</p>
+                        <p>1 TOMB = {xgravePriceInCoUSD} FTM</p>
                         <p>1 FTM = {cousdPriceInTOMB} TOMB</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>

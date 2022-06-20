@@ -70,18 +70,18 @@ const Home = () => {
     xShare = xShareProd;
   }
 
-  const buyTombAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
+  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + tomb.address;
+  const buyXShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
-  const tombPriceInDollars = useMemo(
+  const xgravePriceInDollars = useMemo(
     () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
     [xgraveStats],
   );
-  const tombPriceInFTM = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
-  const tombCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
-  const tombTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
+  const xgravePriceInCoUSD = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const xgraveCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
+  const xgraveTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
 
   const xSharePriceInDollars = useMemo(
     () => (xShareStats ? Number(xShareStats.priceInDollars).toFixed(2) : null),
@@ -97,16 +97,16 @@ const Home = () => {
   );
   const xShareTotalSupply = useMemo(() => (xShareStats ? String(xShareStats.totalSupply) : null), [xShareStats]);
 
-  const tBondPriceInDollars = useMemo(
+  const xBondPriceInDollars = useMemo(
     () => (xBondStats ? Number(xBondStats.priceInDollars).toFixed(2) : null),
     [xBondStats],
   );
-  const tBondPriceInFTM = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
-  const tBondCirculatingSupply = useMemo(
+  const xBondPriceInCoUSD = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
+  const xBondCirculatingSupply = useMemo(
     () => (xBondStats ? String(xBondStats.circulatingSupply) : null),
     [xBondStats],
   );
-  const tBondTotalSupply = useMemo(() => (xBondStats ? String(xBondStats.totalSupply) : null), [xBondStats]);
+  const xBondTotalSupply = useMemo(() => (xBondStats ? String(xBondStats.totalSupply) : null), [xBondStats]);
 
   const xgraveLpZap = useZap({ depositTokenName: 'XGRAVE-COUSD-LP' });
   const xshareLpZap = useZap({ depositTokenName: 'XSHARE-COUSD-LP' });
@@ -278,17 +278,17 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tombPriceInFTM ? tombPriceInFTM : '-.----'} CoUSD</span>
+                <span style={{ fontSize: '30px' }}>{xgravePriceInCoUSD ? xgravePriceInCoUSD : '-.----'} CoUSD</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${tombPriceInDollars ? tombPriceInDollars : '-.--'}
+                  ${xgravePriceInDollars ? xgravePriceInDollars : '-.--'}
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tombCirculatingSupply * tombPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tombCirculatingSupply} <br />
-                Total Supply: {tombTotalSupply}
+                Market Cap: ${(xgraveCirculatingSupply * xgravePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {xgraveCirculatingSupply} <br />
+                Total Supply: {xgraveTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -354,15 +354,15 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{tBondPriceInFTM ? tBondPriceInFTM : '-.----'} CoUSD</span>
+                <span style={{ fontSize: '30px' }}>{xBondPriceInCoUSD ? xBondPriceInCoUSD : '-.----'} CoUSD</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${tBondPriceInDollars ? tBondPriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${xBondPriceInDollars ? xBondPriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(tBondCirculatingSupply * tBondPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {tBondCirculatingSupply} <br />
-                Total Supply: {tBondTotalSupply}
+                Market Cap: ${(xBondCirculatingSupply * xBondPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {xBondCirculatingSupply} <br />
+                Total Supply: {xBondTotalSupply}
               </span>
             </CardContent>
           </Card>
