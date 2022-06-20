@@ -11,6 +11,7 @@ import tombFtmLpLogo from '../../assets/img/tomb_ftm_lp.png';
 import tshareFtmLpLogo from '../../assets/img/tshare_ftm_lp.png';
 
 import wftmLogo from '../../assets/img/fantom-ftm-logo.png';
+import cousdLogo from '../../assets/img/cousd-logo.png';
 import booLogo from '../../assets/img/spooky.png';
 import belugaLogo from '../../assets/img/BELUGA.png';
 import twoshareLogo from '../../assets/img/t_2SHARE-01.png';
@@ -55,6 +56,7 @@ const logosBySymbol: { [title: string]: string } = {
 
 
   'wFTM': wftmLogo,
+  'CoUSD': cousdLogo,
   '2OMB': twoombLogo,
   '2SHARES': twoshareLogo,
   'TOMB-FTM-LP': tombFtmLpLogo,
