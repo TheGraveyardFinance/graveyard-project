@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { BigNumber } from 'ethers';
 import useGraveyardFinance from './useGraveyardFinance';
-import { ContractName } from '../tomb-finance';
+import { ContractName } from '../graveyard-finance';
 import config from '../config';
 
 const useStakedBalance = (poolName: ContractName, poolId: Number) => {

@@ -2,7 +2,7 @@ import { BigNumber, ethers } from 'ethers';
 import { useCallback, useMemo } from 'react';
 import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
-import ERC20 from '../tomb-finance/ERC20';
+import ERC20 from '../graveyard-finance/ERC20';
 import { FTM_TICKER, TOMB_TICKER, TSHARE_TICKER, ZAPPER_ROUTER_ADDR } from '../utils/constants';
 import useGraveyardFinance from './useGraveyardFinance';
 

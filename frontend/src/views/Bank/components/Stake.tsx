@@ -28,7 +28,7 @@ import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
 import ZapModal from './ZapModal';
 import TokenSymbol from '../../../components/TokenSymbol';
-import { Bank } from '../../../tomb-finance';
+import { Bank } from '../../../graveyard-finance';
 
 interface StakeProps {
   bank: Bank;

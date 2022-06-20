@@ -1,7 +1,7 @@
 // import { ChainId } from '@pancakeswap-libs/sdk';
 import { ChainId } from '@spookyswap/sdk';
-import { Configuration } from './tomb-finance/config';
-import { BankInfo } from './tomb-finance';
+import { Configuration } from './graveyard-finance/config';
+import { BankInfo } from './graveyard-finance';
 
 const configurations: { [env: string]: Configuration } = {
   production: {
@@ -9,7 +9,7 @@ const configurations: { [env: string]: Configuration } = {
     networkName: 'Fantom Opera Mainnet',
     ftmscanUrl: 'https://ftmscan.com',
     defaultProvider: 'https://rpc.ftm.tools/',
-    deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
+    deployments: require('./graveyard-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
       WFTM: ['0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', 18],
       USDC: ['0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', 6],

@@ -15,7 +15,7 @@ import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
 import useRedeem from '../../hooks/useRedeem';
-import { Bank as BankEntity } from '../../tomb-finance';
+import { Bank as BankEntity } from '../../graveyard-finance';
 import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 const useStyles = makeStyles((theme) => ({
   gridItem: {

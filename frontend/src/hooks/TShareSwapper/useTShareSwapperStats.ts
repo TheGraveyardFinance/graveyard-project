@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useGraveyardFinance from '../useGraveyardFinance';
-import { TShareSwapperStat } from '../../tomb-finance/types';
+import { TShareSwapperStat } from '../../graveyard-finance/types';
 import useRefresh from '../useRefresh';
 
 const useTShareSwapperStats = (account: string) => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
-import { AllocationTime } from '../tomb-finance/types';
+import { AllocationTime } from '../graveyard-finance/types';
 import useRefresh from './useRefresh';
 
 

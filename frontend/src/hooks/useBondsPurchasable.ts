@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
-import ERC20 from '../tomb-finance/ERC20';
+import ERC20 from '../graveyard-finance/ERC20';
 import useGraveyardFinance from './useGraveyardFinance';
 import config from '../config';
 

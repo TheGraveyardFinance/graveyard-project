@@ -17,8 +17,8 @@ import useBondStats from '../../hooks/useBondStats';
 import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useCousdPrice from '../../hooks/useCousdPrice';
-import { tomb as xgraveTesting, tShare as xShareTesting } from '../../tomb-finance/deployments/deployments.testing.json';
-import { tomb as xgraveProd, tShare as xShareProd } from '../../tomb-finance/deployments/deployments.mainnet.json';
+import { tomb as xgraveTesting, tShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
+import { tomb as xgraveProd, tShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
 
 import useTotalTreasuryBalance from '../../hooks/useTotalTreasuryBalance.js';
 

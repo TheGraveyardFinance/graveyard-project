@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
-import { Bank } from '../tomb-finance';
+import { Bank } from '../graveyard-finance';
 
 const useHarvest = (bank: Bank) => {
   const graveyardFinance = useGraveyardFinance();

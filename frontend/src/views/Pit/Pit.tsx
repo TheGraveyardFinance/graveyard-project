@@ -17,7 +17,7 @@ import ExchangeStat from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import { getDisplayBalance } from '../../utils/formatBalance';
-import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../tomb-finance/constants';
+import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../graveyard-finance/constants';
 import { Typography } from '@material-ui/core';
 
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
-import { TokenStat } from '../tomb-finance/types';
+import { TokenStat } from '../graveyard-finance/types';
 import useRefresh from './useRefresh';
 
 const useBondStats = () => {

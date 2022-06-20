@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Web3 from "web3"
-import { web3ProviderFrom } from "../tomb-finance/ether-utils"
+import { web3ProviderFrom } from "../graveyard-finance/ether-utils"
 import { getBalance } from "../utils/formatBalance"
 import axios from 'axios'
 

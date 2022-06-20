@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
-import { Bank } from '../tomb-finance';
-import { PoolStats } from '../tomb-finance/types';
+import { Bank } from '../graveyard-finance';
+import { PoolStats } from '../graveyard-finance/types';
 import config from '../config';
 
 const useStatsForPool = (bank: Bank) => {

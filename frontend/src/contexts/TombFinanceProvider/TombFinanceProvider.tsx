@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useWallet } from 'use-wallet';
-import TombFinance from '../../tomb-finance';
+import TombFinance from '../../graveyard-finance';
 import config from '../../config';
 
 export interface TombFinanceContext {

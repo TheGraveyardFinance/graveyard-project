@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useGraveyardFinance from './../useGraveyardFinance';
-import { AllocationTime } from '../../tomb-finance/types';
+import { AllocationTime } from '../../graveyard-finance/types';
 
 const useUnstakeTimerMasonry = () => {
   const [time, setTime] = useState<AllocationTime>({

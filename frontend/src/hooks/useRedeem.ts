@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
-import { Bank } from '../tomb-finance';
+import { Bank } from '../graveyard-finance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
 const useRedeem = (bank: Bank) => {
