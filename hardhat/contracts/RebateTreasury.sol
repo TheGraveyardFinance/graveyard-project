@@ -125,9 +125,9 @@ contract RebateTreasury is Ownable {
 
     // Initialize parameters
 
-    constructor(address tomb, address tombOracle, address treasury) {
-        Tomb = IERC20(tomb);
-        TombOracle = IOracle(tombOracle);
+    constructor(address xgrave, address xgraveOracle, address treasury) {
+        Tomb = IERC20(xgrave);
+        TombOracle = IOracle(xgraveOracle);
         Treasury = ITreasury(treasury);
     }
     
@@ -135,19 +135,19 @@ contract RebateTreasury is Ownable {
 
     function bond(address token, uint256 amount) external onlyAsset(token) {
         require(amount > 0, "RebateTreasury: invalid bond amount");
-        uint256 tombAmount = getTombReturn(token, amount);
-        require(tombAmount <= Tomb.balanceOf(address(this)) - totalVested, "RebateTreasury: insufficient tomb balance");
+        uint256 xgraveAmount = getTombReturn(token, amount);
+        require(xgraveAmount <= Tomb.balanceOf(address(this)) - totalVested, "RebateTreasury: insufficient xgrave balance");
 
         IERC20(token).transferFrom(msg.sender, address(this), amount);
         _claimVested(msg.sender);
 
         VestingSchedule storage schedule = vesting[msg.sender];
-        schedule.amount = schedule.amount - schedule.claimed + tombAmount;
+        schedule.amount = schedule.amount - schedule.claimed + xgraveAmount;
         schedule.period = bondVesting;
         schedule.end = block.timestamp + bondVesting;
         schedule.claimed = 0;
         schedule.lastClaimed = block.timestamp;
-        totalVested += tombAmount;
+        totalVested += xgraveAmount;
     }
 
     // Claim available Tomb rewards from bonding
@@ -164,8 +164,8 @@ contract RebateTreasury is Ownable {
     
     // Set Tomb token
 
-    function setTomb(address tomb) external onlyOwner {
-        Tomb = IERC20(tomb);
+    function setTomb(address xgrave) external onlyOwner {
+        Tomb = IERC20(xgrave);
     }
 
     // Set Tomb oracle
@@ -258,25 +258,25 @@ contract RebateTreasury is Ownable {
     // Calculate Tomb return of bonding amount of token
 
     function getTombReturn(address token, uint256 amount) public view onlyAsset(token) returns (uint256) {
-        uint256 tombPrice = getTombPrice();
+        uint256 xgravePrice = getTombPrice();
         uint256 tokenPrice = getTokenPrice(token);
         uint256 bondPremium = getBondPremium();
-        return amount * tokenPrice * (bondPremium + DENOMINATOR) * assets[token].multiplier / (DENOMINATOR * DENOMINATOR) / tombPrice;
+        return amount * tokenPrice * (bondPremium + DENOMINATOR) * assets[token].multiplier / (DENOMINATOR * DENOMINATOR) / xgravePrice;
     }
 
     // Calculate premium for bonds based on bonding curve
 
     function getBondPremium() public view returns (uint256) {
-        uint256 tombPrice = getTombPrice();
-        if (tombPrice < 1e18) return 0;
+        uint256 xgravePrice = getTombPrice();
+        if (xgravePrice < 1e18) return 0;
 
-        uint256 tombPremium = tombPrice * DENOMINATOR / 1e18 - DENOMINATOR;
-        if (tombPremium < bondThreshold) return 0;
-        if (tombPremium <= secondaryThreshold) {
-            return (tombPremium - bondThreshold) * bondFactor / DENOMINATOR;
+        uint256 xgravePremium = xgravePrice * DENOMINATOR / 1e18 - DENOMINATOR;
+        if (xgravePremium < bondThreshold) return 0;
+        if (xgravePremium <= secondaryThreshold) {
+            return (xgravePremium - bondThreshold) * bondFactor / DENOMINATOR;
         } else {
             uint256 primaryPremium = (secondaryThreshold - bondThreshold) * bondFactor / DENOMINATOR;
-            return primaryPremium + (tombPremium - secondaryThreshold) * secondaryFactor / DENOMINATOR;
+            return primaryPremium + (xgravePremium - secondaryThreshold) * secondaryFactor / DENOMINATOR;
         }
     }
 
