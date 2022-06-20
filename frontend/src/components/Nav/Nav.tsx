@@ -103,7 +103,7 @@ const Nav = () => {
             <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
               {/* <a className={ classes.brandLink } href="/">2omb Finance</a> */}
               <Link to="/" color="inherit" className={classes.brandLink}>
-                3omb Finance
+                Graveyard Finance
               </Link>
             </Typography>
             <Box mr={5}>
@@ -111,17 +111,17 @@ const Nav = () => {
                 Home
               </Link>
               <Link color="textPrimary" to="/farms" className={classes.link}>
-                3Farms
+                Farms
               </Link>
               <Link color="textPrimary" to="/boardroom" className={classes.link}>
-                3Room
+                Mausoleum
               </Link>
               <Link color="textPrimary" to="/bonds" className={classes.link}>
-                3Bonds
+                Bonds
               </Link>
-              <Link color="textPrimary" to="/rebates" className={classes.link}>
+              {/* <Link color="textPrimary" to="/rebates" className={classes.link}>
                 3DAO
-              </Link>
+              </Link> */}
               <Link color="textPrimary" to="/treasury" className={classes.link}>
                 Treasury
               </Link>
@@ -140,18 +140,18 @@ const Nav = () => {
               <Link color="textPrimary" to="/regulations" className={classes.link}>
                 Regulations
               </Link> */}
-              <a href="https://www.devilfinance.io" target="_blank" className={classes.link}>
+              {/* <a href="https://www.devilfinance.io" target="_blank" className={classes.link}>
                 Vaults
-              </a>
-              <a href="https://snapshot.org/#/forgiving.forg.eth" target="_blank" className={classes.link}>
+              </a> */}
+              {/* <a href="https://snapshot.org/#/forgiving.forg.eth" target="_blank" className={classes.link}>
                 Governance
-              </a>
-              <a href="https://gedeon-crypto.gitbook.io/3omb.finance/" target="_blank" className={classes.link}>
+              </a> */}
+              <a href="https://graveyard.gitbook.io/" target="_blank" className={classes.link}>
                 Docs
               </a>
-              <a href="https://2omb.finance" target="_blank" className={classes.link}>
+              {/* <a href="https://2omb.finance" target="_blank" className={classes.link}>
                 2omb
-              </a>
+              </a> */}
             </Box>
             <AccountButton text="Connect" />
           </>
@@ -167,7 +167,7 @@ const Nav = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              3omb Finance
+              Graveyard Finance
             </Typography>
 
             <Drawer
@@ -189,9 +189,9 @@ const Nav = () => {
               <Divider />
               <List>
                 <ListItemLink primary="Home" to="/" />
-                <ListItemLink primary="3Farms" to="/farms" />
-                <ListItemLink primary="3Room" to="/boardroom" />
-                <ListItemLink primary="3Bonds" to="/bonds" />
+                <ListItemLink primary="Farms" to="/farms" />
+                <ListItemLink primary="Mausoleum" to="/boardroom" />
+                <ListItemLink primary="Bonds" to="/bonds" />
                 <ListItemLink primary="3DAO" to="/rebates" />
                 <ListItemLink primary="Treasury" to="/treasury" />
                 {/* <ListItemLink primary="Masonry" to="/masonry" />
@@ -199,18 +199,18 @@ const Nav = () => {
                 <ListItemLink primary="SBS" to="/sbs" />
                 <ListItemLink primary="Liquidity" to="/liquidity" />
                 <ListItemLink primary="Regulations" to="/regulations" /> */}
-                <ListItem button component="a" href="https://beluga.fi">
+                {/* <ListItem button component="a" href="https://beluga.fi">
                   <ListItemText>Vaults</ListItemText>
-                </ListItem>
-                <ListItem button component="a" href="https://snapshot.org/#/forgiving.forg.eth">
+                </ListItem> */}
+                {/* <ListItem button component="a" href="https://snapshot.org/#/forgiving.forg.eth">
                   <ListItemText>Governance</ListItemText>
-                </ListItem>
-                <ListItem button component="a" href="https://gedeon-crypto.gitbook.io/3omb.finance/">
+                </ListItem> */}
+                <ListItem button component="a" href="https://graveyard.gitbook.io/">
                   <ListItemText>Docs</ListItemText>
                 </ListItem>
-                <ListItem button component="a" href="https://2omb.finance">
+                {/* <ListItem button component="a" href="https://2omb.finance">
                   <ListItemText>2omb</ListItemText>
-                </ListItem>
+                </ListItem> */}
                 <ListItem style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <AccountButton text="Connect" onOpen={handleDrawerClose} />
                 </ListItem>

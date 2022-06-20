@@ -44,13 +44,13 @@ const Footer = () => {
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="body2" color="textPrimary" align="left">
-              {'Copyright © 3omb Finance '}
+              {'Copyright © Graveyard Finance '}
               {new Date().getFullYear()}
             </Typography>
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right' }}>
             <a
-              href="https://twitter.com/_2omb"
+              href="https://twitter.com/GraveyardFi"
               rel="noopener noreferrer"
               target="_blank"
               className={classes.link}
@@ -58,25 +58,25 @@ const Footer = () => {
               <img alt="twitter" src={TwitterImage} className={classes.img} />
             </a>
             <a
-              href="https://github.com/2omb"
+              href="https://github.com/TheGraveyardFinance"
               rel="noopener noreferrer"
               target="_blank"
               className={classes.link}
             >
               <img alt="github" src={GithubImage} className={classes.img} />
             </a>
-            <a href="https://bit.ly/3AUcaBI" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href=" http://t.me/graveyardfi" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img alt="telegram" src={TelegramImage} className={classes.img} />
             </a>
-            <a
+            {/* <a
               href="https://www.youtube.com/results?search_query=2omb+finance"
               rel="noopener noreferrer"
               target="_blank"
               className={classes.link}
             >
               <img alt="youtube" src={YoutubeImage} className={classes.img} />
-            </a>
-            <a href="https://discord.gg/2omb" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            </a> */}
+            <a href=" http://discord.gg/8Nmtk8dbra" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img alt="discord" src={DiscordImage} className={classes.img} />
             </a>
           </Grid>

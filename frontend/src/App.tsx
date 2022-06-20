@@ -95,8 +95,8 @@ const Providers: React.FC = ({ children }) => {
             walletconnect: { rpcUrl: config.defaultProvider },
             walletlink: {
               url: config.defaultProvider,
-              appName: '3omb Finance',
-              appLogoUrl: 'https://github.com/2omb/3omb-frontend/blob/8ab3b1f5ecc7d5dad5b856f160d6e7afb8357560/src/assets/img/2OMB-2SHARES.png',
+              appName: 'Graveyard Finance',
+              appLogoUrl: 'https://github.com/2omb/xGRAVE-frontend/blob/8ab3b1f5ecc7d5dad5b856f160d6e7afb8357560/src/assets/img/2OMB-2SHARES.png',
             },
           }}
         >
