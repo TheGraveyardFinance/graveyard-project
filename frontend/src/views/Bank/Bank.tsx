@@ -100,7 +100,7 @@ const Bank: React.FC = () => {
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const graveyardFinance = useGraveyardFinance();
-  const tombAddr = graveyardFinance.TOMB.address;
+  const tombAddr = graveyardFinance.XGRAVE.address;
   const tshareAddr = graveyardFinance.XSHARE.address;
 
   let pairName: string;

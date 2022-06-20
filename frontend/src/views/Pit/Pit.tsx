@@ -49,7 +49,7 @@ const Pit: React.FC = () => {
     async (amount: string) => {
       const tx = await graveyardFinance.buyBonds(amount);
       addTransaction(tx, {
-        summary: `Buy ${Number(amount).toFixed(2)} XBOND with ${amount} TOMB`,
+        summary: `Buy ${Number(amount).toFixed(2)} XBOND with ${amount} XGRAVE`,
       });
     },
     [graveyardFinance, addTransaction],
@@ -81,7 +81,7 @@ const Pit: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Purchase"
-                  fromToken={graveyardFinance.TOMB}
+                  fromToken={graveyardFinance.XGRAVE}
                   fromTokenName="xGRAVE"
                   toToken={graveyardFinance.XBOND}
                   toTokenName="xBOND"
@@ -112,7 +112,7 @@ const Pit: React.FC = () => {
                   action="Redeem"
                   fromToken={graveyardFinance.XBOND}
                   fromTokenName="xBOND"
-                  toToken={graveyardFinance.TOMB}
+                  toToken={graveyardFinance.XGRAVE}
                   toTokenName="xGRAVE"
                   priceDesc={`${getDisplayBalance(bondBalance)} xBOND Available in wallet`}
                   onExchange={handleRedeemBonds}

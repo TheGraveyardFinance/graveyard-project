@@ -47,7 +47,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   poolId: the poolId assigned in the contract
   sectionInUI: way to distinguish in which of the 3 pool groups it should be listed
         - 0 = Single asset stake pools
-        - 1 = LP asset staking rewarding TOMB
+        - 1 = LP asset staking rewarding XGRAVE
         - 2 = LP asset staking rewarding XSHARE
   contract: the contract name which will be loaded from the deployment.environmnet.json
   depositTokenName : the name of the token to be deposited
@@ -196,12 +196,12 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: true,
   },
   TombFtmLPTombRewardPool: {
-    name: 'Earn TOMB by TOMB-FTM LP',
+    name: 'Earn XGRAVE by XGRAVE-FTM LP',
     poolId: 0,
     sectionInUI: 1,
     contract: 'TombFtmLpTombRewardPool',
     depositTokenName: 'XGRAVE-COUSD-LP',
-    earnTokenName: 'TOMB',
+    earnTokenName: 'XGRAVE',
     finished: false,
     multiplier: '0',
     buyLink: '',
@@ -210,12 +210,12 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: true,
   },
   TombFtmLPTombRewardPoolOld: {
-    name: 'Earn TOMB by TOMB-FTM LP',
+    name: 'Earn XGRAVE by XGRAVE-FTM LP',
     poolId: 0,
     sectionInUI: 1,
     contract: 'TombFtmLpTombRewardPoolOld',
     depositTokenName: 'XGRAVE-COUSD-LP',
-    earnTokenName: 'TOMB',
+    earnTokenName: 'XGRAVE',
     finished: true,
     multiplier: '0',
     buyLink: '',

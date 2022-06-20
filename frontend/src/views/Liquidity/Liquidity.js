@@ -33,14 +33,14 @@ const ProvideLiquidity = () => {
   const xgraveStats = useXgraveStats();
   const graveyardFinance = useGraveyardFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
-  const tombBalance = useTokenBalance(graveyardFinance.TOMB);
+  const tombBalance = useTokenBalance(graveyardFinance.XGRAVE);
   const ftmBalance = (balance / 1e18).toFixed(4);
   const { onProvideTombFtmLP } = useProvideTombFtmLP();
   const xgraveCousdLpStats = useLpStats('XGRAVE-COUSD-LP');
 
   const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const xgravePriceInCoUSD = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
-  const cousdPriceInTOMB = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
+  const cousdPriceInXGRAVE = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
   // const classes = useStyles();
 
   const handleTombChange = async (e) => {
@@ -49,7 +49,7 @@ const ProvideLiquidity = () => {
     }
     if (!isNumeric(e.currentTarget.value)) return;
     setTombAmount(e.currentTarget.value);
-    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'TOMB');
+    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'XGRAVE');
     setFtmAmount(quoteFromSpooky);
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
   };
@@ -66,7 +66,7 @@ const ProvideLiquidity = () => {
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.tokenAmount);
   };
   const handleTombSelectMax = async () => {
-    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(tombBalance), 'TOMB');
+    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(tombBalance), 'XGRAVE');
     setTombAmount(getDisplayBalance(tombBalance));
     setFtmAmount(quoteFromSpooky);
     setLpTokensAmount(quoteFromSpooky / xgraveLPStats.cousdAmount);
@@ -87,7 +87,7 @@ const ProvideLiquidity = () => {
       <Grid container justify="center">
         <Box style={{ width: '600px' }}>
           <Alert variant="filled" severity="warning" style={{ marginBottom: '10px' }}>
-            <b>This and <a href="https://spookyswap.finance/"  rel="noopener noreferrer" target="_blank">Spookyswap</a> are the only ways to provide Liquidity on TOMB-FTM pair without paying tax.</b>
+            <b>This and <a href="https://spookyswap.finance/"  rel="noopener noreferrer" target="_blank">Spookyswap</a> are the only ways to provide Liquidity on XGRAVE-FTM pair without paying tax.</b>
           </Alert>
           <Grid item xs={12} sm={12}>
             <Paper>
@@ -101,7 +101,7 @@ const ProvideLiquidity = () => {
                           onChange={handleTombChange}
                           value={tombAmount}
                           max={getDisplayBalance(tombBalance)}
-                          symbol={'TOMB'}
+                          symbol={'XGRAVE'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
@@ -114,8 +114,8 @@ const ProvideLiquidity = () => {
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 TOMB = {xgravePriceInCoUSD} FTM</p>
-                        <p>1 FTM = {cousdPriceInTOMB} TOMB</p>
+                        <p>1 XGRAVE = {xgravePriceInCoUSD} FTM</p>
+                        <p>1 FTM = {cousdPriceInXGRAVE} XGRAVE</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
                       <Grid xs={12} justifyContent="center" style={{ textAlign: 'center' }}>

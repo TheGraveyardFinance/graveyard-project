@@ -1,4 +1,4 @@
-export const TOMB_TICKER = 'TOMB';
+export const XGRAVE_TICKER = 'XGRAVE';
 export const XSHARE_TICKER = 'XSHARE';
 export const XBOND_TICKER = 'XBOND';
 export const FTM_TICKER = 'FTM';

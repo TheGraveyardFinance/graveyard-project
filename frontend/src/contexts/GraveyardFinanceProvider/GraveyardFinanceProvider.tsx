@@ -1,26 +1,26 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useWallet } from 'use-wallet';
-import TombFinance from '../../graveyard-finance';
+import GraveyardFinance from '../../graveyard-finance';
 import config from '../../config';
 
-export interface TombFinanceContext {
-  graveyardFinance?: TombFinance;
+export interface GraveyardFinanceContext {
+  graveyardFinance?: GraveyardFinance;
 }
 
-export const Context = createContext<TombFinanceContext>({ graveyardFinance: null });
+export const Context = createContext<GraveyardFinanceContext>({ graveyardFinance: null });
 
 export const GraveyardFinanceProvider: React.FC = ({ children }) => {
   const { ethereum, account } = useWallet();
-  const [graveyardFinance, setTombFinance] = useState<TombFinance>();
+  const [graveyardFinance, setGraveyardFinance] = useState<GraveyardFinance>();
 
   useEffect(() => {
     if (!graveyardFinance) {
-      const tomb = new TombFinance(config);
+      const tomb = new GraveyardFinance(config);
       if (account) {
         // wallet was unlocked at initialization
         tomb.unlockWallet(ethereum, account);
       }
-      setTombFinance(tomb);
+      setGraveyardFinance(tomb);
     } else if (account) {
       graveyardFinance.unlockWallet(ethereum, account);
     }

@@ -33,8 +33,8 @@ import ThreesharesLPLogo from '../../assets/img/xSHARES-WFTM.png';
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
   //=====================
-  TOMB: tombLogo,
-  TOMBPNG: tombLogoPNG,
+  XGRAVE: tombLogo,
+  XGRAVEPNG: tombLogoPNG,
   XSHAREPNG: xShareLogoPNG,
   XSHARE: xShareLogo,
   XBOND: tBondLogo,
@@ -70,7 +70,7 @@ type LogoProps = {
 
 const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64 }) => {
   if (!logosBySymbol[symbol]) {
-    return <img src={logosBySymbol['TOMB']} alt={`${symbol} Logo`} width={size} height={size} />
+    return <img src={logosBySymbol['XGRAVE']} alt={`${symbol} Logo`} width={size} height={size} />
     // throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
   return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={size} />;
