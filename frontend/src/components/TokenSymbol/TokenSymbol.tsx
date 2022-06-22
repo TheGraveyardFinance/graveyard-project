@@ -28,7 +28,7 @@ import TwoombTwosharesLPLogo from '../../assets/img/2OMB-2SHARES.png';
 import UsdcLogo from '../../assets/img/USDC.png';
 
 import ThreeombLPLogo from '../../assets/img/GRAVE-USDC.png';
-import ThreesharesLPLogo from '../../assets/img/XSHARES-USDC.png';
+import ThreesharesLPLogo from '../../assets/img/xSHARES-USDC.png';
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
