@@ -12,8 +12,8 @@ import TokenSymbol from '../TokenSymbol';
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const graveyardFinance = useGraveyardFinance();
 
-  const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
-  const displayXgraveBalance = useMemo(() => getDisplayBalance(xgraveBalance), [xgraveBalance]);
+  const graveBalance = useTokenBalance(graveyardFinance.XGRAVE);
+  const displayXgraveBalance = useMemo(() => getDisplayBalance(graveBalance), [graveBalance]);
 
   const xshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const displayXshareBalance = useMemo(() => getDisplayBalance(xshareBalance), [xshareBalance]);
@@ -30,7 +30,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <TokenSymbol symbol="XGRAVE" />
           <StyledBalance>
             <StyledValue>{displayXgraveBalance}</StyledValue>
-            <Label text="xGRAVE Available" variant="primary" />
+            <Label text="GRAVE Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
@@ -46,7 +46,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <TokenSymbol symbol="XBOND" />
           <StyledBalance>
             <StyledValue>{displayXbondBalance}</StyledValue>
-            <Label text="xBOND Available" variant="primary" />
+            <Label text="XBOND Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>
       </Balances>

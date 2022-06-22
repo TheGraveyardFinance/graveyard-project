@@ -1,13 +1,13 @@
 import React from 'react';
 
 //Graveyard ecosystem logos
-import xgraveLogo from '../../assets/img/xGRAVE.svg';
-import xShareLogo from '../../assets/img/xSHARES.svg';
-import xgraveLogoPNG from '../../assets/img/xGRAVE.png';
-import xShareLogoPNG from '../../assets/img/xSHARES.png';
-import xBondLogo from '../../assets/img/xBOND-01.png';
+import graveLogo from '../../assets/img/GRAVE.svg';
+import xShareLogo from '../../assets/img/XSHARES.svg';
+import graveLogoPNG from '../../assets/img/GRAVE.png';
+import xShareLogoPNG from '../../assets/img/XSHARES.png';
+import xBondLogo from '../../assets/img/XBOND-01.png';
 
-import xgraveFtmLpLogo from '../../assets/img/xgrave_usdc_lp.png';
+import graveFtmLpLogo from '../../assets/img/grave_usdc_lp.png';
 import xshareFtmLpLogo from '../../assets/img/Xshare_usdc_lp.png';
 
 import wftmLogo from '../../assets/img/fantom-ftm-logo.png';
@@ -27,14 +27,14 @@ import TwoombTwosharesLPLogo from '../../assets/img/2OMB-2SHARES.png';
 
 import UsdcLogo from '../../assets/img/USDC.png';
 
-import ThreeombLPLogo from '../../assets/img/xGRAVE-USDC.png';
-import ThreesharesLPLogo from '../../assets/img/xSHARES-USDC.png';
+import ThreeombLPLogo from '../../assets/img/GRAVE-USDC.png';
+import ThreesharesLPLogo from '../../assets/img/XSHARES-USDC.png';
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
   //=====================
-  XGRAVE: xgraveLogo,
-  XGRAVEPNG: xgraveLogoPNG,
+  XGRAVE: graveLogo,
+  XGRAVEPNG: graveLogoPNG,
   XSHAREPNG: xShareLogoPNG,
   XSHARE: xShareLogo,
   XBOND: xBondLogo,
@@ -50,14 +50,14 @@ const logosBySymbol: { [title: string]: string } = {
   '2SHARES-USDC LP': TwosharesLPLogo,
   '2OMB-2SHARES LP': TwoombTwosharesLPLogo,
 
-  'xGRAVE-USDC LP': ThreeombLPLogo,
-  'xSHARES-USDC LP': ThreesharesLPLogo,
+  'GRAVE-USDC LP': ThreeombLPLogo,
+  'XSHARES-USDC LP': ThreesharesLPLogo,
 
 
   'wFTM': wftmLogo,
   '2OMB': twoombLogo,
   '2SHARES': twoshareLogo,
-  'XGRAVE-USDC-LP': xgraveFtmLpLogo,
+  'XGRAVE-USDC-LP': graveFtmLpLogo,
   'XSHARE-USDC-LP': xshareFtmLpLogo,
 };
 

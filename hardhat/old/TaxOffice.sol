@@ -9,54 +9,54 @@ import "./interfaces/ITaxable.sol";
     https://graveyard.fi/
 */
 contract TaxOffice is Operator {
-    address public xgrave;
+    address public grave;
 
-    constructor(address _xgrave) public {
-        require(_xgrave != address(0), "xgrave address cannot be 0");
-        xgrave = _xgrave;
+    constructor(address _grave) public {
+        require(_grave != address(0), "grave address cannot be 0");
+        grave = _grave;
     }
 
     function setTaxTiersTwap(uint8 _index, uint256 _value) public onlyOperator returns (bool) {
-        return ITaxable(xgrave).setTaxTiersTwap(_index, _value);
+        return ITaxable(grave).setTaxTiersTwap(_index, _value);
     }
 
     function setTaxTiersRate(uint8 _index, uint256 _value) public onlyOperator returns (bool) {
-        return ITaxable(xgrave).setTaxTiersRate(_index, _value);
+        return ITaxable(grave).setTaxTiersRate(_index, _value);
     }
 
     function enableAutoCalculateTax() public onlyOperator {
-        ITaxable(xgrave).enableAutoCalculateTax();
+        ITaxable(grave).enableAutoCalculateTax();
     }
 
     function disableAutoCalculateTax() public onlyOperator {
-        ITaxable(xgrave).disableAutoCalculateTax();
+        ITaxable(grave).disableAutoCalculateTax();
     }
 
     function setTaxRate(uint256 _taxRate) public onlyOperator {
-        ITaxable(xgrave).setTaxRate(_taxRate);
+        ITaxable(grave).setTaxRate(_taxRate);
     }
 
     function setBurnThreshold(uint256 _burnThreshold) public onlyOperator {
-        ITaxable(xgrave).setBurnThreshold(_burnThreshold);
+        ITaxable(grave).setBurnThreshold(_burnThreshold);
     }
 
     function setTaxCollectorAddress(address _taxCollectorAddress) public onlyOperator {
-        ITaxable(xgrave).setTaxCollectorAddress(_taxCollectorAddress);
+        ITaxable(grave).setTaxCollectorAddress(_taxCollectorAddress);
     }
 
     function excludeAddressFromTax(address _address) external onlyOperator returns (bool) {
-        return ITaxable(xgrave).excludeAddress(_address);
+        return ITaxable(grave).excludeAddress(_address);
     }
 
     function includeAddressInTax(address _address) external onlyOperator returns (bool) {
-        return ITaxable(xgrave).includeAddress(_address);
+        return ITaxable(grave).includeAddress(_address);
     }
 
-    function setTaxableXgraveOracle(address _xgraveOracle) external onlyOperator {
-        ITaxable(xgrave).setXgraveOracle(_xgraveOracle);
+    function setTaxableXgraveOracle(address _graveOracle) external onlyOperator {
+        ITaxable(grave).setXgraveOracle(_graveOracle);
     }
 
     function transferTaxOffice(address _newTaxOffice) external onlyOperator {
-        ITaxable(xgrave).setTaxOffice(_newTaxOffice);
+        ITaxable(grave).setTaxOffice(_newTaxOffice);
     }
 }

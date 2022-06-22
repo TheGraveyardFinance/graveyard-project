@@ -25,13 +25,13 @@ const assetList = [
     depositTokenName: '2SHARES-USDC LP',
   },
   {
-    depositTokenName: 'xGRAVE-USDC LP',
+    depositTokenName: 'GRAVE-USDC LP',
   },
   {
-    depositTokenName: 'xSHARES',
+    depositTokenName: 'XSHARES',
   },
   {
-    depositTokenName: 'xSHARES-USDC LP',
+    depositTokenName: 'XSHARES-USDC LP',
   },
 ]
 
@@ -68,7 +68,7 @@ const Cemetery = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
   const activeBanks = banks.filter((bank) => !bank.finished);
-  const { balance, balance_2shares_wftm, balance_xGRAVE_wftm, balance_3shares_wftm, balance_xGRAVE, balance_3shares, balance_2shares } = useTotalTreasuryBalance();
+  const { balance, balance_2shares_wftm, balance_GRAVE_wftm, balance_3shares_wftm, balance_GRAVE, balance_3shares, balance_2shares } = useTotalTreasuryBalance();
   return (
     <Switch>
       <Page>
@@ -121,13 +121,13 @@ const Cemetery = () => {
                     <Card style={{ height: "auto" }}>
                       <CardContent align="center">
                         <Typography variant="h5">
-                          xGRAVE-USDC LP:
+                          GRAVE-USDC LP:
                         </Typography>
-                        <CountUp style={{ fontSize: '25px' }} end={balance_xGRAVE_wftm} separator="," prefix="$" />
+                        <CountUp style={{ fontSize: '25px' }} end={balance_GRAVE_wftm} separator="," prefix="$" />
                       </CardContent>
                       <CardContent align="center">
                         <Typography variant="h5">
-                          xSHARES-USDC LP:
+                          XSHARES-USDC LP:
                         </Typography>
                         <CountUp style={{ fontSize: '25px' }} end={balance_3shares_wftm} separator="," prefix="$" />
                       </CardContent>
@@ -143,13 +143,13 @@ const Cemetery = () => {
                     <Card style={{ height: "auto" }}>
                       <CardContent align="center">
                         <Typography variant="h5">
-                          xGRAVE:
+                          GRAVE:
                         </Typography>
-                        <CountUp style={{ fontSize: '25px' }} end={balance_xGRAVE} separator="," prefix="$" />
+                        <CountUp style={{ fontSize: '25px' }} end={balance_GRAVE} separator="," prefix="$" />
                       </CardContent>
                       <CardContent align="center">
                         <Typography variant="h5">
-                          xSHARES:
+                          XSHARES:
                         </Typography>
                         <CountUp style={{ fontSize: '25px' }} end={balance_3shares} separator="," prefix="$" />
                       </CardContent>

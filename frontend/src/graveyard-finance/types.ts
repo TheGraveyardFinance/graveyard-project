@@ -52,7 +52,7 @@ export type AllocationTime = {
 export type XShareSwapperStat = {
   xshareBalance: string;
   xbondBalance: string;
-  // xgravePrice: string;
+  // gravePrice: string;
   // xsharePrice: string;
   rateXSharePerXgrave: string;
 };

@@ -16,14 +16,14 @@ import useXgraveStats from '../../../hooks/useXgraveStats';
 import { getDisplayBalance } from '../../../utils/formatBalance';
 
 const Harvest: React.FC = () => {
-  const xgraveStats = useXgraveStats();
+  const graveStats = useXgraveStats();
   const { onReward } = useHarvestFromMasonry();
   const earnings = useEarningsOnMasonry();
   const canClaimReward = useClaimRewardCheck();
 
   const tokenPriceInDollars = useMemo(
-    () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
-    [xgraveStats],
+    () => (graveStats ? Number(graveStats.priceInDollars).toFixed(2) : null),
+    [graveStats],
   );
 
   const earnedInDollars = (Number(tokenPriceInDollars) * Number(getDisplayBalance(earnings))).toFixed(2);
@@ -41,7 +41,7 @@ const Harvest: React.FC = () => {
               </CardIcon>
               <Value value={getDisplayBalance(earnings)} />
               <Label text={`≈ $${earnedInDollars}`} />
-              <Label text="xGRAVE Earned" />
+              <Label text="GRAVE Earned" />
             </StyledCardHeader>
             <StyledCardActions>
               <Button

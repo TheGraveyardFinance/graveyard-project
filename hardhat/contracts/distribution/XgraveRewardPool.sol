@@ -30,7 +30,7 @@ contract XgraveRewardPool {
         bool isStarted; // if lastRewardTime has passed
     }
 
-    IERC20 public xgrave;
+    IERC20 public grave;
 
     // Info of each pool.
     PoolInfo[] public poolInfo;
@@ -57,9 +57,9 @@ contract XgraveRewardPool {
     event EmergencyWithdraw(address indexed user, uint256 indexed pid, uint256 amount);
     event RewardPaid(address indexed user, uint256 amount);
 
-    constructor(address _xgrave, uint256 _poolStartTime) public {
+    constructor(address _grave, uint256 _poolStartTime) public {
         require(block.timestamp < _poolStartTime, "late");
-        if (_xgrave != address(0)) xgrave = IERC20(_xgrave);
+        if (_grave != address(0)) grave = IERC20(_grave);
 
         poolStartTime = _poolStartTime;
 
@@ -160,8 +160,8 @@ contract XgraveRewardPool {
         uint256 tokenSupply = pool.token.balanceOf(address(this));
         if (block.timestamp > pool.lastRewardTime && tokenSupply != 0) {
             uint256 _generatedReward = getGeneratedReward(pool.lastRewardTime, block.timestamp);
-            uint256 _xgraveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
-            accXgravePerShare = accXgravePerShare.add(_xgraveReward.mul(1e18).div(tokenSupply));
+            uint256 _graveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
+            accXgravePerShare = accXgravePerShare.add(_graveReward.mul(1e18).div(tokenSupply));
         }
         return user.amount.mul(accXgravePerShare).div(1e18).sub(user.rewardDebt);
     }
@@ -191,8 +191,8 @@ contract XgraveRewardPool {
         }
         if (totalAllocPoint > 0) {
             uint256 _generatedReward = getGeneratedReward(pool.lastRewardTime, block.timestamp);
-            uint256 _xgraveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
-            pool.accXgravePerShare = pool.accXgravePerShare.add(_xgraveReward.mul(1e18).div(tokenSupply));
+            uint256 _graveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
+            pool.accXgravePerShare = pool.accXgravePerShare.add(_graveReward.mul(1e18).div(tokenSupply));
         }
         pool.lastRewardTime = block.timestamp;
     }
@@ -249,14 +249,14 @@ contract XgraveRewardPool {
         emit EmergencyWithdraw(msg.sender, _pid, _amount);
     }
 
-    // Safe xgrave transfer function, just in case if rounding error causes pool to not have enough XGRAVEs.
+    // Safe grave transfer function, just in case if rounding error causes pool to not have enough XGRAVEs.
     function safeXgraveTransfer(address _to, uint256 _amount) internal {
-        uint256 _xgraveBal = xgrave.balanceOf(address(this));
-        if (_xgraveBal > 0) {
-            if (_amount > _xgraveBal) {
-                xgrave.safeTransfer(_to, _xgraveBal);
+        uint256 _graveBal = grave.balanceOf(address(this));
+        if (_graveBal > 0) {
+            if (_amount > _graveBal) {
+                grave.safeTransfer(_to, _graveBal);
             } else {
-                xgrave.safeTransfer(_to, _amount);
+                grave.safeTransfer(_to, _amount);
             }
         }
     }
@@ -272,7 +272,7 @@ contract XgraveRewardPool {
     ) external onlyOperator {
         if (block.timestamp < epochEndTimes[1] + 30 days) {
             // do not allow to drain token if less than 30 days after farming
-            require(_token != xgrave, "!xgrave");
+            require(_token != grave, "!grave");
             uint256 length = poolInfo.length;
             for (uint256 pid = 0; pid < length; ++pid) {
                 PoolInfo storage pool = poolInfo[pid];
