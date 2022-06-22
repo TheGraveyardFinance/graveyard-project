@@ -4,21 +4,21 @@ import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 import { parseUnits } from 'ethers/lib/utils';
 import { TAX_OFFICE_ADDR } from './../utils/constants'
 
-const useProvideGraveFtmLP = () => {
+const useProvideXgraveFtmLP = () => {
   const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
-  const handleProvideGraveFtmLP = useCallback(
-    (usdcAmount: string, graveAmount: string) => {
-      const graveAmountBn = parseUnits(graveAmount);
+  const handleProvideXgraveFtmLP = useCallback(
+    (usdcAmount: string, xgraveAmount: string) => {
+      const xgraveAmountBn = parseUnits(xgraveAmount);
       handleTransactionReceipt(
-        graveyardFinance.provideGraveFtmLP(usdcAmount, graveAmountBn),
-        `Provide Grave-FTM LP ${graveAmount} ${usdcAmount} using ${TAX_OFFICE_ADDR}`,
+        graveyardFinance.provideXgraveFtmLP(usdcAmount, xgraveAmountBn),
+        `Provide Xgrave-FTM LP ${xgraveAmount} ${usdcAmount} using ${TAX_OFFICE_ADDR}`,
       );
     },
     [graveyardFinance, handleTransactionReceipt],
   );
-  return { onProvideGraveFtmLP: handleProvideGraveFtmLP };
+  return { onProvideXgraveFtmLP: handleProvideXgraveFtmLP };
 };
 
-export default useProvideGraveFtmLP;
+export default useProvideXgraveFtmLP;

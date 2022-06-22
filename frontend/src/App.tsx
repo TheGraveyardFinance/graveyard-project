@@ -96,7 +96,7 @@ const Providers: React.FC = ({ children }) => {
             walletlink: {
               url: config.defaultProvider,
               appName: 'Graveyard Finance',
-              appLogoUrl: 'https://github.com/2omb/GRAVE-frontend/blob/8ab3b1f5ecc7d5dad5b856f160d6e7afb8357560/src/assets/img/2OMB-2SHARES.png',
+              appLogoUrl: 'https://github.com/2omb/xGRAVE-frontend/blob/8ab3b1f5ecc7d5dad5b856f160d6e7afb8357560/src/assets/img/2OMB-2SHARES.png',
             },
           }}
         >

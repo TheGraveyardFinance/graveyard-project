@@ -8,11 +8,11 @@ const useCashPriceInLastTWAP = () => {
   const graveyardFinance = useGraveyardFinance();
 
   const fetchCashPrice = useCallback(async () => {
-    setPrice(await graveyardFinance.getGravePriceInLastTWAP());
+    setPrice(await graveyardFinance.getXgravePriceInLastTWAP());
   }, [graveyardFinance]);
 
   useEffect(() => {
-    fetchCashPrice().catch((err) => console.error(`Failed to fetch GRAVE price: ${err.stack}`));
+    fetchCashPrice().catch((err) => console.error(`Failed to fetch XGRAVE price: ${err.stack}`));
     const refreshInterval = setInterval(fetchCashPrice, config.refreshInterval);
     return () => clearInterval(refreshInterval);
   }, [setPrice, graveyardFinance, fetchCashPrice]);

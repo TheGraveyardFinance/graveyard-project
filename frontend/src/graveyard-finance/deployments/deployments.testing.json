@@ -861,7 +861,7 @@
       }
     ]
   },
-  "grave": {
+  "xgrave": {
     "address": "0x9b7F7E44904Bb61a9710685c938eA5f867Cb36b2",
     "abi": [
       {
@@ -1015,7 +1015,7 @@
       },
       {
         "inputs": [],
-        "name": "INITIAL_GRAVE_POOL_DISTRIBUTION",
+        "name": "INITIAL_XGRAVE_POOL_DISTRIBUTION",
         "outputs": [
           {
             "internalType": "uint256",
@@ -1350,7 +1350,7 @@
       },
       {
         "inputs": [],
-        "name": "graveOracle",
+        "name": "xgraveOracle",
         "outputs": [
           {
             "internalType": "address",
@@ -1535,11 +1535,11 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_graveOracle",
+            "name": "_xgraveOracle",
             "type": "address"
           }
         ],
-        "name": "setGraveOracle",
+        "name": "setXgraveOracle",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1714,7 +1714,7 @@
           },
           {
             "internalType": "address",
-            "name": "_gravePool",
+            "name": "_xgravePool",
             "type": "address"
           },
           {
@@ -2891,7 +2891,7 @@
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "graveAmount",
+            "name": "xgraveAmount",
             "type": "uint256"
           },
           {
@@ -3011,7 +3011,7 @@
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "graveAmount",
+            "name": "xgraveAmount",
             "type": "uint256"
           },
           {
@@ -3350,7 +3350,7 @@
       },
       {
         "inputs": [],
-        "name": "previousEpochGravePrice",
+        "name": "previousEpochXgravePrice",
         "outputs": [
           {
             "internalType": "uint256",
@@ -3434,7 +3434,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "address",
@@ -3447,7 +3447,7 @@
       },
       {
         "inputs": [],
-        "name": "graveOracle",
+        "name": "xgraveOracle",
         "outputs": [
           {
             "internalType": "address",
@@ -3460,7 +3460,7 @@
       },
       {
         "inputs": [],
-        "name": "gravePriceCeiling",
+        "name": "xgravePriceCeiling",
         "outputs": [
           {
             "internalType": "uint256",
@@ -3473,7 +3473,7 @@
       },
       {
         "inputs": [],
-        "name": "gravePriceOne",
+        "name": "xgravePriceOne",
         "outputs": [
           {
             "internalType": "uint256",
@@ -3525,11 +3525,11 @@
       },
       {
         "inputs": [],
-        "name": "getGravePrice",
+        "name": "getXgravePrice",
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "gravePrice",
+            "name": "xgravePrice",
             "type": "uint256"
           }
         ],
@@ -3538,11 +3538,11 @@
       },
       {
         "inputs": [],
-        "name": "getGraveUpdatedPrice",
+        "name": "getXgraveUpdatedPrice",
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "_gravePrice",
+            "name": "_xgravePrice",
             "type": "uint256"
           }
         ],
@@ -3564,11 +3564,11 @@
       },
       {
         "inputs": [],
-        "name": "getBurnableGraveLeft",
+        "name": "getBurnableXgraveLeft",
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "_burnableGraveLeft",
+            "name": "_burnableXgraveLeft",
             "type": "uint256"
           }
         ],
@@ -3618,7 +3618,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -3633,7 +3633,7 @@
           },
           {
             "internalType": "address",
-            "name": "_graveOracle",
+            "name": "_xgraveOracle",
             "type": "address"
           },
           {
@@ -3682,11 +3682,11 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_graveOracle",
+            "name": "_xgraveOracle",
             "type": "address"
           }
         ],
-        "name": "setGraveOracle",
+        "name": "setXgraveOracle",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -3695,11 +3695,11 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "_gravePriceCeiling",
+            "name": "_xgravePriceCeiling",
             "type": "uint256"
           }
         ],
-        "name": "setGravePriceCeiling",
+        "name": "setXgravePriceCeiling",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -3884,7 +3884,7 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "_graveAmount",
+            "name": "_xgraveAmount",
             "type": "uint256"
           },
           {
@@ -4244,7 +4244,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -4298,7 +4298,7 @@
         "inputs": [
           {
             "internalType": "contract IERC20",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -4446,7 +4446,7 @@
       },
       {
         "inputs": [],
-        "name": "getGravePrice",
+        "name": "getXgravePrice",
         "outputs": [
           {
             "internalType": "uint256",
@@ -4567,14 +4567,14 @@
       }
     ]
   },
-  "GraveFtmRewardPool": {
+  "XgraveFtmRewardPool": {
     "address": "0xFb392431c0dd8d7f21315aA63bA60C6Bd10A0fcd",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -4746,7 +4746,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accGravePerShare",
+            "name": "accXgravePerShare",
             "type": "uint256"
           },
           {
@@ -4786,7 +4786,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -4799,7 +4799,7 @@
       },
       {
         "inputs": [],
-        "name": "gravePerSecond",
+        "name": "xgravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -4935,7 +4935,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingGRAVE",
+        "name": "pendingXGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5053,14 +5053,14 @@
       }
     ]
   },
-  "GraveBooGenesisRewardPool": {
+  "XgraveBooGenesisRewardPool": {
     "address": "0xFb392431c0dd8d7f21315aA63bA60C6Bd10A0fcd",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -5232,7 +5232,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accGravePerShare",
+            "name": "accXgravePerShare",
             "type": "uint256"
           },
           {
@@ -5272,7 +5272,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -5285,7 +5285,7 @@
       },
       {
         "inputs": [],
-        "name": "gravePerSecond",
+        "name": "xgravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5421,7 +5421,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingGRAVE",
+        "name": "pendingXGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5539,14 +5539,14 @@
       }
     ]
   },
-  "GraveZooGenesisRewardPool": {
+  "XgraveZooGenesisRewardPool": {
     "address": "0xFb392431c0dd8d7f21315aA63bA60C6Bd10A0fcd",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -5718,7 +5718,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accGravePerShare",
+            "name": "accXgravePerShare",
             "type": "uint256"
           },
           {
@@ -5758,7 +5758,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -5771,7 +5771,7 @@
       },
       {
         "inputs": [],
-        "name": "gravePerSecond",
+        "name": "xgravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5907,7 +5907,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingGRAVE",
+        "name": "pendingXGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6025,14 +6025,14 @@
       }
     ]
   },
-  "GraveShibaGenesisRewardPool": {
+  "XgraveShibaGenesisRewardPool": {
     "address": "0xFb392431c0dd8d7f21315aA63bA60C6Bd10A0fcd",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -6204,7 +6204,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accGravePerShare",
+            "name": "accXgravePerShare",
             "type": "uint256"
           },
           {
@@ -6244,7 +6244,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -6257,7 +6257,7 @@
       },
       {
         "inputs": [],
-        "name": "gravePerSecond",
+        "name": "xgravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6393,7 +6393,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingGRAVE",
+        "name": "pendingXGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6511,14 +6511,14 @@
       }
     ]
   },
-  "GraveFtmLpGraveRewardPool": {
+  "XgraveFtmLpXgraveRewardPool": {
     "address": "0x96Ddab71d6074f09267A653FE9490ea16D20e20f",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -6651,7 +6651,7 @@
             "type": "uint256"
           }
         ],
-        "name": "epochGravePerSecond",
+        "name": "epochXgravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6721,7 +6721,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accGravePerShare",
+            "name": "accXgravePerShare",
             "type": "uint256"
           },
           {
@@ -6748,7 +6748,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -6884,7 +6884,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingGRAVE",
+        "name": "pendingXGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7002,14 +7002,14 @@
       }
     ]
   },
-  "GraveFtmLpGraveRewardPoolOld": {
+  "XgraveFtmLpXgraveRewardPoolOld": {
     "address": "0x52618Fa2364ae23f29B88c4De5bc9d28BCc34dE5",
     "abi": [
       {
         "inputs": [
           {
             "internalType": "address",
-            "name": "_grave",
+            "name": "_xgrave",
             "type": "address"
           },
           {
@@ -7142,7 +7142,7 @@
             "type": "uint256"
           }
         ],
-        "name": "epochGravePerSecond",
+        "name": "epochXgravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7212,7 +7212,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "accGravePerShare",
+            "name": "accXgravePerShare",
             "type": "uint256"
           },
           {
@@ -7239,7 +7239,7 @@
       },
       {
         "inputs": [],
-        "name": "grave",
+        "name": "xgrave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -7375,7 +7375,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingGRAVE",
+        "name": "pendingXGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7493,7 +7493,7 @@
       }
     ]
   },
-  "GraveFtmLPXShareRewardPool": {
+  "XgraveFtmLPXShareRewardPool": {
     "address": "0xE9A9242b5aBd050ec714EDfF53ff08dfA066aaf0",
     "abi": [
       {
@@ -8670,7 +8670,7 @@
   },
   "TaxOffice": {
     "address": "0xcaf6C0FB8Bcb737C2D5D7e5Db615147a26091De1",
-    "abi": [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOperator","type":"address"},{"indexed":true,"internalType":"address","name":"newOperator","type":"address"}],"name":"OperatorTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[{"internalType":"uint256","name":"amtGrave","type":"uint256"},{"internalType":"uint256","name":"amtGraveMin","type":"uint256"},{"internalType":"uint256","name":"amtFtmMin","type":"uint256"}],"name":"addLiquidityETHTaxFree","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amtGrave","type":"uint256"},{"internalType":"uint256","name":"amtToken","type":"uint256"},{"internalType":"uint256","name":"amtGraveMin","type":"uint256"},{"internalType":"uint256","name":"amtTokenMin","type":"uint256"}],"name":"addLiquidityTaxFree","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"disableAutoCalculateTax","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"enableAutoCalculateTax","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"excludeAddressFromTax","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"includeAddressInTax","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isOperator","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"operator","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_burnThreshold","type":"uint256"}],"name":"setBurnThreshold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_taxCollectorAddress","type":"address"}],"name":"setTaxCollectorAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"},{"internalType":"bool","name":"_excluded","type":"bool"}],"name":"setTaxExclusionForAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_taxRate","type":"uint256"}],"name":"setTaxRate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"_index","type":"uint8"},{"internalType":"uint256","name":"_value","type":"uint256"}],"name":"setTaxTiersRate","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"_index","type":"uint8"},{"internalType":"uint256","name":"_value","type":"uint256"}],"name":"setTaxTiersTwap","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_graveOracle","type":"address"}],"name":"setTaxableGraveOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"taxExclusionEnabled","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_sender","type":"address"},{"internalType":"address","name":"_recipient","type":"address"},{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"taxFreeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"taxRate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"grave","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOperator_","type":"address"}],"name":"transferOperator","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_newTaxOffice","type":"address"}],"name":"transferTaxOffice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uniRouter","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"wftm","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]
+    "abi": [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOperator","type":"address"},{"indexed":true,"internalType":"address","name":"newOperator","type":"address"}],"name":"OperatorTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[{"internalType":"uint256","name":"amtXgrave","type":"uint256"},{"internalType":"uint256","name":"amtXgraveMin","type":"uint256"},{"internalType":"uint256","name":"amtFtmMin","type":"uint256"}],"name":"addLiquidityETHTaxFree","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amtXgrave","type":"uint256"},{"internalType":"uint256","name":"amtToken","type":"uint256"},{"internalType":"uint256","name":"amtXgraveMin","type":"uint256"},{"internalType":"uint256","name":"amtTokenMin","type":"uint256"}],"name":"addLiquidityTaxFree","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"disableAutoCalculateTax","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"enableAutoCalculateTax","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"excludeAddressFromTax","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"includeAddressInTax","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isOperator","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"operator","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_burnThreshold","type":"uint256"}],"name":"setBurnThreshold","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_taxCollectorAddress","type":"address"}],"name":"setTaxCollectorAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"},{"internalType":"bool","name":"_excluded","type":"bool"}],"name":"setTaxExclusionForAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_taxRate","type":"uint256"}],"name":"setTaxRate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"_index","type":"uint8"},{"internalType":"uint256","name":"_value","type":"uint256"}],"name":"setTaxTiersRate","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint8","name":"_index","type":"uint8"},{"internalType":"uint256","name":"_value","type":"uint256"}],"name":"setTaxTiersTwap","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_xgraveOracle","type":"address"}],"name":"setTaxableXgraveOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"taxExclusionEnabled","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_sender","type":"address"},{"internalType":"address","name":"_recipient","type":"address"},{"internalType":"uint256","name":"_amt","type":"uint256"}],"name":"taxFreeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"taxRate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"xgrave","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOperator_","type":"address"}],"name":"transferOperator","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_newTaxOffice","type":"address"}],"name":"transferTaxOffice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"uniRouter","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"wftm","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]
   },
   "SpookyRouter": {
     "address": "0xF491e7B69E4244ad4002BC14e878a34207E38c29",

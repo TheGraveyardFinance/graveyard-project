@@ -68,7 +68,7 @@ contract Mausoleum is ShareWrapper, ContractGuard {
     // flags
     bool public initialized = false;
 
-    IERC20 public grave;
+    IERC20 public xgrave;
     ITreasury public treasury;
 
     mapping(address => Masonseat) public mausoles;
@@ -115,11 +115,11 @@ contract Mausoleum is ShareWrapper, ContractGuard {
     /* ========== GOVERNANCE ========== */
 
     function initialize(
-        IERC20 _grave,
+        IERC20 _xgrave,
         IERC20 _share,
         ITreasury _treasury
     ) public notInitialized {
-        grave = _grave;
+        xgrave = _xgrave;
         share = _share;
         treasury = _treasury;
 
@@ -180,8 +180,8 @@ contract Mausoleum is ShareWrapper, ContractGuard {
         return treasury.nextEpochPoint();
     }
 
-    function getGravePrice() external view returns (uint256) {
-        return treasury.getGravePrice();
+    function getXgravePrice() external view returns (uint256) {
+        return treasury.getXgravePrice();
     }
 
     // =========== Mason getters
@@ -224,7 +224,7 @@ contract Mausoleum is ShareWrapper, ContractGuard {
             require(mausoles[msg.sender].epochTimerStart.add(rewardLockupEpochs) <= treasury.epoch(), "Mausoleum: still in reward lockup");
             mausoles[msg.sender].epochTimerStart = treasury.epoch(); // reset timer
             mausoles[msg.sender].rewardEarned = 0;
-            grave.safeTransfer(msg.sender, reward);
+            xgrave.safeTransfer(msg.sender, reward);
             emit RewardPaid(msg.sender, reward);
         }
     }
@@ -244,13 +244,13 @@ contract Mausoleum is ShareWrapper, ContractGuard {
         });
         mausoleumHistory.push(newSnapshot);
 
-        grave.safeTransferFrom(msg.sender, address(this), amount);
+        xgrave.safeTransferFrom(msg.sender, address(this), amount);
         emit RewardAdded(msg.sender, amount);
     }
 
     function governanceRecoverUnsupported(IERC20 _token, uint256 _amount, address _to) external onlyOperator {
         // do not allow to drain core tokens
-        require(address(_token) != address(grave), "grave");
+        require(address(_token) != address(xgrave), "xgrave");
         require(address(_token) != address(share), "share");
         _token.safeTransfer(_to, _amount);
     }
