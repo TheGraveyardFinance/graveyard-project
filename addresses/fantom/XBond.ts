@@ -1,0 +1,1 @@
+export const XBond = "0x3c214fA3151DE4DCa430ec265b93d5E4f3724B4F";
