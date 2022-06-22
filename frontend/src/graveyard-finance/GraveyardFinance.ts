@@ -48,7 +48,7 @@ export class GraveyardFinance {
     }
     this.XGRAVE = new ERC20(deployments.xgrave.address, provider, 'xGRAVE');
     this.XSHARE = new ERC20(deployments.xShare.address, provider, 'XSHARE');
-    this.XBOND = new ERC20(deployments.tBond.address, provider, 'xBOND');
+    this.XBOND = new ERC20(deployments.tBond.address, provider, 'XBOND');
     this.FTM = this.externalTokens['USDC'];
 
     // Uniswap V2 Pair

@@ -46,7 +46,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <TokenSymbol symbol="XBOND" />
           <StyledBalance>
             <StyledValue>{displayXbondBalance}</StyledValue>
-            <Label text="xBOND Available" variant="primary" />
+            <Label text="XBOND Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>
       </Balances>

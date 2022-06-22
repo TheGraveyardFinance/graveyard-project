@@ -335,7 +335,7 @@ const Home = () => {
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>xBOND</h2>
+              <h2>XBOND</h2>
               {/* <Button
                 onClick={() => {
                   graveyardFinance.watchAssetInMetamask('XBOND');

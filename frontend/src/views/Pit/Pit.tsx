@@ -84,11 +84,11 @@ const Pit: React.FC = () => {
                   fromToken={graveyardFinance.XGRAVE}
                   fromTokenName="xGRAVE"
                   toToken={graveyardFinance.XBOND}
-                  toTokenName="xBOND"
+                  toTokenName="XBOND"
                   priceDesc={
                     !isBondPurchasable
                       ? 'xGRAVE is over peg'
-                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' xBOND available for purchase'
+                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' XBOND available for purchase'
                   }
                   onExchange={handleBuyBonds}
                   disabled={!bondStat || isBondRedeemable}
@@ -102,7 +102,7 @@ const Pit: React.FC = () => {
                 />
                 <Spacer size="md" />
                 <ExchangeStat
-                  tokenName="xBOND"
+                  tokenName="XBOND"
                   description="Current Price: (xGRAVE)^2"
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
@@ -111,10 +111,10 @@ const Pit: React.FC = () => {
                 <ExchangeCard
                   action="Redeem"
                   fromToken={graveyardFinance.XBOND}
-                  fromTokenName="xBOND"
+                  fromTokenName="XBOND"
                   toToken={graveyardFinance.XGRAVE}
                   toTokenName="xGRAVE"
-                  priceDesc={`${getDisplayBalance(bondBalance)} xBOND Available in wallet`}
+                  priceDesc={`${getDisplayBalance(bondBalance)} XBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
                   disabledDescription={!isBondRedeemable ? `Enabled when xGRAVE > ${BOND_REDEEM_PRICE}FTM` : null}
