@@ -1,0 +1,1 @@
+export const GraveRewardPool = "0x0B1e4905589E6988E60AE4Ac91b790b86B840C96";

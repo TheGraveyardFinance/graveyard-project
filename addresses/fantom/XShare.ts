@@ -1,0 +1,1 @@
+export const XShare = "0x0e8A5D5151246a826da21182Dd5e272822C6E202";
