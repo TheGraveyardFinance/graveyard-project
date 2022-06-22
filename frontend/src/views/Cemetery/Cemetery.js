@@ -66,7 +66,7 @@ const Cemetery = () => {
 
                 {/* <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px' }}>
-                    Earn XGRAVE by staking LP
+                    Earn GRAVE by staking LP
                   </Typography>
                   <Alert variant="filled" severity="warning">
                     All below pools have ended. Please unstake and collect your rewards.

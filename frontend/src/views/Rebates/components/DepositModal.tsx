@@ -59,7 +59,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
 
   function formatOutAmount() {
     const outAmount = getOutAmount()
-    return `Receiving: ${outAmount.toFixed(4)} xGRAVE ($${(outAmount * rebateStats.xgravePrice * usdcPrice).toFixed(2)})`
+    return `Receiving: ${outAmount.toFixed(4)} GRAVE ($${(outAmount * rebateStats.xgravePrice * usdcPrice).toFixed(2)})`
   }
 
   function formatInAmount() {
@@ -83,7 +83,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
         { formatOutAmount() }
       </StyledMaxText>
       <StyledMaxText style = {{color: getOutAmount() < rebateStats.xgraveAvailable ? "black" : "var(--accent)"}}>
-        {rebateStats.xgraveAvailable > 0 ? `${rebateStats.xgraveAvailable.toFixed(4)} xGRAVE Available` : "Bond Sold Out"}
+        {rebateStats.xgraveAvailable > 0 ? `${rebateStats.xgraveAvailable.toFixed(4)} GRAVE Available` : "Bond Sold Out"}
       </StyledMaxText>
       <ModalActions>
         <Button color={ (getOutAmount() < rebateStats.xgraveAvailable ? "primary" : "secondary") } variant="contained" disabled = { getOutAmount() >= rebateStats.xgraveAvailable } onClick={() => onConfirm(+val)}>

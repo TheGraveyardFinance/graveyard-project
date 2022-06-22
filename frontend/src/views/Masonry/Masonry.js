@@ -103,7 +103,7 @@ const Masonry = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography>
-                      xGRAVE Price<small> (TWAP)</small>
+                      GRAVE Price<small> (TWAP)</small>
                     </Typography>
                     <Typography>{rebateStats.xgravePrice.toFixed(4)} FTM</Typography>
                   </CardContent>
