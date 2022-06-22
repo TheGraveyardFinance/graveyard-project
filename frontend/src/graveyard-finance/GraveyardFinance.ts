@@ -47,7 +47,7 @@ export class GraveyardFinance {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
     this.XGRAVE = new ERC20(deployments.xgrave.address, provider, 'xGRAVE');
-    this.XSHARE = new ERC20(deployments.xShare.address, provider, 'xSHARE');
+    this.XSHARE = new ERC20(deployments.xShare.address, provider, 'XSHARE');
     this.XBOND = new ERC20(deployments.tBond.address, provider, 'xBOND');
     this.FTM = this.externalTokens['USDC'];
 
@@ -329,7 +329,7 @@ export class GraveyardFinance {
       console.log("token name:", tokenName)
       if (tokenName === 'xGRAVE-USDC LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.XGRAVE, true, false);
-      } else if (tokenName === 'xSHARES-USDC LP') {
+      } else if (tokenName === 'XSHARES-USDC LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.XSHARE, false, false);
       } else if (tokenName === "2SHARES-USDC LP") {
         tokenPrice = await this.getLPTokenPrice(token, new ERC20("0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca", this.provider, "2SHARES"), false, true);

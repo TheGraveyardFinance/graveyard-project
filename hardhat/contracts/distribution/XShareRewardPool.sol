@@ -6,8 +6,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
-// Note that this pool has no minter key of xSHARE (rewards).
-// Instead, the governance will call xSHARE distributeReward method and send reward to this pool at the beginning.
+// Note that this pool has no minter key of XSHARE (rewards).
+// Instead, the governance will call XSHARE distributeReward method and send reward to this pool at the beginning.
 contract XShareRewardPool {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
@@ -24,9 +24,9 @@ contract XShareRewardPool {
     // Info of each pool.
     struct PoolInfo {
         IERC20 token; // Address of LP token contract.
-        uint256 allocPoint; // How many allocation points assigned to this pool. xSHAREs to distribute per block.
-        uint256 lastRewardTime; // Last time that xSHAREs distribution occurs.
-        uint256 accXSharePerShare; // Accumulated xSHAREs per share, times 1e18. See below.
+        uint256 allocPoint; // How many allocation points assigned to this pool. XSHAREs to distribute per block.
+        uint256 lastRewardTime; // Last time that XSHAREs distribution occurs.
+        uint256 accXSharePerShare; // Accumulated XSHAREs per share, times 1e18. See below.
         bool isStarted; // if lastRewardTime has passed
     }
 
@@ -41,10 +41,10 @@ contract XShareRewardPool {
     // Total allocation points. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
 
-    // The time when xSHARE mining starts.
+    // The time when XSHARE mining starts.
     uint256 public poolStartTime;
 
-    // The time when xSHARE mining ends.
+    // The time when XSHARE mining ends.
     uint256 public poolEndTime;
 
     uint256 public xSharePerSecond = 0.00187687 ether; // 60000 xshare / (370 days * 24h * 60min * 60s)
@@ -120,7 +120,7 @@ contract XShareRewardPool {
         }
     }
 
-    // Update the given pool's xSHARE allocation point. Can only be called by the owner.
+    // Update the given pool's XSHARE allocation point. Can only be called by the owner.
     function set(uint256 _pid, uint256 _allocPoint) public onlyOperator {
         massUpdatePools();
         PoolInfo storage pool = poolInfo[_pid];
@@ -146,7 +146,7 @@ contract XShareRewardPool {
         }
     }
 
-    // View function to see pending xSHAREs on frontend.
+    // View function to see pending XSHAREs on frontend.
     function pendingShare(uint256 _pid, address _user) external view returns (uint256) {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][_user];
@@ -243,7 +243,7 @@ contract XShareRewardPool {
         emit EmergencyWithdraw(msg.sender, _pid, _amount);
     }
 
-    // Safe xshare transfer function, just in case if rounding error causes pool to not have enough xSHAREs.
+    // Safe xshare transfer function, just in case if rounding error causes pool to not have enough XSHAREs.
     function safeXShareTransfer(address _to, uint256 _amount) internal {
         uint256 _xshareBal = xshare.balanceOf(address(this));
         if (_xshareBal > 0) {
@@ -261,7 +261,7 @@ contract XShareRewardPool {
 
     function governanceRecoverUnsupported(IERC20 _token, uint256 amount, address to) external onlyOperator {
         if (block.timestamp < poolEndTime + 90 days) {
-            // do not allow to drain core token (xSHARE or lps) if less than 90 days after pool ends
+            // do not allow to drain core token (XSHARE or lps) if less than 90 days after pool ends
             require(_token != xshare, "xshare");
             uint256 length = poolInfo.length;
             for (uint256 pid = 0; pid < length; ++pid) {
