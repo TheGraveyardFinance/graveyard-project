@@ -1,11 +1,12 @@
 import React from 'react';
 
 //Graveyard ecosystem logos
-import xgraveLogo from '../../assets/img/xGRAVE.svg';
+
+import graveLogo from '../../assets/img/GRAVE.svg';
 import xShareLogo from '../../assets/img/xSHARES.svg';
-import xgraveLogoPNG from '../../assets/img/xGRAVE.png';
+import graveLogoPNG from '../../assets/img/GRAVE.png';
 import xShareLogoPNG from '../../assets/img/xSHARES.png';
-import xBondLogo from '../../assets/img/xBOND-01.png';
+import xBondLogo from '../../assets/img/XBOND.svg';
 
 import xgraveFtmLpLogo from '../../assets/img/xgrave_usdc_lp.png';
 import xshareFtmLpLogo from '../../assets/img/Xshare_usdc_lp.png';
@@ -27,14 +28,14 @@ import TwoombTwosharesLPLogo from '../../assets/img/2OMB-2SHARES.png';
 
 import UsdcLogo from '../../assets/img/USDC.png';
 
-import ThreeombLPLogo from '../../assets/img/xGRAVE-USDC.png';
+import ThreeombLPLogo from '../../assets/img/GRAVE-USDC.png';
 import ThreesharesLPLogo from '../../assets/img/xSHARES-USDC.png';
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
   //=====================
-  XGRAVE: xgraveLogo,
-  XGRAVEPNG: xgraveLogoPNG,
+  GRAVE: graveLogo,
+  GRAVEPNG: graveLogoPNG,
   XSHAREPNG: xShareLogoPNG,
   XSHARE: xShareLogo,
   XBOND: xBondLogo,
@@ -50,14 +51,14 @@ const logosBySymbol: { [title: string]: string } = {
   '2SHARES-USDC LP': TwosharesLPLogo,
   '2OMB-2SHARES LP': TwoombTwosharesLPLogo,
 
-  'xGRAVE-USDC LP': ThreeombLPLogo,
-  'xSHARES-USDC LP': ThreesharesLPLogo,
+  'GRAVE-USDC LP': ThreeombLPLogo,
+  'XSHARES-USDC LP': ThreesharesLPLogo,
 
 
   'wFTM': wftmLogo,
   '2OMB': twoombLogo,
   '2SHARES': twoshareLogo,
-  'XGRAVE-USDC-LP': xgraveFtmLpLogo,
+  'GRAVE-USDC-LP': xgraveFtmLpLogo,
   'XSHARE-USDC-LP': xshareFtmLpLogo,
 };
 
@@ -68,7 +69,7 @@ type LogoProps = {
 
 const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64 }) => {
   if (!logosBySymbol[symbol]) {
-    return <img src={logosBySymbol['XGRAVE']} alt={`${symbol} Logo`} width={size} height={size} />
+    return <img src={logosBySymbol['GRAVE']} alt={`${symbol} Logo`} width={size} height={size} />
     // throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
   return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={size} />;

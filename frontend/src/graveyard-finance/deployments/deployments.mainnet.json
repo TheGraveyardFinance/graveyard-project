@@ -1015,7 +1015,7 @@
       },
       {
         "inputs": [],
-        "name": "INITIAL_XGRAVE_POOL_DISTRIBUTION",
+        "name": "INITIAL_GRAVE_POOL_DISTRIBUTION",
         "outputs": [
           {
             "internalType": "uint256",
@@ -4935,7 +4935,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5421,7 +5421,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5907,7 +5907,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6393,7 +6393,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6880,7 +6880,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7366,7 +7366,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7852,7 +7852,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8338,7 +8338,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8825,7 +8825,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9311,7 +9311,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9798,7 +9798,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -10286,7 +10286,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -10772,7 +10772,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -11258,7 +11258,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -11749,7 +11749,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -12240,7 +12240,7 @@
             "type": "address"
           }
         ],
-        "name": "pendingXGRAVE",
+        "name": "pendingGRAVE",
         "outputs": [
           {
             "internalType": "uint256",
@@ -17253,7 +17253,7 @@
       },
       {
         "inputs": [],
-        "name": "INITIAL_XGRAVE_POOL_DISTRIBUTION",
+        "name": "INITIAL_GRAVE_POOL_DISTRIBUTION",
         "outputs": [
           {
             "internalType": "uint256",

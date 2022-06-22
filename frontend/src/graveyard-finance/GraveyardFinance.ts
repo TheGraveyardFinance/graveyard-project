@@ -13,7 +13,7 @@ import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
-import { FTM_TICKER, SPOOKY_ROUTER_ADDR, XGRAVE_TICKER } from '../utils/constants';
+import { FTM_TICKER, SPOOKY_ROUTER_ADDR, GRAVE_TICKER } from '../utils/constants';
 /**
  * An API module of 2omb Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -27,8 +27,8 @@ export class GraveyardFinance {
   externalTokens: { [name: string]: ERC20 };
   masonryVersionOfUser?: string;
 
-  XGRAVEUSDC_LP: Contract;
-  XGRAVE: ERC20;
+  GRAVEUSDC_LP: Contract;
+  GRAVE: ERC20;
   XSHARE: ERC20;
   XBOND: ERC20;
   FTM: ERC20;
@@ -46,13 +46,13 @@ export class GraveyardFinance {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
-    this.XGRAVE = new ERC20(deployments.xgrave.address, provider, 'xGRAVE');
-    this.XSHARE = new ERC20(deployments.xShare.address, provider, 'xSHARE');
-    this.XBOND = new ERC20(deployments.tBond.address, provider, 'xBOND');
+    this.GRAVE = new ERC20(deployments.xgrave.address, provider, 'GRAVE');
+    this.XSHARE = new ERC20(deployments.xShare.address, provider, 'XSHARE');
+    this.XBOND = new ERC20(deployments.tBond.address, provider, 'XBOND');
     this.FTM = this.externalTokens['USDC'];
 
     // Uniswap V2 Pair
-    this.XGRAVEUSDC_LP = new Contract(externalTokens['XGRAVE-USDC-LP'][0], IUniswapV2PairABI, provider);
+    this.GRAVEUSDC_LP = new Contract(externalTokens['GRAVE-USDC-LP'][0], IUniswapV2PairABI, provider);
 
     this.config = cfg;
     this.provider = provider;
@@ -69,11 +69,11 @@ export class GraveyardFinance {
     for (const [name, contract] of Object.entries(this.contracts)) {
       this.contracts[name] = contract.connect(this.signer);
     }
-    const tokens = [this.XGRAVE, this.XSHARE, this.XBOND, ...Object.values(this.externalTokens)];
+    const tokens = [this.GRAVE, this.XSHARE, this.XBOND, ...Object.values(this.externalTokens)];
     for (const token of tokens) {
       token.connect(this.signer);
     }
-    this.XGRAVEUSDC_LP = this.XGRAVEUSDC_LP.connect(this.signer);
+    this.GRAVEUSDC_LP = this.GRAVEUSDC_LP.connect(this.signer);
     console.log(`🔓 Wallet is unlocked. Welcome, ${account}!`);
     this.fetchMasonryVersionOfUser()
       .then((version) => (this.masonryVersionOfUser = version))
@@ -95,15 +95,15 @@ export class GraveyardFinance {
 
   async getXgraveStat(): Promise<TokenStat> {
     const { XgraveFtmRewardPool, XgraveFtmLpXgraveRewardPool, XgraveFtmLpXgraveRewardPoolOld } = this.contracts;
-    const supply = await this.XGRAVE.totalSupply();
-    const xgraveRewardPoolSupply = await this.XGRAVE.balanceOf(XgraveFtmRewardPool.address);
-    const xgraveRewardPoolSupply2 = await this.XGRAVE.balanceOf(XgraveFtmLpXgraveRewardPool.address);
-    const xgraveRewardPoolSupplyOld = await this.XGRAVE.balanceOf(XgraveFtmLpXgraveRewardPoolOld.address);
+    const supply = await this.GRAVE.totalSupply();
+    const xgraveRewardPoolSupply = await this.GRAVE.balanceOf(XgraveFtmRewardPool.address);
+    const xgraveRewardPoolSupply2 = await this.GRAVE.balanceOf(XgraveFtmLpXgraveRewardPool.address);
+    const xgraveRewardPoolSupplyOld = await this.GRAVE.balanceOf(XgraveFtmLpXgraveRewardPoolOld.address);
     const xgraveCirculatingSupply = supply
       .sub(xgraveRewardPoolSupply)
       .sub(xgraveRewardPoolSupply2)
       .sub(xgraveRewardPoolSupplyOld);
-    const priceInFTM = await this.getTokenPriceFromPancakeswap(this.XGRAVE);
+    const priceInFTM = await this.getTokenPriceFromPancakeswap(this.GRAVE);
     console.log("price in ftm:", priceInFTM)
     const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
     const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
@@ -111,8 +111,8 @@ export class GraveyardFinance {
     return {
       tokenInFtm: priceInFTM,
       priceInDollars: priceOfXgraveInDollars,
-      totalSupply: getDisplayBalance(supply, this.XGRAVE.decimal, 0),
-      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.XGRAVE.decimal, 0),
+      totalSupply: getDisplayBalance(supply, this.GRAVE.decimal, 0),
+      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.GRAVE.decimal, 0),
     };
   }
 
@@ -125,8 +125,8 @@ export class GraveyardFinance {
     const lpToken = this.externalTokens[name];
     const lpTokenSupplyBN = await lpToken.totalSupply();
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
-    const token0 = name.startsWith('XGRAVE') ? this.XGRAVE : this.XSHARE;
-    const isXgrave = name.startsWith('XGRAVE');
+    const token0 = name.startsWith('GRAVE') ? this.GRAVE : this.XSHARE;
+    const isXgrave = name.startsWith('GRAVE');
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
@@ -198,16 +198,16 @@ export class GraveyardFinance {
 
   async getXgraveStatInEstimatedTWAP(): Promise<TokenStat> {
     const { SeigniorageOracle, XgraveFtmRewardPool } = this.contracts;
-    const expectedPrice = await SeigniorageOracle.twap(this.XGRAVE.address, ethers.utils.parseEther('1'));
+    const expectedPrice = await SeigniorageOracle.twap(this.GRAVE.address, ethers.utils.parseEther('1'));
 
-    const supply = await this.XGRAVE.totalSupply();
-    const xgraveRewardPoolSupply = await this.XGRAVE.balanceOf(XgraveFtmRewardPool.address);
+    const supply = await this.GRAVE.totalSupply();
+    const xgraveRewardPoolSupply = await this.GRAVE.balanceOf(XgraveFtmRewardPool.address);
     const xgraveCirculatingSupply = supply.sub(xgraveRewardPoolSupply);
     return {
       tokenInFtm: getDisplayBalance(expectedPrice),
       priceInDollars: getDisplayBalance(expectedPrice),
-      totalSupply: getDisplayBalance(supply, this.XGRAVE.decimal, 0),
-      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.XGRAVE.decimal, 0),
+      totalSupply: getDisplayBalance(supply, this.GRAVE.decimal, 0),
+      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.GRAVE.decimal, 0),
     };
   }
 
@@ -234,7 +234,7 @@ export class GraveyardFinance {
     console.log("deposit token price:", depositTokenPrice)
     const stakeInPool = await depositToken.balanceOf(bank.address);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const stat = bank.earnTokenName === 'xGRAVE' ? await this.getXgraveStat() : await this.gexShareStat();
+    const stat = bank.earnTokenName === 'GRAVE' ? await this.getXgraveStat() : await this.gexShareStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
@@ -270,7 +270,7 @@ export class GraveyardFinance {
     poolContract: Contract,
     depositTokenName: string,
   ) {
-    if (earnTokenName === 'xGRAVE') {
+    if (earnTokenName === 'GRAVE') {
       if (!contractName.endsWith('XgraveRewardPool')) {
         const rewardPerSecond = await poolContract.xgravePerSecond();
         if (depositTokenName === '2SHARES') {
@@ -301,7 +301,7 @@ export class GraveyardFinance {
       return await poolContract.epochXgravePerSecond(0);
     }
     const rewardPerSecond = await poolContract.xSharePerSecond();
-    if (depositTokenName.startsWith('xGRAVE')) {
+    if (depositTokenName.startsWith('GRAVE')) {
       return rewardPerSecond.mul(35500).div(89500);
     } else if (depositTokenName.startsWith('2OMB')) {
       return rewardPerSecond.mul(15000).div(89500);
@@ -327,9 +327,9 @@ export class GraveyardFinance {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
       console.log("token name:", tokenName)
-      if (tokenName === 'xGRAVE-USDC LP') {
-        tokenPrice = await this.getLPTokenPrice(token, this.XGRAVE, true, false);
-      } else if (tokenName === 'xSHARES-USDC LP') {
+      if (tokenName === 'GRAVE-USDC LP') {
+        tokenPrice = await this.getLPTokenPrice(token, this.GRAVE, true, false);
+      } else if (tokenName === 'XSHARES-USDC LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.XSHARE, false, false);
       } else if (tokenName === "2SHARES-USDC LP") {
         tokenPrice = await this.getLPTokenPrice(token, new ERC20("0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca", this.provider, "2SHARES"), false, true);
@@ -437,24 +437,24 @@ export class GraveyardFinance {
 */
 async get2ombStatFake(): Promise<TokenStat> {
   const { TwoOmbFtmRewardPool, TwoOmbFtmLpXgraveRewardPool, TwoOmbFtmLpXgraveRewardPoolOld } = this.contracts;
-  const XGRAVE = new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB")
-  const supply = await XGRAVE.totalSupply();
-  const xgraveRewardPoolSupply = await XGRAVE.balanceOf(TwoOmbFtmRewardPool.address);
-  const xgraveRewardPoolSupply2 = await XGRAVE.balanceOf(TwoOmbFtmLpXgraveRewardPool.address);
-  const xgraveRewardPoolSupplyOld = await XGRAVE.balanceOf(TwoOmbFtmLpXgraveRewardPoolOld.address);
+  const GRAVE = new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB")
+  const supply = await GRAVE.totalSupply();
+  const xgraveRewardPoolSupply = await GRAVE.balanceOf(TwoOmbFtmRewardPool.address);
+  const xgraveRewardPoolSupply2 = await GRAVE.balanceOf(TwoOmbFtmLpXgraveRewardPool.address);
+  const xgraveRewardPoolSupplyOld = await GRAVE.balanceOf(TwoOmbFtmLpXgraveRewardPoolOld.address);
   const xgraveCirculatingSupply = supply
     .sub(xgraveRewardPoolSupply)
     .sub(xgraveRewardPoolSupply2)
     .sub(xgraveRewardPoolSupplyOld);
-  const priceInFTM = await this.getTokenPriceFromPancakeswap(XGRAVE);
+  const priceInFTM = await this.getTokenPriceFromPancakeswap(GRAVE);
   const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
   const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
   return {
     tokenInFtm: priceInFTM,
     priceInDollars: priceOfXgraveInDollars,
-    totalSupply: getDisplayBalance(supply, XGRAVE.decimal, 0),
-    circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, XGRAVE.decimal, 0),
+    totalSupply: getDisplayBalance(supply, GRAVE.decimal, 0),
+    circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, GRAVE.decimal, 0),
   };
 }
 
@@ -489,8 +489,8 @@ async get2ShareStatFake(): Promise<TokenStat> {
   ): Promise<BigNumber> {
     const pool = this.contracts[poolName];
     try {
-      if (earnTokenName === 'xGRAVE') {
-        return await pool.pendingXGRAVE(poolId, account);
+      if (earnTokenName === 'GRAVE') {
+        return await pool.pendingGRAVE(poolId, account);
       } else {
         return await pool.pendingShare(poolId, account);
       }
@@ -638,11 +638,11 @@ async get2ShareStatFake(): Promise<TokenStat> {
     const lastRewardsReceived = lastHistory[1];
 
     const XSHAREPrice = (await this.gexShareStat()).priceInDollars;
-    const XGRAVEPrice = (await this.getXgraveStat()).priceInDollars;
+    const GRAVEPrice = (await this.getXgraveStat()).priceInDollars;
     const epochRewardsPerShare = lastRewardsReceived / 1e18;
 
     //Mgod formula
-    const amountOfRewardsPerDay = epochRewardsPerShare * Number(XGRAVEPrice) * 4;
+    const amountOfRewardsPerDay = epochRewardsPerShare * Number(GRAVEPrice) * 4;
     const masonryxShareBalanceOf = await this.XSHARE.balanceOf(Masonry.address);
     const masonryTVL = Number(getDisplayBalance(masonryxShareBalanceOf, this.XSHARE.decimal)) * Number(XSHAREPrice);
     const realAPR = ((amountOfRewardsPerDay * 100) / masonryTVL) * 365;
@@ -803,8 +803,8 @@ async get2ShareStatFake(): Promise<TokenStat> {
     if (ethereum && ethereum.networkVersion === config.chainId.toString()) {
       let asset;
       let assetUrl;
-      if (assetName === 'XGRAVE') {
-        asset = this.XGRAVE;
+      if (assetName === 'GRAVE') {
+        asset = this.GRAVE;
         assetUrl = 'https://xgrave.finance/presskit/xgrave_icon_noBG.png';
       } else if (assetName === 'XSHARE') {
         asset = this.XSHARE;
@@ -839,9 +839,9 @@ async get2ShareStatFake(): Promise<TokenStat> {
 
   async quoteFromSpooky(tokenAmount: string, tokenName: string): Promise<string> {
     const { SpookyRouter } = this.contracts;
-    const { _reserve0, _reserve1 } = await this.XGRAVEUSDC_LP.getReserves();
+    const { _reserve0, _reserve1 } = await this.GRAVEUSDC_LP.getReserves();
     let quote;
-    if (tokenName === 'XGRAVE') {
+    if (tokenName === 'GRAVE') {
       quote = await SpookyRouter.quote(parseUnits(tokenAmount), _reserve1, _reserve0);
     } else {
       quote = await SpookyRouter.quote(parseUnits(tokenAmount), _reserve0, _reserve1);
@@ -929,7 +929,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
     if (tokenName === FTM_TICKER) {
       estimate = await zapper.estimateZapIn(lpToken.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18));
     } else {
-      const token = tokenName === XGRAVE_TICKER ? this.XGRAVE : this.XSHARE;
+      const token = tokenName === GRAVE_TICKER ? this.GRAVE : this.XSHARE;
       estimate = await zapper.estimateZapInToken(
         token.address,
         lpToken.address,
@@ -948,7 +948,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
       };
       return await zapper.zapIn(lpToken.address, SPOOKY_ROUTER_ADDR, this.myAccount, overrides);
     } else {
-      const token = tokenName === XGRAVE_TICKER ? this.XGRAVE : this.XSHARE;
+      const token = tokenName === GRAVE_TICKER ? this.GRAVE : this.XSHARE;
       return await zapper.zapInToken(
         token.address,
         parseUnits(amount, 18),

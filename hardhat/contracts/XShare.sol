@@ -11,10 +11,9 @@ contract XShare is ERC20Burnable, Operator {
     using SafeMath for uint256;
 
     // TOTAL MAX SUPPLY = 70,000 XSHAREs
-    uint256 public constant FARMING_POOL_REWARD_ALLOCATION = 45500 ether;
-    uint256 public constant TREASURY_FUND_POOL_ALLOCATION = 3500 ether;
-    uint256 public constant COMMUNITY_FUND_POOL_ALLOCATION = 14000 ether;
-    uint256 public constant DEV_FUND_POOL_ALLOCATION = 7000 ether;
+    uint256 public constant FARMING_POOL_REWARD_ALLOCATION = 41000 ether;
+    uint256 public constant COMMUNITY_FUND_POOL_ALLOCATION = 4500 ether;
+    uint256 public constant DEV_FUND_POOL_ALLOCATION = 4500 ether;
 
     uint256 public constant VESTING_DURATION = 365 days;
     uint256 public startTime;
@@ -32,8 +31,9 @@ contract XShare is ERC20Burnable, Operator {
 
     bool public rewardPoolDistributed = false;
 
-    constructor(uint256 _startTime, address _communityFund, address _devFund, address _treasuryFund) public ERC20("Graveyard SHARE", "XSHARE") {
-        _mint(msg.sender, 1 ether); // mint 1 XSHARE for initial pools deployment
+
+    constructor(uint256 _startTime, address _communityFund, address _devFund) public ERC20("Graveyard SHARE", "XSHARE") {
+        _mint(msg.sender, 1 ether); // mint 1 XGRAVE Share for initial pools deployment
 
         startTime = _startTime;
         endTime = startTime + VESTING_DURATION;
