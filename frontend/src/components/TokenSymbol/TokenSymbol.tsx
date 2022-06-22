@@ -1,11 +1,12 @@
 import React from 'react';
 
 //Graveyard ecosystem logos
-import xgraveLogo from '../../assets/img/xGRAVE.svg';
+
+import graveLogo from '../../assets/img/xGRAVE.svg';
 import xShareLogo from '../../assets/img/xSHARES.svg';
-import xgraveLogoPNG from '../../assets/img/xGRAVE.png';
+import graveLogoPNG from '../../assets/img/xGRAVE.png';
 import xShareLogoPNG from '../../assets/img/xSHARES.png';
-import xBondLogo from '../../assets/img/xBOND-01.png';
+import xBondLogo from '../../assets/img/XBOND.svg';
 
 import xgraveFtmLpLogo from '../../assets/img/xgrave_usdc_lp.png';
 import xshareFtmLpLogo from '../../assets/img/Xshare_usdc_lp.png';
@@ -33,8 +34,8 @@ import ThreesharesLPLogo from '../../assets/img/xSHARES-USDC.png';
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
   //=====================
-  XGRAVE: xgraveLogo,
-  XGRAVEPNG: xgraveLogoPNG,
+  XGRAVE: graveLogo,
+  XGRAVEPNG: graveLogoPNG,
   XSHAREPNG: xShareLogoPNG,
   XSHARE: xShareLogo,
   XBOND: xBondLogo,

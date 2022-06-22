@@ -4,9 +4,9 @@
 
 :root {
     --black: #16191e;
-    --white: #e6e9ee;
-    --accent: #ff4949;
-    --accent-light: #ff6464;
+    --white: rgb(238, 238, 238);
+    --accent: #073E71;
+    --accent-light: #0b5599;
 }
 
 body,
@@ -16,7 +16,7 @@ h2,
 h3,
 h4 {
     margin: 0;
-    font-family: 'Gilroy', sans-serif !important;
+    font-family: 'Avenir', sans-serif !important;
     /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -40,14 +40,14 @@ body {
 
 .MuiPaper-elevation1 {
     box-shadow: none !important;
-    background-color: #ffffff22 !important;
+    background-color: rgba(61, 61, 61, 0.7) !important;
     backdrop-filter: blur(5px);
     border-radius: 10px !important;
     border: 1px solid var(--white);
 }
 
 .MuiCard-root {
-    background-color: #ffffff22 !important;
+    background-color: rgba(61, 61, 61, 0.7) !important;
     backdrop-filter: blur(5px);
     border-radius: 10px !important;
 }
@@ -71,7 +71,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Gilroy' !important;
+    font-family: 'Avenir' !important;
 }
 
 footer .a:hover {
@@ -98,7 +98,7 @@ code {
 
 .wallet-button {
     color: #2c2560 !important;
-    font-family: 'Gilroy', sans-serif !important;
+    font-family: 'Avenir', sans-serif !important;
     font-size: 1.1rem !important;
     text-align: left !important;
     justify-content: flex-start !important;
