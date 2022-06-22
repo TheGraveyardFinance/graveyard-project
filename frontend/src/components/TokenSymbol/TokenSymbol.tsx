@@ -3,9 +3,9 @@ import React from 'react';
 //Graveyard ecosystem logos
 
 import graveLogo from '../../assets/img/xGRAVE.svg';
-import xShareLogo from '../../assets/img/XSHARES.svg';
+import xShareLogo from '../../assets/img/xSHARES.svg';
 import graveLogoPNG from '../../assets/img/xGRAVE.png';
-import xShareLogoPNG from '../../assets/img/XSHARES.png';
+import xShareLogoPNG from '../../assets/img/xSHARES.png';
 import xBondLogo from '../../assets/img/XBOND.svg';
 
 import xgraveFtmLpLogo from '../../assets/img/xgrave_usdc_lp.png';
