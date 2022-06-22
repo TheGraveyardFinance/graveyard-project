@@ -14,38 +14,38 @@ import "./interfaces/IERC20.sol";
 contract TaxOfficeV2 is Operator {
     using SafeMath for uint256;
 
-    address public xgrave = address(0x6c021Ae822BEa943b2E66552bDe1D2696a53fbB7);
+    address public grave = address(0x6c021Ae822BEa943b2E66552bDe1D2696a53fbB7);
     address public wftm = address(0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83);
     address public uniRouter = address(0xF491e7B69E4244ad4002BC14e878a34207E38c29);
 
     mapping(address => bool) public taxExclusionEnabled;
 
     function setTaxTiersTwap(uint8 _index, uint256 _value) public onlyOperator returns (bool) {
-        return ITaxable(xgrave).setTaxTiersTwap(_index, _value);
+        return ITaxable(grave).setTaxTiersTwap(_index, _value);
     }
 
     function setTaxTiersRate(uint8 _index, uint256 _value) public onlyOperator returns (bool) {
-        return ITaxable(xgrave).setTaxTiersRate(_index, _value);
+        return ITaxable(grave).setTaxTiersRate(_index, _value);
     }
 
     function enableAutoCalculateTax() public onlyOperator {
-        ITaxable(xgrave).enableAutoCalculateTax();
+        ITaxable(grave).enableAutoCalculateTax();
     }
 
     function disableAutoCalculateTax() public onlyOperator {
-        ITaxable(xgrave).disableAutoCalculateTax();
+        ITaxable(grave).disableAutoCalculateTax();
     }
 
     function setTaxRate(uint256 _taxRate) public onlyOperator {
-        ITaxable(xgrave).setTaxRate(_taxRate);
+        ITaxable(grave).setTaxRate(_taxRate);
     }
 
     function setBurnThreshold(uint256 _burnThreshold) public onlyOperator {
-        ITaxable(xgrave).setBurnThreshold(_burnThreshold);
+        ITaxable(grave).setBurnThreshold(_burnThreshold);
     }
 
     function setTaxCollectorAddress(address _taxCollectorAddress) public onlyOperator {
-        ITaxable(xgrave).setTaxCollectorAddress(_taxCollectorAddress);
+        ITaxable(grave).setTaxCollectorAddress(_taxCollectorAddress);
     }
 
     function excludeAddressFromTax(address _address) external onlyOperator returns (bool) {
@@ -53,8 +53,8 @@ contract TaxOfficeV2 is Operator {
     }
 
     function _excludeAddressFromTax(address _address) private returns (bool) {
-        if (!ITaxable(xgrave).isAddressExcluded(_address)) {
-            return ITaxable(xgrave).excludeAddress(_address);
+        if (!ITaxable(grave).isAddressExcluded(_address)) {
+            return ITaxable(grave).excludeAddress(_address);
         }
     }
 
@@ -63,20 +63,20 @@ contract TaxOfficeV2 is Operator {
     }
 
     function _includeAddressInTax(address _address) private returns (bool) {
-        if (ITaxable(xgrave).isAddressExcluded(_address)) {
-            return ITaxable(xgrave).includeAddress(_address);
+        if (ITaxable(grave).isAddressExcluded(_address)) {
+            return ITaxable(grave).includeAddress(_address);
         }
     }
 
     function taxRate() external view returns (uint256) {
-        return ITaxable(xgrave).taxRate();
+        return ITaxable(grave).taxRate();
     }
 
     function addLiquidityTaxFree(
         address token,
-        uint256 amtXgrave,
+        uint256 amtGrave,
         uint256 amtToken,
-        uint256 amtXgraveMin,
+        uint256 amtGraveMin,
         uint256 amtTokenMin
     )
         external
@@ -86,42 +86,42 @@ contract TaxOfficeV2 is Operator {
             uint256
         )
     {
-        require(amtXgrave != 0 && amtToken != 0, "amounts can't be 0");
+        require(amtGrave != 0 && amtToken != 0, "amounts can't be 0");
         _excludeAddressFromTax(msg.sender);
 
-        IERC20(xgrave).transferFrom(msg.sender, address(this), amtXgrave);
+        IERC20(grave).transferFrom(msg.sender, address(this), amtGrave);
         IERC20(token).transferFrom(msg.sender, address(this), amtToken);
-        _approveTokenIfNeeded(xgrave, uniRouter);
+        _approveTokenIfNeeded(grave, uniRouter);
         _approveTokenIfNeeded(token, uniRouter);
 
         _includeAddressInTax(msg.sender);
 
-        uint256 resultAmtXgrave;
+        uint256 resultAmtGrave;
         uint256 resultAmtToken;
         uint256 liquidity;
-        (resultAmtXgrave, resultAmtToken, liquidity) = IUniswapV2Router(uniRouter).addLiquidity(
-            xgrave,
+        (resultAmtGrave, resultAmtToken, liquidity) = IUniswapV2Router(uniRouter).addLiquidity(
+            grave,
             token,
-            amtXgrave,
+            amtGrave,
             amtToken,
-            amtXgraveMin,
+            amtGraveMin,
             amtTokenMin,
             msg.sender,
             block.timestamp
         );
 
-        if(amtXgrave.sub(resultAmtXgrave) > 0) {
-            IERC20(xgrave).transfer(msg.sender, amtXgrave.sub(resultAmtXgrave));
+        if(amtGrave.sub(resultAmtGrave) > 0) {
+            IERC20(grave).transfer(msg.sender, amtGrave.sub(resultAmtGrave));
         }
         if(amtToken.sub(resultAmtToken) > 0) {
             IERC20(token).transfer(msg.sender, amtToken.sub(resultAmtToken));
         }
-        return (resultAmtXgrave, resultAmtToken, liquidity);
+        return (resultAmtGrave, resultAmtToken, liquidity);
     }
 
     function addLiquidityETHTaxFree(
-        uint256 amtXgrave,
-        uint256 amtXgraveMin,
+        uint256 amtGrave,
+        uint256 amtGraveMin,
         uint256 amtFtmMin
     )
         external
@@ -132,38 +132,38 @@ contract TaxOfficeV2 is Operator {
             uint256
         )
     {
-        require(amtXgrave != 0 && msg.value != 0, "amounts can't be 0");
+        require(amtGrave != 0 && msg.value != 0, "amounts can't be 0");
         _excludeAddressFromTax(msg.sender);
 
-        IERC20(xgrave).transferFrom(msg.sender, address(this), amtXgrave);
-        _approveTokenIfNeeded(xgrave, uniRouter);
+        IERC20(grave).transferFrom(msg.sender, address(this), amtGrave);
+        _approveTokenIfNeeded(grave, uniRouter);
 
         _includeAddressInTax(msg.sender);
 
-        uint256 resultAmtXgrave;
+        uint256 resultAmtGrave;
         uint256 resultAmtFtm;
         uint256 liquidity;
-        (resultAmtXgrave, resultAmtFtm, liquidity) = IUniswapV2Router(uniRouter).addLiquidityETH{value: msg.value}(
-            xgrave,
-            amtXgrave,
-            amtXgraveMin,
+        (resultAmtGrave, resultAmtFtm, liquidity) = IUniswapV2Router(uniRouter).addLiquidityETH{value: msg.value}(
+            grave,
+            amtGrave,
+            amtGraveMin,
             amtFtmMin,
             msg.sender,
             block.timestamp
         );
 
-        if(amtXgrave.sub(resultAmtXgrave) > 0) {
-            IERC20(xgrave).transfer(msg.sender, amtXgrave.sub(resultAmtXgrave));
+        if(amtGrave.sub(resultAmtGrave) > 0) {
+            IERC20(grave).transfer(msg.sender, amtGrave.sub(resultAmtGrave));
         }
-        return (resultAmtXgrave, resultAmtFtm, liquidity);
+        return (resultAmtGrave, resultAmtFtm, liquidity);
     }
 
-    function setTaxableXgraveOracle(address _xgraveOracle) external onlyOperator {
-        ITaxable(xgrave).setXgraveOracle(_xgraveOracle);
+    function setTaxableGraveOracle(address _graveOracle) external onlyOperator {
+        ITaxable(grave).setGraveOracle(_graveOracle);
     }
 
     function transferTaxOffice(address _newTaxOffice) external onlyOperator {
-        ITaxable(xgrave).setTaxOffice(_newTaxOffice);
+        ITaxable(grave).setTaxOffice(_newTaxOffice);
     }
 
     function taxFreeTransferFrom(
@@ -173,7 +173,7 @@ contract TaxOfficeV2 is Operator {
     ) external {
         require(taxExclusionEnabled[msg.sender], "Address not approved for tax free transfers");
         _excludeAddressFromTax(_sender);
-        IERC20(xgrave).transferFrom(_sender, _recipient, _amt);
+        IERC20(grave).transferFrom(_sender, _recipient, _amt);
         _includeAddressInTax(_sender);
     }
 

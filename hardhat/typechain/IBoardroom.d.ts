@@ -29,7 +29,7 @@ interface IBoardroomInterface extends ethers.utils.Interface {
     "earned(address)": FunctionFragment;
     "epoch()": FunctionFragment;
     "exit()": FunctionFragment;
-    "getLibraPrice()": FunctionFragment;
+    "getGravePrice()": FunctionFragment;
     "governanceRecoverUnsupported(address,uint256,address)": FunctionFragment;
     "nextEpochPoint()": FunctionFragment;
     "setLockUp(uint256,uint256)": FunctionFragment;
@@ -56,7 +56,7 @@ interface IBoardroomInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "epoch", values?: undefined): string;
   encodeFunctionData(functionFragment: "exit", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "getLibraPrice",
+    functionFragment: "getGravePrice",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -99,7 +99,7 @@ interface IBoardroomInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "epoch", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "exit", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "getLibraPrice",
+    functionFragment: "getGravePrice",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -170,26 +170,20 @@ export class IBoardroom extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    balanceOf(
-      _director: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    balanceOf(_mason: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     canClaimReward(
-      _director: string,
+      _mason: string,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    canWithdraw(
-      _director: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    canWithdraw(_mason: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     claimReward(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    earned(_director: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    earned(_mason: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     epoch(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -197,7 +191,7 @@ export class IBoardroom extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    getLibraPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
+    getGravePrice(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     governanceRecoverUnsupported(
       _token: string,
@@ -235,20 +229,17 @@ export class IBoardroom extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  balanceOf(_director: string, overrides?: CallOverrides): Promise<BigNumber>;
+  balanceOf(_mason: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  canClaimReward(
-    _director: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  canClaimReward(_mason: string, overrides?: CallOverrides): Promise<boolean>;
 
-  canWithdraw(_director: string, overrides?: CallOverrides): Promise<boolean>;
+  canWithdraw(_mason: string, overrides?: CallOverrides): Promise<boolean>;
 
   claimReward(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  earned(_director: string, overrides?: CallOverrides): Promise<BigNumber>;
+  earned(_mason: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   epoch(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -256,7 +247,7 @@ export class IBoardroom extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+  getGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
   governanceRecoverUnsupported(
     _token: string,
@@ -294,24 +285,21 @@ export class IBoardroom extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    balanceOf(_director: string, overrides?: CallOverrides): Promise<BigNumber>;
+    balanceOf(_mason: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    canClaimReward(
-      _director: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    canClaimReward(_mason: string, overrides?: CallOverrides): Promise<boolean>;
 
-    canWithdraw(_director: string, overrides?: CallOverrides): Promise<boolean>;
+    canWithdraw(_mason: string, overrides?: CallOverrides): Promise<boolean>;
 
     claimReward(overrides?: CallOverrides): Promise<void>;
 
-    earned(_director: string, overrides?: CallOverrides): Promise<BigNumber>;
+    earned(_mason: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     epoch(overrides?: CallOverrides): Promise<BigNumber>;
 
     exit(overrides?: CallOverrides): Promise<void>;
 
-    getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    getGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
     governanceRecoverUnsupported(
       _token: string,
@@ -343,23 +331,20 @@ export class IBoardroom extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    balanceOf(_director: string, overrides?: CallOverrides): Promise<BigNumber>;
+    balanceOf(_mason: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     canClaimReward(
-      _director: string,
+      _mason: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    canWithdraw(
-      _director: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    canWithdraw(_mason: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     claimReward(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    earned(_director: string, overrides?: CallOverrides): Promise<BigNumber>;
+    earned(_mason: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     epoch(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -367,7 +352,7 @@ export class IBoardroom extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    getGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
     governanceRecoverUnsupported(
       _token: string,
@@ -407,17 +392,17 @@ export class IBoardroom extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     balanceOf(
-      _director: string,
+      _mason: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     canClaimReward(
-      _director: string,
+      _mason: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     canWithdraw(
-      _director: string,
+      _mason: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -426,7 +411,7 @@ export class IBoardroom extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     earned(
-      _director: string,
+      _mason: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -436,7 +421,7 @@ export class IBoardroom extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    getLibraPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getGravePrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     governanceRecoverUnsupported(
       _token: string,

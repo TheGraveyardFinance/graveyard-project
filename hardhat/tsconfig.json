@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "target": "es2018",
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+  
+      "outDir": "dist",
+      "typeRoots": ["./typechain", "./node_modules/@types"],
+      "types": ["@nomiclabs/hardhat-ethers", "@nomiclabs/hardhat-waffle"]
+    },
+    // "include": ["./test"],
+    // "include": ["./scripts", "./test", "./deploy", "./utils"],
+    "include": ["./hardhat.config.ts", "./scripts", "./deploy", "./test"],
+  
+    // "include": ["./scripts", "./test"],
+  
+    "files": ["./hardhat.config.ts"],
+    "exclude": ["node_modules"]
+  }
+  

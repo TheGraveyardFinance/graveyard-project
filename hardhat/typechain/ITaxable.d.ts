@@ -26,7 +26,7 @@ interface ITaxableInterface extends ethers.utils.Interface {
     "excludeAddress(address)": FunctionFragment;
     "includeAddress(address)": FunctionFragment;
     "setBurnThreshold(uint256)": FunctionFragment;
-    "setLibraOracle(address)": FunctionFragment;
+    "setGraveOracle(address)": FunctionFragment;
     "setTaxCollectorAddress(address)": FunctionFragment;
     "setTaxOffice(address)": FunctionFragment;
     "setTaxRate(uint256)": FunctionFragment;
@@ -55,7 +55,7 @@ interface ITaxableInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setLibraOracle",
+    functionFragment: "setGraveOracle",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -100,7 +100,7 @@ interface ITaxableInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setLibraOracle",
+    functionFragment: "setGraveOracle",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -191,8 +191,8 @@ export class ITaxable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -247,8 +247,8 @@ export class ITaxable extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setLibraOracle(
-    _libraOracle: string,
+  setGraveOracle(
+    _graveOracle: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -299,8 +299,8 @@ export class ITaxable extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -355,8 +355,8 @@ export class ITaxable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -412,8 +412,8 @@ export class ITaxable extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

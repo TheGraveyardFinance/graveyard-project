@@ -20,7 +20,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_director",
+          "name": "_mason",
           "type": "address"
         }
       ],
@@ -39,7 +39,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_director",
+          "name": "_mason",
           "type": "address"
         }
       ],
@@ -58,7 +58,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_director",
+          "name": "_mason",
           "type": "address"
         }
       ],
@@ -84,7 +84,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_director",
+          "name": "_mason",
           "type": "address"
         }
       ],
@@ -121,7 +121,7 @@
     },
     {
       "inputs": [],
-      "name": "getLibraPrice",
+      "name": "getGravePrice",
       "outputs": [
         {
           "internalType": "uint256",

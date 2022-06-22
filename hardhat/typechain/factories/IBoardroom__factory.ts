@@ -24,7 +24,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_director",
+        name: "_mason",
         type: "address",
       },
     ],
@@ -43,7 +43,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_director",
+        name: "_mason",
         type: "address",
       },
     ],
@@ -62,7 +62,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_director",
+        name: "_mason",
         type: "address",
       },
     ],
@@ -88,7 +88,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_director",
+        name: "_mason",
         type: "address",
       },
     ],
@@ -125,7 +125,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "getLibraPrice",
+    name: "getGravePrice",
     outputs: [
       {
         internalType: "uint256",

@@ -76,11 +76,11 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_libraOracle",
+        name: "_graveOracle",
         type: "address",
       },
     ],
-    name: "setLibraOracle",
+    name: "setGraveOracle",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

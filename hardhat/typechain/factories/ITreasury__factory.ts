@@ -8,24 +8,6 @@ import type { ITreasury, ITreasuryInterface } from "../ITreasury";
 
 const _abi = [
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "targetPrice",
-        type: "uint256",
-      },
-    ],
-    name: "buyBonds",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "epoch",
     outputs: [
@@ -36,50 +18,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getLibraPrice",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "nextEpochPoint",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "targetPrice",
-        type: "uint256",
-      },
-    ],
-    name: "redeemBonds",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
 ];

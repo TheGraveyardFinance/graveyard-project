@@ -23,13 +23,9 @@ interface TreasuryInterface extends ethers.utils.Interface {
   functions: {
     "PERIOD()": FunctionFragment;
     "allocateSeigniorage()": FunctionFragment;
-    "boardroom()": FunctionFragment;
-    "boardroomAllocateSeigniorage(uint256)": FunctionFragment;
-    "boardroomGovernanceRecoverUnsupported(address,uint256,address)": FunctionFragment;
-    "boardroomSetLockUp(uint256,uint256)": FunctionFragment;
-    "boardroomSetOperator(address)": FunctionFragment;
     "bondDepletionFloorPercent()": FunctionFragment;
     "bondSupplyExpansionPercent()": FunctionFragment;
+    "bondTreasury()": FunctionFragment;
     "bootstrapEpochs()": FunctionFragment;
     "bootstrapSupplyExpansionPercent()": FunctionFragment;
     "buyBonds(uint256,uint256)": FunctionFragment;
@@ -43,24 +39,25 @@ interface TreasuryInterface extends ethers.utils.Interface {
     "excludedFromTotalSupply(uint256)": FunctionFragment;
     "getBondDiscountRate()": FunctionFragment;
     "getBondPremiumRate()": FunctionFragment;
-    "getBurnableLibraLeft()": FunctionFragment;
-    "getLibraCirculatingSupply()": FunctionFragment;
-    "getLibraPrice()": FunctionFragment;
-    "getLibraUpdatedPrice()": FunctionFragment;
+    "getBurnableGraveLeft()": FunctionFragment;
+    "getGraveCirculatingSupply()": FunctionFragment;
+    "getGravePrice()": FunctionFragment;
+    "getGraveUpdatedPrice()": FunctionFragment;
     "getRedeemableBonds()": FunctionFragment;
     "getReserve()": FunctionFragment;
     "governanceRecoverUnsupported(address,uint256,address)": FunctionFragment;
-    "initialize(address,address,address,address,address,address,uint256)": FunctionFragment;
+    "grave()": FunctionFragment;
+    "graveOracle()": FunctionFragment;
+    "gravePriceCeiling()": FunctionFragment;
+    "gravePriceOne()": FunctionFragment;
+    "initialize(address,address,address,address,address,address,address,uint256)": FunctionFragment;
     "initialized()": FunctionFragment;
-    "insuranceFund()": FunctionFragment;
-    "insuranceFundSharedPercent()": FunctionFragment;
     "isInitialized()": FunctionFragment;
-    "lbond()": FunctionFragment;
-    "libra()": FunctionFragment;
-    "libraOracle()": FunctionFragment;
-    "libraPriceCeiling()": FunctionFragment;
-    "libraPriceOne()": FunctionFragment;
-    "lshare()": FunctionFragment;
+    "masonry()": FunctionFragment;
+    "masonryAllocateSeigniorage(uint256)": FunctionFragment;
+    "masonryGovernanceRecoverUnsupported(address,uint256,address)": FunctionFragment;
+    "masonrySetLockUp(uint256,uint256)": FunctionFragment;
+    "masonrySetOperator(address)": FunctionFragment;
     "maxDebtRatioPercent()": FunctionFragment;
     "maxDiscountRate()": FunctionFragment;
     "maxExpansionTiers(uint256)": FunctionFragment;
@@ -72,18 +69,19 @@ interface TreasuryInterface extends ethers.utils.Interface {
     "operator()": FunctionFragment;
     "premiumPercent()": FunctionFragment;
     "premiumThreshold()": FunctionFragment;
-    "previousEpochLibraPrice()": FunctionFragment;
+    "previousEpochGravePrice()": FunctionFragment;
     "redeemBonds(uint256,uint256)": FunctionFragment;
     "seigniorageExpansionFloorPercent()": FunctionFragment;
     "seigniorageSaved()": FunctionFragment;
     "setBoardroom(address)": FunctionFragment;
     "setBondDepletionFloorPercent(uint256)": FunctionFragment;
     "setBondSupplyExpansionPercent(uint256)": FunctionFragment;
+    "setBondTreasury(address)": FunctionFragment;
     "setBootstrap(uint256,uint256)": FunctionFragment;
     "setDiscountPercent(uint256)": FunctionFragment;
-    "setExtraFunds(address,uint256,address,uint256,address,uint256)": FunctionFragment;
-    "setLibraOracle(address)": FunctionFragment;
-    "setLibraPriceCeiling(uint256)": FunctionFragment;
+    "setExtraFunds(address,uint256,address,uint256)": FunctionFragment;
+    "setGraveOracle(address)": FunctionFragment;
+    "setGravePriceCeiling(uint256)": FunctionFragment;
     "setMaxDebtRatioPercent(uint256)": FunctionFragment;
     "setMaxDiscountRate(uint256)": FunctionFragment;
     "setMaxExpansionTiersEntry(uint8,uint256)": FunctionFragment;
@@ -97,6 +95,8 @@ interface TreasuryInterface extends ethers.utils.Interface {
     "setSupplyTiersEntry(uint8,uint256)": FunctionFragment;
     "startTime()": FunctionFragment;
     "supplyTiers(uint256)": FunctionFragment;
+    "xbond()": FunctionFragment;
+    "xshare()": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "PERIOD", values?: undefined): string;
@@ -104,29 +104,16 @@ interface TreasuryInterface extends ethers.utils.Interface {
     functionFragment: "allocateSeigniorage",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "boardroom", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "boardroomAllocateSeigniorage",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "boardroomGovernanceRecoverUnsupported",
-    values: [string, BigNumberish, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "boardroomSetLockUp",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "boardroomSetOperator",
-    values: [string]
-  ): string;
   encodeFunctionData(
     functionFragment: "bondDepletionFloorPercent",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "bondSupplyExpansionPercent",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "bondTreasury",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -173,19 +160,19 @@ interface TreasuryInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getBurnableLibraLeft",
+    functionFragment: "getBurnableGraveLeft",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getLibraCirculatingSupply",
+    functionFragment: "getGraveCirculatingSupply",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getLibraPrice",
+    functionFragment: "getGravePrice",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getLibraUpdatedPrice",
+    functionFragment: "getGraveUpdatedPrice",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -200,41 +187,57 @@ interface TreasuryInterface extends ethers.utils.Interface {
     functionFragment: "governanceRecoverUnsupported",
     values: [string, BigNumberish, string]
   ): string;
+  encodeFunctionData(functionFragment: "grave", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "graveOracle",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "gravePriceCeiling",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "gravePriceOne",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "initialize",
-    values: [string, string, string, string, string, string, BigNumberish]
+    values: [
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      string,
+      BigNumberish
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "initialized",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "insuranceFund",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "insuranceFundSharedPercent",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "isInitialized",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "lbond", values?: undefined): string;
-  encodeFunctionData(functionFragment: "libra", values?: undefined): string;
+  encodeFunctionData(functionFragment: "masonry", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "libraOracle",
-    values?: undefined
+    functionFragment: "masonryAllocateSeigniorage",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "libraPriceCeiling",
-    values?: undefined
+    functionFragment: "masonryGovernanceRecoverUnsupported",
+    values: [string, BigNumberish, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "libraPriceOne",
-    values?: undefined
+    functionFragment: "masonrySetLockUp",
+    values: [BigNumberish, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "lshare", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "masonrySetOperator",
+    values: [string]
+  ): string;
   encodeFunctionData(
     functionFragment: "maxDebtRatioPercent",
     values?: undefined
@@ -277,7 +280,7 @@ interface TreasuryInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "previousEpochLibraPrice",
+    functionFragment: "previousEpochGravePrice",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -305,6 +308,10 @@ interface TreasuryInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "setBondTreasury",
+    values: [string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setBootstrap",
     values: [BigNumberish, BigNumberish]
   ): string;
@@ -314,14 +321,14 @@ interface TreasuryInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setExtraFunds",
-    values: [string, BigNumberish, string, BigNumberish, string, BigNumberish]
+    values: [string, BigNumberish, string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setLibraOracle",
+    functionFragment: "setGraveOracle",
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "setLibraPriceCeiling",
+    functionFragment: "setGravePriceCeiling",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -370,27 +377,12 @@ interface TreasuryInterface extends ethers.utils.Interface {
     functionFragment: "supplyTiers",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "xbond", values?: undefined): string;
+  encodeFunctionData(functionFragment: "xshare", values?: undefined): string;
 
   decodeFunctionResult(functionFragment: "PERIOD", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "allocateSeigniorage",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "boardroom", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "boardroomAllocateSeigniorage",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "boardroomGovernanceRecoverUnsupported",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "boardroomSetLockUp",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "boardroomSetOperator",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -399,6 +391,10 @@ interface TreasuryInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "bondSupplyExpansionPercent",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "bondTreasury",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -442,19 +438,19 @@ interface TreasuryInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getBurnableLibraLeft",
+    functionFragment: "getBurnableGraveLeft",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getLibraCirculatingSupply",
+    functionFragment: "getGraveCirculatingSupply",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getLibraPrice",
+    functionFragment: "getGravePrice",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getLibraUpdatedPrice",
+    functionFragment: "getGraveUpdatedPrice",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -466,38 +462,45 @@ interface TreasuryInterface extends ethers.utils.Interface {
     functionFragment: "governanceRecoverUnsupported",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "grave", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "graveOracle",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "gravePriceCeiling",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "gravePriceOne",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "initialized",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "insuranceFund",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "insuranceFundSharedPercent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "isInitialized",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "lbond", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "libra", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "masonry", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "libraOracle",
+    functionFragment: "masonryAllocateSeigniorage",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "libraPriceCeiling",
+    functionFragment: "masonryGovernanceRecoverUnsupported",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "libraPriceOne",
+    functionFragment: "masonrySetLockUp",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "lshare", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "masonrySetOperator",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "maxDebtRatioPercent",
     data: BytesLike
@@ -540,7 +543,7 @@ interface TreasuryInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "previousEpochLibraPrice",
+    functionFragment: "previousEpochGravePrice",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -568,6 +571,10 @@ interface TreasuryInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "setBondTreasury",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "setBootstrap",
     data: BytesLike
   ): Result;
@@ -580,11 +587,11 @@ interface TreasuryInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setLibraOracle",
+    functionFragment: "setGraveOracle",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setLibraPriceCeiling",
+    functionFragment: "setGravePriceCeiling",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -636,6 +643,8 @@ interface TreasuryInterface extends ethers.utils.Interface {
     functionFragment: "supplyTiers",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "xbond", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "xshare", data: BytesLike): Result;
 
   events: {
     "BoardroomFunded(uint256,uint256)": EventFragment;
@@ -644,7 +653,6 @@ interface TreasuryInterface extends ethers.utils.Interface {
     "DaoFundFunded(uint256,uint256)": EventFragment;
     "DevFundFunded(uint256,uint256)": EventFragment;
     "Initialized(address,uint256)": EventFragment;
-    "InsuranceFundFunded(uint256,uint256)": EventFragment;
     "RedeemedBonds(address,uint256,uint256)": EventFragment;
     "TreasuryFunded(uint256,uint256)": EventFragment;
   };
@@ -655,7 +663,6 @@ interface TreasuryInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "DaoFundFunded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DevFundFunded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "InsuranceFundFunded"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RedeemedBonds"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TreasuryFunded"): EventFragment;
 }
@@ -667,7 +674,7 @@ export type BoardroomFundedEvent = TypedEvent<
 export type BoughtBondsEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
     from: string;
-    libraAmount: BigNumber;
+    graveAmount: BigNumber;
     bondAmount: BigNumber;
   }
 >;
@@ -688,14 +695,10 @@ export type InitializedEvent = TypedEvent<
   [string, BigNumber] & { executor: string; at: BigNumber }
 >;
 
-export type InsuranceFundFundedEvent = TypedEvent<
-  [BigNumber, BigNumber] & { timestamp: BigNumber; seigniorage: BigNumber }
->;
-
 export type RedeemedBondsEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
     from: string;
-    libraAmount: BigNumber;
+    graveAmount: BigNumber;
     bondAmount: BigNumber;
   }
 >;
@@ -754,34 +757,11 @@ export class Treasury extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    boardroom(overrides?: CallOverrides): Promise<[string]>;
-
-    boardroomAllocateSeigniorage(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    boardroomGovernanceRecoverUnsupported(
-      _token: string,
-      _amount: BigNumberish,
-      _to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    boardroomSetLockUp(
-      _withdrawLockupEpochs: BigNumberish,
-      _rewardLockupEpochs: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    boardroomSetOperator(
-      _operator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     bondDepletionFloorPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     bondSupplyExpansionPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    bondTreasury(overrides?: CallOverrides): Promise<[string]>;
 
     bootstrapEpochs(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -790,7 +770,7 @@ export class Treasury extends BaseContract {
     ): Promise<[BigNumber]>;
 
     buyBonds(
-      _libraAmount: BigNumberish,
+      _graveAmount: BigNumberish,
       targetPrice: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -822,19 +802,19 @@ export class Treasury extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { _rate: BigNumber }>;
 
-    getBurnableLibraLeft(
+    getBurnableGraveLeft(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _burnableLibraLeft: BigNumber }>;
+    ): Promise<[BigNumber] & { _burnableGraveLeft: BigNumber }>;
 
-    getLibraCirculatingSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
+    getGraveCirculatingSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getLibraPrice(
+    getGravePrice(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { libraPrice: BigNumber }>;
+    ): Promise<[BigNumber] & { gravePrice: BigNumber }>;
 
-    getLibraUpdatedPrice(
+    getGraveUpdatedPrice(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _libraPrice: BigNumber }>;
+    ): Promise<[BigNumber] & { _gravePrice: BigNumber }>;
 
     getRedeemableBonds(
       overrides?: CallOverrides
@@ -849,36 +829,54 @@ export class Treasury extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    grave(overrides?: CallOverrides): Promise<[string]>;
+
+    graveOracle(overrides?: CallOverrides): Promise<[string]>;
+
+    gravePriceCeiling(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    gravePriceOne(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     initialize(
-      _libra: string,
-      _lbond: string,
-      _lshare: string,
-      _libraOracle: string,
-      _boardroom: string,
+      _grave: string,
+      _xbond: string,
+      _xshare: string,
+      _graveOracle: string,
+      _masonry: string,
       _genesisPool: string,
+      _bondTreasury: string,
       _startTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     initialized(overrides?: CallOverrides): Promise<[boolean]>;
 
-    insuranceFund(overrides?: CallOverrides): Promise<[string]>;
-
-    insuranceFundSharedPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     isInitialized(overrides?: CallOverrides): Promise<[boolean]>;
 
-    lbond(overrides?: CallOverrides): Promise<[string]>;
+    masonry(overrides?: CallOverrides): Promise<[string]>;
 
-    libra(overrides?: CallOverrides): Promise<[string]>;
+    masonryAllocateSeigniorage(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    libraOracle(overrides?: CallOverrides): Promise<[string]>;
+    masonryGovernanceRecoverUnsupported(
+      _token: string,
+      _amount: BigNumberish,
+      _to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    libraPriceCeiling(overrides?: CallOverrides): Promise<[BigNumber]>;
+    masonrySetLockUp(
+      _withdrawLockupEpochs: BigNumberish,
+      _rewardLockupEpochs: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
-    libraPriceOne(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    lshare(overrides?: CallOverrides): Promise<[string]>;
+    masonrySetOperator(
+      _operator: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     maxDebtRatioPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -907,7 +905,7 @@ export class Treasury extends BaseContract {
 
     premiumThreshold(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    previousEpochLibraPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
+    previousEpochGravePrice(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     redeemBonds(
       _bondAmount: BigNumberish,
@@ -922,7 +920,7 @@ export class Treasury extends BaseContract {
     seigniorageSaved(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     setBoardroom(
-      _boardroom: string,
+      _masonry: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -933,6 +931,11 @@ export class Treasury extends BaseContract {
 
     setBondSupplyExpansionPercent(
       _bondSupplyExpansionPercent: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setBondTreasury(
+      _bondTreasury: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -952,18 +955,16 @@ export class Treasury extends BaseContract {
       _daoFundSharedPercent: BigNumberish,
       _devFund: string,
       _devFundSharedPercent: BigNumberish,
-      _insuranceFund: string,
-      _insuranceFundSharedPercent: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setLibraPriceCeiling(
-      _libraPriceCeiling: BigNumberish,
+    setGravePriceCeiling(
+      _gravePriceCeiling: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -1030,6 +1031,10 @@ export class Treasury extends BaseContract {
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    xbond(overrides?: CallOverrides): Promise<[string]>;
+
+    xshare(overrides?: CallOverrides): Promise<[string]>;
   };
 
   PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1038,34 +1043,11 @@ export class Treasury extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  boardroom(overrides?: CallOverrides): Promise<string>;
-
-  boardroomAllocateSeigniorage(
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  boardroomGovernanceRecoverUnsupported(
-    _token: string,
-    _amount: BigNumberish,
-    _to: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  boardroomSetLockUp(
-    _withdrawLockupEpochs: BigNumberish,
-    _rewardLockupEpochs: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  boardroomSetOperator(
-    _operator: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   bondDepletionFloorPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
   bondSupplyExpansionPercent(overrides?: CallOverrides): Promise<BigNumber>;
+
+  bondTreasury(overrides?: CallOverrides): Promise<string>;
 
   bootstrapEpochs(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1074,7 +1056,7 @@ export class Treasury extends BaseContract {
   ): Promise<BigNumber>;
 
   buyBonds(
-    _libraAmount: BigNumberish,
+    _graveAmount: BigNumberish,
     targetPrice: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -1102,13 +1084,13 @@ export class Treasury extends BaseContract {
 
   getBondPremiumRate(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getBurnableLibraLeft(overrides?: CallOverrides): Promise<BigNumber>;
+  getBurnableGraveLeft(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getLibraCirculatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
+  getGraveCirculatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+  getGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getLibraUpdatedPrice(overrides?: CallOverrides): Promise<BigNumber>;
+  getGraveUpdatedPrice(overrides?: CallOverrides): Promise<BigNumber>;
 
   getRedeemableBonds(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1121,36 +1103,54 @@ export class Treasury extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  grave(overrides?: CallOverrides): Promise<string>;
+
+  graveOracle(overrides?: CallOverrides): Promise<string>;
+
+  gravePriceCeiling(overrides?: CallOverrides): Promise<BigNumber>;
+
+  gravePriceOne(overrides?: CallOverrides): Promise<BigNumber>;
+
   initialize(
-    _libra: string,
-    _lbond: string,
-    _lshare: string,
-    _libraOracle: string,
-    _boardroom: string,
+    _grave: string,
+    _xbond: string,
+    _xshare: string,
+    _graveOracle: string,
+    _masonry: string,
     _genesisPool: string,
+    _bondTreasury: string,
     _startTime: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   initialized(overrides?: CallOverrides): Promise<boolean>;
 
-  insuranceFund(overrides?: CallOverrides): Promise<string>;
-
-  insuranceFundSharedPercent(overrides?: CallOverrides): Promise<BigNumber>;
-
   isInitialized(overrides?: CallOverrides): Promise<boolean>;
 
-  lbond(overrides?: CallOverrides): Promise<string>;
+  masonry(overrides?: CallOverrides): Promise<string>;
 
-  libra(overrides?: CallOverrides): Promise<string>;
+  masonryAllocateSeigniorage(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  libraOracle(overrides?: CallOverrides): Promise<string>;
+  masonryGovernanceRecoverUnsupported(
+    _token: string,
+    _amount: BigNumberish,
+    _to: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  libraPriceCeiling(overrides?: CallOverrides): Promise<BigNumber>;
+  masonrySetLockUp(
+    _withdrawLockupEpochs: BigNumberish,
+    _rewardLockupEpochs: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
-  libraPriceOne(overrides?: CallOverrides): Promise<BigNumber>;
-
-  lshare(overrides?: CallOverrides): Promise<string>;
+  masonrySetOperator(
+    _operator: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   maxDebtRatioPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1177,7 +1177,7 @@ export class Treasury extends BaseContract {
 
   premiumThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
-  previousEpochLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+  previousEpochGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
   redeemBonds(
     _bondAmount: BigNumberish,
@@ -1192,7 +1192,7 @@ export class Treasury extends BaseContract {
   seigniorageSaved(overrides?: CallOverrides): Promise<BigNumber>;
 
   setBoardroom(
-    _boardroom: string,
+    _masonry: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1203,6 +1203,11 @@ export class Treasury extends BaseContract {
 
   setBondSupplyExpansionPercent(
     _bondSupplyExpansionPercent: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setBondTreasury(
+    _bondTreasury: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1222,18 +1227,16 @@ export class Treasury extends BaseContract {
     _daoFundSharedPercent: BigNumberish,
     _devFund: string,
     _devFundSharedPercent: BigNumberish,
-    _insuranceFund: string,
-    _insuranceFundSharedPercent: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setLibraOracle(
-    _libraOracle: string,
+  setGraveOracle(
+    _graveOracle: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setLibraPriceCeiling(
-    _libraPriceCeiling: BigNumberish,
+  setGravePriceCeiling(
+    _gravePriceCeiling: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1301,39 +1304,20 @@ export class Treasury extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  xbond(overrides?: CallOverrides): Promise<string>;
+
+  xshare(overrides?: CallOverrides): Promise<string>;
+
   callStatic: {
     PERIOD(overrides?: CallOverrides): Promise<BigNumber>;
 
     allocateSeigniorage(overrides?: CallOverrides): Promise<void>;
 
-    boardroom(overrides?: CallOverrides): Promise<string>;
-
-    boardroomAllocateSeigniorage(
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    boardroomGovernanceRecoverUnsupported(
-      _token: string,
-      _amount: BigNumberish,
-      _to: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    boardroomSetLockUp(
-      _withdrawLockupEpochs: BigNumberish,
-      _rewardLockupEpochs: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    boardroomSetOperator(
-      _operator: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     bondDepletionFloorPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     bondSupplyExpansionPercent(overrides?: CallOverrides): Promise<BigNumber>;
+
+    bondTreasury(overrides?: CallOverrides): Promise<string>;
 
     bootstrapEpochs(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1342,7 +1326,7 @@ export class Treasury extends BaseContract {
     ): Promise<BigNumber>;
 
     buyBonds(
-      _libraAmount: BigNumberish,
+      _graveAmount: BigNumberish,
       targetPrice: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1370,13 +1354,13 @@ export class Treasury extends BaseContract {
 
     getBondPremiumRate(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getBurnableLibraLeft(overrides?: CallOverrides): Promise<BigNumber>;
+    getBurnableGraveLeft(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLibraCirculatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
+    getGraveCirculatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    getGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLibraUpdatedPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    getGraveUpdatedPrice(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRedeemableBonds(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1389,36 +1373,54 @@ export class Treasury extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    grave(overrides?: CallOverrides): Promise<string>;
+
+    graveOracle(overrides?: CallOverrides): Promise<string>;
+
+    gravePriceCeiling(overrides?: CallOverrides): Promise<BigNumber>;
+
+    gravePriceOne(overrides?: CallOverrides): Promise<BigNumber>;
+
     initialize(
-      _libra: string,
-      _lbond: string,
-      _lshare: string,
-      _libraOracle: string,
-      _boardroom: string,
+      _grave: string,
+      _xbond: string,
+      _xshare: string,
+      _graveOracle: string,
+      _masonry: string,
       _genesisPool: string,
+      _bondTreasury: string,
       _startTime: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     initialized(overrides?: CallOverrides): Promise<boolean>;
 
-    insuranceFund(overrides?: CallOverrides): Promise<string>;
-
-    insuranceFundSharedPercent(overrides?: CallOverrides): Promise<BigNumber>;
-
     isInitialized(overrides?: CallOverrides): Promise<boolean>;
 
-    lbond(overrides?: CallOverrides): Promise<string>;
+    masonry(overrides?: CallOverrides): Promise<string>;
 
-    libra(overrides?: CallOverrides): Promise<string>;
+    masonryAllocateSeigniorage(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    libraOracle(overrides?: CallOverrides): Promise<string>;
+    masonryGovernanceRecoverUnsupported(
+      _token: string,
+      _amount: BigNumberish,
+      _to: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    libraPriceCeiling(overrides?: CallOverrides): Promise<BigNumber>;
+    masonrySetLockUp(
+      _withdrawLockupEpochs: BigNumberish,
+      _rewardLockupEpochs: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    libraPriceOne(overrides?: CallOverrides): Promise<BigNumber>;
-
-    lshare(overrides?: CallOverrides): Promise<string>;
+    masonrySetOperator(
+      _operator: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     maxDebtRatioPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1445,7 +1447,7 @@ export class Treasury extends BaseContract {
 
     premiumThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
-    previousEpochLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    previousEpochGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
     redeemBonds(
       _bondAmount: BigNumberish,
@@ -1459,7 +1461,7 @@ export class Treasury extends BaseContract {
 
     seigniorageSaved(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setBoardroom(_boardroom: string, overrides?: CallOverrides): Promise<void>;
+    setBoardroom(_masonry: string, overrides?: CallOverrides): Promise<void>;
 
     setBondDepletionFloorPercent(
       _bondDepletionFloorPercent: BigNumberish,
@@ -1468,6 +1470,11 @@ export class Treasury extends BaseContract {
 
     setBondSupplyExpansionPercent(
       _bondSupplyExpansionPercent: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setBondTreasury(
+      _bondTreasury: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1487,18 +1494,16 @@ export class Treasury extends BaseContract {
       _daoFundSharedPercent: BigNumberish,
       _devFund: string,
       _devFundSharedPercent: BigNumberish,
-      _insuranceFund: string,
-      _insuranceFundSharedPercent: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setLibraPriceCeiling(
-      _libraPriceCeiling: BigNumberish,
+    setGravePriceCeiling(
+      _gravePriceCeiling: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1562,6 +1567,10 @@ export class Treasury extends BaseContract {
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    xbond(overrides?: CallOverrides): Promise<string>;
+
+    xshare(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
@@ -1583,20 +1592,20 @@ export class Treasury extends BaseContract {
 
     "BoughtBonds(address,uint256,uint256)"(
       from?: string | null,
-      libraAmount?: null,
+      graveAmount?: null,
       bondAmount?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
-      { from: string; libraAmount: BigNumber; bondAmount: BigNumber }
+      { from: string; graveAmount: BigNumber; bondAmount: BigNumber }
     >;
 
     BoughtBonds(
       from?: string | null,
-      libraAmount?: null,
+      graveAmount?: null,
       bondAmount?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
-      { from: string; libraAmount: BigNumber; bondAmount: BigNumber }
+      { from: string; graveAmount: BigNumber; bondAmount: BigNumber }
     >;
 
     "BurnedBonds(address,uint256)"(
@@ -1663,38 +1672,22 @@ export class Treasury extends BaseContract {
       { executor: string; at: BigNumber }
     >;
 
-    "InsuranceFundFunded(uint256,uint256)"(
-      timestamp?: null,
-      seigniorage?: null
-    ): TypedEventFilter<
-      [BigNumber, BigNumber],
-      { timestamp: BigNumber; seigniorage: BigNumber }
-    >;
-
-    InsuranceFundFunded(
-      timestamp?: null,
-      seigniorage?: null
-    ): TypedEventFilter<
-      [BigNumber, BigNumber],
-      { timestamp: BigNumber; seigniorage: BigNumber }
-    >;
-
     "RedeemedBonds(address,uint256,uint256)"(
       from?: string | null,
-      libraAmount?: null,
+      graveAmount?: null,
       bondAmount?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
-      { from: string; libraAmount: BigNumber; bondAmount: BigNumber }
+      { from: string; graveAmount: BigNumber; bondAmount: BigNumber }
     >;
 
     RedeemedBonds(
       from?: string | null,
-      libraAmount?: null,
+      graveAmount?: null,
       bondAmount?: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
-      { from: string; libraAmount: BigNumber; bondAmount: BigNumber }
+      { from: string; graveAmount: BigNumber; bondAmount: BigNumber }
     >;
 
     "TreasuryFunded(uint256,uint256)"(
@@ -1721,34 +1714,11 @@ export class Treasury extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    boardroom(overrides?: CallOverrides): Promise<BigNumber>;
-
-    boardroomAllocateSeigniorage(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    boardroomGovernanceRecoverUnsupported(
-      _token: string,
-      _amount: BigNumberish,
-      _to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    boardroomSetLockUp(
-      _withdrawLockupEpochs: BigNumberish,
-      _rewardLockupEpochs: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    boardroomSetOperator(
-      _operator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     bondDepletionFloorPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     bondSupplyExpansionPercent(overrides?: CallOverrides): Promise<BigNumber>;
+
+    bondTreasury(overrides?: CallOverrides): Promise<BigNumber>;
 
     bootstrapEpochs(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1757,7 +1727,7 @@ export class Treasury extends BaseContract {
     ): Promise<BigNumber>;
 
     buyBonds(
-      _libraAmount: BigNumberish,
+      _graveAmount: BigNumberish,
       targetPrice: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -1785,13 +1755,13 @@ export class Treasury extends BaseContract {
 
     getBondPremiumRate(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getBurnableLibraLeft(overrides?: CallOverrides): Promise<BigNumber>;
+    getBurnableGraveLeft(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLibraCirculatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
+    getGraveCirculatingSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    getGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getLibraUpdatedPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    getGraveUpdatedPrice(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRedeemableBonds(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1804,36 +1774,54 @@ export class Treasury extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    grave(overrides?: CallOverrides): Promise<BigNumber>;
+
+    graveOracle(overrides?: CallOverrides): Promise<BigNumber>;
+
+    gravePriceCeiling(overrides?: CallOverrides): Promise<BigNumber>;
+
+    gravePriceOne(overrides?: CallOverrides): Promise<BigNumber>;
+
     initialize(
-      _libra: string,
-      _lbond: string,
-      _lshare: string,
-      _libraOracle: string,
-      _boardroom: string,
+      _grave: string,
+      _xbond: string,
+      _xshare: string,
+      _graveOracle: string,
+      _masonry: string,
       _genesisPool: string,
+      _bondTreasury: string,
       _startTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     initialized(overrides?: CallOverrides): Promise<BigNumber>;
 
-    insuranceFund(overrides?: CallOverrides): Promise<BigNumber>;
-
-    insuranceFundSharedPercent(overrides?: CallOverrides): Promise<BigNumber>;
-
     isInitialized(overrides?: CallOverrides): Promise<BigNumber>;
 
-    lbond(overrides?: CallOverrides): Promise<BigNumber>;
+    masonry(overrides?: CallOverrides): Promise<BigNumber>;
 
-    libra(overrides?: CallOverrides): Promise<BigNumber>;
+    masonryAllocateSeigniorage(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    libraOracle(overrides?: CallOverrides): Promise<BigNumber>;
+    masonryGovernanceRecoverUnsupported(
+      _token: string,
+      _amount: BigNumberish,
+      _to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    libraPriceCeiling(overrides?: CallOverrides): Promise<BigNumber>;
+    masonrySetLockUp(
+      _withdrawLockupEpochs: BigNumberish,
+      _rewardLockupEpochs: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
-    libraPriceOne(overrides?: CallOverrides): Promise<BigNumber>;
-
-    lshare(overrides?: CallOverrides): Promise<BigNumber>;
+    masonrySetOperator(
+      _operator: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     maxDebtRatioPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1860,7 +1848,7 @@ export class Treasury extends BaseContract {
 
     premiumThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
-    previousEpochLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
+    previousEpochGravePrice(overrides?: CallOverrides): Promise<BigNumber>;
 
     redeemBonds(
       _bondAmount: BigNumberish,
@@ -1875,7 +1863,7 @@ export class Treasury extends BaseContract {
     seigniorageSaved(overrides?: CallOverrides): Promise<BigNumber>;
 
     setBoardroom(
-      _boardroom: string,
+      _masonry: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1886,6 +1874,11 @@ export class Treasury extends BaseContract {
 
     setBondSupplyExpansionPercent(
       _bondSupplyExpansionPercent: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setBondTreasury(
+      _bondTreasury: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1905,18 +1898,16 @@ export class Treasury extends BaseContract {
       _daoFundSharedPercent: BigNumberish,
       _devFund: string,
       _devFundSharedPercent: BigNumberish,
-      _insuranceFund: string,
-      _insuranceFundSharedPercent: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setLibraPriceCeiling(
-      _libraPriceCeiling: BigNumberish,
+    setGravePriceCeiling(
+      _gravePriceCeiling: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1983,37 +1974,16 @@ export class Treasury extends BaseContract {
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    xbond(overrides?: CallOverrides): Promise<BigNumber>;
+
+    xshare(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     PERIOD(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     allocateSeigniorage(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    boardroom(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    boardroomAllocateSeigniorage(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    boardroomGovernanceRecoverUnsupported(
-      _token: string,
-      _amount: BigNumberish,
-      _to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    boardroomSetLockUp(
-      _withdrawLockupEpochs: BigNumberish,
-      _rewardLockupEpochs: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    boardroomSetOperator(
-      _operator: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2025,6 +1995,8 @@ export class Treasury extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    bondTreasury(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     bootstrapEpochs(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     bootstrapSupplyExpansionPercent(
@@ -2032,7 +2004,7 @@ export class Treasury extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     buyBonds(
-      _libraAmount: BigNumberish,
+      _graveAmount: BigNumberish,
       targetPrice: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -2070,17 +2042,17 @@ export class Treasury extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getBurnableLibraLeft(
+    getBurnableGraveLeft(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getLibraCirculatingSupply(
+    getGraveCirculatingSupply(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getLibraPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getGravePrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getLibraUpdatedPrice(
+    getGraveUpdatedPrice(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2097,38 +2069,54 @@ export class Treasury extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    grave(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    graveOracle(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    gravePriceCeiling(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    gravePriceOne(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     initialize(
-      _libra: string,
-      _lbond: string,
-      _lshare: string,
-      _libraOracle: string,
-      _boardroom: string,
+      _grave: string,
+      _xbond: string,
+      _xshare: string,
+      _graveOracle: string,
+      _masonry: string,
       _genesisPool: string,
+      _bondTreasury: string,
       _startTime: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     initialized(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    insuranceFund(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    insuranceFundSharedPercent(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     isInitialized(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    lbond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    masonry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    libra(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    masonryAllocateSeigniorage(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
-    libraOracle(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    masonryGovernanceRecoverUnsupported(
+      _token: string,
+      _amount: BigNumberish,
+      _to: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
-    libraPriceCeiling(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    masonrySetLockUp(
+      _withdrawLockupEpochs: BigNumberish,
+      _rewardLockupEpochs: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
-    libraPriceOne(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    lshare(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    masonrySetOperator(
+      _operator: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     maxDebtRatioPercent(
       overrides?: CallOverrides
@@ -2163,7 +2151,7 @@ export class Treasury extends BaseContract {
 
     premiumThreshold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    previousEpochLibraPrice(
+    previousEpochGravePrice(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2180,7 +2168,7 @@ export class Treasury extends BaseContract {
     seigniorageSaved(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setBoardroom(
-      _boardroom: string,
+      _masonry: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2191,6 +2179,11 @@ export class Treasury extends BaseContract {
 
     setBondSupplyExpansionPercent(
       _bondSupplyExpansionPercent: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setBondTreasury(
+      _bondTreasury: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2210,18 +2203,16 @@ export class Treasury extends BaseContract {
       _daoFundSharedPercent: BigNumberish,
       _devFund: string,
       _devFundSharedPercent: BigNumberish,
-      _insuranceFund: string,
-      _insuranceFundSharedPercent: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setLibraOracle(
-      _libraOracle: string,
+    setGraveOracle(
+      _graveOracle: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setLibraPriceCeiling(
-      _libraPriceCeiling: BigNumberish,
+    setGravePriceCeiling(
+      _gravePriceCeiling: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -2288,5 +2279,9 @@ export class Treasury extends BaseContract {
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    xbond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    xshare(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

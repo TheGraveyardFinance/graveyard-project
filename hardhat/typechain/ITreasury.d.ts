@@ -11,7 +11,6 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
-  Overrides,
   CallOverrides,
 } from "ethers";
 import { BytesLike } from "@ethersproject/bytes";
@@ -21,45 +20,12 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface ITreasuryInterface extends ethers.utils.Interface {
   functions: {
-    "buyBonds(uint256,uint256)": FunctionFragment;
     "epoch()": FunctionFragment;
-    "getLibraPrice()": FunctionFragment;
-    "nextEpochPoint()": FunctionFragment;
-    "redeemBonds(uint256,uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "buyBonds",
-    values: [BigNumberish, BigNumberish]
-  ): string;
   encodeFunctionData(functionFragment: "epoch", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getLibraPrice",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "nextEpochPoint",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "redeemBonds",
-    values: [BigNumberish, BigNumberish]
-  ): string;
 
-  decodeFunctionResult(functionFragment: "buyBonds", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "epoch", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getLibraPrice",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "nextEpochPoint",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "redeemBonds",
-    data: BytesLike
-  ): Result;
 
   events: {};
 }
@@ -108,102 +74,22 @@ export class ITreasury extends BaseContract {
   interface: ITreasuryInterface;
 
   functions: {
-    buyBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     epoch(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    getLibraPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    nextEpochPoint(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    redeemBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
   };
-
-  buyBonds(
-    amount: BigNumberish,
-    targetPrice: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
 
   epoch(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-  nextEpochPoint(overrides?: CallOverrides): Promise<BigNumber>;
-
-  redeemBonds(
-    amount: BigNumberish,
-    targetPrice: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   callStatic: {
-    buyBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     epoch(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-    nextEpochPoint(overrides?: CallOverrides): Promise<BigNumber>;
-
-    redeemBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
-    buyBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     epoch(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getLibraPrice(overrides?: CallOverrides): Promise<BigNumber>;
-
-    nextEpochPoint(overrides?: CallOverrides): Promise<BigNumber>;
-
-    redeemBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    buyBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     epoch(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getLibraPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    nextEpochPoint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    redeemBonds(
-      amount: BigNumberish,
-      targetPrice: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
   };
 }

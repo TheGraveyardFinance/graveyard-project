@@ -36,7 +36,7 @@
     },
     {
       "inputs": [],
-      "name": "getLibraPrice",
+      "name": "getGravePrice",
       "outputs": [
         {
           "internalType": "uint256",

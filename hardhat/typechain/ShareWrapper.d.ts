@@ -22,14 +22,14 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface ShareWrapperInterface extends ethers.utils.Interface {
   functions: {
     "balanceOf(address)": FunctionFragment;
-    "lshare()": FunctionFragment;
+    "share()": FunctionFragment;
     "stake(uint256)": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
-  encodeFunctionData(functionFragment: "lshare", values?: undefined): string;
+  encodeFunctionData(functionFragment: "share", values?: undefined): string;
   encodeFunctionData(functionFragment: "stake", values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
@@ -41,7 +41,7 @@ interface ShareWrapperInterface extends ethers.utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "lshare", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "share", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
@@ -98,7 +98,7 @@ export class ShareWrapper extends BaseContract {
   functions: {
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    lshare(overrides?: CallOverrides): Promise<[string]>;
+    share(overrides?: CallOverrides): Promise<[string]>;
 
     stake(
       amount: BigNumberish,
@@ -115,7 +115,7 @@ export class ShareWrapper extends BaseContract {
 
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  lshare(overrides?: CallOverrides): Promise<string>;
+  share(overrides?: CallOverrides): Promise<string>;
 
   stake(
     amount: BigNumberish,
@@ -132,7 +132,7 @@ export class ShareWrapper extends BaseContract {
   callStatic: {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    lshare(overrides?: CallOverrides): Promise<string>;
+    share(overrides?: CallOverrides): Promise<string>;
 
     stake(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
@@ -146,7 +146,7 @@ export class ShareWrapper extends BaseContract {
   estimateGas: {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    lshare(overrides?: CallOverrides): Promise<BigNumber>;
+    share(overrides?: CallOverrides): Promise<BigNumber>;
 
     stake(
       amount: BigNumberish,
@@ -167,7 +167,7 @@ export class ShareWrapper extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    lshare(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    share(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     stake(
       amount: BigNumberish,
