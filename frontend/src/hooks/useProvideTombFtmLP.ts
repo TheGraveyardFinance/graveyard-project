@@ -9,11 +9,11 @@ const useProvideXgraveFtmLP = () => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleProvideXgraveFtmLP = useCallback(
-    (usdcAmount: string, xgraveAmount: string) => {
-      const xgraveAmountBn = parseUnits(xgraveAmount);
+    (usdcAmount: string, graveAmount: string) => {
+      const graveAmountBn = parseUnits(graveAmount);
       handleTransactionReceipt(
-        graveyardFinance.provideXgraveFtmLP(usdcAmount, xgraveAmountBn),
-        `Provide Xgrave-FTM LP ${xgraveAmount} ${usdcAmount} using ${TAX_OFFICE_ADDR}`,
+        graveyardFinance.provideXgraveFtmLP(usdcAmount, graveAmountBn),
+        `Provide Xgrave-FTM LP ${graveAmount} ${usdcAmount} using ${TAX_OFFICE_ADDR}`,
       );
     },
     [graveyardFinance, handleTransactionReceipt],

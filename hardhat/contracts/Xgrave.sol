@@ -25,7 +25,7 @@ contract Xgrave is ERC20Burnable, Operator {
 
     /* ================= Taxation =============== */
     // Address of the Oracle
-    address public xgraveOracle;
+    address public graveOracle;
     // Address of the Tax Office
     address public taxOffice;
 
@@ -61,7 +61,7 @@ contract Xgrave is ERC20Burnable, Operator {
     /**
      * @notice Constructs the XGRAVE ERC-20 contract.
      */
-    constructor(uint256 _taxRate, address _taxCollectorAddress) public ERC20("xGRAVE", "xGRAVE Token") {
+    constructor(uint256 _taxRate, address _taxCollectorAddress) public ERC20("GRAVE", "GRAVE Token") {
         // Mints 1 XGRAVE to contract creator for initial pool setup
         require(_taxRate < 10000, "tax equal or bigger to 100%");
         //require(_taxCollectorAddress != address(0), "tax collector address must be non-zero address");
@@ -111,18 +111,18 @@ contract Xgrave is ERC20Burnable, Operator {
         burnThreshold = _burnThreshold;
     }
 
-    function _getXgravePrice() internal view returns (uint256 _xgravePrice) {
-        try IOracle(xgraveOracle).consult(address(this), 1e18) returns (uint144 _price) {
+    function _getXgravePrice() internal view returns (uint256 _gravePrice) {
+        try IOracle(graveOracle).consult(address(this), 1e18) returns (uint144 _price) {
             return uint256(_price);
         } catch {
             revert("Xgrave: failed to fetch XGRAVE price from Oracle");
         }
     }
 
-    function _updateTaxRate(uint256 _xgravePrice) internal returns (uint256){
+    function _updateTaxRate(uint256 _gravePrice) internal returns (uint256){
         if (autoCalculateTax) {
             for (uint8 tierId = uint8(getTaxTiersTwapsCount()).sub(1); tierId >= 0; --tierId) {
-                if (_xgravePrice >= taxTiersTwaps[tierId]) {
+                if (_gravePrice >= taxTiersTwaps[tierId]) {
                     require(taxTiersRates[tierId] < 10000, "tax equal or bigger to 100%");
                     taxRate = taxTiersRates[tierId];
                     return taxTiersRates[tierId];
@@ -139,9 +139,9 @@ contract Xgrave is ERC20Burnable, Operator {
         autoCalculateTax = false;
     }
 
-    function setXgraveOracle(address _xgraveOracle) public onlyOperatorOrTaxOffice {
-        require(_xgraveOracle != address(0), "oracle address cannot be 0 address");
-        xgraveOracle = _xgraveOracle;
+    function setXgraveOracle(address _graveOracle) public onlyOperatorOrTaxOffice {
+        require(_graveOracle != address(0), "oracle address cannot be 0 address");
+        graveOracle = _graveOracle;
     }
 
     function setTaxOffice(address _taxOffice) public onlyOperatorOrTaxOffice {
@@ -250,16 +250,16 @@ contract Xgrave is ERC20Burnable, Operator {
      */
     function distributeReward(
         address _genesisPool
-        //address _xgravePool,
+        //address _gravePool,
         //address _airdropWallet
     ) external onlyOperator {
         require(!rewardPoolDistributed, "only can distribute once");
         require(_genesisPool != address(0), "!_genesisPool");
-        //require(_xgravePool != address(0), "!_xgravePool");
+        //require(_gravePool != address(0), "!_gravePool");
         //require(_airdropWallet != address(0), "!_airdropWallet");
         rewardPoolDistributed = true;
         _mint(_genesisPool, INITIAL_GENESIS_POOL_DISTRIBUTION);
-        //_mint(_xgravePool, INITIAL_XGRAVE_POOL_DISTRIBUTION);
+        //_mint(_gravePool, INITIAL_XGRAVE_POOL_DISTRIBUTION);
         //_mint(_airdropWallet, INITIAL_AIRDROP_WALLET_DISTRIBUTION);
     }
 

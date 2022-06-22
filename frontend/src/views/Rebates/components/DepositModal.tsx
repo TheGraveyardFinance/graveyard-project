@@ -42,7 +42,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
   );
 
   const handleSelectMax = useCallback(() => {
-    setVal((rebateStats.xgraveAvailable > +fullBalance ? fullBalance : rebateStats.xgraveAvailable.toString()));
+    setVal((rebateStats.graveAvailable > +fullBalance ? fullBalance : rebateStats.graveAvailable.toString()));
   }, [fullBalance, setVal, rebateStats]);
 
   function getAssetPrice(token: String) {
@@ -53,13 +53,13 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
 
   function getOutAmount() {
     const toBondPrice = getAssetPrice(tokenName)
-    const outAmount = +val * (toBondPrice / rebateStats.xgravePrice * (1 + (rebateStats.bondPremium / 100)) * (token.params.multiplier / 1000000))
+    const outAmount = +val * (toBondPrice / rebateStats.gravePrice * (1 + (rebateStats.bondPremium / 100)) * (token.params.multiplier / 1000000))
     return outAmount
   }
 
   function formatOutAmount() {
     const outAmount = getOutAmount()
-    return `Receiving: ${outAmount.toFixed(4)} xGRAVE ($${(outAmount * rebateStats.xgravePrice * usdcPrice).toFixed(2)})`
+    return `Receiving: ${outAmount.toFixed(4)} GRAVE ($${(outAmount * rebateStats.gravePrice * usdcPrice).toFixed(2)})`
   }
 
   function formatInAmount() {
@@ -82,11 +82,11 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
       <StyledMaxText>
         { formatOutAmount() }
       </StyledMaxText>
-      <StyledMaxText style = {{color: getOutAmount() < rebateStats.xgraveAvailable ? "black" : "var(--accent)"}}>
-        {rebateStats.xgraveAvailable > 0 ? `${rebateStats.xgraveAvailable.toFixed(4)} xGRAVE Available` : "Bond Sold Out"}
+      <StyledMaxText style = {{color: getOutAmount() < rebateStats.graveAvailable ? "black" : "var(--accent)"}}>
+        {rebateStats.graveAvailable > 0 ? `${rebateStats.graveAvailable.toFixed(4)} GRAVE Available` : "Bond Sold Out"}
       </StyledMaxText>
       <ModalActions>
-        <Button color={ (getOutAmount() < rebateStats.xgraveAvailable ? "primary" : "secondary") } variant="contained" disabled = { getOutAmount() >= rebateStats.xgraveAvailable } onClick={() => onConfirm(+val)}>
+        <Button color={ (getOutAmount() < rebateStats.graveAvailable ? "primary" : "secondary") } variant="contained" disabled = { getOutAmount() >= rebateStats.graveAvailable } onClick={() => onConfirm(+val)}>
           Confirm
         </Button>
       </ModalActions>

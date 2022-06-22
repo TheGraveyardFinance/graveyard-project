@@ -12,33 +12,33 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract XgraveTaxOracle is Ownable {
     using SafeMath for uint256;
 
-    IERC20 public xgrave;
+    IERC20 public grave;
     IERC20 public wftm;
     address public pair;
 
     constructor(
-        address _xgrave,
+        address _grave,
         address _wftm,
         address _pair
     ) public {
-        require(_xgrave != address(0), "xgrave address cannot be 0");
+        require(_grave != address(0), "grave address cannot be 0");
         require(_wftm != address(0), "wftm address cannot be 0");
         require(_pair != address(0), "pair address cannot be 0");
-        xgrave = IERC20(_xgrave);
+        grave = IERC20(_grave);
         wftm = IERC20(_wftm);
         pair = _pair;
     }
 
     function consult(address _token, uint256 _amountIn) external view returns (uint144 amountOut) {
-        require(_token == address(xgrave), "token needs to be xgrave");
-        uint256 xgraveBalance = xgrave.balanceOf(pair);
+        require(_token == address(grave), "token needs to be grave");
+        uint256 graveBalance = grave.balanceOf(pair);
         uint256 wftmBalance = wftm.balanceOf(pair);
-        return uint144(xgraveBalance.div(wftmBalance));
+        return uint144(graveBalance.div(wftmBalance));
     }
 
-    function setXgrave(address _xgrave) external onlyOwner {
-        require(_xgrave != address(0), "xgrave address cannot be 0");
-        xgrave = IERC20(_xgrave);
+    function setXgrave(address _grave) external onlyOwner {
+        require(_grave != address(0), "grave address cannot be 0");
+        grave = IERC20(_grave);
     }
 
     function setWftm(address _wftm) external onlyOwner {
