@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
-// Note that this pool has no minter key of XGRAVE (rewards).
-// Instead, the governance will call XGRAVE distributeReward method and send reward to this pool at the beginning.
-contract XgraveGenesisRewardPool {
+// Note that this pool has no minter key of GRAVE (rewards).
+// Instead, the governance will call GRAVE distributeReward method and send reward to this pool at the beginning.
+contract GraveGenesisRewardPool {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -24,13 +24,13 @@ contract XgraveGenesisRewardPool {
     // Info of each pool.
     struct PoolInfo {
         IERC20 token; // Address of LP token contract.
-        uint256 allocPoint; // How many allocation points assigned to this pool. XGRAVE to distribute.
-        uint256 lastRewardTime; // Last time that XGRAVE distribution occurs.
-        uint256 accXgravePerShare; // Accumulated XGRAVE per share, times 1e18. See below.
+        uint256 allocPoint; // How many allocation points assigned to this pool. GRAVE to distribute.
+        uint256 lastRewardTime; // Last time that GRAVE distribution occurs.
+        uint256 accGravePerShare; // Accumulated GRAVE per share, times 1e18. See below.
         bool isStarted; // if lastRewardBlock has passed
     }
 
-    IERC20 public xgrave;
+    IERC20 public grave;
     address public shiba;
 
     // Info of each pool.
@@ -42,14 +42,14 @@ contract XgraveGenesisRewardPool {
     // Total allocation points. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
 
-    // The time when XGRAVE mining starts.
+    // The time when GRAVE mining starts.
     uint256 public poolStartTime;
 
-    // The time when XGRAVE mining ends.
+    // The time when GRAVE mining ends.
     uint256 public poolEndTime;
 
     // MAINNET
-    uint256 public xgravePerSecond = 0.09645 ether; // 25000 XGRAVE / (72h * 60min * 60s)
+    uint256 public gravePerSecond = 0.09645 ether; // 25000 GRAVE / (72h * 60min * 60s)
     uint256 public runningTime = 3 days; // 1 days
     uint256 public constant TOTAL_REWARDS = 25000 ether;
     // END MAINNET
@@ -60,12 +60,12 @@ contract XgraveGenesisRewardPool {
     event RewardPaid(address indexed user, uint256 amount);
 
     constructor(
-        address _xgrave,
+        address _grave,
         address _shiba,
         uint256 _poolStartTime
     ) public {
         require(block.timestamp < _poolStartTime, "late");
-        if (_xgrave != address(0)) xgrave = IERC20(_xgrave);
+        if (_grave != address(0)) grave = IERC20(_grave);
         if (_shiba != address(0)) shiba = _shiba;
         poolStartTime = _poolStartTime;
         poolEndTime = poolStartTime + runningTime;
@@ -73,14 +73,14 @@ contract XgraveGenesisRewardPool {
     }
 
     modifier onlyOperator() {
-        require(operator == msg.sender, "XgraveGenesisPool: caller is not the operator");
+        require(operator == msg.sender, "GraveGenesisPool: caller is not the operator");
         _;
     }
 
     function checkPoolDuplicate(IERC20 _token) internal view {
         uint256 length = poolInfo.length;
         for (uint256 pid = 0; pid < length; ++pid) {
-            require(poolInfo[pid].token != _token, "XgraveGenesisPool: existing pool?");
+            require(poolInfo[pid].token != _token, "GraveGenesisPool: existing pool?");
         }
     }
 
@@ -117,7 +117,7 @@ contract XgraveGenesisRewardPool {
             token : _token,
             allocPoint : _allocPoint,
             lastRewardTime : _lastRewardTime,
-            accXgravePerShare : 0,
+            accGravePerShare : 0,
             isStarted : _isStarted
             }));
         if (_isStarted) {
@@ -125,7 +125,7 @@ contract XgraveGenesisRewardPool {
         }
     }
 
-    // Update the given pool's XGRAVE allocation point. Can only be called by the owner.
+    // Update the given pool's GRAVE allocation point. Can only be called by the owner.
     function set(uint256 _pid, uint256 _allocPoint) public onlyOperator {
         massUpdatePools();
         PoolInfo storage pool = poolInfo[_pid];
@@ -142,27 +142,27 @@ contract XgraveGenesisRewardPool {
         if (_fromTime >= _toTime) return 0;
         if (_toTime >= poolEndTime) {
             if (_fromTime >= poolEndTime) return 0;
-            if (_fromTime <= poolStartTime) return poolEndTime.sub(poolStartTime).mul(xgravePerSecond);
-            return poolEndTime.sub(_fromTime).mul(xgravePerSecond);
+            if (_fromTime <= poolStartTime) return poolEndTime.sub(poolStartTime).mul(gravePerSecond);
+            return poolEndTime.sub(_fromTime).mul(gravePerSecond);
         } else {
             if (_toTime <= poolStartTime) return 0;
-            if (_fromTime <= poolStartTime) return _toTime.sub(poolStartTime).mul(xgravePerSecond);
-            return _toTime.sub(_fromTime).mul(xgravePerSecond);
+            if (_fromTime <= poolStartTime) return _toTime.sub(poolStartTime).mul(gravePerSecond);
+            return _toTime.sub(_fromTime).mul(gravePerSecond);
         }
     }
 
-    // View function to see pending XGRAVE on frontend.
-    function pendingXGRAVE(uint256 _pid, address _user) external view returns (uint256) {
+    // View function to see pending GRAVE on frontend.
+    function pendingGRAVE(uint256 _pid, address _user) external view returns (uint256) {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][_user];
-        uint256 accXgravePerShare = pool.accXgravePerShare;
+        uint256 accGravePerShare = pool.accGravePerShare;
         uint256 tokenSupply = pool.token.balanceOf(address(this));
         if (block.timestamp > pool.lastRewardTime && tokenSupply != 0) {
             uint256 _generatedReward = getGeneratedReward(pool.lastRewardTime, block.timestamp);
-            uint256 _xgraveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
-            accXgravePerShare = accXgravePerShare.add(_xgraveReward.mul(1e18).div(tokenSupply));
+            uint256 _graveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
+            accGravePerShare = accGravePerShare.add(_graveReward.mul(1e18).div(tokenSupply));
         }
-        return user.amount.mul(accXgravePerShare).div(1e18).sub(user.rewardDebt);
+        return user.amount.mul(accGravePerShare).div(1e18).sub(user.rewardDebt);
     }
 
     // Update reward variables for all pools. Be careful of gas spending!
@@ -190,8 +190,8 @@ contract XgraveGenesisRewardPool {
         }
         if (totalAllocPoint > 0) {
             uint256 _generatedReward = getGeneratedReward(pool.lastRewardTime, block.timestamp);
-            uint256 _xgraveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
-            pool.accXgravePerShare = pool.accXgravePerShare.add(_xgraveReward.mul(1e18).div(tokenSupply));
+            uint256 _graveReward = _generatedReward.mul(pool.allocPoint).div(totalAllocPoint);
+            pool.accGravePerShare = pool.accGravePerShare.add(_graveReward.mul(1e18).div(tokenSupply));
         }
         pool.lastRewardTime = block.timestamp;
     }
@@ -203,9 +203,9 @@ contract XgraveGenesisRewardPool {
         UserInfo storage user = userInfo[_pid][_sender];
         updatePool(_pid);
         if (user.amount > 0) {
-            uint256 _pending = user.amount.mul(pool.accXgravePerShare).div(1e18).sub(user.rewardDebt);
+            uint256 _pending = user.amount.mul(pool.accGravePerShare).div(1e18).sub(user.rewardDebt);
             if (_pending > 0) {
-                safeXgraveTransfer(_sender, _pending);
+                safeGraveTransfer(_sender, _pending);
                 emit RewardPaid(_sender, _pending);
             }
         }
@@ -217,7 +217,7 @@ contract XgraveGenesisRewardPool {
                 user.amount = user.amount.add(_amount);
             }
         }
-        user.rewardDebt = user.amount.mul(pool.accXgravePerShare).div(1e18);
+        user.rewardDebt = user.amount.mul(pool.accGravePerShare).div(1e18);
         emit Deposit(_sender, _pid, _amount);
     }
 
@@ -228,16 +228,16 @@ contract XgraveGenesisRewardPool {
         UserInfo storage user = userInfo[_pid][_sender];
         require(user.amount >= _amount, "withdraw: not good");
         updatePool(_pid);
-        uint256 _pending = user.amount.mul(pool.accXgravePerShare).div(1e18).sub(user.rewardDebt);
+        uint256 _pending = user.amount.mul(pool.accGravePerShare).div(1e18).sub(user.rewardDebt);
         if (_pending > 0) {
-            safeXgraveTransfer(_sender, _pending);
+            safeGraveTransfer(_sender, _pending);
             emit RewardPaid(_sender, _pending);
         }
         if (_amount > 0) {
             user.amount = user.amount.sub(_amount);
             pool.token.safeTransfer(_sender, _amount);
         }
-        user.rewardDebt = user.amount.mul(pool.accXgravePerShare).div(1e18);
+        user.rewardDebt = user.amount.mul(pool.accGravePerShare).div(1e18);
         emit Withdraw(_sender, _pid, _amount);
     }
 
@@ -252,14 +252,14 @@ contract XgraveGenesisRewardPool {
         emit EmergencyWithdraw(msg.sender, _pid, _amount);
     }
 
-    // Safe XGRAVE transfer function, just in case if rounding error causes pool to not have enough XGRAVEs.
-    function safeXgraveTransfer(address _to, uint256 _amount) internal {
-        uint256 _xgraveBalance = xgrave.balanceOf(address(this));
-        if (_xgraveBalance > 0) {
-            if (_amount > _xgraveBalance) {
-                xgrave.safeTransfer(_to, _xgraveBalance);
+    // Safe GRAVE transfer function, just in case if rounding error causes pool to not have enough GRAVEs.
+    function safeGraveTransfer(address _to, uint256 _amount) internal {
+        uint256 _graveBalance = grave.balanceOf(address(this));
+        if (_graveBalance > 0) {
+            if (_amount > _graveBalance) {
+                grave.safeTransfer(_to, _graveBalance);
             } else {
-                xgrave.safeTransfer(_to, _amount);
+                grave.safeTransfer(_to, _amount);
             }
         }
     }
@@ -270,8 +270,8 @@ contract XgraveGenesisRewardPool {
 
     function governanceRecoverUnsupported(IERC20 _token, uint256 amount, address to) external onlyOperator {
         if (block.timestamp < poolEndTime + 90 days) {
-            // do not allow to drain core token (XGRAVE or lps) if less than 90 days after pool ends
-            require(_token != xgrave, "xgrave");
+            // do not allow to drain core token (GRAVE or lps) if less than 90 days after pool ends
+            require(_token != grave, "grave");
             uint256 length = poolInfo.length;
             for (uint256 pid = 0; pid < length; ++pid) {
                 PoolInfo storage pool = poolInfo[pid];

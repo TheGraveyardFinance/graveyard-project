@@ -15,7 +15,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance';
 import useGraveyardFinance from '../../../hooks/useGraveyardFinance';
 import { useWallet } from 'use-wallet';
 import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
-import { XGRAVE_TICKER, XSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
+import { GRAVE_TICKER, XSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
 import { Alert } from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
@@ -28,18 +28,18 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const graveyardFinance = useGraveyardFinance();
   const { balance } = useWallet();
   const ftmBalance = (Number(balance) / 1e18).toFixed(4).toString();
-  const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
+  const graveBalance = useTokenBalance(graveyardFinance.GRAVE);
   const xshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const [val, setVal] = useState('');
   const [zappingToken, setZappingToken] = useState(FTM_TICKER);
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const xgraveCousdLpStats = useLpStats('XGRAVE-USDC-LP');
+  const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
   const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
-  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
-  const usdcAmountPerLP = tokenName.startsWith(XGRAVE_TICKER) ? xgraveLPStats?.usdcAmount : xshareLPStats?.usdcAmount;
+  const usdcAmountPerLP = tokenName.startsWith(GRAVE_TICKER) ? graveLPStats?.usdcAmount : xshareLPStats?.usdcAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -55,8 +55,8 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
     if (event.target.value === XSHARE_TICKER) {
       setZappingTokenBalance(getDisplayBalance(xshareBalance, decimals));
     }
-    if (event.target.value === XGRAVE_TICKER) {
-      setZappingTokenBalance(getDisplayBalance(xgraveBalance, decimals));
+    if (event.target.value === GRAVE_TICKER) {
+      setZappingTokenBalance(getDisplayBalance(graveBalance, decimals));
     }
   };
 
@@ -100,8 +100,8 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       >
         <StyledMenuItem value={FTM_TICKER}>FTM</StyledMenuItem>
         <StyledMenuItem value={XSHARE_TICKER}>XSHARE</StyledMenuItem>
-        {/* Xgrave as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
-        {/* <StyledMenuItem value={XGRAVE_TICKER}>XGRAVE</StyledMenuItem> */}
+        {/* Grave as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
+        {/* <StyledMenuItem value={GRAVE_TICKER}>GRAVE</StyledMenuItem> */}
       </Select>
       <TokenInput
         onSelectMax={handleSelectMax}
@@ -118,7 +118,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       <StyledDescriptionText>
         {' '}
         ({Number(estimate.token0)} {FTM_TICKER} / {Number(estimate.token1)}{' '}
-        {tokenName.startsWith(XGRAVE_TICKER) ? XGRAVE_TICKER : XSHARE_TICKER}){' '}
+        {tokenName.startsWith(GRAVE_TICKER) ? GRAVE_TICKER : XSHARE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>
         <Button

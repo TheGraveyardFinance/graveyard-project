@@ -9,7 +9,7 @@ const useTreasuryAmount = () => {
   useEffect(() => {
     if (graveyardFinance) {
       const { Treasury } = graveyardFinance.contracts;
-      graveyardFinance.XGRAVE.balanceOf(Treasury.address).then(setAmount);
+      graveyardFinance.GRAVE.balanceOf(Treasury.address).then(setAmount);
     }
   }, [graveyardFinance]);
   return amount;
