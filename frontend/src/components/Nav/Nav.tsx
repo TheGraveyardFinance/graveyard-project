@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   toolbarTitle: {
-    fontFamily: '"Gilroy"',
+    fontFamily: '"Avenir"',
     fontSize: '30px',
     flexGrow: 1,
   },

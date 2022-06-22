@@ -16,7 +16,7 @@ h2,
 h3,
 h4 {
     margin: 0;
-    font-family: 'Gilroy', sans-serif !important;
+    font-family: 'Avenir', sans-serif !important;
     /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -71,7 +71,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Gilroy' !important;
+    font-family: 'Avenir' !important;
 }
 
 footer .a:hover {
@@ -98,7 +98,7 @@ code {
 
 .wallet-button {
     color: #2c2560 !important;
-    font-family: 'Gilroy', sans-serif !important;
+    font-family: 'Avenir', sans-serif !important;
     font-size: 1.1rem !important;
     text-align: left !important;
     justify-content: flex-start !important;
