@@ -103,7 +103,7 @@ const Masonry = () => {
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
                     <Typography>
-                      xGRAVE Price<small> (TWAP)</small>
+                      GRAVE Price<small> (TWAP)</small>
                     </Typography>
                     <Typography>{rebateStats.xgravePrice.toFixed(4)} FTM</Typography>
                   </CardContent>
@@ -120,7 +120,7 @@ const Masonry = () => {
               <Grid item xs={12} md={2} lg={2}>
                 <Card className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography>xSHARES Staked</Typography>
+                    <Typography>XSHARES Staked</Typography>
                     <Typography>{getDisplayBalance(totalStaked)}</Typography>
                   </CardContent>
                 </Card>
@@ -130,7 +130,7 @@ const Masonry = () => {
             <Grid container justify="center">
               <Box mt={3} style={{ width: '525px' }}>
                 <Alert variant="transparent" severity="info">
-                  Staked xSHARES can only be withdrawn after 3 epochs since deposit.
+                  Staked XSHARES can only be withdrawn after 3 epochs since deposit.
                 </Alert>
               </Box>
             </Grid>
