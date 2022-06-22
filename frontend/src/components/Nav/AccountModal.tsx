@@ -12,8 +12,8 @@ import TokenSymbol from '../TokenSymbol';
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const graveyardFinance = useGraveyardFinance();
 
-  const graveBalance = useTokenBalance(graveyardFinance.GRAVE);
-  const displayGraveBalance = useMemo(() => getDisplayBalance(graveBalance), [graveBalance]);
+  const xgraveBalance = useTokenBalance(graveyardFinance.XGRAVE);
+  const displayXgraveBalance = useMemo(() => getDisplayBalance(xgraveBalance), [xgraveBalance]);
 
   const xshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const displayXshareBalance = useMemo(() => getDisplayBalance(xshareBalance), [xshareBalance]);
@@ -27,10 +27,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
       <Balances>
         <StyledBalanceWrapper>
-          <TokenSymbol symbol="GRAVE" />
+          <TokenSymbol symbol="XGRAVE" />
           <StyledBalance>
-            <StyledValue>{displayGraveBalance}</StyledValue>
-            <Label text="GRAVE Available" variant="primary" />
+            <StyledValue>{displayXgraveBalance}</StyledValue>
+            <Label text="xGRAVE Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
@@ -38,7 +38,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <TokenSymbol symbol="XSHARE" />
           <StyledBalance>
             <StyledValue>{displayXshareBalance}</StyledValue>
-            <Label text="XSHARE Available" variant="primary" />
+            <Label text="xSHARE Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>
 
@@ -46,7 +46,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <TokenSymbol symbol="XBOND" />
           <StyledBalance>
             <StyledValue>{displayXbondBalance}</StyledValue>
-            <Label text="XBOND Available" variant="primary" />
+            <Label text="xBOND Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>
       </Balances>

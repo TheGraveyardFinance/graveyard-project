@@ -49,7 +49,7 @@ const Pit: React.FC = () => {
     async (amount: string) => {
       const tx = await graveyardFinance.buyBonds(amount);
       addTransaction(tx, {
-        summary: `Buy ${Number(amount).toFixed(2)} XBOND with ${amount} GRAVE`,
+        summary: `Buy ${Number(amount).toFixed(2)} XBOND with ${amount} XGRAVE`,
       });
     },
     [graveyardFinance, addTransaction],
@@ -81,14 +81,14 @@ const Pit: React.FC = () => {
               <StyledCardWrapper>
                 <ExchangeCard
                   action="Purchase"
-                  fromToken={graveyardFinance.GRAVE}
-                  fromTokenName="GRAVE"
+                  fromToken={graveyardFinance.XGRAVE}
+                  fromTokenName="xGRAVE"
                   toToken={graveyardFinance.XBOND}
-                  toTokenName="XBOND"
+                  toTokenName="xBOND"
                   priceDesc={
                     !isBondPurchasable
-                      ? 'GRAVE is over peg'
-                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' XBOND available for purchase'
+                      ? 'xGRAVE is over peg'
+                      : getDisplayBalance(bondsPurchasable, 18, 4) + ' xBOND available for purchase'
                   }
                   onExchange={handleBuyBonds}
                   disabled={!bondStat || isBondRedeemable}
@@ -96,14 +96,14 @@ const Pit: React.FC = () => {
               </StyledCardWrapper>
               <StyledStatsWrapper>
                 <ExchangeStat
-                  tokenName="GRAVE"
+                  tokenName="xGRAVE"
                   description="Last-Hour TWAP Price"
                   price={getDisplayBalance(cashPrice, 18, 4)}
                 />
                 <Spacer size="md" />
                 <ExchangeStat
-                  tokenName="XBOND"
-                  description="Current Price: (GRAVE)^2"
+                  tokenName="xBOND"
+                  description="Current Price: (xGRAVE)^2"
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
@@ -111,13 +111,13 @@ const Pit: React.FC = () => {
                 <ExchangeCard
                   action="Redeem"
                   fromToken={graveyardFinance.XBOND}
-                  fromTokenName="XBOND"
-                  toToken={graveyardFinance.GRAVE}
-                  toTokenName="GRAVE"
-                  priceDesc={`${getDisplayBalance(bondBalance)} XBOND Available in wallet`}
+                  fromTokenName="xBOND"
+                  toToken={graveyardFinance.XGRAVE}
+                  toTokenName="xGRAVE"
+                  priceDesc={`${getDisplayBalance(bondBalance)} xBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when GRAVE > ${BOND_REDEEM_PRICE}FTM` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when xGRAVE > ${BOND_REDEEM_PRICE}FTM` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

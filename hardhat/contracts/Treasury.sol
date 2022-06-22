@@ -44,17 +44,17 @@ contract Treasury is ContractGuard {
     address[] public excludedFromTotalSupply;
 
     // core components
-    address public grave;
+    address public xgrave;
     address public xbond;
     address public xshare;
 
     address public masonry;
     address public bondTreasury;
-    address public graveOracle;
+    address public xgraveOracle;
 
     // price
-    uint256 public gravePriceOne;
-    uint256 public gravePriceCeiling;
+    uint256 public xgravePriceOne;
+    uint256 public xgravePriceCeiling;
 
     uint256 public seigniorageSaved;
 
@@ -69,18 +69,18 @@ contract Treasury is ContractGuard {
 
     uint256 public bondSupplyExpansionPercent;
 
-    // 28 first epochs (1 week) with 4.5% expansion regardless of GRAVE price
+    // 28 first epochs (1 week) with 4.5% expansion regardless of XGRAVE price
     uint256 public bootstrapEpochs;
     uint256 public bootstrapSupplyExpansionPercent;
 
     /* =================== Added variables =================== */
-    uint256 public previousEpochGravePrice;
+    uint256 public previousEpochXgravePrice;
     uint256 public maxDiscountRate; // when purchasing bond
     uint256 public maxPremiumRate; // when redeeming bond
     uint256 public discountPercent;
     uint256 public premiumThreshold;
     uint256 public premiumPercent;
-    uint256 public mintingFactorForPayingDebt; // print extra GRAVE during debt phase
+    uint256 public mintingFactorForPayingDebt; // print extra XGRAVE during debt phase
 
     address public daoFund;
     uint256 public daoFundSharedPercent;
@@ -92,8 +92,8 @@ contract Treasury is ContractGuard {
 
     event Initialized(address indexed executor, uint256 at);
     event BurnedBonds(address indexed from, uint256 bondAmount);
-    event RedeemedBonds(address indexed from, uint256 graveAmount, uint256 bondAmount);
-    event BoughtBonds(address indexed from, uint256 graveAmount, uint256 bondAmount);
+    event RedeemedBonds(address indexed from, uint256 xgraveAmount, uint256 bondAmount);
+    event BoughtBonds(address indexed from, uint256 xgraveAmount, uint256 bondAmount);
     event TreasuryFunded(uint256 timestamp, uint256 seigniorage);
     event MasonryFunded(uint256 timestamp, uint256 seigniorage);
     event DaoFundFunded(uint256 timestamp, uint256 seigniorage);
@@ -118,12 +118,12 @@ contract Treasury is ContractGuard {
         _;
 
         epoch = epoch.add(1);
-        epochSupplyContractionLeft = (getGravePrice() > gravePriceCeiling) ? 0 : getGraveCirculatingSupply().mul(maxSupplyContractionPercent).div(10000);
+        epochSupplyContractionLeft = (getXgravePrice() > xgravePriceCeiling) ? 0 : getXgraveCirculatingSupply().mul(maxSupplyContractionPercent).div(10000);
     }
 
     modifier checkOperator {
         require(
-            IBasisAsset(grave).operator() == address(this) &&
+            IBasisAsset(xgrave).operator() == address(this) &&
                 IBasisAsset(xbond).operator() == address(this) &&
                 IBasisAsset(xshare).operator() == address(this) &&
                 Operator(masonry).operator() == address(this),
@@ -151,19 +151,19 @@ contract Treasury is ContractGuard {
     }
 
     // oracle
-    function getGravePrice() public view returns (uint256 gravePrice) {
-        try IOracle(graveOracle).consult(grave, 1e18) returns (uint144 price) {
+    function getXgravePrice() public view returns (uint256 xgravePrice) {
+        try IOracle(xgraveOracle).consult(xgrave, 1e18) returns (uint144 price) {
             return uint256(price);
         } catch {
-            revert("Treasury: failed to consult GRAVE price from the oracle");
+            revert("Treasury: failed to consult XGRAVE price from the oracle");
         }
     }
 
-    function getGraveUpdatedPrice() public view returns (uint256 _gravePrice) {
-        try IOracle(graveOracle).twap(grave, 1e18) returns (uint144 price) {
+    function getXgraveUpdatedPrice() public view returns (uint256 _xgravePrice) {
+        try IOracle(xgraveOracle).twap(xgrave, 1e18) returns (uint144 price) {
             return uint256(price);
         } catch {
-            revert("Treasury: failed to consult GRAVE price from the oracle");
+            revert("Treasury: failed to consult XGRAVE price from the oracle");
         }
     }
 
@@ -172,41 +172,41 @@ contract Treasury is ContractGuard {
         return seigniorageSaved;
     }
 
-    function getBurnableGraveLeft() public view returns (uint256 _burnableGraveLeft) {
-        uint256 _gravePrice = getGravePrice();
-        if (_gravePrice <= gravePriceOne) {
-            uint256 _graveSupply = getGraveCirculatingSupply();
-            uint256 _bondMaxSupply = _graveSupply.mul(maxDebtRatioPercent).div(10000);
+    function getBurnableXgraveLeft() public view returns (uint256 _burnableXgraveLeft) {
+        uint256 _xgravePrice = getXgravePrice();
+        if (_xgravePrice <= xgravePriceOne) {
+            uint256 _xgraveSupply = getXgraveCirculatingSupply();
+            uint256 _bondMaxSupply = _xgraveSupply.mul(maxDebtRatioPercent).div(10000);
             uint256 _bondSupply = IERC20(xbond).totalSupply();
             if (_bondMaxSupply > _bondSupply) {
                 uint256 _maxMintableBond = _bondMaxSupply.sub(_bondSupply);
-                uint256 _maxBurnableGrave = _maxMintableBond.mul(_gravePrice).div(1e18);
-                _burnableGraveLeft = Math.min(epochSupplyContractionLeft, _maxBurnableGrave);
+                uint256 _maxBurnableXgrave = _maxMintableBond.mul(_xgravePrice).div(1e18);
+                _burnableXgraveLeft = Math.min(epochSupplyContractionLeft, _maxBurnableXgrave);
             }
         }
     }
 
     function getRedeemableBonds() public view returns (uint256 _redeemableBonds) {
-        uint256 _gravePrice = getGravePrice();
-        if (_gravePrice > gravePriceCeiling) {
-            uint256 _totalGrave = IERC20(grave).balanceOf(address(this));
+        uint256 _xgravePrice = getXgravePrice();
+        if (_xgravePrice > xgravePriceCeiling) {
+            uint256 _totalXgrave = IERC20(xgrave).balanceOf(address(this));
             uint256 _rate = getBondPremiumRate();
             if (_rate > 0) {
-                _redeemableBonds = _totalGrave.mul(1e18).div(_rate);
+                _redeemableBonds = _totalXgrave.mul(1e18).div(_rate);
             }
         }
     }
 
     function getBondDiscountRate() public view returns (uint256 _rate) {
-        uint256 _gravePrice = getGravePrice();
-        if (_gravePrice <= gravePriceOne) {
+        uint256 _xgravePrice = getXgravePrice();
+        if (_xgravePrice <= xgravePriceOne) {
             if (discountPercent == 0) {
                 // no discount
-                _rate = gravePriceOne;
+                _rate = xgravePriceOne;
             } else {
-                uint256 _bondAmount = gravePriceOne.mul(1e18).div(_gravePrice); // to burn 1 GRAVE
-                uint256 _discountAmount = _bondAmount.sub(gravePriceOne).mul(discountPercent).div(10000);
-                _rate = gravePriceOne.add(_discountAmount);
+                uint256 _bondAmount = xgravePriceOne.mul(1e18).div(_xgravePrice); // to burn 1 XGRAVE
+                uint256 _discountAmount = _bondAmount.sub(xgravePriceOne).mul(discountPercent).div(10000);
+                _rate = xgravePriceOne.add(_discountAmount);
                 if (maxDiscountRate > 0 && _rate > maxDiscountRate) {
                     _rate = maxDiscountRate;
                 }
@@ -215,19 +215,19 @@ contract Treasury is ContractGuard {
     }
 
     function getBondPremiumRate() public view returns (uint256 _rate) {
-        uint256 _gravePrice = getGravePrice();
-        if (_gravePrice > gravePriceCeiling) {
-            uint256 _gravePricePremiumThreshold = gravePriceOne.mul(premiumThreshold).div(100);
-            if (_gravePrice >= _gravePricePremiumThreshold) {
+        uint256 _xgravePrice = getXgravePrice();
+        if (_xgravePrice > xgravePriceCeiling) {
+            uint256 _xgravePricePremiumThreshold = xgravePriceOne.mul(premiumThreshold).div(100);
+            if (_xgravePrice >= _xgravePricePremiumThreshold) {
                 //Price > 1.10
-                uint256 _premiumAmount = _gravePrice.sub(gravePriceOne).mul(premiumPercent).div(10000);
-                _rate = gravePriceOne.add(_premiumAmount);
+                uint256 _premiumAmount = _xgravePrice.sub(xgravePriceOne).mul(premiumPercent).div(10000);
+                _rate = xgravePriceOne.add(_premiumAmount);
                 if (maxPremiumRate > 0 && _rate > maxPremiumRate) {
                     _rate = maxPremiumRate;
                 }
             } else {
                 // no premium bonus
-                _rate = gravePriceOne;
+                _rate = xgravePriceOne;
             }
         }
     }
@@ -235,25 +235,25 @@ contract Treasury is ContractGuard {
     /* ========== GOVERNANCE ========== */
 
     function initialize(
-        address _grave,
+        address _xgrave,
         address _xbond,
         address _xshare,
-        address _graveOracle,
+        address _xgraveOracle,
         address _masonry,
         address _genesisPool,
         address _bondTreasury,
         uint256 _startTime
     ) public notInitialized {
-        grave = _grave;
+        xgrave = _xgrave;
         xbond = _xbond;
         xshare = _xshare;
-        graveOracle = _graveOracle;
+        xgraveOracle = _xgraveOracle;
         masonry = _masonry;
         bondTreasury = _bondTreasury;
         startTime = _startTime;
 
-        gravePriceOne = 10**18;
-        gravePriceCeiling = gravePriceOne.mul(101).div(100);
+        xgravePriceOne = 10**18;
+        xgravePriceCeiling = xgravePriceOne.mul(101).div(100);
 
         // exclude contracts from total supply
         excludedFromTotalSupply.push(_genesisPool);
@@ -267,7 +267,7 @@ contract Treasury is ContractGuard {
 
         bondDepletionFloorPercent = 10000; // 100% of Bond supply for depletion floor
         seigniorageExpansionFloorPercent = 3500; // At least 35% of expansion reserved for masonry
-        maxSupplyContractionPercent = 300; // Upto 3.0% supply for contraction (to burn GRAVE and mint tBOND)
+        maxSupplyContractionPercent = 300; // Upto 3.0% supply for contraction (to burn XGRAVE and mint tBOND)
         maxDebtRatioPercent = 3500; // Upto 35% supply of tBOND to purchase
 
         bondSupplyExpansionPercent = 500; // maximum 5% emissions per epoch for POL bonds
@@ -280,7 +280,7 @@ contract Treasury is ContractGuard {
         bootstrapSupplyExpansionPercent = 500;
 
         // set seigniorageSaved to it's balance
-        seigniorageSaved = IERC20(grave).balanceOf(address(this));
+        seigniorageSaved = IERC20(xgrave).balanceOf(address(this));
 
         initialized = true;
         operator = msg.sender;
@@ -299,13 +299,13 @@ contract Treasury is ContractGuard {
         bondTreasury = _bondTreasury;
     }
 
-    function setGraveOracle(address _graveOracle) external onlyOperator {
-        graveOracle = _graveOracle;
+    function setXgraveOracle(address _xgraveOracle) external onlyOperator {
+        xgraveOracle = _xgraveOracle;
     }
 
-    function setGravePriceCeiling(uint256 _gravePriceCeiling) external onlyOperator {
-        require(_gravePriceCeiling >= gravePriceOne && _gravePriceCeiling <= gravePriceOne.mul(120).div(100), "out of range"); // [$1.0, $1.2]
-        gravePriceCeiling = _gravePriceCeiling;
+    function setXgravePriceCeiling(uint256 _xgravePriceCeiling) external onlyOperator {
+        require(_xgravePriceCeiling >= xgravePriceOne && _xgravePriceCeiling <= xgravePriceOne.mul(120).div(100), "out of range"); // [$1.0, $1.2]
+        xgravePriceCeiling = _xgravePriceCeiling;
     }
 
     function setMaxSupplyExpansionPercents(uint256 _maxSupplyExpansionPercent) external onlyOperator {
@@ -386,7 +386,7 @@ contract Treasury is ContractGuard {
     }
 
     function setPremiumThreshold(uint256 _premiumThreshold) external onlyOperator {
-        require(_premiumThreshold >= gravePriceCeiling, "_premiumThreshold exceeds gravePriceCeiling");
+        require(_premiumThreshold >= xgravePriceCeiling, "_premiumThreshold exceeds xgravePriceCeiling");
         require(_premiumThreshold <= 150, "_premiumThreshold is higher than 1.5");
         premiumThreshold = _premiumThreshold;
     }
@@ -407,113 +407,113 @@ contract Treasury is ContractGuard {
 
     /* ========== MUTABLE FUNCTIONS ========== */
 
-    function _updateGravePrice() internal {
-        try IOracle(graveOracle).update() {} catch {}
+    function _updateXgravePrice() internal {
+        try IOracle(xgraveOracle).update() {} catch {}
     }
 
-    function getGraveCirculatingSupply() public view returns (uint256) {
-        IERC20 graveErc20 = IERC20(grave);
-        uint256 totalSupply = graveErc20.totalSupply();
+    function getXgraveCirculatingSupply() public view returns (uint256) {
+        IERC20 xgraveErc20 = IERC20(xgrave);
+        uint256 totalSupply = xgraveErc20.totalSupply();
         uint256 balanceExcluded = 0;
         for (uint8 entryId = 0; entryId < excludedFromTotalSupply.length; ++entryId) {
-            balanceExcluded = balanceExcluded.add(graveErc20.balanceOf(excludedFromTotalSupply[entryId]));
+            balanceExcluded = balanceExcluded.add(xgraveErc20.balanceOf(excludedFromTotalSupply[entryId]));
         }
         return totalSupply.sub(balanceExcluded);
     }
 
-    function buyBonds(uint256 _graveAmount, uint256 targetPrice) external onlyOneBlock checkCondition checkOperator {
-        require(_graveAmount > 0, "Treasury: cannot purchase bonds with zero amount");
+    function buyBonds(uint256 _xgraveAmount, uint256 targetPrice) external onlyOneBlock checkCondition checkOperator {
+        require(_xgraveAmount > 0, "Treasury: cannot purchase bonds with zero amount");
 
-        uint256 gravePrice = getGravePrice();
-        require(gravePrice == targetPrice, "Treasury: GRAVE price moved");
+        uint256 xgravePrice = getXgravePrice();
+        require(xgravePrice == targetPrice, "Treasury: XGRAVE price moved");
         require(
-            gravePrice < gravePriceOne, // price < $1
-            "Treasury: gravePrice not eligible for bond purchase"
+            xgravePrice < xgravePriceOne, // price < $1
+            "Treasury: xgravePrice not eligible for bond purchase"
         );
 
-        require(_graveAmount <= epochSupplyContractionLeft, "Treasury: not enough bond left to purchase");
+        require(_xgraveAmount <= epochSupplyContractionLeft, "Treasury: not enough bond left to purchase");
 
         uint256 _rate = getBondDiscountRate();
         require(_rate > 0, "Treasury: invalid bond rate");
 
-        uint256 _bondAmount = _graveAmount.mul(_rate).div(1e18);
-        uint256 graveSupply = getGraveCirculatingSupply();
+        uint256 _bondAmount = _xgraveAmount.mul(_rate).div(1e18);
+        uint256 xgraveSupply = getXgraveCirculatingSupply();
         uint256 newBondSupply = IERC20(xbond).totalSupply().add(_bondAmount);
-        require(newBondSupply <= graveSupply.mul(maxDebtRatioPercent).div(10000), "over max debt ratio");
+        require(newBondSupply <= xgraveSupply.mul(maxDebtRatioPercent).div(10000), "over max debt ratio");
 
-        IBasisAsset(grave).burnFrom(msg.sender, _graveAmount);
+        IBasisAsset(xgrave).burnFrom(msg.sender, _xgraveAmount);
         IBasisAsset(xbond).mint(msg.sender, _bondAmount);
 
-        epochSupplyContractionLeft = epochSupplyContractionLeft.sub(_graveAmount);
-        _updateGravePrice();
+        epochSupplyContractionLeft = epochSupplyContractionLeft.sub(_xgraveAmount);
+        _updateXgravePrice();
 
-        emit BoughtBonds(msg.sender, _graveAmount, _bondAmount);
+        emit BoughtBonds(msg.sender, _xgraveAmount, _bondAmount);
     }
 
     function redeemBonds(uint256 _bondAmount, uint256 targetPrice) external onlyOneBlock checkCondition checkOperator {
         require(_bondAmount > 0, "Treasury: cannot redeem bonds with zero amount");
 
-        uint256 gravePrice = getGravePrice();
-        require(gravePrice == targetPrice, "Treasury: GRAVE price moved");
+        uint256 xgravePrice = getXgravePrice();
+        require(xgravePrice == targetPrice, "Treasury: XGRAVE price moved");
         require(
-            gravePrice > gravePriceCeiling, // price > $1.01
-            "Treasury: gravePrice not eligible for bond purchase"
+            xgravePrice > xgravePriceCeiling, // price > $1.01
+            "Treasury: xgravePrice not eligible for bond purchase"
         );
 
         uint256 _rate = getBondPremiumRate();
         require(_rate > 0, "Treasury: invalid bond rate");
 
-        uint256 _graveAmount = _bondAmount.mul(_rate).div(1e18);
-        require(IERC20(grave).balanceOf(address(this)) >= _graveAmount, "Treasury: treasury has no more budget");
+        uint256 _xgraveAmount = _bondAmount.mul(_rate).div(1e18);
+        require(IERC20(xgrave).balanceOf(address(this)) >= _xgraveAmount, "Treasury: treasury has no more budget");
 
-        seigniorageSaved = seigniorageSaved.sub(Math.min(seigniorageSaved, _graveAmount));
+        seigniorageSaved = seigniorageSaved.sub(Math.min(seigniorageSaved, _xgraveAmount));
 
         IBasisAsset(xbond).burnFrom(msg.sender, _bondAmount);
-        IERC20(grave).safeTransfer(msg.sender, _graveAmount);
+        IERC20(xgrave).safeTransfer(msg.sender, _xgraveAmount);
 
-        _updateGravePrice();
+        _updateXgravePrice();
 
-        emit RedeemedBonds(msg.sender, _graveAmount, _bondAmount);
+        emit RedeemedBonds(msg.sender, _xgraveAmount, _bondAmount);
     }
 
     function _sendToMasonry(uint256 _amount) internal {
-        IBasisAsset(grave).mint(address(this), _amount);
+        IBasisAsset(xgrave).mint(address(this), _amount);
 
         uint256 _daoFundSharedAmount = 0;
         if (daoFundSharedPercent > 0) {
             _daoFundSharedAmount = _amount.mul(daoFundSharedPercent).div(10000);
-            IERC20(grave).transfer(daoFund, _daoFundSharedAmount);
+            IERC20(xgrave).transfer(daoFund, _daoFundSharedAmount);
             emit DaoFundFunded(now, _daoFundSharedAmount);
         }
 
         uint256 _devFundSharedAmount = 0;
         if (devFundSharedPercent > 0) {
             _devFundSharedAmount = _amount.mul(devFundSharedPercent).div(10000);
-            IERC20(grave).transfer(devFund, _devFundSharedAmount);
+            IERC20(xgrave).transfer(devFund, _devFundSharedAmount);
             emit DevFundFunded(now, _devFundSharedAmount);
         }
 
         _amount = _amount.sub(_daoFundSharedAmount).sub(_devFundSharedAmount);
 
-        IERC20(grave).safeApprove(masonry, 0);
-        IERC20(grave).safeApprove(masonry, _amount);
+        IERC20(xgrave).safeApprove(masonry, 0);
+        IERC20(xgrave).safeApprove(masonry, _amount);
         IMasonry(masonry).allocateSeigniorage(_amount);
         emit MasonryFunded(now, _amount);
     }
 
     function _sendToBondTreasury(uint256 _amount) internal {
-        uint256 treasuryBalance = IERC20(grave).balanceOf(bondTreasury);
+        uint256 treasuryBalance = IERC20(xgrave).balanceOf(bondTreasury);
         uint256 treasuryVested = IBondTreasury(bondTreasury).totalVested();
         if (treasuryVested >= treasuryBalance) return;
         uint256 unspent = treasuryBalance.sub(treasuryVested);
         if (_amount > unspent) {
-            IBasisAsset(grave).mint(bondTreasury, _amount.sub(unspent));
+            IBasisAsset(xgrave).mint(bondTreasury, _amount.sub(unspent));
         }
     }
 
-    function _calculateMaxSupplyExpansionPercent(uint256 _graveSupply) internal returns (uint256) {
+    function _calculateMaxSupplyExpansionPercent(uint256 _xgraveSupply) internal returns (uint256) {
         for (uint8 tierId = 8; tierId >= 0; --tierId) {
-            if (_graveSupply >= supplyTiers[tierId]) {
+            if (_xgraveSupply >= supplyTiers[tierId]) {
                 maxSupplyExpansionPercent = maxExpansionTiers[tierId];
                 break;
             }
@@ -522,30 +522,30 @@ contract Treasury is ContractGuard {
     }
 
     function allocateSeigniorage() external onlyOneBlock checkCondition checkEpoch checkOperator {
-        _updateGravePrice();
-        previousEpochGravePrice = getGravePrice();
-        uint256 graveSupply = getGraveCirculatingSupply().sub(seigniorageSaved);
-        _sendToBondTreasury(graveSupply.mul(bondSupplyExpansionPercent).div(10000));
+        _updateXgravePrice();
+        previousEpochXgravePrice = getXgravePrice();
+        uint256 xgraveSupply = getXgraveCirculatingSupply().sub(seigniorageSaved);
+        _sendToBondTreasury(xgraveSupply.mul(bondSupplyExpansionPercent).div(10000));
         if (epoch < bootstrapEpochs) {
             // 28 first epochs with 4.5% expansion
-            _sendToMasonry(graveSupply.mul(bootstrapSupplyExpansionPercent).div(10000));
+            _sendToMasonry(xgraveSupply.mul(bootstrapSupplyExpansionPercent).div(10000));
         } else {
-            if (previousEpochGravePrice > gravePriceCeiling) {
-                // Expansion ($GRAVE Price > 1 $FTM): there is some seigniorage to be allocated
+            if (previousEpochXgravePrice > xgravePriceCeiling) {
+                // Expansion ($XGRAVE Price > 1 $FTM): there is some seigniorage to be allocated
                 uint256 bondSupply = IERC20(xbond).totalSupply();
-                uint256 _percentage = previousEpochGravePrice.sub(gravePriceOne);
+                uint256 _percentage = previousEpochXgravePrice.sub(xgravePriceOne);
                 uint256 _savedForBond;
                 uint256 _savedForMasonry;
-                uint256 _mse = _calculateMaxSupplyExpansionPercent(graveSupply).mul(1e14);
+                uint256 _mse = _calculateMaxSupplyExpansionPercent(xgraveSupply).mul(1e14);
                 if (_percentage > _mse) {
                     _percentage = _mse;
                 }
                 if (seigniorageSaved >= bondSupply.mul(bondDepletionFloorPercent).div(10000)) {
                     // saved enough to pay debt, mint as usual rate
-                    _savedForMasonry = graveSupply.mul(_percentage).div(1e18);
+                    _savedForMasonry = xgraveSupply.mul(_percentage).div(1e18);
                 } else {
                     // have not saved enough to pay debt, mint more
-                    uint256 _seigniorage = graveSupply.mul(_percentage).div(1e18);
+                    uint256 _seigniorage = xgraveSupply.mul(_percentage).div(1e18);
                     _savedForMasonry = _seigniorage.mul(seigniorageExpansionFloorPercent).div(10000);
                     _savedForBond = _seigniorage.sub(_savedForMasonry);
                     if (mintingFactorForPayingDebt > 0) {
@@ -557,7 +557,7 @@ contract Treasury is ContractGuard {
                 }
                 if (_savedForBond > 0) {
                     seigniorageSaved = seigniorageSaved.add(_savedForBond);
-                    IBasisAsset(grave).mint(address(this), _savedForBond);
+                    IBasisAsset(xgrave).mint(address(this), _savedForBond);
                     emit TreasuryFunded(now, _savedForBond);
                 }
             }
@@ -570,7 +570,7 @@ contract Treasury is ContractGuard {
         address _to
     ) external onlyOperator {
         // do not allow to drain core tokens
-        require(address(_token) != address(grave), "grave");
+        require(address(_token) != address(xgrave), "xgrave");
         require(address(_token) != address(xbond), "bond");
         require(address(_token) != address(xshare), "share");
         _token.safeTransfer(_to, _amount);

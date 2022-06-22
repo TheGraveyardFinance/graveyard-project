@@ -11,7 +11,7 @@ const useCashPriceInEstimatedTWAP = () => {
   useEffect(() => {
     async function fetchCashPrice() {
       try {
-        setStat(await graveyardFinance.getGraveStatInEstimatedTWAP());
+        setStat(await graveyardFinance.getXgraveStatInEstimatedTWAP());
       }catch(err) {
         console.error(err);
       }

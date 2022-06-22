@@ -3,24 +3,24 @@ import useGraveyardFinance from './useGraveyardFinance';
 import { TokenStat } from '../graveyard-finance/types';
 import useRefresh from './useRefresh';
 
-const useGraveStats = () => {
+const useXgraveStats = () => {
   const [stat, setStat] = useState<TokenStat>();
   const { fastRefresh } = useRefresh();
   const graveyardFinance = useGraveyardFinance();
 
   useEffect(() => {
-    async function fetchGravePrice(){
+    async function fetchXgravePrice(){
       try {
-        setStat(await graveyardFinance.getGraveStat());
+        setStat(await graveyardFinance.getXgraveStat());
       }
       catch(err){
         console.error(err)
       }
     }
-    fetchGravePrice();
+    fetchXgravePrice();
   }, [setStat, graveyardFinance, fastRefresh]);
 
   return stat;
 };
 
-export default useGraveStats;
+export default useXgraveStats;

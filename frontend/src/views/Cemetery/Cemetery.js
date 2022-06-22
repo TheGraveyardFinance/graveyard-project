@@ -51,7 +51,7 @@ const Cemetery = () => {
               <Box mt={5}>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
                   <Typography color="textPrimary" variant="h4" gutterBottom>
-                    Earn XSHARES by staking LP Tokens
+                    Earn xSHARES by staking LP Tokens
                   </Typography>
                   <Grid container spacing={3}>
                     {activeBanks
@@ -66,7 +66,7 @@ const Cemetery = () => {
 
                 {/* <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 1).length === 0}>
                   <Typography color="textPrimary" variant="h4" gutterBottom style={{ marginTop: '20px' }}>
-                    Earn GRAVE by staking LP
+                    Earn XGRAVE by staking LP
                   </Typography>
                   <Alert variant="filled" severity="warning">
                     All below pools have ended. Please unstake and collect your rewards.
