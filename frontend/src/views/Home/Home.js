@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import Page from '../../components/Page';
 import HomeImage from '../../assets/img/home.png';
-import CashImage from '../../assets/img/GRAVE.svg';
+import CashImage from '../../assets/img/xGRAVE.svg';
 import Image from 'material-ui-image';
 import styled from 'styled-components';
 import { Alert } from '@material-ui/lab';
@@ -9,7 +9,7 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-import useGraveStats from '../../hooks/useGraveStats';
+import useXgraveStats from '../../hooks/useXgraveStats';
 import useLpStats from '../../hooks/useLpStats';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
@@ -17,8 +17,8 @@ import useBondStats from '../../hooks/useBondStats';
 import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useUsdcPrice from '../../hooks/useUsdcPrice';
-import { grave as graveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
-import { grave as graveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
+import { xgrave as xgraveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
+import { xgrave as xgraveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
 
 import useTotalTreasuryBalance from '../../hooks/useTotalTreasuryBalance.js';
 
@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
+  const xgraveCousdLpStats = useLpStats('XGRAVE-USDC-LP');
   const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
-  const graveStats = useGraveStats();
+  const xgraveStats = useXgraveStats();
   const xShareStats = usexShareStats();
   const xBondStats = useBondStats();
   const graveyardFinance = useGraveyardFinance();
@@ -60,28 +60,28 @@ const Home = () => {
   const { balance: rebatesTVL } = useTotalTreasuryBalance();
   const totalTVL = TVL + rebatesTVL;
 
-  let grave;
+  let xgrave;
   let xShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    grave = graveTesting;
+    xgrave = xgraveTesting;
     xShare = xShareTesting;
   } else {
-    grave = graveProd;
+    xgrave = xgraveProd;
     xShare = xShareProd;
   }
 
-  const buyGraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + grave.address;
+  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xgrave.address;
   const buyXShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
-  const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
+  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
-  const gravePriceInDollars = useMemo(
-    () => (graveStats ? Number(graveStats.priceInDollars).toFixed(2) : null),
-    [graveStats],
+  const xgravePriceInDollars = useMemo(
+    () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
+    [xgraveStats],
   );
-  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(4) : null), [graveStats]);
-  const graveCirculatingSupply = useMemo(() => (graveStats ? String(graveStats.circulatingSupply) : null), [graveStats]);
-  const graveTotalSupply = useMemo(() => (graveStats ? String(graveStats.totalSupply) : null), [graveStats]);
+  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const xgraveCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
+  const xgraveTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
 
   const xSharePriceInDollars = useMemo(
     () => (xShareStats ? Number(xShareStats.priceInDollars).toFixed(2) : null),
@@ -108,7 +108,7 @@ const Home = () => {
   );
   const xBondTotalSupply = useMemo(() => (xBondStats ? String(xBondStats.totalSupply) : null), [xBondStats]);
 
-  const graveLpZap = useZap({ depositTokenName: 'GRAVE-USDC-LP' });
+  const xgraveLpZap = useZap({ depositTokenName: 'XGRAVE-USDC-LP' });
   const xshareLpZap = useZap({ depositTokenName: 'XSHARE-USDC-LP' });
 
   const StyledLink = styled.a`
@@ -117,15 +117,15 @@ const Home = () => {
     color: var(--accent-light);
   `;
 
-  const [onPresentGraveZap, onDissmissGraveZap] = useModal(
+  const [onPresentXgraveZap, onDissmissXgraveZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        graveLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissGraveZap();
+        xgraveLpZap.onZap(zappingToken, tokenName, amount);
+        onDissmissXgraveZap();
       }}
-      tokenName={'GRAVE-USDC-LP'}
+      tokenName={'XGRAVE-USDC-LP'}
     />,
   );
 
@@ -156,11 +156,11 @@ const Home = () => {
             <Box p={4}>
               <h2>Welcome to Graveyard Finance!</h2>
               <p>An algorithmic stablecoin on the Fantom Opera blockchain, pegged to the price of 1 USDC</p>
-              <p>GRAVE utilizes multiple bonding mechanisms at the <StyledLink href="/">3DAO</StyledLink> as well as seigniorage.</p>
+              <p>xGRAVE utilizes multiple bonding mechanisms at the <StyledLink href="/">3DAO</StyledLink> as well as seigniorage.</p>
               <p>Built on top of <StyledLink target="_blank" href="https://2omb.finance">2omb.finance</StyledLink>.</p>
               <p>
-                Stake your GRAVE-USDC LP in the <StyledLink href="/farms">Farms</StyledLink> to earn XSHARES rewards.
-                Then stake your earned XSHARES in the <StyledLink href="/">Mausoleum</StyledLink> to maximize profits!
+                Stake your xGRAVE-USDC LP in the <StyledLink href="/farms">Farms</StyledLink> to earn xSHARES rewards.
+                Then stake your earned xSHARES in the <StyledLink href="/">Mausoleum</StyledLink> to maximize profits!
               </p>
             </Box>
           </Paper>
@@ -168,7 +168,7 @@ const Home = () => {
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
             <Alert variant="filled" severity="warning">
-                Do your own research before investing. Investing is risky and may result in monetary loss. GRAVE is beta software and may contain bugs. By using GRAVE, you agree that the 2omb and GRAVE team is not responsible for any financial losses from investing in 2omb or GRAVE.
+                Do your own research before investing. Investing is risky and may result in monetary loss. xGRAVE is beta software and may contain bugs. By using xGRAVE, you agree that the 2omb and xGRAVE team is not responsible for any financial losses from investing in 2omb or xGRAVE.
             </Alert>
             </Box>
         </Grid>
@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.grave.finance">documentation</StyledLink> before purchasing GRAVE or XSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing XGRAVE or XSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}
@@ -216,22 +216,22 @@ const Home = () => {
                 style={{ marginRight: '10px' }}
                 className={classes.button}
               >
-                Buy GRAVE
+                Buy xGRAVE
               </Button>
               <Button variant="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=0x6437adac543583c4b31bf0323a0870430f5cc2e7" style={{ marginRight: '10px' }} className={classes.button}>
-                Buy XSHARES
+                Buy xSHARES
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0x83a52eff2e9d112e9b022399a9fd22a9db7d33ae" style={{ marginRight: '10px' }} className={classes.button}>
-                GRAVE Chart
+                xGRAVE Chart
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0xd352dac95a91afefb112dbbb3463ccfa5ec15b65" className={classes.button}>
-                XSHARES Chart
+                xSHARES Chart
               </Button>
             </CardContent>
           </Card>
         </Grid>
 
-        {/* GRAVE */}
+        {/* XGRAVE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
@@ -255,14 +255,14 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* GRAVE */}
+        {/* XGRAVE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>GRAVE</h2>
+              <h2>xGRAVE</h2>
               {/* <Button
                 onClick={() => {
-                  graveyardFinance.watchAssetInMetamask('GRAVE');
+                  graveyardFinance.watchAssetInMetamask('XGRAVE');
                 }}
                 color="secondary"
                 variant="outlined"
@@ -273,22 +273,22 @@ const Home = () => {
               </Button> */}
               <Box mt={2} style={{ backgroundColor: "transparent !important" }}>
                 <CardIcon style={{ backgroundColor: "transparent !important" }}>
-                  <TokenSymbol symbol="GRAVE" style={{ backgroundColor: "transparent !important" }} />
+                  <TokenSymbol symbol="XGRAVE" style={{ backgroundColor: "transparent !important" }} />
                 </CardIcon>
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{gravePriceInUSDC ? gravePriceInUSDC : '-.----'} USDC</span>
+                <span style={{ fontSize: '30px' }}>{xgravePriceInUSDC ? xgravePriceInUSDC : '-.----'} USDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${gravePriceInDollars ? gravePriceInDollars : '-.--'}
+                  ${xgravePriceInDollars ? xgravePriceInDollars : '-.--'}
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(graveCirculatingSupply * gravePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {graveCirculatingSupply} <br />
-                Total Supply: {graveTotalSupply}
+                Market Cap: ${(xgraveCirculatingSupply * xgravePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {xgraveCirculatingSupply} <br />
+                Total Supply: {xgraveTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -298,7 +298,7 @@ const Home = () => {
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>XSHARES</h2>
+              <h2>xSHARES</h2>
               {/* <Button
                 onClick={() => {
                   graveyardFinance.watchAssetInMetamask('XSHARE');
@@ -335,7 +335,7 @@ const Home = () => {
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>XBOND</h2>
+              <h2>xBOND</h2>
               {/* <Button
                 onClick={() => {
                   graveyardFinance.watchAssetInMetamask('XBOND');
@@ -370,27 +370,27 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center">
-              <h2>GRAVE-USDC Spooky LP</h2>
+              <h2>xGRAVE-USDC Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
-                  <TokenSymbol symbol="GRAVE-USDC-LP" />
+                  <TokenSymbol symbol="XGRAVE-USDC-LP" />
                 </CardIcon>
               </Box>
               <Box mt={2}>
-                <Button color="primary" disabled={true} onClick={onPresentGraveZap} variant="contained">
+                <Button color="primary" disabled={true} onClick={onPresentXgraveZap} variant="contained">
                   Zap In
                 </Button>
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {graveLPStats?.tokenAmount ? graveLPStats?.tokenAmount : '-.--'} GRAVE /{' '}
-                  {graveLPStats?.usdcAmount ? graveLPStats?.usdcAmount : '-.--'} USDC
+                  {xgraveLPStats?.tokenAmount ? xgraveLPStats?.tokenAmount : '-.--'} xGRAVE /{' '}
+                  {xgraveLPStats?.usdcAmount ? xgraveLPStats?.usdcAmount : '-.--'} USDC
                 </span>
               </Box>
-              <Box>${graveLPStats?.priceOfOne ? graveLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${xgraveLPStats?.priceOfOne ? xgraveLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${graveLPStats?.totalLiquidity ? graveLPStats.totalLiquidity : '-.--'} <br />
-                Total supply: {graveLPStats?.totalSupply ? graveLPStats.totalSupply : '-.--'}
+                Liquidity: ${xgraveLPStats?.totalLiquidity ? xgraveLPStats.totalLiquidity : '-.--'} <br />
+                Total supply: {xgraveLPStats?.totalSupply ? xgraveLPStats.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>
@@ -398,7 +398,7 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center">
-              <h2>XSHARES-USDC Spooky LP</h2>
+              <h2>xSHARES-USDC Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="XSHARE-USDC-LP" />
@@ -411,7 +411,7 @@ const Home = () => {
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} XSHARE /{' '}
+                  {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} xSHARE /{' '}
                   {xshareLPStats?.usdcAmount ? xshareLPStats?.usdcAmount : '-.--'} USDC
                 </span>
               </Box>

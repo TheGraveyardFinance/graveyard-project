@@ -9,14 +9,14 @@ import "./lib/SafeMath8.sol";
 import "./owner/Operator.sol";
 import "./interfaces/IOracle.sol";
 
-contract Grave is ERC20Burnable, Operator {
+contract Xgrave is ERC20Burnable, Operator {
     using SafeMath8 for uint8;
     using SafeMath for uint256;
 
     // Initial distribution for the first 24h genesis pools
     uint256 public constant INITIAL_GENESIS_POOL_DISTRIBUTION = 25000 ether;
-    // Initial distribution for the day 2-5 GRAVE-WFTM LP -> GRAVE pool
-    uint256 public constant INITIAL_GRAVE_POOL_DISTRIBUTION = 0 ether;
+    // Initial distribution for the day 2-5 XGRAVE-WFTM LP -> XGRAVE pool
+    uint256 public constant INITIAL_XGRAVE_POOL_DISTRIBUTION = 0 ether;
     // Distribution for airdrops wallet
     uint256 public constant INITIAL_AIRDROP_WALLET_DISTRIBUTION = 0 ether;
 
@@ -25,7 +25,7 @@ contract Grave is ERC20Burnable, Operator {
 
     /* ================= Taxation =============== */
     // Address of the Oracle
-    address public graveOracle;
+    address public xgraveOracle;
     // Address of the Tax Office
     address public taxOffice;
 
@@ -59,10 +59,10 @@ contract Grave is ERC20Burnable, Operator {
     }
 
     /**
-     * @notice Constructs the GRAVE ERC-20 contract.
+     * @notice Constructs the XGRAVE ERC-20 contract.
      */
-    constructor(uint256 _taxRate, address _taxCollectorAddress) public ERC20("GRAVE", "GRAVE Token") {
-        // Mints 1 GRAVE to contract creator for initial pool setup
+    constructor(uint256 _taxRate, address _taxCollectorAddress) public ERC20("xGRAVE", "xGRAVE Token") {
+        // Mints 1 XGRAVE to contract creator for initial pool setup
         require(_taxRate < 10000, "tax equal or bigger to 100%");
         //require(_taxCollectorAddress != address(0), "tax collector address must be non-zero address");
 
@@ -111,18 +111,18 @@ contract Grave is ERC20Burnable, Operator {
         burnThreshold = _burnThreshold;
     }
 
-    function _getGravePrice() internal view returns (uint256 _gravePrice) {
-        try IOracle(graveOracle).consult(address(this), 1e18) returns (uint144 _price) {
+    function _getXgravePrice() internal view returns (uint256 _xgravePrice) {
+        try IOracle(xgraveOracle).consult(address(this), 1e18) returns (uint144 _price) {
             return uint256(_price);
         } catch {
-            revert("Grave: failed to fetch GRAVE price from Oracle");
+            revert("Xgrave: failed to fetch XGRAVE price from Oracle");
         }
     }
 
-    function _updateTaxRate(uint256 _gravePrice) internal returns (uint256){
+    function _updateTaxRate(uint256 _xgravePrice) internal returns (uint256){
         if (autoCalculateTax) {
             for (uint8 tierId = uint8(getTaxTiersTwapsCount()).sub(1); tierId >= 0; --tierId) {
-                if (_gravePrice >= taxTiersTwaps[tierId]) {
+                if (_xgravePrice >= taxTiersTwaps[tierId]) {
                     require(taxTiersRates[tierId] < 10000, "tax equal or bigger to 100%");
                     taxRate = taxTiersRates[tierId];
                     return taxTiersRates[tierId];
@@ -139,9 +139,9 @@ contract Grave is ERC20Burnable, Operator {
         autoCalculateTax = false;
     }
 
-    function setGraveOracle(address _graveOracle) public onlyOperatorOrTaxOffice {
-        require(_graveOracle != address(0), "oracle address cannot be 0 address");
-        graveOracle = _graveOracle;
+    function setXgraveOracle(address _xgraveOracle) public onlyOperatorOrTaxOffice {
+        require(_xgraveOracle != address(0), "oracle address cannot be 0 address");
+        xgraveOracle = _xgraveOracle;
     }
 
     function setTaxOffice(address _taxOffice) public onlyOperatorOrTaxOffice {
@@ -174,9 +174,9 @@ contract Grave is ERC20Burnable, Operator {
     }
 
     /**
-     * @notice Operator mints GRAVE to a recipient
+     * @notice Operator mints XGRAVE to a recipient
      * @param recipient_ The address of recipient
-     * @param amount_ The amount of GRAVE to mint to
+     * @param amount_ The amount of XGRAVE to mint to
      * @return whether the process has been done
      */
     function mint(address recipient_, uint256 amount_) public onlyOperator returns (bool) {
@@ -204,9 +204,9 @@ contract Grave is ERC20Burnable, Operator {
         bool burnTax = false;
 
         if (autoCalculateTax) {
-            uint256 currentGravePrice = _getGravePrice();
-            currentTaxRate = _updateTaxRate(currentGravePrice);
-            if (currentGravePrice < burnThreshold) {
+            uint256 currentXgravePrice = _getXgravePrice();
+            currentTaxRate = _updateTaxRate(currentXgravePrice);
+            if (currentXgravePrice < burnThreshold) {
                 burnTax = true;
             }
         }
@@ -250,16 +250,16 @@ contract Grave is ERC20Burnable, Operator {
      */
     function distributeReward(
         address _genesisPool
-        //address _gravePool,
+        //address _xgravePool,
         //address _airdropWallet
     ) external onlyOperator {
         require(!rewardPoolDistributed, "only can distribute once");
         require(_genesisPool != address(0), "!_genesisPool");
-        //require(_gravePool != address(0), "!_gravePool");
+        //require(_xgravePool != address(0), "!_xgravePool");
         //require(_airdropWallet != address(0), "!_airdropWallet");
         rewardPoolDistributed = true;
         _mint(_genesisPool, INITIAL_GENESIS_POOL_DISTRIBUTION);
-        //_mint(_gravePool, INITIAL_GRAVE_POOL_DISTRIBUTION);
+        //_mint(_xgravePool, INITIAL_XGRAVE_POOL_DISTRIBUTION);
         //_mint(_airdropWallet, INITIAL_AIRDROP_WALLET_DISTRIBUTION);
     }
 
