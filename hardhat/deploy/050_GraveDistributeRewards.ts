@@ -56,10 +56,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   console.log("GraveAddress: " + GraveAddress);
   if ((await GRAVE.rewardPoolDistributed()) == false) {
     console.log("rewardPoolDistributed.....")
+
     await (
       await GRAVE.distributeReward(
-        GraveRewardPool,
         GraveGenesisRewardPool,
+        GraveRewardPool,
         AirdropWallet,
         { gasLimit: gasLimit }
       )

@@ -14,9 +14,9 @@ import "./interfaces/IBasisAsset.sol";
 import "./interfaces/IOracle.sol";
 import "./interfaces/IBoardroom.sol";
 
-interface IBondTreasury {
-    function totalVested() external view returns (uint256);
-}
+// interface IBondTreasury {
+//     function totalVested() external view returns (uint256);
+// }
 
 contract Treasury is ContractGuard {
     using SafeERC20 for IERC20;
@@ -49,7 +49,7 @@ contract Treasury is ContractGuard {
     address public xshare;
 
     address public masonry;
-    address public bondTreasury;
+    // address public bondTreasury;
     address public graveOracle;
 
     // price
@@ -241,7 +241,7 @@ contract Treasury is ContractGuard {
         address _graveOracle,
         address _masonry,
         address _genesisPool,
-        address _bondTreasury,
+        // address _bondTreasury,
         uint256 _startTime
     ) public notInitialized {
         grave = _grave;
@@ -249,7 +249,7 @@ contract Treasury is ContractGuard {
         xshare = _xshare;
         graveOracle = _graveOracle;
         masonry = _masonry;
-        bondTreasury = _bondTreasury;
+        // bondTreasury = _bondTreasury;
         startTime = _startTime;
 
         gravePriceOne = 10**18;
@@ -257,7 +257,7 @@ contract Treasury is ContractGuard {
 
         // exclude contracts from total supply
         excludedFromTotalSupply.push(_genesisPool);
-        excludedFromTotalSupply.push(_bondTreasury);
+        // excludedFromTotalSupply.push(_bondTreasury);
 
         // Dynamic max expansion percent
         supplyTiers = [0 ether, 500000 ether, 1000000 ether, 1500000 ether, 2000000 ether, 5000000 ether, 10000000 ether, 20000000 ether, 50000000 ether];
@@ -295,9 +295,9 @@ contract Treasury is ContractGuard {
         masonry = _masonry;
     }
 
-    function setBondTreasury(address _bondTreasury) external onlyOperator {
-        bondTreasury = _bondTreasury;
-    }
+    // function setBondTreasury(address _bondTreasury) external onlyOperator {
+    //     bondTreasury = _bondTreasury;
+    // }
 
     function setGraveOracle(address _graveOracle) external onlyOperator {
         graveOracle = _graveOracle;
@@ -501,15 +501,15 @@ contract Treasury is ContractGuard {
         emit BoardroomFunded(now, _amount);
     }
 
-    function _sendToBondTreasury(uint256 _amount) internal {
-        uint256 treasuryBalance = IERC20(grave).balanceOf(bondTreasury);
-        uint256 treasuryVested = IBondTreasury(bondTreasury).totalVested();
-        if (treasuryVested >= treasuryBalance) return;
-        uint256 unspent = treasuryBalance.sub(treasuryVested);
-        if (_amount > unspent) {
-            IBasisAsset(grave).mint(bondTreasury, _amount.sub(unspent));
-        }
-    }
+    // function _sendToBondTreasury(uint256 _amount) internal {
+    //     uint256 treasuryBalance = IERC20(grave).balanceOf(bondTreasury);
+    //     uint256 treasuryVested = IBondTreasury(bondTreasury).totalVested();
+    //     if (treasuryVested >= treasuryBalance) return;
+    //     uint256 unspent = treasuryBalance.sub(treasuryVested);
+    //     if (_amount > unspent) {
+    //         IBasisAsset(grave).mint(bondTreasury, _amount.sub(unspent));
+    //     }
+    // }
 
     function _calculateMaxSupplyExpansionPercent(uint256 _graveSupply) internal returns (uint256) {
         for (uint8 tierId = 8; tierId >= 0; --tierId) {
@@ -525,7 +525,7 @@ contract Treasury is ContractGuard {
         _updateGravePrice();
         previousEpochGravePrice = getGravePrice();
         uint256 graveSupply = getGraveCirculatingSupply().sub(seigniorageSaved);
-        _sendToBondTreasury(graveSupply.mul(bondSupplyExpansionPercent).div(10000));
+        // _sendToBondTreasury(graveSupply.mul(bondSupplyExpansionPercent).div(10000));
         if (epoch < bootstrapEpochs) {
             // 28 first epochs with 4.5% expansion
             _sendToBoardroom(graveSupply.mul(bootstrapSupplyExpansionPercent).div(10000));

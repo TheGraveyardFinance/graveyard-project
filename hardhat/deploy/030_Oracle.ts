@@ -73,7 +73,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   console.log("XShareUsdcPair: " + XShareUsdcPair);
   console.log("GraveUsdcPair: " + GraveUsdcPair);
   if (
-    XShareUsdcPair == "0xa0eafd4fab4c8b1354df2bbbc7038c78507944ae" ||
+    XShareUsdcPair == "0xE2bb95057a5465d8068530276FBFd06192597E70" ||
     (await XShareUsdcPairLP.balanceOf(deployer)) == 0
   ) {
     console.log("USDC.approve...");
@@ -105,7 +105,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     );
   }
   if (
-    GraveUsdcPair == "0x25C10278426E3E254a1560c256733e0208C5B8cF" ||
+    GraveUsdcPair == "0xc0cf0BD5231934c4C5FAc2187eC2635F7a441a63" ||
     (await GraveUsdcPairLP.balanceOf(deployer)) == 0
   ) {
     console.log("USDC.approve...");

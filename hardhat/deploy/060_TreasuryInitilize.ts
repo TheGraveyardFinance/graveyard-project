@@ -60,6 +60,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     console.log("GraveGenesisRewardPool.....", GraveGenesisRewardPool);
     console.log("TraesuryStartTime.....", TraesuryStartTime);
     console.log("gasLimit.....", gasLimit);
+    console.log("Treasury.....", Treasury);
     
     await (
       await Treasury.initialize(
