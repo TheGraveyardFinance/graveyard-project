@@ -21,7 +21,7 @@ interface ITaxable {
 
     function includeAddress(address _address) external returns (bool);
 
-    function setXgraveOracle(address _xgraveOracle) external;
+    function setGraveOracle(address _graveOracle) external;
 
     function setTaxOffice(address _taxOffice) external;
 }
