@@ -4,9 +4,9 @@
 
 :root {
     --black: #16191e;
-    --white: #e6e9ee;
-    --accent: #ff4949;
-    --accent-light: #ff6464;
+    --white: rgb(238, 238, 238);
+    --accent: #073E71;
+    --accent-light: #0b5599;
 }
 
 body,
@@ -40,14 +40,14 @@ body {
 
 .MuiPaper-elevation1 {
     box-shadow: none !important;
-    background-color: #ffffff22 !important;
+    background-color: rgba(61, 61, 61, 0.7) !important;
     backdrop-filter: blur(5px);
     border-radius: 10px !important;
     border: 1px solid var(--white);
 }
 
 .MuiCard-root {
-    background-color: #ffffff22 !important;
+    background-color: rgba(61, 61, 61, 0.7) !important;
     backdrop-filter: blur(5px);
     border-radius: 10px !important;
 }

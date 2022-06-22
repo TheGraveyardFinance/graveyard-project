@@ -5,7 +5,7 @@ import graveLogo from '../../assets/img/GRAVE.svg';
 import xShareLogo from '../../assets/img/XSHARES.svg';
 import graveLogoPNG from '../../assets/img/GRAVE.png';
 import xShareLogoPNG from '../../assets/img/XSHARES.png';
-import xBondLogo from '../../assets/img/XBOND-01.png';
+import xBondLogo from '../../assets/img/XBOND.svg';
 
 import graveFtmLpLogo from '../../assets/img/grave_usdc_lp.png';
 import xshareFtmLpLogo from '../../assets/img/Xshare_usdc_lp.png';
