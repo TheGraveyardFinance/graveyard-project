@@ -12,7 +12,8 @@ const newTheme = createMuiTheme({
     color: #fff;
     font-weight: 500;
     background-color: rgb(255 0 0 / 55%);
-    
+  },
+
     background: {
       default: 'transparent',
       paper: 'transparent',
