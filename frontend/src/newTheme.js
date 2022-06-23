@@ -7,6 +7,12 @@ const newTheme = createMuiTheme({
     text: {
       primary: '#E6E9EE',
     },
+
+.MuiAlert-filledWarning {
+    color: #fff;
+    font-weight: 500;
+    background-color: rgb(255 0 0 / 55%);
+    
     background: {
       default: 'transparent',
       paper: 'transparent',
@@ -46,5 +52,8 @@ const newTheme = createMuiTheme({
       }
   }
 });
+
+
+
 
 export default newTheme;
