@@ -9,9 +9,9 @@ const newTheme = createMuiTheme({
     },
 
 .MuiAlert-filledWarning {
-    color: #fff;
-    font-weight: 500;
-    background-color: rgb(255 0 0 / 55%);
+    color: #fff,
+    font-weight: 500,
+    background-color: rgb(255 0 0 / 55%),
   },
 
     background: {
