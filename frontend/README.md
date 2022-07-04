@@ -1,4 +1,4 @@
-# Libra Finance Frontend
+# Libra Finance Front End
 
 Thanks for taking the time to contribute!
 You can start by reading our [Contribution guidelines](CONTRIBUTING.md) first.
