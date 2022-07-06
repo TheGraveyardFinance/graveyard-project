@@ -10,7 +10,7 @@ contract XBond is ERC20Burnable, Operator {
     /**
      * @notice Constructs the GRAVE Bond ERC-20 contract.
      */
-    constructor() public ERC20("XBOND", "XBOND") {}
+    constructor() public ERC20("Graveyard BOND dummy", "XBONDDUMMY") {}
 
     /**
      * @notice Operator mints basis bonds to a recipient
