@@ -159,7 +159,7 @@ const Home = () => {
               <p>Combining only the most stable and effective elements of only the longest-running protocols from every major blockchain, we have developed a whale-proof, dump-proof, auto-burning protocol that we believe will not only keep peg, but stay well above it, forever.</p>
               <p>Our mission is to execute the most reliable, stable and most of all self-sustainable Yield Farming Protocol on Fantom.</p>
               <p>
-                Stake your GRAVE-USDC LP in our <StyledLink href="/farms">Farms</StyledLink> to earn XSHARE rewards.
+                Stake your GRAVE-USDC LP in our <StyledLink href="/farms">Farms</StyledLink> to earn xSHARE rewards.
                 Then stake your earned xSHARE in the <StyledLink href="/">Mausoleum</StyledLink> to earn more GRAVE.
               </p>
             </Box>
@@ -168,7 +168,7 @@ const Home = () => {
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
             <Alert variant="filled" severity="warning">
-                Do your own research before investing. Investing is risky and may result in monetary loss. By using this protocol, you agree that the Graveyard Finance team is not responsible for any financial losses from investing in GRAVE, XGRAVE, XBONDS, LP's or XNODES.
+                Do your own research before investing. Investing is risky and may result in monetary loss. By using this protocol, you agree that the Graveyard Finance team is not responsible for any financial losses from investing in GRAVE, xGRAVE, xBONDS, LP's or Nodes.
             </Alert>
             </Box>
         </Grid>
