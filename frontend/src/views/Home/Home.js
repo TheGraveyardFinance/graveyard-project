@@ -168,7 +168,7 @@ const Home = () => {
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
             <Alert variant="filled" severity="warning">
-                Do your own research before investing. Investing is risky and may result in monetary loss. By using this protocol, you agree that the Graveyard Finance team is not responsible for any financial losses from investing in GRAVE, XGRAVE, XBONDS, LP's or XN.
+                Do your own research before investing. Investing is risky and may result in monetary loss. By using this protocol, you agree that the Graveyard Finance team is not responsible for any financial losses from investing in GRAVE, xGRAVE, xBONDS, LP's or Nodes.
             </Alert>
             </Box>
         </Grid>
