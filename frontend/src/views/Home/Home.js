@@ -154,13 +154,13 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Paper style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <Box p={4}>
-              <h2>Welcome to Graveyard Finance!</h2>
-              <p>An algorithmic stablecoin on the Fantom Opera blockchain, pegged to the price of 1 USDC</p>
-              <p>GRAVE utilizes multiple bonding mechanisms at the <StyledLink href="/">3DAO</StyledLink> as well as seigniorage.</p>
-              <p>Built on top of <StyledLink target="_blank" href="https://2omb.finance">2omb.finance</StyledLink>.</p>
+              <h2>Welcome to Graveyard DeFi</h2>
+              <p>A Yield-Farming protocol on the Fantom Opera blockchain, pegged 1:1 to USDC</p>
+              <p>Combining only the most stable and effective elements of only the longest-running protocols from every major blockchain, we have developed a whale-proof, dump-proof, auto-burning protocol that we believe will not only keep peg, but stay well above it, forever.</p>
+              <p>Our mission is to execute the most reliable, stable and most of all self-sustainable Yield Farming Protocol on Fantom.</p>
               <p>
-                Stake your GRAVE-USDC LP in the <StyledLink href="/farms">Farms</StyledLink> to earn XSHARES rewards.
-                Then stake your earned XSHARES in the <StyledLink href="/">Mausoleum</StyledLink> to maximize profits!
+                Stake your GRAVE-USDC LP in our <StyledLink href="/farms">Farms</StyledLink> to earn XSHARE rewards.
+                Then stake your earned xSHARE in the <StyledLink href="/">Mausoleum</StyledLink> to earn more GRAVE.
               </p>
             </Box>
           </Paper>
@@ -168,7 +168,7 @@ const Home = () => {
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
             <Alert variant="filled" severity="warning">
-                Do your own research before investing. Investing is risky and may result in monetary loss. GRAVE is beta software and may contain bugs. By using GRAVE, you agree that the 2omb and GRAVE team is not responsible for any financial losses from investing in 2omb or GRAVE.
+                Do your own research before investing. Investing is risky and may result in monetary loss. By using this protocol, you agree that the Graveyard Finance team is not responsible for any financial losses from investing in GRAVE, XGRAVE, XBONDS, LP's or XN.
             </Alert>
             </Box>
         </Grid>
@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing GRAVE or XSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing GRAVE or xSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}
@@ -219,13 +219,13 @@ const Home = () => {
                 Buy GRAVE
               </Button>
               <Button variant="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=0x6437adac543583c4b31bf0323a0870430f5cc2e7" style={{ marginRight: '10px' }} className={classes.button}>
-                Buy XSHARES
+                Buy xSHARES
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0x83a52eff2e9d112e9b022399a9fd22a9db7d33ae" style={{ marginRight: '10px' }} className={classes.button}>
                 GRAVE Chart
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0xd352dac95a91afefb112dbbb3463ccfa5ec15b65" className={classes.button}>
-                XSHARES Chart
+                xSHARES Chart
               </Button>
             </CardContent>
           </Card>
@@ -294,7 +294,7 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* XSHARE */}
+        {/* xSHARE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
