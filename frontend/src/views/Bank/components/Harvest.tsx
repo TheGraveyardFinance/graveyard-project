@@ -15,7 +15,7 @@ import useHarvest from '../../../hooks/useHarvest';
 import { getDisplayBalance } from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Bank } from '../../../graveyard-finance';
-import useXgraveStats from '../../../hooks/useXgraveStats';
+import useGraveStats from '../../../hooks/useGraveStats';
 import useShareStats from '../../../hooks/usexShareStats';
 
 interface HarvestProps {
@@ -25,7 +25,7 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const { onReward } = useHarvest(bank);
-  const graveStats = useXgraveStats();
+  const graveStats = useGraveStats();
   const xShareStats = useShareStats();
 
   const tokenName = bank.earnTokenName === 'XSHARES' ? 'XSHARES' : 'GRAVE';

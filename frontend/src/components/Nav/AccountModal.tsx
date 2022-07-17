@@ -13,7 +13,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const graveyardFinance = useGraveyardFinance();
 
   const graveBalance = useTokenBalance(graveyardFinance.GRAVE);
-  const displayXgraveBalance = useMemo(() => getDisplayBalance(graveBalance), [graveBalance]);
+  const displayGraveBalance = useMemo(() => getDisplayBalance(graveBalance), [graveBalance]);
 
   const xshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const displayXshareBalance = useMemo(() => getDisplayBalance(xshareBalance), [xshareBalance]);
@@ -29,7 +29,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <StyledBalanceWrapper>
           <TokenSymbol symbol="GRAVE" />
           <StyledBalance>
-            <StyledValue>{displayXgraveBalance}</StyledValue>
+            <StyledValue>{displayGraveBalance}</StyledValue>
             <Label text="GRAVE Available" variant="primary" />
           </StyledBalance>
         </StyledBalanceWrapper>

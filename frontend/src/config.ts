@@ -58,7 +58,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     name: 'Earn GRAVE by staking GRAVE/USDC LP',
     poolId: 0,
     sectionInUI: 0,
-    contract: 'Xgrave2ShareRewardPool',
+    contract: 'Grave2ShareRewardPool',
     depositTokenName: '2SHARES',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -68,11 +68,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 0,
     closedForStaking: true,
   },
-  Xgrave2sharesWftmLPRewardPool: {
+  Grave2sharesWftmLPRewardPool: {
     name: 'Earn GRAVE by staking 2SHARES-USDC LP',
     poolId: 1,
     sectionInUI: 0,
-    contract: 'Xgrave2SharesWftmLPRewardPool',
+    contract: 'Grave2SharesWftmLPRewardPool',
     depositTokenName: '2SHARES-USDC LP',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -82,11 +82,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 1,
     closedForStaking: true,
   },
-  // Xgrave2shares2ombLPRewardPool: {
+  // Grave2shares2ombLPRewardPool: {
   //   name: 'Earn GRAVE by staking 2OMB-2SHARES LP',
   //   poolId: 2,
   //   sectionInUI: 0,
-  //   contract: 'Xgrave2Shares2ombLPRewardPool',
+  //   contract: 'Grave2Shares2ombLPRewardPool',
   //   depositTokenName: '2OMB-2SHARES LP',
   //   earnTokenName: 'GRAVE',
   //   finished: false,
@@ -96,11 +96,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   //   sort: 2,
   //   closedForStaking: false,
   // },
-  Xgrave2ombWftmLPRewardPool: {
+  Grave2ombWftmLPRewardPool: {
     name: 'Earn GRAVE by staking 2OMB-USDC LP',
     poolId: 2,
     sectionInUI: 0,
-    contract: 'Xgrave2ombWftmLPRewardPool',
+    contract: 'Grave2ombWftmLPRewardPool',
     depositTokenName: '2OMB-USDC LP',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -110,11 +110,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 3,
     closedForStaking: true,
   },
-  Xgrave2ombRewardPool: {
+  Grave2ombRewardPool: {
     name: 'Earn GRAVE by staking 2OMB',
     poolId: 3,
     sectionInUI: 0,
-    contract: 'Xgrave2ombRewardPool',
+    contract: 'Grave2ombRewardPool',
     depositTokenName: '2OMB',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -124,11 +124,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 4,
     closedForStaking: true,
   },
-  XgraveBelugaRewardPool: {
+  GraveBelugaRewardPool: {
     name: 'Earn GRAVE by staking BELUGA',
     poolId: 4,
     sectionInUI: 0,
-    contract: 'XgraveBelugaRewardPool',
+    contract: 'GraveBelugaRewardPool',
     depositTokenName: 'BELUGA',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -138,11 +138,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 5,
     closedForStaking: true,
   },
-  XgraveBifiRewardPool: {
+  GraveBifiRewardPool: {
     name: 'Earn GRAVE by staking BIFI',
     poolId: 5,
     sectionInUI: 0,
-    contract: 'XgraveBifiGenesisRewardPool',
+    contract: 'GraveBifiGenesisRewardPool',
     depositTokenName: 'BIFI',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -152,11 +152,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 6,
     closedForStaking: true,
   },
-  XgraveWrappedFtmRewardPool: {
+  GraveWrappedFtmRewardPool: {
     name: 'Earn GRAVE by staking USDC',
     poolId: 6,
     sectionInUI: 0,
-    contract: 'XgraveWrappedFtmRewardPool',
+    contract: 'GraveWrappedFtmRewardPool',
     depositTokenName: 'wFTM',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -166,11 +166,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 7,
     closedForStaking: true,
   },
-  XgraveMimRewardPool: {
+  GraveMimRewardPool: {
     name: 'Earn GRAVE by staking MIM',
     poolId: 7,
     sectionInUI: 0,
-    contract: 'XgraveMimGenesisRewardPool',
+    contract: 'GraveMimGenesisRewardPool',
     depositTokenName: 'MIM',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -180,11 +180,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 8,
     closedForStaking: true,
   },
-  XgraveBloomRewardPool: {
+  GraveBloomRewardPool: {
     name: 'Earn GRAVE by staking BLOOM',
     poolId: 8,
     sectionInUI: 0,
-    contract: 'XgraveBloomGenesisRewardPool',
+    contract: 'GraveBloomGenesisRewardPool',
     depositTokenName: 'BLOOM',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -194,11 +194,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 9,
     closedForStaking: true,
   },
-  XgraveFtmLPXgraveRewardPool: {
+  GraveFtmLPGraveRewardPool: {
     name: 'Earn GRAVE by GRAVE-FTM LP',
     poolId: 0,
     sectionInUI: 1,
-    contract: 'XgraveFtmLpXgraveRewardPool',
+    contract: 'GraveFtmLpGraveRewardPool',
     depositTokenName: 'GRAVE-USDC-LP',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -208,11 +208,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 7,
     closedForStaking: true,
   },
-  XgraveFtmLPXgraveRewardPoolOld: {
+  GraveFtmLPGraveRewardPoolOld: {
     name: 'Earn GRAVE by GRAVE-FTM LP',
     poolId: 0,
     sectionInUI: 1,
-    contract: 'XgraveFtmLpXgraveRewardPoolOld',
+    contract: 'GraveFtmLpGraveRewardPoolOld',
     depositTokenName: 'GRAVE-USDC-LP',
     earnTokenName: 'GRAVE',
     finished: true,
@@ -222,11 +222,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 9,
     closedForStaking: true,
   },
-  XgraveFtmLPXShareRewardPool: {
+  GraveFtmLPXShareRewardPool: {
     name: 'Earn XSHARES by GRAVE-USDC LP',
     poolId: 0,
     sectionInUI: 2,
-    contract: 'XgraveFtmLPXShareRewardPool',
+    contract: 'GraveFtmLPXShareRewardPool',
     depositTokenName: 'GRAVE-USDC LP',
     earnTokenName: 'XSHARES',
     finished: false,
@@ -292,11 +292,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   //   sort: 12,
   //   closedForStaking: false,
   // },
-  Xgrave2SHARESRebates: {
+  Grave2SHARESRebates: {
     name: 'Bond 2SHARES, earn GRAVE',
     poolId: 0,
     sectionInUI: 3,
-    contract: 'XgraveFtmRewardPool',
+    contract: 'GraveFtmRewardPool',
     depositTokenName: '2SHARES',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -310,7 +310,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
      name: 'Bond USDC, earn GRAVE',
      poolId: 1,
      sectionInUI: 3,
-     contract: 'XgraveFtmRewardPool',
+     contract: 'GraveFtmRewardPool',
      depositTokenName: 'USDC',
      earnTokenName: 'GRAVE',
      finished: false,
@@ -320,11 +320,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
      sort: 6,
      closedForStaking: false,
   },
-  Xgrave2SHARESFTMRebates: {
+  Grave2SHARESFTMRebates: {
     name: 'Bond 2SHARES-USDC LP, earn GRAVE',
     poolId: 2,
     sectionInUI: 3,
-    contract: 'XgraveFtmRewardPool',
+    contract: 'GraveFtmRewardPool',
     depositTokenName: '2SHARES-USDC LP',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -334,11 +334,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 4,
     closedForStaking: false,
   },
-  // XgraveGRAVEFTMRebates: {
+  // GraveGRAVEFTMRebates: {
   //   name: 'Bond GRAVE-USDC LP, earn GRAVE',
   //   poolId: 3,
   //   sectionInUI: 3,
-  //   contract: 'XgraveFtmRewardPool',
+  //   contract: 'GraveFtmRewardPool',
   //   depositTokenName: 'GRAVE-USDC LP',
   //   earnTokenName: 'GRAVE',
   //   finished: false,
@@ -348,11 +348,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   //   sort: 1,
   //   closedForStaking: false,
   // },
-  XgraveXSHARESRebates: {
+  GraveXSHARESRebates: {
     name: 'Bond XSHARES, earn GRAVE',
     poolId: 4,
     sectionInUI: 3,
-    contract: 'XgraveFtmRewardPool',
+    contract: 'GraveFtmRewardPool',
     depositTokenName: 'XSHARES',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -362,11 +362,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 3,
     closedForStaking: false,
   },
-  //XgraveXSHARESFTMRebates: {
+  //GraveXSHARESFTMRebates: {
    // name: 'Bond XSHARES-USDC LP, earn GRAVE',
    // poolId: 5,
    // sectionInUI: 3,
-  //  contract: 'XgraveFtmRewardPool',
+  //  contract: 'GraveFtmRewardPool',
   //  depositTokenName: 'XSHARES-USDC LP',
   //  earnTokenName: 'GRAVE',
   //  finished: false,

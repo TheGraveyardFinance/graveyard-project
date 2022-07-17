@@ -100,7 +100,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       >
         <StyledMenuItem value={FTM_TICKER}>FTM</StyledMenuItem>
         <StyledMenuItem value={XSHARE_TICKER}>XSHARE</StyledMenuItem>
-        {/* Xgrave as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
+        {/* Grave as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
         {/* <StyledMenuItem value={GRAVE_TICKER}>GRAVE</StyledMenuItem> */}
       </Select>
       <TokenInput

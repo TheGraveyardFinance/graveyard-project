@@ -9,7 +9,7 @@ import { createGlobalStyle } from 'styled-components';
 import CountUp from 'react-countup';
 import CardIcon from '../../components/CardIcon';
 import TokenSymbol from '../../components/TokenSymbol';
-import useXgraveStats from '../../hooks/useXgraveStats';
+import useGraveStats from '../../hooks/useGraveStats';
 import useLpStats from '../../hooks/useLpStats';
 import useModal from '../../hooks/useModal';
 import useZap from '../../hooks/useZap';
@@ -52,7 +52,7 @@ const Home = () => {
   const TVL = useTotalValueLocked();
   const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
   const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
-  const graveStats = useXgraveStats();
+  const graveStats = useGraveStats();
   const xShareStats = usexShareStats();
   const xBondStats = useBondStats();
   const graveyardFinance = useGraveyardFinance();
@@ -70,7 +70,7 @@ const Home = () => {
     xShare = xShareProd;
   }
 
-  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + grave.address;
+  const buyGraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + grave.address;
   const buyXShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
   const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
@@ -117,13 +117,13 @@ const Home = () => {
     color: var(--accent-light);
   `;
 
-  const [onPresentXgraveZap, onDissmissXgraveZap] = useModal(
+  const [onPresentGraveZap, onDissmissGraveZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
         graveLpZap.onZap(zappingToken, tokenName, amount);
-        onDissmissXgraveZap();
+        onDissmissGraveZap();
       }}
       tokenName={'GRAVE-USDC-LP'}
     />,
@@ -377,7 +377,7 @@ const Home = () => {
                 </CardIcon>
               </Box>
               <Box mt={2}>
-                <Button color="primary" disabled={true} onClick={onPresentXgraveZap} variant="contained">
+                <Button color="primary" disabled={true} onClick={onPresentGraveZap} variant="contained">
                   Zap In
                 </Button>
               </Box>

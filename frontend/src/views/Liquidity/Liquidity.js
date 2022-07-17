@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import HomeImage from '../../assets/img/home.png';
 import useLpStats from '../../hooks/useLpStats';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
-import useXgraveStats from '../../hooks/useXgraveStats';
+import useGraveStats from '../../hooks/useGraveStats';
 import TokenInput from '../../components/TokenInput';
 import useGraveyardFinance from '../../hooks/useGraveyardFinance';
 import { useWallet } from 'use-wallet';
@@ -12,7 +12,7 @@ import useTokenBalance from '../../hooks/useTokenBalance';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useApproveTaxOffice from '../../hooks/useApproveTaxOffice';
 import { ApprovalState } from '../../hooks/useApprove';
-import useProvideXgraveFtmLP from '../../hooks/useProvideXgraveFtmLP';
+import useProvideGraveFtmLP from '../../hooks/useProvideGraveFtmLP';
 import { Alert } from '@material-ui/lab';
 
 const BackgroundImage = createGlobalStyle`
@@ -26,16 +26,16 @@ function isNumeric(n) {
 }
 
 const ProvideLiquidity = () => {
-  const [graveAmount, setXgraveAmount] = useState(0);
+  const [graveAmount, setGraveAmount] = useState(0);
   const [usdcAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
-  const graveStats = useXgraveStats();
+  const graveStats = useGraveStats();
   const graveyardFinance = useGraveyardFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
   const graveBalance = useTokenBalance(graveyardFinance.GRAVE);
   const ftmBalance = (balance / 1e18).toFixed(4);
-  const { onProvideXgraveFtmLP } = useProvideXgraveFtmLP();
+  const { onProvideGraveFtmLP } = useProvideGraveFtmLP();
   const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
 
   const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
@@ -43,12 +43,12 @@ const ProvideLiquidity = () => {
   const usdcPriceInGRAVE = useMemo(() => (graveStats ? Number(1 / graveStats.tokenInFtm).toFixed(2) : null), [graveStats]);
   // const classes = useStyles();
 
-  const handleXgraveChange = async (e) => {
+  const handleGraveChange = async (e) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
-      setXgraveAmount(e.currentTarget.value);
+      setGraveAmount(e.currentTarget.value);
     }
     if (!isNumeric(e.currentTarget.value)) return;
-    setXgraveAmount(e.currentTarget.value);
+    setGraveAmount(e.currentTarget.value);
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'GRAVE');
     setFtmAmount(quoteFromSpooky);
     setLpTokensAmount(quoteFromSpooky / graveLPStats.usdcAmount);
@@ -61,20 +61,20 @@ const ProvideLiquidity = () => {
     if (!isNumeric(e.currentTarget.value)) return;
     setFtmAmount(e.currentTarget.value);
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'FTM');
-    setXgraveAmount(quoteFromSpooky);
+    setGraveAmount(quoteFromSpooky);
 
     setLpTokensAmount(quoteFromSpooky / graveLPStats.tokenAmount);
   };
-  const handleXgraveSelectMax = async () => {
+  const handleGraveSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(graveBalance), 'GRAVE');
-    setXgraveAmount(getDisplayBalance(graveBalance));
+    setGraveAmount(getDisplayBalance(graveBalance));
     setFtmAmount(quoteFromSpooky);
     setLpTokensAmount(quoteFromSpooky / graveLPStats.usdcAmount);
   };
   const handleFtmSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(ftmBalance, 'FTM');
     setFtmAmount(ftmBalance);
-    setXgraveAmount(quoteFromSpooky);
+    setGraveAmount(quoteFromSpooky);
     setLpTokensAmount(ftmBalance / graveLPStats.usdcAmount);
   };
   return (
@@ -97,8 +97,8 @@ const ProvideLiquidity = () => {
                     <Grid container>
                       <Grid item xs={12}>
                         <TokenInput
-                          onSelectMax={handleXgraveSelectMax}
-                          onChange={handleXgraveChange}
+                          onSelectMax={handleGraveSelectMax}
+                          onChange={handleGraveChange}
                           value={graveAmount}
                           max={getDisplayBalance(graveBalance)}
                           symbol={'GRAVE'}
@@ -122,7 +122,7 @@ const ProvideLiquidity = () => {
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideXgraveFtmLP(usdcAmount.toString(), graveAmount.toString())}
+                            onClick={() => onProvideGraveFtmLP(usdcAmount.toString(), graveAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >
