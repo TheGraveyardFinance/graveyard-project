@@ -159,8 +159,8 @@ const Home = () => {
               <p>Combining only the most stable and effective elements of only the longest-running protocols from every major blockchain, we have developed a whale-proof, dump-proof, auto-burning protocol that we believe will not only keep peg, but stay well above it, forever.</p>
               <p>Our mission is to execute the most reliable, stable and most of all self-sustainable Yield Farming Protocol on Fantom.</p>
               <p>
-                Stake your GRAVE-USDC LP in our <StyledLink href="/farms">Farms</StyledLink> to earn xGRAVE rewards.
-                Then stake your earned xSHARE in the <StyledLink href="/">Mausoleum</StyledLink> to earn more GRAVE.
+                Stake your GRAVE-USDC LP in our <StyledLink href="/farms">Farms</StyledLink> to earn XSHARE rewards.
+                Then stake your earned XSHARE in the <StyledLink href="/">Mausoleum</StyledLink> to earn more GRAVE.
               </p>
             </Box>
           </Paper>
@@ -168,7 +168,7 @@ const Home = () => {
         <Grid container justify="center">
             <Box mt={3} style={{ width: '1000px' }}>
             <Alert variant="filled" severity="warning">
-                Do your own research before investing. Investing is risky and may result in monetary loss. By using this protocol, you agree that the Graveyard DeFi team is not responsible for any financial losses from investing in GRAVE, xGRAVE, xBONDS, LP's or Nodes.
+                Do your own research before investing. Investing is risky and may result in monetary loss. By using this protocol, you agree that the Graveyard DeFi team is not responsible for any financial losses from investing in GRAVE, XSHARE, XBONDS, LP's or Nodes.
             </Alert>
             </Box>
         </Grid>
@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing GRAVE or xSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing GRAVE or XSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}
@@ -219,13 +219,13 @@ const Home = () => {
                 Buy GRAVE
               </Button>
               <Button variant="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=0x6437adac543583c4b31bf0323a0870430f5cc2e7" style={{ marginRight: '10px' }} className={classes.button}>
-                Buy xGRAVE
+                Buy XSHARE
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0x83a52eff2e9d112e9b022399a9fd22a9db7d33ae" style={{ marginRight: '10px' }} className={classes.button}>
                 GRAVE Chart
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0xd352dac95a91afefb112dbbb3463ccfa5ec15b65" className={classes.button}>
-                xGRAVE Chart
+                XSHARE Chart
               </Button>
             </CardContent>
           </Card>
@@ -294,11 +294,11 @@ const Home = () => {
           </Card>
         </Grid>
 
-        {/* xSHARE */}
+        {/* XSHARE */}
         <Grid item xs={12} sm={3}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center" style={{ position: 'relative' }}>
-              <h2>xGRAVE</h2>
+              <h2>XSHARE</h2>
               {/* <Button
                 onClick={() => {
                   graveyardFinance.watchAssetInMetamask('XSHARE');
@@ -398,7 +398,7 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Card style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <CardContent align="center">
-              <h2>xGRAVE-USDC Spooky LP</h2>
+              <h2>XSHARE-USDC Spooky LP</h2>
               <Box mt={2}>
                 <CardIcon>
                   <TokenSymbol symbol="XSHARE-USDC-LP" />

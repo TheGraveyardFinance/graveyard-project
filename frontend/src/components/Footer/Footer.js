@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     height: '24px',
     display: 'inline',
     marginLeft: '20px',
-    filter: 'sepia(1) brightness(2) hue-rotate(314deg) saturate(7.5)'
+    // filter: 'sepia(1) brightness(2) hue-rotate(314deg) saturate(7.5)'
   },
 
   img: {
