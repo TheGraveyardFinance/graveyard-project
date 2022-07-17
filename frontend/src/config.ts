@@ -54,8 +54,8 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   finished: will disable the pool on the UI if set to true
   sort: the order of the pool
   */
-  Xgrave2sharesRewardPool: {
-    name: 'Earn GRAVE by staking 2SHARES',
+  GraveUsdcRewardPool: {
+    name: 'Earn GRAVE by staking GRAVE/USDC LP',
     poolId: 0,
     sectionInUI: 0,
     contract: 'Xgrave2ShareRewardPool',
