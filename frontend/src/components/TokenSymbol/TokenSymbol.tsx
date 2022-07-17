@@ -8,7 +8,7 @@ import graveLogoPNG from '../../assets/img/GRAVE.png';
 import xShareLogoPNG from '../../assets/img/xSHARES.png';
 import xBondLogo from '../../assets/img/XBOND.svg';
 
-import xgraveFtmLpLogo from '../../assets/img/xgrave_usdc_lp.png';
+import graveFtmLpLogo from '../../assets/img/grave_usdc_lp.png';
 import xshareFtmLpLogo from '../../assets/img/Xshare_usdc_lp.png';
 
 import wftmLogo from '../../assets/img/fantom-ftm-logo.png';
@@ -58,7 +58,7 @@ const logosBySymbol: { [title: string]: string } = {
   'wFTM': wftmLogo,
   '2OMB': twoombLogo,
   '2SHARES': twoshareLogo,
-  'GRAVE-USDC-LP': xgraveFtmLpLogo,
+  'GRAVE-USDC-LP': graveFtmLpLogo,
   'XSHARE-USDC-LP': xshareFtmLpLogo,
 };
 

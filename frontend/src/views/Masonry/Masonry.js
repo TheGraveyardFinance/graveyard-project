@@ -105,7 +105,7 @@ const Masonry = () => {
                     <Typography>
                       GRAVE Price<small> (TWAP)</small>
                     </Typography>
-                    <Typography>{rebateStats.xgravePrice.toFixed(4)} FTM</Typography>
+                    <Typography>{rebateStats.gravePrice.toFixed(4)} FTM</Typography>
                   </CardContent>
                 </Card>
               </Grid>

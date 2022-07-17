@@ -25,12 +25,12 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   const earnings = useEarnings(bank.contract, bank.earnTokenName, bank.poolId);
   const { onReward } = useHarvest(bank);
-  const xgraveStats = useXgraveStats();
+  const graveStats = useXgraveStats();
   const xShareStats = useShareStats();
 
   const tokenName = bank.earnTokenName === 'XSHARES' ? 'XSHARES' : 'GRAVE';
   const tokenEarn = bank.earnTokenName === 'GRAVE' ? 'GRAVE' : 'XSHARE';
-  const tokenStats = bank.earnTokenName === 'XSHARES' ? xShareStats : xgraveStats;
+  const tokenStats = bank.earnTokenName === 'XSHARES' ? xShareStats : graveStats;
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
     [tokenStats],

@@ -861,7 +861,7 @@
       }
     ]
   },
-  "xgrave": {
+  "grave": {
     "address": "0x14DEf7584A6c52f470Ca4F4b9671056b22f4FfDE",
     "abi": [
       {
@@ -1350,7 +1350,7 @@
       },
       {
         "inputs": [],
-        "name": "xgraveOracle",
+        "name": "graveOracle",
         "outputs": [
           {
             "internalType": "address",
@@ -1535,7 +1535,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgraveOracle",
+            "name": "_graveOracle",
             "type": "address"
           }
         ],
@@ -1714,7 +1714,7 @@
           },
           {
             "internalType": "address",
-            "name": "_xgravePool",
+            "name": "_gravePool",
             "type": "address"
           },
           {
@@ -2891,7 +2891,7 @@
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "xgraveAmount",
+            "name": "graveAmount",
             "type": "uint256"
           },
           {
@@ -3011,7 +3011,7 @@
           {
             "indexed": false,
             "internalType": "uint256",
-            "name": "xgraveAmount",
+            "name": "graveAmount",
             "type": "uint256"
           },
           {
@@ -3434,7 +3434,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "address",
@@ -3447,7 +3447,7 @@
       },
       {
         "inputs": [],
-        "name": "xgraveOracle",
+        "name": "graveOracle",
         "outputs": [
           {
             "internalType": "address",
@@ -3460,7 +3460,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePriceCeiling",
+        "name": "gravePriceCeiling",
         "outputs": [
           {
             "internalType": "uint256",
@@ -3473,7 +3473,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePriceOne",
+        "name": "gravePriceOne",
         "outputs": [
           {
             "internalType": "uint256",
@@ -3529,7 +3529,7 @@
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "xgravePrice",
+            "name": "gravePrice",
             "type": "uint256"
           }
         ],
@@ -3542,7 +3542,7 @@
         "outputs": [
           {
             "internalType": "uint256",
-            "name": "_xgravePrice",
+            "name": "_gravePrice",
             "type": "uint256"
           }
         ],
@@ -3618,7 +3618,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -3633,7 +3633,7 @@
           },
           {
             "internalType": "address",
-            "name": "_xgraveOracle",
+            "name": "_graveOracle",
             "type": "address"
           },
           {
@@ -3682,7 +3682,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgraveOracle",
+            "name": "_graveOracle",
             "type": "address"
           }
         ],
@@ -3695,7 +3695,7 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "_xgravePriceCeiling",
+            "name": "_gravePriceCeiling",
             "type": "uint256"
           }
         ],
@@ -3884,7 +3884,7 @@
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "_xgraveAmount",
+            "name": "_graveAmount",
             "type": "uint256"
           },
           {
@@ -4244,7 +4244,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -4298,7 +4298,7 @@
         "inputs": [
           {
             "internalType": "contract IERC20",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -4574,7 +4574,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -4786,7 +4786,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -4799,7 +4799,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5060,7 +5060,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -5272,7 +5272,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -5285,7 +5285,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -5546,7 +5546,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -5758,7 +5758,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -5771,7 +5771,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6032,7 +6032,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -6244,7 +6244,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -6257,7 +6257,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -6519,7 +6519,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -6731,7 +6731,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -6744,7 +6744,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7005,7 +7005,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -7217,7 +7217,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -7230,7 +7230,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7491,7 +7491,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -7703,7 +7703,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -7716,7 +7716,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -7977,7 +7977,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -8189,7 +8189,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -8202,7 +8202,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8464,7 +8464,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -8676,7 +8676,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -8689,7 +8689,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -8950,7 +8950,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -9162,7 +9162,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -9175,7 +9175,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9437,7 +9437,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -9649,7 +9649,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -9662,7 +9662,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -9925,7 +9925,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -10137,7 +10137,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -10150,7 +10150,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -10411,7 +10411,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -10623,7 +10623,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -10636,7 +10636,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -10897,7 +10897,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -11109,7 +11109,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -11122,7 +11122,7 @@
       },
       {
         "inputs": [],
-        "name": "xgravePerSecond",
+        "name": "gravePerSecond",
         "outputs": [
           {
             "internalType": "uint256",
@@ -11383,7 +11383,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -11613,7 +11613,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -11874,7 +11874,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -12104,7 +12104,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -15591,7 +15591,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgraveOracle",
+            "name": "_graveOracle",
             "type": "address"
           }
         ],
@@ -15657,7 +15657,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "address",
@@ -16718,7 +16718,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -16738,7 +16738,7 @@
           },
           {
             "internalType": "address",
-            "name": "_xgraveSpookyLpPair",
+            "name": "_graveSpookyLpPair",
             "type": "address"
           },
           {
@@ -16995,7 +16995,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -17008,7 +17008,7 @@
       },
       {
         "inputs": [],
-        "name": "xgraveSpookyLpPair",
+        "name": "graveSpookyLpPair",
         "outputs": [
           {
             "internalType": "address",
@@ -17588,7 +17588,7 @@
       },
       {
         "inputs": [],
-        "name": "xgraveOracle",
+        "name": "graveOracle",
         "outputs": [
           {
             "internalType": "address",
@@ -17773,7 +17773,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgraveOracle",
+            "name": "_graveOracle",
             "type": "address"
           }
         ],
@@ -17952,7 +17952,7 @@
           },
           {
             "internalType": "address",
-            "name": "_xgravePool",
+            "name": "_gravePool",
             "type": "address"
           },
           {
@@ -18676,7 +18676,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -18888,7 +18888,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -19162,7 +19162,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -19392,7 +19392,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",
@@ -19653,7 +19653,7 @@
         "inputs": [
           {
             "internalType": "address",
-            "name": "_xgrave",
+            "name": "_grave",
             "type": "address"
           },
           {
@@ -19883,7 +19883,7 @@
       },
       {
         "inputs": [],
-        "name": "xgrave",
+        "name": "grave",
         "outputs": [
           {
             "internalType": "contract IERC20",

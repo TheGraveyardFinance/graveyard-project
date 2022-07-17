@@ -12,8 +12,8 @@ import TokenSymbol from '../TokenSymbol';
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const graveyardFinance = useGraveyardFinance();
 
-  const xgraveBalance = useTokenBalance(graveyardFinance.GRAVE);
-  const displayXgraveBalance = useMemo(() => getDisplayBalance(xgraveBalance), [xgraveBalance]);
+  const graveBalance = useTokenBalance(graveyardFinance.GRAVE);
+  const displayXgraveBalance = useMemo(() => getDisplayBalance(graveBalance), [graveBalance]);
 
   const xshareBalance = useTokenBalance(graveyardFinance.XSHARE);
   const displayXshareBalance = useMemo(() => getDisplayBalance(xshareBalance), [xshareBalance]);

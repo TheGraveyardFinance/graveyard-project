@@ -26,21 +26,21 @@ function isNumeric(n) {
 }
 
 const ProvideLiquidity = () => {
-  const [xgraveAmount, setXgraveAmount] = useState(0);
+  const [graveAmount, setXgraveAmount] = useState(0);
   const [usdcAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
-  const xgraveStats = useXgraveStats();
+  const graveStats = useXgraveStats();
   const graveyardFinance = useGraveyardFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
-  const xgraveBalance = useTokenBalance(graveyardFinance.GRAVE);
+  const graveBalance = useTokenBalance(graveyardFinance.GRAVE);
   const ftmBalance = (balance / 1e18).toFixed(4);
   const { onProvideXgraveFtmLP } = useProvideXgraveFtmLP();
-  const xgraveCousdLpStats = useLpStats('GRAVE-USDC-LP');
+  const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
 
-  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
-  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
-  const usdcPriceInGRAVE = useMemo(() => (xgraveStats ? Number(1 / xgraveStats.tokenInFtm).toFixed(2) : null), [xgraveStats]);
+  const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(2) : null), [graveStats]);
+  const usdcPriceInGRAVE = useMemo(() => (graveStats ? Number(1 / graveStats.tokenInFtm).toFixed(2) : null), [graveStats]);
   // const classes = useStyles();
 
   const handleXgraveChange = async (e) => {
@@ -51,7 +51,7 @@ const ProvideLiquidity = () => {
     setXgraveAmount(e.currentTarget.value);
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'GRAVE');
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.usdcAmount);
+    setLpTokensAmount(quoteFromSpooky / graveLPStats.usdcAmount);
   };
 
   const handleFtmChange = async (e) => {
@@ -63,19 +63,19 @@ const ProvideLiquidity = () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(e.currentTarget.value, 'FTM');
     setXgraveAmount(quoteFromSpooky);
 
-    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.tokenAmount);
+    setLpTokensAmount(quoteFromSpooky / graveLPStats.tokenAmount);
   };
   const handleXgraveSelectMax = async () => {
-    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(xgraveBalance), 'GRAVE');
-    setXgraveAmount(getDisplayBalance(xgraveBalance));
+    const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(getDisplayBalance(graveBalance), 'GRAVE');
+    setXgraveAmount(getDisplayBalance(graveBalance));
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / xgraveLPStats.usdcAmount);
+    setLpTokensAmount(quoteFromSpooky / graveLPStats.usdcAmount);
   };
   const handleFtmSelectMax = async () => {
     const quoteFromSpooky = await graveyardFinance.quoteFromSpooky(ftmBalance, 'FTM');
     setFtmAmount(ftmBalance);
     setXgraveAmount(quoteFromSpooky);
-    setLpTokensAmount(ftmBalance / xgraveLPStats.usdcAmount);
+    setLpTokensAmount(ftmBalance / graveLPStats.usdcAmount);
   };
   return (
     <Page>
@@ -99,8 +99,8 @@ const ProvideLiquidity = () => {
                         <TokenInput
                           onSelectMax={handleXgraveSelectMax}
                           onChange={handleXgraveChange}
-                          value={xgraveAmount}
-                          max={getDisplayBalance(xgraveBalance)}
+                          value={graveAmount}
+                          max={getDisplayBalance(graveBalance)}
                           symbol={'GRAVE'}
                         ></TokenInput>
                       </Grid>
@@ -114,7 +114,7 @@ const ProvideLiquidity = () => {
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 GRAVE = {xgravePriceInUSDC} FTM</p>
+                        <p>1 GRAVE = {gravePriceInUSDC} FTM</p>
                         <p>1 FTM = {usdcPriceInGRAVE} GRAVE</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
@@ -122,7 +122,7 @@ const ProvideLiquidity = () => {
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideXgraveFtmLP(usdcAmount.toString(), xgraveAmount.toString())}
+                            onClick={() => onProvideXgraveFtmLP(usdcAmount.toString(), graveAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >

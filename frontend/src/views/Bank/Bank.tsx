@@ -100,14 +100,14 @@ const Bank: React.FC = () => {
 
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const graveyardFinance = useGraveyardFinance();
-  const xgraveAddr = graveyardFinance.GRAVE.address;
+  const graveAddr = graveyardFinance.GRAVE.address;
   const xshareAddr = graveyardFinance.XSHARE.address;
 
   let pairName: string;
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('GRAVE')) {
     pairName = 'GRAVE-USDC pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xgraveAddr;
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + graveAddr;
   } else {
     pairName = '3SHARE-USDC pair';
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xshareAddr;

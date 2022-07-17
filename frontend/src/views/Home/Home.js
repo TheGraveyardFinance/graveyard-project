@@ -17,8 +17,8 @@ import useBondStats from '../../hooks/useBondStats';
 import usexShareStats from '../../hooks/usexShareStats';
 import useTotalValueLocked from '../../hooks/useTotalValueLocked';
 import useUsdcPrice from '../../hooks/useUsdcPrice';
-import { xgrave as xgraveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
-import { xgrave as xgraveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
+import { grave as graveTesting, xShare as xShareTesting } from '../../graveyard-finance/deployments/deployments.testing.json';
+import { grave as graveProd, xShare as xShareProd } from '../../graveyard-finance/deployments/deployments.mainnet.json';
 
 import useTotalTreasuryBalance from '../../hooks/useTotalTreasuryBalance.js';
 
@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const xgraveCousdLpStats = useLpStats('GRAVE-USDC-LP');
+  const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
   const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
-  const xgraveStats = useXgraveStats();
+  const graveStats = useXgraveStats();
   const xShareStats = usexShareStats();
   const xBondStats = useBondStats();
   const graveyardFinance = useGraveyardFinance();
@@ -60,28 +60,28 @@ const Home = () => {
   const { balance: rebatesTVL } = useTotalTreasuryBalance();
   const totalTVL = TVL + rebatesTVL;
 
-  let xgrave;
+  let grave;
   let xShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    xgrave = xgraveTesting;
+    grave = graveTesting;
     xShare = xShareTesting;
   } else {
-    xgrave = xgraveProd;
+    grave = graveProd;
     xShare = xShareProd;
   }
 
-  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xgrave.address;
+  const buyXgraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + grave.address;
   const buyXShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
-  const xgraveLPStats = useMemo(() => (xgraveCousdLpStats ? xgraveCousdLpStats : null), [xgraveCousdLpStats]);
+  const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
   const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
-  const xgravePriceInDollars = useMemo(
-    () => (xgraveStats ? Number(xgraveStats.priceInDollars).toFixed(2) : null),
-    [xgraveStats],
+  const gravePriceInDollars = useMemo(
+    () => (graveStats ? Number(graveStats.priceInDollars).toFixed(2) : null),
+    [graveStats],
   );
-  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
-  const xgraveCirculatingSupply = useMemo(() => (xgraveStats ? String(xgraveStats.circulatingSupply) : null), [xgraveStats]);
-  const xgraveTotalSupply = useMemo(() => (xgraveStats ? String(xgraveStats.totalSupply) : null), [xgraveStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(4) : null), [graveStats]);
+  const graveCirculatingSupply = useMemo(() => (graveStats ? String(graveStats.circulatingSupply) : null), [graveStats]);
+  const graveTotalSupply = useMemo(() => (graveStats ? String(graveStats.totalSupply) : null), [graveStats]);
 
   const xSharePriceInDollars = useMemo(
     () => (xShareStats ? Number(xShareStats.priceInDollars).toFixed(2) : null),
@@ -108,7 +108,7 @@ const Home = () => {
   );
   const xBondTotalSupply = useMemo(() => (xBondStats ? String(xBondStats.totalSupply) : null), [xBondStats]);
 
-  const xgraveLpZap = useZap({ depositTokenName: 'GRAVE-USDC-LP' });
+  const graveLpZap = useZap({ depositTokenName: 'GRAVE-USDC-LP' });
   const xshareLpZap = useZap({ depositTokenName: 'XSHARE-USDC-LP' });
 
   const StyledLink = styled.a`
@@ -122,7 +122,7 @@ const Home = () => {
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
         if (Number(amount) <= 0 || isNaN(Number(amount))) return;
-        xgraveLpZap.onZap(zappingToken, tokenName, amount);
+        graveLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissXgraveZap();
       }}
       tokenName={'GRAVE-USDC-LP'}
@@ -177,7 +177,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert severity="warning" style={{ backgroundColor: "transparent", border: "1px solid var(--white)" }}>
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.xgrave.finance">documentation</StyledLink> before purchasing GRAVE or XSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.grave.finance">documentation</StyledLink> before purchasing GRAVE or XSHARE!</b>
             </Alert>
         </Grid>
         </Grid> */}
@@ -278,17 +278,17 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{xgravePriceInUSDC ? xgravePriceInUSDC : '-.----'} USDC</span>
+                <span style={{ fontSize: '30px' }}>{gravePriceInUSDC ? gravePriceInUSDC : '-.----'} USDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${xgravePriceInDollars ? xgravePriceInDollars : '-.--'}
+                  ${gravePriceInDollars ? gravePriceInDollars : '-.--'}
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(xgraveCirculatingSupply * xgravePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {xgraveCirculatingSupply} <br />
-                Total Supply: {xgraveTotalSupply}
+                Market Cap: ${(graveCirculatingSupply * gravePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {graveCirculatingSupply} <br />
+                Total Supply: {graveTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -383,14 +383,14 @@ const Home = () => {
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
-                  {xgraveLPStats?.tokenAmount ? xgraveLPStats?.tokenAmount : '-.--'} GRAVE /{' '}
-                  {xgraveLPStats?.usdcAmount ? xgraveLPStats?.usdcAmount : '-.--'} USDC
+                  {graveLPStats?.tokenAmount ? graveLPStats?.tokenAmount : '-.--'} GRAVE /{' '}
+                  {graveLPStats?.usdcAmount ? graveLPStats?.usdcAmount : '-.--'} USDC
                 </span>
               </Box>
-              <Box>${xgraveLPStats?.priceOfOne ? xgraveLPStats.priceOfOne : '-.--'}</Box>
+              <Box>${graveLPStats?.priceOfOne ? graveLPStats.priceOfOne : '-.--'}</Box>
               <span style={{ fontSize: '12px' }}>
-                Liquidity: ${xgraveLPStats?.totalLiquidity ? xgraveLPStats.totalLiquidity : '-.--'} <br />
-                Total supply: {xgraveLPStats?.totalSupply ? xgraveLPStats.totalSupply : '-.--'}
+                Liquidity: ${graveLPStats?.totalLiquidity ? graveLPStats.totalLiquidity : '-.--'} <br />
+                Total supply: {graveLPStats?.totalSupply ? graveLPStats.totalSupply : '-.--'}
               </span>
             </CardContent>
           </Card>

@@ -46,13 +46,13 @@ const Cemetery = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
   const cashStat = useCashPriceInEstimatedTWAP();
-  const xgraveStats = useXgraveStats();
+  const graveStats = useXgraveStats();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const activeBanks = banks.filter((bank) => !bank.finished);
 
   console.log(cashStat)
 
-  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(4) : null), [graveStats]);
 
   const rebateStats = useRebateTreasury()
   console.log(rebateStats)
@@ -77,7 +77,7 @@ const Cemetery = () => {
 }
 
   async function claimXgrave() {
-    console.log("claiming the xgrave")
+    console.log("claiming the grave")
     if (!window.ethereum) return
     const address = (await window.ethereum.request({ method: "eth_accounts" }))[0]
     if (!address) return
@@ -109,7 +109,7 @@ const Cemetery = () => {
                         <Typography variant="h5">
                           GRAVE Price <small>(TWAP)</small>
                         </Typography>
-                        <Typography variant="h6">{xgravePriceInUSDC ? xgravePriceInUSDC : '-.----'} FTM</Typography>
+                        <Typography variant="h6">{gravePriceInUSDC ? gravePriceInUSDC : '-.----'} FTM</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
