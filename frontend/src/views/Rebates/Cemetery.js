@@ -18,7 +18,7 @@ import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP
 
 import useBanks from '../../hooks/useBanks';
 import useRebateTreasury from "../../hooks/useRebateTreasury"
-import useXgraveStats from '../../hooks/useXgraveStats';
+import useGraveStats from '../../hooks/useGraveStats';
 
 const web3 = new Web3()
 const BN = n => new web3.utils.BN(n)
@@ -46,13 +46,13 @@ const Cemetery = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
   const cashStat = useCashPriceInEstimatedTWAP();
-  const xgraveStats = useXgraveStats();
+  const graveStats = useGraveStats();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const activeBanks = banks.filter((bank) => !bank.finished);
 
   console.log(cashStat)
 
-  const xgravePriceInUSDC = useMemo(() => (xgraveStats ? Number(xgraveStats.tokenInFtm).toFixed(4) : null), [xgraveStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(4) : null), [graveStats]);
 
   const rebateStats = useRebateTreasury()
   console.log(rebateStats)
@@ -70,14 +70,14 @@ const Cemetery = () => {
     const address = (await window.ethereum.request({ method: "eth_accounts" }))[0]
     if (!address) return
 
-    const claimable = await rebateStats.RebateTreasury.methods.claimableXgrave(address).call()
+    const claimable = await rebateStats.RebateTreasury.methods.claimableGrave(address).call()
     const vesting = await rebateStats.RebateTreasury.methods.vesting(address).call()
     setClaimableGRAVE(+web3.utils.fromWei(claimable))
     setVested(+web3.utils.fromWei(BN(vesting.amount).sub(BN(vesting.claimed))))
 }
 
-  async function claimXgrave() {
-    console.log("claiming the xgrave")
+  async function claimGrave() {
+    console.log("claiming the grave")
     if (!window.ethereum) return
     const address = (await window.ethereum.request({ method: "eth_accounts" }))[0]
     if (!address) return
@@ -109,7 +109,7 @@ const Cemetery = () => {
                         <Typography variant="h5">
                           GRAVE Price <small>(TWAP)</small>
                         </Typography>
-                        <Typography variant="h6">{xgravePriceInUSDC ? xgravePriceInUSDC : '-.----'} FTM</Typography>
+                        <Typography variant="h6">{gravePriceInUSDC ? gravePriceInUSDC : '-.----'} FTM</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -152,7 +152,7 @@ const Cemetery = () => {
                         </Typography>
                         <Typography variant="h6">{vested.toFixed(4)} Total Vested</Typography>
                         <Typography variant="h6">{claimableGRAVE.toFixed(4)} Claimable</Typography>
-                        <Button color="primary" size="small" variant="contained" onClick={claimXgrave} style={{ marginTop: "8px" }}>
+                        <Button color="primary" size="small" variant="contained" onClick={claimGrave} style={{ marginTop: "8px" }}>
                           CLAIM
                         </Button>
                       </CardContent>

@@ -46,7 +46,7 @@ export class GraveyardFinance {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal);
     }
-    this.GRAVE = new ERC20(deployments.xgrave.address, provider, 'GRAVE');
+    this.GRAVE = new ERC20(deployments.grave.address, provider, 'GRAVE');
     this.XSHARE = new ERC20(deployments.xShare.address, provider, 'XSHARE');
     this.XBOND = new ERC20(deployments.tBond.address, provider, 'XBOND');
     this.FTM = this.externalTokens['USDC'];
@@ -93,26 +93,26 @@ export class GraveyardFinance {
   //=========================IN HOME PAGE==============================
   //===================================================================
 
-  async getXgraveStat(): Promise<TokenStat> {
-    const { XgraveFtmRewardPool, XgraveFtmLpXgraveRewardPool, XgraveFtmLpXgraveRewardPoolOld } = this.contracts;
+  async getGraveStat(): Promise<TokenStat> {
+    const { GraveFtmRewardPool, GraveFtmLpGraveRewardPool, GraveFtmLpGraveRewardPoolOld } = this.contracts;
     const supply = await this.GRAVE.totalSupply();
-    const xgraveRewardPoolSupply = await this.GRAVE.balanceOf(XgraveFtmRewardPool.address);
-    const xgraveRewardPoolSupply2 = await this.GRAVE.balanceOf(XgraveFtmLpXgraveRewardPool.address);
-    const xgraveRewardPoolSupplyOld = await this.GRAVE.balanceOf(XgraveFtmLpXgraveRewardPoolOld.address);
-    const xgraveCirculatingSupply = supply
-      .sub(xgraveRewardPoolSupply)
-      .sub(xgraveRewardPoolSupply2)
-      .sub(xgraveRewardPoolSupplyOld);
+    const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveFtmRewardPool.address);
+    const graveRewardPoolSupply2 = await this.GRAVE.balanceOf(GraveFtmLpGraveRewardPool.address);
+    const graveRewardPoolSupplyOld = await this.GRAVE.balanceOf(GraveFtmLpGraveRewardPoolOld.address);
+    const graveCirculatingSupply = supply
+      .sub(graveRewardPoolSupply)
+      .sub(graveRewardPoolSupply2)
+      .sub(graveRewardPoolSupplyOld);
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.GRAVE);
     console.log("price in ftm:", priceInFTM)
     const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
-    const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+    const priceOfGraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
     return {
       tokenInFtm: priceInFTM,
-      priceInDollars: priceOfXgraveInDollars,
+      priceInDollars: priceOfGraveInDollars,
       totalSupply: getDisplayBalance(supply, this.GRAVE.decimal, 0),
-      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.GRAVE.decimal, 0),
+      circulatingSupply: getDisplayBalance(graveCirculatingSupply, this.GRAVE.decimal, 0),
     };
   }
 
@@ -126,7 +126,7 @@ export class GraveyardFinance {
     const lpTokenSupplyBN = await lpToken.totalSupply();
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
     const token0 = name.startsWith('GRAVE') ? this.GRAVE : this.XSHARE;
-    const isXgrave = name.startsWith('GRAVE');
+    const isGrave = name.startsWith('GRAVE');
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
@@ -134,7 +134,7 @@ export class GraveyardFinance {
     const usdcAmount = getDisplayBalance(usdcAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
     const usdcAmountInOneLP = Number(usdcAmount) / Number(lpTokenSupply);
-    const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isXgrave, false);
+    const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isGrave, false);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
     return {
@@ -147,7 +147,7 @@ export class GraveyardFinance {
   }
 
   /**
-   * Use this method to get price for Xgrave
+   * Use this method to get price for Grave
    * @returns TokenStat for XBOND
    * priceInFTM
    * priceInDollars
@@ -156,11 +156,11 @@ export class GraveyardFinance {
    */
   async getBondStat(): Promise<TokenStat> {
     const { Treasury } = this.contracts;
-    const xgraveStat = await this.getXgraveStat();
-    const bondXgraveRatioBN = await Treasury.getBondPremiumRate();
-    const modifier = bondXgraveRatioBN / 1e18 > 1 ? bondXgraveRatioBN / 1e18 : 1;
-    const bondPriceInFTM = (Number(xgraveStat.tokenInFtm) * modifier).toFixed(2);
-    const priceOfXBondInDollars = (Number(xgraveStat.priceInDollars) * modifier).toFixed(2);
+    const graveStat = await this.getGraveStat();
+    const bondGraveRatioBN = await Treasury.getBondPremiumRate();
+    const modifier = bondGraveRatioBN / 1e18 > 1 ? bondGraveRatioBN / 1e18 : 1;
+    const bondPriceInFTM = (Number(graveStat.tokenInFtm) * modifier).toFixed(2);
+    const priceOfXBondInDollars = (Number(graveStat.priceInDollars) * modifier).toFixed(2);
     const supply = await this.XBOND.displayedTotalSupply();
     return {
       tokenInFtm: bondPriceInFTM,
@@ -178,13 +178,13 @@ export class GraveyardFinance {
    * CirculatingSupply (always equal to total supply for bonds)
    */
   async gexShareStat(): Promise<TokenStat> {
-    const { XgraveFtmLPXShareRewardPool } = this.contracts;
+    const { GraveFtmLPXShareRewardPool } = this.contracts;
 
     const supply = await this.XSHARE.totalSupply();
 
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.XSHARE);
-    const xgraveRewardPoolSupply = await this.XSHARE.balanceOf(XgraveFtmLPXShareRewardPool.address);
-    const xShareCirculatingSupply = supply.sub(xgraveRewardPoolSupply);
+    const graveRewardPoolSupply = await this.XSHARE.balanceOf(GraveFtmLPXShareRewardPool.address);
+    const xShareCirculatingSupply = supply.sub(graveRewardPoolSupply);
     const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
@@ -196,29 +196,29 @@ export class GraveyardFinance {
     };
   }
 
-  async getXgraveStatInEstimatedTWAP(): Promise<TokenStat> {
-    const { SeigniorageOracle, XgraveFtmRewardPool } = this.contracts;
+  async getGraveStatInEstimatedTWAP(): Promise<TokenStat> {
+    const { SeigniorageOracle, GraveFtmRewardPool } = this.contracts;
     const expectedPrice = await SeigniorageOracle.twap(this.GRAVE.address, ethers.utils.parseEther('1'));
 
     const supply = await this.GRAVE.totalSupply();
-    const xgraveRewardPoolSupply = await this.GRAVE.balanceOf(XgraveFtmRewardPool.address);
-    const xgraveCirculatingSupply = supply.sub(xgraveRewardPoolSupply);
+    const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveFtmRewardPool.address);
+    const graveCirculatingSupply = supply.sub(graveRewardPoolSupply);
     return {
       tokenInFtm: getDisplayBalance(expectedPrice),
       priceInDollars: getDisplayBalance(expectedPrice),
       totalSupply: getDisplayBalance(supply, this.GRAVE.decimal, 0),
-      circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, this.GRAVE.decimal, 0),
+      circulatingSupply: getDisplayBalance(graveCirculatingSupply, this.GRAVE.decimal, 0),
     };
   }
 
-  async getXgravePriceInLastTWAP(): Promise<BigNumber> {
+  async getGravePriceInLastTWAP(): Promise<BigNumber> {
     const { Treasury } = this.contracts;
-    return Treasury.getXgraveUpdatedPrice();
+    return Treasury.getGraveUpdatedPrice();
   }
 
   async getBondsPurchasable(): Promise<BigNumber> {
     const { Treasury } = this.contracts;
-    return Treasury.getBurnableXgraveLeft();
+    return Treasury.getBurnableGraveLeft();
   }
 
   /**
@@ -234,7 +234,7 @@ export class GraveyardFinance {
     console.log("deposit token price:", depositTokenPrice)
     const stakeInPool = await depositToken.balanceOf(bank.address);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const stat = bank.earnTokenName === 'GRAVE' ? await this.getXgraveStat() : await this.gexShareStat();
+    const stat = bank.earnTokenName === 'GRAVE' ? await this.getGraveStat() : await this.gexShareStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
@@ -271,8 +271,8 @@ export class GraveyardFinance {
     depositTokenName: string,
   ) {
     if (earnTokenName === 'GRAVE') {
-      if (!contractName.endsWith('XgraveRewardPool')) {
-        const rewardPerSecond = await poolContract.xgravePerSecond();
+      if (!contractName.endsWith('GraveRewardPool')) {
+        const rewardPerSecond = await poolContract.gravePerSecond();
         if (depositTokenName === '2SHARES') {
           return rewardPerSecond.mul(7500).div(25000).div(24).mul(20);
         } else if (depositTokenName === '2OMB') {
@@ -296,9 +296,9 @@ export class GraveyardFinance {
       const startDateTime = new Date(poolStartTime.toNumber() * 1000);
       const FOUR_DAYS = 4 * 24 * 60 * 60 * 1000;
       if (Date.now() - startDateTime.getTime() > FOUR_DAYS) {
-        return await poolContract.epochXgravePerSecond(1);
+        return await poolContract.epochGravePerSecond(1);
       }
-      return await poolContract.epochXgravePerSecond(0);
+      return await poolContract.epochGravePerSecond(0);
     }
     const rewardPerSecond = await poolContract.xSharePerSecond();
     if (depositTokenName.startsWith('GRAVE')) {
@@ -371,8 +371,8 @@ export class GraveyardFinance {
    */
   async buyBonds(amount: string | number): Promise<TransactionResponse> {
     const { Treasury } = this.contracts;
-    const treasuryXgravePrice = await Treasury.getXgravePrice();
-    return await Treasury.buyBonds(decimalToBalance(amount), treasuryXgravePrice);
+    const treasuryGravePrice = await Treasury.getGravePrice();
+    return await Treasury.buyBonds(decimalToBalance(amount), treasuryGravePrice);
   }
 
   /**
@@ -381,8 +381,8 @@ export class GraveyardFinance {
    */
   async redeemBonds(amount: string): Promise<TransactionResponse> {
     const { Treasury } = this.contracts;
-    const priceForXgrave = await Treasury.getXgravePrice();
-    return await Treasury.redeemBonds(decimalToBalance(amount), priceForXgrave);
+    const priceForGrave = await Treasury.getGravePrice();
+    return await Treasury.redeemBonds(decimalToBalance(amount), priceForGrave);
   }
 
   async getTotalValueLocked(): Promise<Number> {
@@ -409,14 +409,14 @@ export class GraveyardFinance {
    * Reference https://github.com/DefiDebauchery/discordpricebot/blob/4da3cdb57016df108ad2d0bb0c91cd8dd5f9d834/pricebot/pricebot.py#L150
    * @param lpToken the token under calculation
    * @param token the token pair used as reference (the other one would be FTM in most cases)
-   * @param isXgrave sanity check for usage of xgrave token or xShare
+   * @param isGrave sanity check for usage of grave token or xShare
    * @returns price of the LP token
    */
-  async getLPTokenPrice(lpToken: ERC20, token: ERC20, isXgrave: boolean, isFake: boolean): Promise<string> {
+  async getLPTokenPrice(lpToken: ERC20, token: ERC20, isGrave: boolean, isFake: boolean): Promise<string> {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
-    const stat = isFake === true ? isXgrave === true ? await this.get2ombStatFake() : await this.get2ShareStatFake() : isXgrave === true ? await this.getXgraveStat() : await this.gexShareStat();
+    const stat = isFake === true ? isGrave === true ? await this.get2ombStatFake() : await this.get2ShareStatFake() : isGrave === true ? await this.getGraveStat() : await this.gexShareStat();
     const priceOfToken = stat.priceInDollars;
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
@@ -425,7 +425,7 @@ export class GraveyardFinance {
   }
 
     /*
-  async getXgraveStatFake() {
+  async getGraveStatFake() {
     const price = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=2omb-finance&vs_currencies=usd").then(res => res.json())
     return { priceInDollars: price["2omb-finance"].usd }
   }
@@ -436,48 +436,48 @@ export class GraveyardFinance {
   }
 */
 async get2ombStatFake(): Promise<TokenStat> {
-  const { TwoOmbFtmRewardPool, TwoOmbFtmLpXgraveRewardPool, TwoOmbFtmLpXgraveRewardPoolOld } = this.contracts;
+  const { TwoOmbFtmRewardPool, TwoOmbFtmLpGraveRewardPool, TwoOmbFtmLpGraveRewardPoolOld } = this.contracts;
   const GRAVE = new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB")
   const supply = await GRAVE.totalSupply();
-  const xgraveRewardPoolSupply = await GRAVE.balanceOf(TwoOmbFtmRewardPool.address);
-  const xgraveRewardPoolSupply2 = await GRAVE.balanceOf(TwoOmbFtmLpXgraveRewardPool.address);
-  const xgraveRewardPoolSupplyOld = await GRAVE.balanceOf(TwoOmbFtmLpXgraveRewardPoolOld.address);
-  const xgraveCirculatingSupply = supply
-    .sub(xgraveRewardPoolSupply)
-    .sub(xgraveRewardPoolSupply2)
-    .sub(xgraveRewardPoolSupplyOld);
+  const graveRewardPoolSupply = await GRAVE.balanceOf(TwoOmbFtmRewardPool.address);
+  const graveRewardPoolSupply2 = await GRAVE.balanceOf(TwoOmbFtmLpGraveRewardPool.address);
+  const graveRewardPoolSupplyOld = await GRAVE.balanceOf(TwoOmbFtmLpGraveRewardPoolOld.address);
+  const graveCirculatingSupply = supply
+    .sub(graveRewardPoolSupply)
+    .sub(graveRewardPoolSupply2)
+    .sub(graveRewardPoolSupplyOld);
   const priceInFTM = await this.getTokenPriceFromPancakeswap(GRAVE);
   const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
-  const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+  const priceOfGraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
   return {
     tokenInFtm: priceInFTM,
-    priceInDollars: priceOfXgraveInDollars,
+    priceInDollars: priceOfGraveInDollars,
     totalSupply: getDisplayBalance(supply, GRAVE.decimal, 0),
-    circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, GRAVE.decimal, 0),
+    circulatingSupply: getDisplayBalance(graveCirculatingSupply, GRAVE.decimal, 0),
   };
 }
 
 async get2ShareStatFake(): Promise<TokenStat> {
-  const { TwoOmbFtmRewardPool, TwoOmbFtmLpXgraveRewardPool, TwoOmbFtmLpXgraveRewardPoolOld } = this.contracts;
+  const { TwoOmbFtmRewardPool, TwoOmbFtmLpGraveRewardPool, TwoOmbFtmLpGraveRewardPoolOld } = this.contracts;
   const XSHARE = new ERC20("0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca", this.provider, "2SHARES")
   const supply = await XSHARE.totalSupply();
-  const xgraveRewardPoolSupply = await XSHARE.balanceOf(TwoOmbFtmRewardPool.address);
-  const xgraveRewardPoolSupply2 = await XSHARE.balanceOf(TwoOmbFtmLpXgraveRewardPool.address);
-  const xgraveRewardPoolSupplyOld = await XSHARE.balanceOf(TwoOmbFtmLpXgraveRewardPoolOld.address);
-  const xgraveCirculatingSupply = supply
-    .sub(xgraveRewardPoolSupply)
-    .sub(xgraveRewardPoolSupply2)
-    .sub(xgraveRewardPoolSupplyOld);
+  const graveRewardPoolSupply = await XSHARE.balanceOf(TwoOmbFtmRewardPool.address);
+  const graveRewardPoolSupply2 = await XSHARE.balanceOf(TwoOmbFtmLpGraveRewardPool.address);
+  const graveRewardPoolSupplyOld = await XSHARE.balanceOf(TwoOmbFtmLpGraveRewardPoolOld.address);
+  const graveCirculatingSupply = supply
+    .sub(graveRewardPoolSupply)
+    .sub(graveRewardPoolSupply2)
+    .sub(graveRewardPoolSupplyOld);
   const priceInFTM = await this.getTokenPriceFromPancakeswap(XSHARE);
   const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
-  const priceOfXgraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+  const priceOfGraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
   return {
     tokenInFtm: priceInFTM,
-    priceInDollars: priceOfXgraveInDollars,
+    priceInDollars: priceOfGraveInDollars,
     totalSupply: getDisplayBalance(supply, XSHARE.decimal, 0),
-    circulatingSupply: getDisplayBalance(xgraveCirculatingSupply, XSHARE.decimal, 0),
+    circulatingSupply: getDisplayBalance(graveCirculatingSupply, XSHARE.decimal, 0),
   };
 }
 
@@ -638,7 +638,7 @@ async get2ShareStatFake(): Promise<TokenStat> {
     const lastRewardsReceived = lastHistory[1];
 
     const XSHAREPrice = (await this.gexShareStat()).priceInDollars;
-    const GRAVEPrice = (await this.getXgraveStat()).priceInDollars;
+    const GRAVEPrice = (await this.getGraveStat()).priceInDollars;
     const epochRewardsPerShare = lastRewardsReceived / 1e18;
 
     //Mgod formula
@@ -805,13 +805,13 @@ async get2ShareStatFake(): Promise<TokenStat> {
       let assetUrl;
       if (assetName === 'GRAVE') {
         asset = this.GRAVE;
-        assetUrl = 'https://xgrave.finance/presskit/xgrave_icon_noBG.png';
+        assetUrl = 'https://grave.finance/presskit/grave_icon_noBG.png';
       } else if (assetName === 'XSHARE') {
         asset = this.XSHARE;
-        assetUrl = 'https://xgrave.finance/presskit/xshare_icon_noBG.png';
+        assetUrl = 'https://grave.finance/presskit/xshare_icon_noBG.png';
       } else if (assetName === 'XBOND') {
         asset = this.XBOND;
-        assetUrl = 'https://xgrave.finance/presskit/tbond_icon_noBG.png';
+        assetUrl = 'https://grave.finance/presskit/tbond_icon_noBG.png';
       }
       await ethereum.request({
         method: 'wallet_watchAsset',
@@ -829,12 +829,12 @@ async get2ShareStatFake(): Promise<TokenStat> {
     return true;
   }
 
-  async provideXgraveFtmLP(usdcAmount: string, xgraveAmount: BigNumber): Promise<TransactionResponse> {
+  async provideGraveFtmLP(usdcAmount: string, graveAmount: BigNumber): Promise<TransactionResponse> {
     const { TaxOffice } = this.contracts;
     let overrides = {
       value: parseUnits(usdcAmount, 18),
     };
-    return await TaxOffice.addLiquidityETHTaxFree(xgraveAmount, xgraveAmount.mul(992).div(1000), parseUnits(usdcAmount, 18).mul(992).div(1000), overrides);
+    return await TaxOffice.addLiquidityETHTaxFree(graveAmount, graveAmount.mul(992).div(1000), parseUnits(usdcAmount, 18).mul(992).div(1000), overrides);
   }
 
   async quoteFromSpooky(tokenAmount: string, tokenName: string): Promise<string> {
@@ -976,17 +976,17 @@ async get2ShareStatFake(): Promise<TokenStat> {
     const { XShareSwapper } = this.contracts;
     const xshareBalanceBN = await XShareSwapper.getXShareBalance();
     const xbondBalanceBN = await XShareSwapper.getXBondBalance(address);
-    // const xgravePriceBN = await XShareSwapper.getXgravePrice();
+    // const gravePriceBN = await XShareSwapper.getGravePrice();
     // const xsharePriceBN = await XShareSwapper.getXSharePrice();
-    const rateXSharePerXgraveBN = await XShareSwapper.getXShareAmountPerXgrave();
+    const rateXSharePerGraveBN = await XShareSwapper.getXShareAmountPerGrave();
     const xshareBalance = getDisplayBalance(xshareBalanceBN, 18, 5);
     const xbondBalance = getDisplayBalance(xbondBalanceBN, 18, 5);
     return {
       xshareBalance: xshareBalance.toString(),
       xbondBalance: xbondBalance.toString(),
-      // xgravePrice: xgravePriceBN.toString(),
+      // gravePrice: gravePriceBN.toString(),
       // xsharePrice: xsharePriceBN.toString(),
-      rateXSharePerXgrave: rateXSharePerXgraveBN.toString(),
+      rateXSharePerGrave: rateXSharePerGraveBN.toString(),
     };
   }
 }

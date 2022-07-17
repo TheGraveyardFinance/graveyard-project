@@ -33,7 +33,7 @@ contract XShare is ERC20Burnable, Operator {
 
 
     constructor(uint256 _startTime, address _communityFund, address _devFund) public ERC20("Graveyard SHARE dummy", "XSHAREDUMMY") {
-        _mint(msg.sender, 1 ether); // mint 1 XGRAVE Share for initial pools deployment
+        _mint(msg.sender, 1 ether); // mint 1 GRAVE Share for initial pools deployment
 
         startTime = _startTime;
         endTime = startTime + VESTING_DURATION;

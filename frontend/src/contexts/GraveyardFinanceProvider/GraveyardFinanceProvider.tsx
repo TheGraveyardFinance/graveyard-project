@@ -15,12 +15,12 @@ export const GraveyardFinanceProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (!graveyardFinance) {
-      const xgrave = new GraveyardFinance(config);
+      const grave = new GraveyardFinance(config);
       if (account) {
         // wallet was unlocked at initialization
-        xgrave.unlockWallet(ethereum, account);
+        grave.unlockWallet(ethereum, account);
       }
-      setGraveyardFinance(xgrave);
+      setGraveyardFinance(grave);
     } else if (account) {
       graveyardFinance.unlockWallet(ethereum, account);
     }
