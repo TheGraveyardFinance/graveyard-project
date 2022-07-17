@@ -302,13 +302,9 @@ export class GraveyardFinance {
     }
     const rewardPerSecond = await poolContract.xSharePerSecond();
     if (depositTokenName.startsWith('GRAVE')) {
-      return rewardPerSecond.mul(35500).div(89500);
-    } else if (depositTokenName.startsWith('2OMB')) {
-      return rewardPerSecond.mul(15000).div(89500);
-    } else if (depositTokenName.startsWith('2SHARE')) {
-      return rewardPerSecond.mul(15000).div(89500);
+      return rewardPerSecond.mul(21600).div(45000);
     } else {
-      return rewardPerSecond.mul(24000).div(89500);
+      return rewardPerSecond.mul(14400).div(45000);
     }
   }
 
