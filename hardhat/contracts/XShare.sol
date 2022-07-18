@@ -10,7 +10,7 @@ import "./owner/Operator.sol";
 contract XShare is ERC20Burnable, Operator {
     using SafeMath for uint256;
 
-    // TOTAL MAX SUPPLY = 70,000 XSHAREs
+    // TOTAL MAX SUPPLY = 50,001 XSHAREs
     uint256 public constant FARMING_POOL_REWARD_ALLOCATION = 41000 ether;
     uint256 public constant COMMUNITY_FUND_POOL_ALLOCATION = 4500 ether;
     uint256 public constant DEV_FUND_POOL_ALLOCATION = 4500 ether;
@@ -20,10 +20,8 @@ contract XShare is ERC20Burnable, Operator {
     uint256 public endTime;
 
     uint256 public communityFundRewardRate;
-    uint256 public treasuryFundRewardRate;
     uint256 public devFundRewardRate;
     
-    address public treasuryFund;
     address public communityFund;
     address public devFund;
 
@@ -42,28 +40,18 @@ contract XShare is ERC20Burnable, Operator {
 
         communityFundRewardRate = COMMUNITY_FUND_POOL_ALLOCATION.div(VESTING_DURATION);
         devFundRewardRate = DEV_FUND_POOL_ALLOCATION.div(VESTING_DURATION);
-        treasuryFundRewardRate = TREASURY_FUND_POOL_ALLOCATION.div(VESTING_DURATION);
 
         require(_devFund != address(0), "Address cannot be 0");
         devFund = _devFund;
 
         require(_communityFund != address(0), "Address cannot be 0");
         communityFund = _communityFund;
-
-        require(_treasuryFund != address(0), "Address cannot be 0");
-        treasuryFund = _treasuryFund;
     }
 
     function setCommunityFund(address _communityFund) external onlyOperator {	
         require(_communityFund != address(0), "zero");
         communityFund = _communityFund;
     }
-
-    function setTreasuryFund(address _treasuryFund) external onlyOperator {	
-        require(_treasuryFund != address(0), "zero");
-        treasuryFund = _treasuryFund;
-    }
-
 
     function setDevFund(address _devFund) external {
         require(msg.sender == devFund, "!dev");
@@ -85,13 +73,6 @@ contract XShare is ERC20Burnable, Operator {
         _pending = _now.sub(lastClaimedTime).mul(devFundRewardRate);
     }
 
-    function unclaimedTreasuryFund() public view returns (uint256 _pending) {	
-        uint256 _now = block.timestamp;
-        if (_now > endTime) _now = endTime;
-        if (lastClaimedTime >= _now) return 0;	
-        _pending = _now.sub(lastClaimedTime).mul(treasuryFundRewardRate);	
-    }
-
     /**
      * @dev Claim pending rewards to community and dev fund
      */
@@ -103,10 +84,6 @@ contract XShare is ERC20Burnable, Operator {
         _pending = unclaimedDevFund();
         if (_pending > 0 && devFund != address(0)) {
             _mint(devFund, _pending);
-        }
-        _pending = unclaimedTreasuryFund();	
-        if (_pending > 0 && treasuryFund != address(0)) {	
-            _mint(treasuryFund, _pending);
         }
         lastClaimedTime = block.timestamp;
     }

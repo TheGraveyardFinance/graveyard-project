@@ -63,8 +63,8 @@ contract GraveRewardPool {
 
         poolStartTime = _poolStartTime;
 
-        epochEndTimes[0] = poolStartTime + 4 days; // Day 2-5
-        epochEndTimes[1] = epochEndTimes[0] + 5 days; // Day 6-10
+        epochEndTimes[0] = poolStartTime; // Nothing to do
+        epochEndTimes[1] = epochEndTimes[0] + 3 days; // Day 4-8
 
         epochGravePerSecond[0] = epochTotalRewards[0].div(4 days);
         epochGravePerSecond[1] = epochTotalRewards[1].div(5 days);

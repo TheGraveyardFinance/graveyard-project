@@ -47,9 +47,9 @@ contract XShareRewardPool {
     // The time when XSHARE mining ends.
     uint256 public poolEndTime;
 
-    uint256 public xSharePerSecond = 0.00187687 ether; // 60000 xshare / (370 days * 24h * 60min * 60s)
+    uint256 public xSharePerSecond = 0.00128253 ether; // 41000 xshare / (370 days * 24h * 60min * 60s)
     uint256 public runningTime = 370 days; // 370 days
-    uint256 public constant TOTAL_REWARDS = 60000 ether;
+    uint256 public constant TOTAL_REWARDS = 41000 ether;
 
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
     event Withdraw(address indexed user, uint256 indexed pid, uint256 amount);

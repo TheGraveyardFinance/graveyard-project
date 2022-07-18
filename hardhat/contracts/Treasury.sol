@@ -260,10 +260,10 @@ contract Treasury is ContractGuard {
         // excludedFromTotalSupply.push(_bondTreasury);
 
         // Dynamic max expansion percent
-        supplyTiers = [0 ether, 500000 ether, 1000000 ether, 1500000 ether, 2000000 ether, 5000000 ether, 10000000 ether, 20000000 ether, 50000000 ether];
-        maxExpansionTiers = [450, 400, 350, 300, 250, 200, 150, 125, 100];
+        supplyTiers = [10000 ether, 15000 ether, 25000 ether, 35000 ether, 60000 ether, 250000 ether, 500000 ether, 1000000 ether];
+        maxExpansionTiers = [450, 400, 350, 300, 250, 200, 150, 125];
 
-        maxSupplyExpansionPercent = 400; // Upto 4.0% supply for expansion
+        maxSupplyExpansionPercent = 450; // Upto 4.5% supply for expansion
 
         bondDepletionFloorPercent = 10000; // 100% of Bond supply for depletion floor
         seigniorageExpansionFloorPercent = 3500; // At least 35% of expansion reserved for masonry
@@ -275,9 +275,9 @@ contract Treasury is ContractGuard {
         premiumThreshold = 110;
         premiumPercent = 7000;
 
-        // First 12 epochs with 5% expansion
+        // First 28 epochs with 2.5% expansion
         bootstrapEpochs = 12;
-        bootstrapSupplyExpansionPercent = 500;
+        bootstrapSupplyExpansionPercent = 250;
 
         // set seigniorageSaved to it's balance
         seigniorageSaved = IERC20(grave).balanceOf(address(this));
