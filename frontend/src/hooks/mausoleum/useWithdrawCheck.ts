@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useGraveyardFinance from './../useGraveyardFinance';
+import useGraveyardFinance from '../useGraveyardFinance';
 import useRefresh from '../useRefresh';
 
 const useWithdrawCheck = () => {
@@ -11,7 +11,7 @@ const useWithdrawCheck = () => {
   useEffect(() => {
     async function canUserWithdraw() {
       try {
-        setCanWithdraw(await graveyardFinance.canUserUnstakeFromMasonry());
+        setCanWithdraw(await graveyardFinance.canUserUnstakeFromMausoleum());
       } catch (err) {
         console.error(err);
       }

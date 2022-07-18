@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import useGraveyardFinance from './../useGraveyardFinance';
+import useGraveyardFinance from '../useGraveyardFinance';
 import { AllocationTime } from '../../graveyard-finance/types';
 
-const useUnstakeTimerMasonry = () => {
+const useClaimRewardTimerMausoleum = () => {
   const [time, setTime] = useState<AllocationTime>({
     from: new Date(),
     to: new Date(),
@@ -11,10 +11,10 @@ const useUnstakeTimerMasonry = () => {
 
   useEffect(() => {
     if (graveyardFinance) {
-      graveyardFinance.getUserUnstakeTime().then(setTime);
+      graveyardFinance.getUserClaimRewardTime().then(setTime);
     }
   }, [graveyardFinance]);
   return time;
 };
 
-export default useUnstakeTimerMasonry;
+export default useClaimRewardTimerMausoleum;

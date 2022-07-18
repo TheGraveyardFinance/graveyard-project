@@ -16,24 +16,24 @@ import { Alert } from '@material-ui/lab';
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 
-import useRedeemOnMasonry from '../../hooks/useRedeemOnMasonry';
-import useStakedBalanceOnMasonry from '../../hooks/useStakedBalanceOnMasonry';
+import useRedeemOnMausoleum from '../../hooks/useRedeemOnMausoleum';
+import useStakedBalanceOnMausoleum from '../../hooks/useStakedBalanceOnMausoleum';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
-import useFetchMasonryAPR from '../../hooks/useFetchMasonryAPR';
+import useFetchMausoleumAPR from '../../hooks/useFetchMausoleumAPR';
 
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
-import useTotalStakedOnMasonry from '../../hooks/useTotalStakedOnMasonry';
-import useClaimRewardCheck from '../../hooks/masonry/useClaimRewardCheck';
-import useWithdrawCheck from '../../hooks/masonry/useWithdrawCheck';
+import useTotalStakedOnMausoleum from '../../hooks/useTotalStakedOnMausoleum';
+import useClaimRewardCheck from '../../hooks/mausoleum/useClaimRewardCheck';
+import useWithdrawCheck from '../../hooks/mausoleum/useWithdrawCheck';
 import ProgressCountdown from './components/ProgressCountdown';
-// import MasonryImage from '../../assets/img/masonry.png';
+// import MausoleumImage from '../../assets/img/masonry.png';
 import { createGlobalStyle } from 'styled-components';
 
 // const BackgroundImage = createGlobalStyle`
 //   body, html {
-//     background: url(${MasonryImage}) no-repeat !important;
+//     background: url(${MausoleumImage}) no-repeat !important;
 //     background-size: cover !important;
 //   }
 // `;
@@ -58,15 +58,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Masonry = () => {
+const Mausoleum = () => {
   const classes = useStyles();
   const { account } = useWallet();
-  const { onRedeem } = useRedeemOnMasonry();
-  const stakedBalance = useStakedBalanceOnMasonry();
+  const { onRedeem } = useRedeemOnMausoleum();
+  const stakedBalance = useStakedBalanceOnMausoleum();
   const currentEpoch = useCurrentEpoch();
   const cashStat = useCashPriceInEstimatedTWAP();
-  const totalStaked = useTotalStakedOnMasonry();
-  const masonryAPR = useFetchMasonryAPR();
+  const totalStaked = useTotalStakedOnMausoleum();
+  const masonryAPR = useFetchMausoleumAPR();
   const canClaimReward = useClaimRewardCheck();
   const canWithdraw = useWithdrawCheck();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
@@ -228,4 +228,4 @@ const StyledCardWrapper = styled.div`
   }
 `;
 
-export default Masonry;
+export default Mausoleum;

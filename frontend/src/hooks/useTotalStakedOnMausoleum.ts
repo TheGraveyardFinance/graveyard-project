@@ -3,7 +3,7 @@ import { BigNumber } from 'ethers';
 import useGraveyardFinance from './useGraveyardFinance';
 import useRefresh from './useRefresh';
 
-const useTotalStakedOnMasonry = () => {
+const useTotalStakedOnMausoleum = () => {
   const [totalStaked, setTotalStaked] = useState(BigNumber.from(0));
   const graveyardFinance = useGraveyardFinance();
   const { slowRefresh } = useRefresh();
@@ -12,7 +12,7 @@ const useTotalStakedOnMasonry = () => {
   useEffect(() => {
     async function fetchTotalStaked() {
       try {
-        setTotalStaked(await graveyardFinance.getTotalStakedInMasonry());
+        setTotalStaked(await graveyardFinance.getTotalStakedInMausoleum());
       } catch(err) {
         console.error(err);
       }
@@ -25,4 +25,4 @@ const useTotalStakedOnMasonry = () => {
   return totalStaked;
 };
 
-export default useTotalStakedOnMasonry;
+export default useTotalStakedOnMausoleum;

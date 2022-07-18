@@ -3,7 +3,7 @@ import { BigNumber } from 'ethers';
 import useGraveyardFinance from './useGraveyardFinance';
 import useRefresh from './useRefresh';
 
-const useEarningsOnMasonry = () => {
+const useEarningsOnMausoleum = () => {
   const { slowRefresh } = useRefresh();
   const [balance, setBalance] = useState(BigNumber.from(0));
   const graveyardFinance = useGraveyardFinance();
@@ -12,7 +12,7 @@ const useEarningsOnMasonry = () => {
   useEffect(() => {
     async function fetchBalance() {
       try {
-        setBalance(await graveyardFinance.getEarningsOnMasonry());
+        setBalance(await graveyardFinance.getEarningsOnMausoleum());
       } catch (e) {
         console.error(e);
       }
@@ -25,4 +25,4 @@ const useEarningsOnMasonry = () => {
   return balance;
 };
 
-export default useEarningsOnMasonry;
+export default useEarningsOnMausoleum;

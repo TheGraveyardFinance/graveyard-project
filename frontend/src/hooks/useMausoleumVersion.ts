@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
-import useStakedBalanceOnMasonry from './useStakedBalanceOnMasonry';
+import useStakedBalanceOnMausoleum from './useStakedBalanceOnMausoleum';
 
-const useMasonryVersion = () => {
-  const [masonryVersion, setMasonryVersion] = useState('latest');
+const useMausoleumVersion = () => {
+  const [masonryVersion, setMausoleumVersion] = useState('latest');
   const graveyardFinance = useGraveyardFinance();
-  const stakedBalance = useStakedBalanceOnMasonry();
+  const stakedBalance = useStakedBalanceOnMausoleum();
 
   const updateState = useCallback(async () => {
-    setMasonryVersion(await graveyardFinance.fetchMasonryVersionOfUser());
+    setMausoleumVersion(await graveyardFinance.fetchMausoleumVersionOfUser());
   }, [graveyardFinance?.isUnlocked, stakedBalance]);
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const useMasonryVersion = () => {
   return masonryVersion;
 };
 
-export default useMasonryVersion;
+export default useMausoleumVersion;

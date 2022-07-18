@@ -82,8 +82,8 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       <ModalTitle text={`Zap in ${tokenName}`} />
       <Typography variant="h6" align="center">
         Powered by{' '}
-        <a target="_blank" rel="noopener noreferrer" href="https://mlnl.finance">
-          mlnl.finance
+        <a target="_blank" rel="noopener noreferrer" href="https://spooky.fi/">
+          SpookySwap
         </a>
       </Typography>
 

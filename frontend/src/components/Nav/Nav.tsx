@@ -194,7 +194,7 @@ const Nav = () => {
                 <ListItemLink primary="Bonds" to="/bonds" />
                 <ListItemLink primary="3DAO" to="/rebates" />
                 <ListItemLink primary="Treasury" to="/treasury" />
-                {/* <ListItemLink primary="Masonry" to="/masonry" />
+                {/* <ListItemLink primary="Mausoleum" to="/masonry" />
                 <ListItemLink primary="Pit" to="/pit" />
                 <ListItemLink primary="SBS" to="/sbs" />
                 <ListItemLink primary="Liquidity" to="/liquidity" />

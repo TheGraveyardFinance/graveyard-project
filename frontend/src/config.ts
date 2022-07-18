@@ -73,7 +73,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: "https://2omb.finance",
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x8D7d3409881b51466B483B11Ea1B8A03cdEd89ae', // Must to change
     sort: 9,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveCousdGenesisRewardPool: {
     name: 'Earn GRAVE by staking CoUSD',
@@ -87,7 +87,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: "https://2omb.finance",
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x0DeF844ED26409C5C46dda124ec28fb064D90D27',
     sort: 1,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveCoffinGenesisRewardPool: {
     name: 'Earn GRAVE by staking COFFIN',
@@ -101,7 +101,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: "https://2omb.finance",
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x593Ab53baFfaF1E821845cf7080428366F030a9c',
     sort: 2,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveXcoffinGenesisRewardPool: {
     name: 'Earn GRAVE by staking xCOFFIN',
@@ -115,7 +115,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: 'https://2omb.finance',
     buyLink: 'https://spookyswap.finance/swap?outputCurrency=0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae',
     sort: 3,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveUsdcGenesisRewardPool: {
     name: 'Earn GRAVE by staking BELUGA',
@@ -129,7 +129,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: 'https://beluga.fi',
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x04068DA6C83AFCFA0e13ba15A6696662335D5B75',
     sort: 0,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveFusdGenesisRewardPool: {
     name: 'Earn GRAVE by staking fUSD',
@@ -143,7 +143,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: 'https://app.beefy.finance/#/fantom',
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0xAd84341756Bf337f5a0164515b1f6F993D194E1f',
     sort: 4,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveWftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking wFTM',
@@ -157,7 +157,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: 'https://fantom.foundation',
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83',
     sort: 5,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GravePftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking pFTM',
@@ -171,7 +171,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: 'https://abracadabra.money/',
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x112dF7E3b4B7Ab424F07319D4E92F41e6608c48B',
     sort: 6,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveBasedGenesisRewardPool: {
     name: 'Earn GRAVE by staking BASED',
@@ -185,7 +185,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: 'https://bloom.thetulipdao.com/',
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x8D7d3409881b51466B483B11Ea1B8A03cdEd89ae',
     sort: 7,
-    closedForStaking: true,
+    closedForStaking: false,
   },
   GraveMagikGenesisRewardPool: {
     name: 'Earn GRAVE by staking MAGIK',
@@ -199,7 +199,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     site: 'https://bloom.thetulipdao.com/',
     buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x87a5C9B60A3aaf1064006FE64285018e50e0d020',
     sort: 8,
-    closedForStaking: true,
+    closedForStaking: false,
   },
 
   GraveFtmLPGraveRewardPool: {
@@ -214,7 +214,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     buyLink: '',
     site: '',
     sort: 7,
-    closedForStaking: true,
+    closedForStaking: false,
   },
 
   GraveUsdcLPXShareRewardPool: {

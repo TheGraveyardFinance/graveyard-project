@@ -2,15 +2,15 @@ import { useCallback } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
-const useHarvestFromMasonry = () => {
+const useHarvestFromMausoleum = () => {
   const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleReward = useCallback(() => {
-    handleTransactionReceipt(graveyardFinance.harvestCashFromMasonry(), 'Claim GRAVE from the Mausoleum ');
+    handleTransactionReceipt(graveyardFinance.harvestCashFromMausoleum(), 'Claim GRAVE from the Mausoleum ');
   }, [graveyardFinance, handleTransactionReceipt]);
 
   return { onReward: handleReward };
 };
 
-export default useHarvestFromMasonry;
+export default useHarvestFromMausoleum;

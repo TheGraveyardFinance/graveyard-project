@@ -132,12 +132,7 @@ const Cemetery = () => {
                         </Typography>
                         <CountUp style={{ fontSize: '25px' }} end={balance_3shares_wftm} separator="," prefix="$" />
                       </CardContent>
-                      <CardContent align="center">
-                        <Typography variant="h5">
-                          2SHARES-USDC LP:
-                        </Typography>
-                        <CountUp style={{ fontSize: '25px' }} end={balance_2shares_wftm} separator="," prefix="$" />
-                      </CardContent>
+                      
                     </Card>
                   </Grid>
                   <Grid item xs={12} md={4} lg={4} className={classes.gridItem}>
@@ -154,12 +149,7 @@ const Cemetery = () => {
                         </Typography>
                         <CountUp style={{ fontSize: '25px' }} end={balance_3shares} separator="," prefix="$" />
                       </CardContent>
-                      <CardContent align="center">
-                        <Typography variant="h5">
-                          2SHARES:
-                        </Typography>
-                        <CountUp style={{ fontSize: '25px' }} end={balance_2shares} separator="," prefix="$" />
-                      </CardContent>
+
                     </Card>
                   </Grid>
                 </Grid>

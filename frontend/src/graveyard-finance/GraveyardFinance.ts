@@ -75,7 +75,7 @@ export class GraveyardFinance {
     }
     this.GRAVEUSDC_LP = this.GRAVEUSDC_LP.connect(this.signer);
     console.log(`🔓 Wallet is unlocked. Welcome, ${account}!`);
-    this.fetchMasonryVersionOfUser()
+    this.fetchMausoleumVersionOfUser()
       .then((version) => (this.masonryVersionOfUser = version))
       .catch((err) => {
         console.error(`Failed to fetch masonry version: ${err.stack}`);
@@ -390,7 +390,7 @@ export class GraveyardFinance {
     }
 
     const XSHAREPrice = (await this.getShareStat()).priceInDollars;
-    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(this.currentMasonry().address);
+    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(this.currentMausoleum().address);
     const masonryTVL = Number(getDisplayBalance(masonryxShareBalanceOf, this.XSHARE.decimal)) * Number(XSHAREPrice);
 
     return totalValue + masonryTVL;
@@ -535,18 +535,18 @@ export class GraveyardFinance {
     return await pool.withdraw(poolId, userInfo.amount);
   }
 
-  async fetchMasonryVersionOfUser(): Promise<string> {
+  async fetchMausoleumVersionOfUser(): Promise<string> {
     return 'latest';
   }
 
-  currentMasonry(): Contract {
+  currentMausoleum(): Contract {
     if (!this.masonryVersionOfUser) {
       //throw new Error('you must unlock the wallet to continue.');
     }
-    return this.contracts.Masonry;
+    return this.contracts.Mausoleum;
   }
 
-  isOldMasonryMember(): boolean {
+  isOldMausoleumMember(): boolean {
     return this.masonryVersionOfUser !== 'latest';
   }
 
@@ -614,10 +614,10 @@ export class GraveyardFinance {
   //===================================================================
   //===================================================================
 
-  async getMasonryAPR() {
-    const Masonry = this.currentMasonry();
-    const latestSnapshotIndex = await Masonry.latestSnapshotIndex();
-    const lastHistory = await Masonry.masonryHistory(latestSnapshotIndex);
+  async getMausoleumAPR() {
+    const Mausoleum = this.currentMausoleum();
+    const latestSnapshotIndex = await Mausoleum.latestSnapshotIndex();
+    const lastHistory = await Mausoleum.masonryHistory(latestSnapshotIndex);
 
     const lastRewardsReceived = lastHistory[1];
 
@@ -627,85 +627,85 @@ export class GraveyardFinance {
 
     //Mgod formula
     const amountOfRewardsPerDay = epochRewardsPerShare * Number(GRAVEPrice) * 4;
-    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(Masonry.address);
+    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(Mausoleum.address);
     const masonryTVL = Number(getDisplayBalance(masonryxShareBalanceOf, this.XSHARE.decimal)) * Number(XSHAREPrice);
     const realAPR = ((amountOfRewardsPerDay * 100) / masonryTVL) * 365;
     return realAPR;
   }
 
   /**
-   * Checks if the user is allowed to retrieve their reward from the Masonry
+   * Checks if the user is allowed to retrieve their reward from the Mausoleum
    * @returns true if user can withdraw reward, false if they can't
    */
-  async canUserClaimRewardFromMasonry(): Promise<boolean> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.canClaimReward(this.myAccount);
+  async canUserClaimRewardFromMausoleum(): Promise<boolean> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.canClaimReward(this.myAccount);
   }
 
   /**
-   * Checks if the user is allowed to retrieve their reward from the Masonry
+   * Checks if the user is allowed to retrieve their reward from the Mausoleum
    * @returns true if user can withdraw reward, false if they can't
    */
-  async canUserUnstakeFromMasonry(): Promise<boolean> {
-    const Masonry = this.currentMasonry();
-    const canWithdraw = await Masonry.canWithdraw(this.myAccount);
-    const stakedAmount = await this.getStakedSharesOnMasonry();
+  async canUserUnstakeFromMausoleum(): Promise<boolean> {
+    const Mausoleum = this.currentMausoleum();
+    const canWithdraw = await Mausoleum.canWithdraw(this.myAccount);
+    const stakedAmount = await this.getStakedSharesOnMausoleum();
     const notStaked = Number(getDisplayBalance(stakedAmount, this.XSHARE.decimal)) === 0;
     const result = notStaked ? true : canWithdraw;
     return result;
   }
 
-  async timeUntilClaimRewardFromMasonry(): Promise<BigNumber> {
-    // const Masonry = this.currentMasonry();
-    // const mason = await Masonry.masons(this.myAccount);
+  async timeUntilClaimRewardFromMausoleum(): Promise<BigNumber> {
+    // const Mausoleum = this.currentMausoleum();
+    // const mason = await Mausoleum.masons(this.myAccount);
     return BigNumber.from(0);
   }
 
-  async getTotalStakedInMasonry(): Promise<BigNumber> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.totalSupply();
+  async getTotalStakedInMausoleum(): Promise<BigNumber> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.totalSupply();
   }
 
-  async stakeShareToMasonry(amount: string): Promise<TransactionResponse> {
-    if (this.isOldMasonryMember()) {
+  async stakeShareToMausoleum(amount: string): Promise<TransactionResponse> {
+    if (this.isOldMausoleumMember()) {
       throw new Error("you're using old masonry. please withdraw and deposit the XSHARE again.");
     }
-    const Masonry = this.currentMasonry();
-    return await Masonry.stake(decimalToBalance(amount));
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.stake(decimalToBalance(amount));
   }
 
-  async getStakedSharesOnMasonry(): Promise<BigNumber> {
-    const Masonry = this.currentMasonry();
+  async getStakedSharesOnMausoleum(): Promise<BigNumber> {
+    const Mausoleum = this.currentMausoleum();
     if (this.masonryVersionOfUser === 'v1') {
-      return await Masonry.gexShareOf(this.myAccount);
+      return await Mausoleum.gexShareOf(this.myAccount);
     }
-    return await Masonry.balanceOf(this.myAccount);
+    return await Mausoleum.balanceOf(this.myAccount);
   }
 
-  async getEarningsOnMasonry(): Promise<BigNumber> {
-    const Masonry = this.currentMasonry();
+  async getEarningsOnMausoleum(): Promise<BigNumber> {
+    const Mausoleum = this.currentMausoleum();
     if (this.masonryVersionOfUser === 'v1') {
-      return await Masonry.getCashEarningsOf(this.myAccount);
+      return await Mausoleum.getCashEarningsOf(this.myAccount);
     }
-    return await Masonry.earned(this.myAccount);
+    return await Mausoleum.earned(this.myAccount);
   }
 
-  async withdrawShareFromMasonry(amount: string): Promise<TransactionResponse> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.withdraw(decimalToBalance(amount));
+  async withdrawShareFromMausoleum(amount: string): Promise<TransactionResponse> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.withdraw(decimalToBalance(amount));
   }
 
-  async harvestCashFromMasonry(): Promise<TransactionResponse> {
-    const Masonry = this.currentMasonry();
+  async harvestCashFromMausoleum(): Promise<TransactionResponse> {
+    const Mausoleum = this.currentMausoleum();
     if (this.masonryVersionOfUser === 'v1') {
-      return await Masonry.claimDividends();
+      return await Mausoleum.claimDividends();
     }
-    return await Masonry.claimReward();
+    return await Mausoleum.claimReward();
   }
 
-  async exitFromMasonry(): Promise<TransactionResponse> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.exit();
+  async exitFromMausoleum(): Promise<TransactionResponse> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.exit();
   }
 
   async getTreasuryNextAllocationTime(): Promise<AllocationTime> {
@@ -723,14 +723,14 @@ export class GraveyardFinance {
    * @returns Promise<AllocationTime>
    */
   async getUserClaimRewardTime(): Promise<AllocationTime> {
-    const { Masonry, Treasury } = this.contracts;
-    const nextEpochTimestamp = await Masonry.nextEpochPoint(); //in unix timestamp
-    const currentEpoch = await Masonry.epoch();
-    const mason = await Masonry.masons(this.myAccount);
+    const { Mausoleum, Treasury } = this.contracts;
+    const nextEpochTimestamp = await Mausoleum.nextEpochPoint(); //in unix timestamp
+    const currentEpoch = await Mausoleum.epoch();
+    const mason = await Mausoleum.mausoles(this.myAccount);
     const startTimeEpoch = mason.epochTimerStart;
     const period = await Treasury.PERIOD();
     const periodInHours = period / 60 / 60; // 6 hours, period is displayed in seconds which is 21600
-    const rewardLockupEpochs = await Masonry.rewardLockupEpochs();
+    const rewardLockupEpochs = await Mausoleum.rewardLockupEpochs();
     const targetEpochForClaimUnlock = Number(startTimeEpoch) + Number(rewardLockupEpochs);
 
     const fromDate = new Date(Date.now());
@@ -752,21 +752,21 @@ export class GraveyardFinance {
   /**
    * This method calculates and returns in a from to to format
    * the period the user needs to wait before being allowed to unstake
-   * from the masonry
+   * from the Mausoleum
    * @returns Promise<AllocationTime>
    */
   async getUserUnstakeTime(): Promise<AllocationTime> {
-    const { Masonry, Treasury } = this.contracts;
-    const nextEpochTimestamp = await Masonry.nextEpochPoint();
-    const currentEpoch = await Masonry.epoch();
-    const mason = await Masonry.masons(this.myAccount);
+    const { Mausoleum, Treasury } = this.contracts;
+    const nextEpochTimestamp = await Mausoleum.nextEpochPoint();
+    const currentEpoch = await Mausoleum.epoch();
+    const mason = await Mausoleum.mausoles(this.myAccount);
     const startTimeEpoch = mason.epochTimerStart;
     const period = await Treasury.PERIOD();
     const PeriodInHours = period / 60 / 60;
-    const withdrawLockupEpochs = await Masonry.withdrawLockupEpochs();
+    const withdrawLockupEpochs = await Mausoleum.withdrawLockupEpochs();
     const fromDate = new Date(Date.now());
     const targetEpochForClaimUnlock = Number(startTimeEpoch) + Number(withdrawLockupEpochs);
-    const stakedAmount = await this.getStakedSharesOnMasonry();
+    const stakedAmount = await this.getStakedSharesOnMausoleum();
     if (currentEpoch <= targetEpochForClaimUnlock && Number(stakedAmount) === 0) {
       return { from: fromDate, to: fromDate };
     } else if (targetEpochForClaimUnlock - currentEpoch === 1) {
@@ -841,12 +841,12 @@ export class GraveyardFinance {
 
     const treasuryDaoFundedFilter = Treasury.filters.DaoFundFunded();
     const treasuryDevFundedFilter = Treasury.filters.DevFundFunded();
-    const treasuryMasonryFundedFilter = Treasury.filters.MasonryFunded();
+    const treasuryMausoleumFundedFilter = Treasury.filters.MausoleumFunded();
     const boughtBondsFilter = Treasury.filters.BoughtBonds();
     const redeemBondsFilter = Treasury.filters.RedeemedBonds();
 
     let epochBlocksRanges: any[] = [];
-    let masonryFundEvents = await Treasury.queryFilter(treasuryMasonryFundedFilter);
+    let masonryFundEvents = await Treasury.queryFilter(treasuryMausoleumFundedFilter);
     var events: any[] = [];
     masonryFundEvents.forEach(function callback(value, index) {
       events.push({ epoch: index + 1 });

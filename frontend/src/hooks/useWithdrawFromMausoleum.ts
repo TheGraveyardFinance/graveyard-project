@@ -2,17 +2,20 @@ import { useCallback } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 
-const useStakeToMasonry = () => {
+const useWithdrawFromMausoleum = () => {
   const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
-  const handleStake = useCallback(
+  const handleWithdraw = useCallback(
     (amount: string) => {
-      handleTransactionReceipt(graveyardFinance.stakeShareToMasonry(amount), `Stake ${amount} XSHARES to the Mausoleum `);
+      handleTransactionReceipt(
+        graveyardFinance.withdrawShareFromMausoleum(amount),
+        `Withdraw ${amount} XSHARES from the Mausoleum `,
+      );
     },
     [graveyardFinance, handleTransactionReceipt],
   );
-  return { onStake: handleStake };
+  return { onWithdraw: handleWithdraw };
 };
 
-export default useStakeToMasonry;
+export default useWithdrawFromMausoleum;

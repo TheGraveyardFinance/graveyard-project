@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react';
 import useGraveyardFinance from './useGraveyardFinance';
 import useRefresh from './useRefresh';
 
-const useFetchMasonryAPR = () => {
+const useFetchMausoleumAPR = () => {
   const [apr, setApr] = useState<number>(0);
   const graveyardFinance = useGraveyardFinance();
   const { slowRefresh } = useRefresh(); 
 
   useEffect(() => {
-    async function fetchMasonryAPR() {
+    async function fetchMausoleumAPR() {
       try {
-        setApr(await graveyardFinance.getMasonryAPR());
+        setApr(await graveyardFinance.getMausoleumAPR());
       } catch(err){
         console.error(err);
       }
     }
-   fetchMasonryAPR();
+   fetchMausoleumAPR();
   }, [setApr, graveyardFinance, slowRefresh]);
 
   return apr;
 };
 
-export default useFetchMasonryAPR;
+export default useFetchMausoleumAPR;

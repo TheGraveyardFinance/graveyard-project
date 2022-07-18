@@ -15,28 +15,28 @@ import Value from '../../../components/Value';
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useWithdrawCheck from '../../../hooks/masonry/useWithdrawCheck';
+import useWithdrawCheck from '../../../hooks/mausoleum/useWithdrawCheck';
 
 import { getDisplayBalance } from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
 import useGraveyardFinance from '../../../hooks/useGraveyardFinance';
-import ProgressCountdown from './../components/ProgressCountdown';
-import useStakedBalanceOnMasonry from '../../../hooks/useStakedBalanceOnMasonry';
+import ProgressCountdown from './ProgressCountdown';
+import useStakedBalanceOnMausoleum from '../../../hooks/useStakedBalanceOnMausoleum';
 import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDollars';
-import useUnstakeTimerMasonry from '../../../hooks/masonry/useUnstakeTimerMasonry';
+import useUnstakeTimerMausoleum from '../../../hooks/mausoleum/useUnstakeTimerMausoleum';
 import TokenSymbol from '../../../components/TokenSymbol';
-import useStakeToMasonry from '../../../hooks/useStakeToMasonry';
-import useWithdrawFromMasonry from '../../../hooks/useWithdrawFromMasonry';
+import useStakeToMausoleum from '../../../hooks/useStakeToMausoleum';
+import useWithdrawFromMausoleum from '../../../hooks/useWithdrawFromMausoleum';
 
 const Stake: React.FC = () => {
   const graveyardFinance = useGraveyardFinance();
-  const [approveStatus, approve] = useApprove(graveyardFinance.XSHARE, graveyardFinance.contracts.Masonry.address);
+  const [approveStatus, approve] = useApprove(graveyardFinance.XSHARE, graveyardFinance.contracts.Mausoleum.address);
 
   const tokenBalance = useTokenBalance(graveyardFinance.XSHARE);
-  const stakedBalance = useStakedBalanceOnMasonry();
-  const { from, to } = useUnstakeTimerMasonry();
+  const stakedBalance = useStakedBalanceOnMausoleum();
+  const { from, to } = useUnstakeTimerMausoleum();
 
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars('XSHARE', graveyardFinance.XSHARE);
   const tokenPriceInDollars = useMemo(
@@ -48,9 +48,9 @@ const Stake: React.FC = () => {
   );
   // const isOldBoardroomMember = boardroomVersion !== 'latest';
 
-  const { onStake } = useStakeToMasonry();
-  const { onWithdraw } = useWithdrawFromMasonry();
-  const canWithdrawFromMasonry = useWithdrawCheck();
+  const { onStake } = useStakeToMausoleum();
+  const { onWithdraw } = useWithdrawFromMausoleum();
+  const canWithdrawFromMausoleum = useWithdrawCheck();
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -100,7 +100,7 @@ const Stake: React.FC = () => {
                 </Button>
               ) : (
                 <>
-                  <IconButton disabled={!canWithdrawFromMasonry} onClick={onPresentWithdraw}>
+                  <IconButton disabled={!canWithdrawFromMausoleum} onClick={onPresentWithdraw}>
                     <RemoveIcon />
                   </IconButton>
                   <StyledActionSpacer />
@@ -114,7 +114,7 @@ const Stake: React.FC = () => {
         </CardContent>
       </Card>
       <Box mt={2} style={{ color: '#FFF' }}>
-        {canWithdrawFromMasonry ? (
+        {canWithdrawFromMausoleum ? (
           ''
         ) : (
           <Card>
