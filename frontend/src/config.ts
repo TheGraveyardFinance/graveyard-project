@@ -145,11 +145,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 4,
     closedForStaking: true,
   },
-  GraveWrappedFtmGenesisRewardPool: {
+  GraveWftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking wFTM',
     poolId: 5,
     sectionInUI: 0,
-    contract: 'GraveWrappedFtmGenesisRewardPool',
+    contract: 'GraveWftmGenesisRewardPool',
     depositTokenName: 'wFTM',
     earnTokenName: 'GRAVE',
     finished: false,

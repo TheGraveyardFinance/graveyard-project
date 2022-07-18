@@ -456,6 +456,7 @@
       }
     ]
   },
+
   "SeigniorageOracle": {
     "address": "0x55530fA1B042582D5FA3C313a7e02d21Af6B82f4",
     "abi": [
@@ -4568,7 +4569,6 @@
     ]
   },
 
-
   "GraveUsdcGenesisRewardPool": {
     "address": "0xcb0b0419e6a1f46be89c1c1eeeaf9172b7125b29",
     "abi": [
@@ -6027,7 +6027,7 @@
       }
     ]
   },
-  "GraveWrappedFtmGenesisRewardPool": {
+  "GraveWftmGenesisRewardPool": {
     "address": "0xcb0b0419e6a1f46be89c1c1eeeaf9172b7125b29",
     "abi": [
       {
