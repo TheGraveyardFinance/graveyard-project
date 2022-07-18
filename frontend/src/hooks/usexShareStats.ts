@@ -11,7 +11,7 @@ const useShareStats = () => {
   useEffect(() => {
     async function fetchSharePrice() {
       try {
-        setStat(await graveyardFinance.gexShareStat());
+        setStat(await graveyardFinance.getShareStat());
       } catch(err){
         console.error(err)
       }
