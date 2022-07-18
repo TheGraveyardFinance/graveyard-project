@@ -48,7 +48,7 @@ export class GraveyardFinance {
     }
     this.GRAVE = new ERC20(deployments.grave.address, provider, 'GRAVE');
     this.XSHARE = new ERC20(deployments.xShare.address, provider, 'XSHARE');
-    this.XBOND = new ERC20(deployments.tBond.address, provider, 'XBOND');
+    this.XBOND = new ERC20(deployments.xBond.address, provider, 'XBOND');
     this.FTM = this.externalTokens['USDC'];
 
     // Uniswap V2 Pair
@@ -94,11 +94,11 @@ export class GraveyardFinance {
   //===================================================================
 
   async getGraveStat(): Promise<TokenStat> {
-    const { GraveFtmRewardPool, GraveFtmLpGraveRewardPool, GraveFtmLpGraveRewardPoolOld } = this.contracts;
+    const { GraveFtmRewardPool, GraveUsdcLpGraveRewardPool, GraveUsdcLpGraveRewardPoolOld } = this.contracts;
     const supply = await this.GRAVE.totalSupply();
     const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveFtmRewardPool.address);
-    const graveRewardPoolSupply2 = await this.GRAVE.balanceOf(GraveFtmLpGraveRewardPool.address);
-    const graveRewardPoolSupplyOld = await this.GRAVE.balanceOf(GraveFtmLpGraveRewardPoolOld.address);
+    const graveRewardPoolSupply2 = await this.GRAVE.balanceOf(GraveUsdcLpGraveRewardPool.address);
+    const graveRewardPoolSupplyOld = await this.GRAVE.balanceOf(GraveUsdcLpGraveRewardPoolOld.address);
     const graveCirculatingSupply = supply
       .sub(graveRewardPoolSupply)
       .sub(graveRewardPoolSupply2)
@@ -178,12 +178,12 @@ export class GraveyardFinance {
    * CirculatingSupply (always equal to total supply for bonds)
    */
   async gexShareStat(): Promise<TokenStat> {
-    const { GraveFtmLPXShareRewardPool } = this.contracts;
+    const { GraveUsdcLPXShareRewardPool } = this.contracts;
 
     const supply = await this.XSHARE.totalSupply();
 
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.XSHARE);
-    const graveRewardPoolSupply = await this.XSHARE.balanceOf(GraveFtmLPXShareRewardPool.address);
+    const graveRewardPoolSupply = await this.XSHARE.balanceOf(GraveUsdcLPXShareRewardPool.address);
     const xShareCirculatingSupply = supply.sub(graveRewardPoolSupply);
     const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);

@@ -61,11 +61,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   finished: will disable the pool on the UI if set to true
   sort: the order of the pool
   */
-  GraveUsdcLPRewardPool: {
+  GraveUsdcLPGenesisRewardPool: {
     name: 'Earn GRAVE by staking GRAVE/USDC LP',
     poolId: 9,
     sectionInUI: 0,
-    contract: 'GraveUsdcLPRewardPool',
+    contract: 'GraveUsdcLPGenesisRewardPool',
     depositTokenName: 'GRAVE-USDC LP',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -75,11 +75,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 9,
     closedForStaking: true,
   },
-  GraveCousdRewardPool: {
+  GraveCousdGenesisRewardPool: {
     name: 'Earn GRAVE by staking CoUSD',
     poolId: 1,
     sectionInUI: 0,
-    contract: 'GraveCousdRewardPool',
+    contract: 'GraveCousdGenesisRewardPool',
     depositTokenName: 'CoUSD',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -89,11 +89,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 1,
     closedForStaking: true,
   },
-  GraveCoffinRewardPool: {
+  GraveCoffinGenesisRewardPool: {
     name: 'Earn GRAVE by staking COFFIN',
     poolId: 2,
     sectionInUI: 0,
-    contract: 'GraveCoffinRewardPool',
+    contract: 'GraveCoffinGenesisRewardPool',
     depositTokenName: 'COFFIN',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -103,11 +103,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 2,
     closedForStaking: true,
   },
-  GraveXcoffinRewardPool: {
+  GraveXcoffinGenesisRewardPool: {
     name: 'Earn GRAVE by staking xCOFFIN',
     poolId: 3,
     sectionInUI: 0,
-    contract: 'GraveXcoffinRewardPool',
+    contract: 'GraveXcoffinGenesisRewardPool',
     depositTokenName: 'xCOFFIN',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -117,11 +117,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 3,
     closedForStaking: true,
   },
-  GraveUsdcRewardPool: {
+  GraveUsdcGenesisRewardPool: {
     name: 'Earn GRAVE by staking BELUGA',
     poolId: 0,
     sectionInUI: 0,
-    contract: 'GraveUsdcRewardPool',
+    contract: 'GraveUsdcGenesisRewardPool',
     depositTokenName: 'USDC',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -131,11 +131,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 0,
     closedForStaking: true,
   },
-  GraveFusdRewardPool: {
+  GraveFusdGenesisRewardPool: {
     name: 'Earn GRAVE by staking FUSD',
     poolId: 4,
     sectionInUI: 0,
-    contract: 'GraveFusdRewardPool',
+    contract: 'GraveFusdGenesisRewardPool',
     depositTokenName: 'FUSD',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -145,11 +145,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 4,
     closedForStaking: true,
   },
-  GraveWrappedFtmRewardPool: {
+  GraveWrappedFtmGenesisRewardPool: {
     name: 'Earn GRAVE by staking wFTM',
     poolId: 5,
     sectionInUI: 0,
-    contract: 'GraveWrappedFtmRewardPool',
+    contract: 'GraveWrappedFtmGenesisRewardPool',
     depositTokenName: 'wFTM',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -159,11 +159,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 5,
     closedForStaking: true,
   },
-  GravePftmRewardPool: {
+  GravePftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking pFTM',
     poolId: 6,
     sectionInUI: 0,
-    contract: 'GravePftmRewardPool',
+    contract: 'GravePftmGenesisRewardPool',
     depositTokenName: 'pFTM',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -173,11 +173,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 6,
     closedForStaking: true,
   },
-  GraveBasedRewardPool: {
+  GraveBasedGenesisRewardPool: {
     name: 'Earn GRAVE by staking BASED',
     poolId: 7,
     sectionInUI: 0,
-    contract: 'GraveBasedRewardPool',
+    contract: 'GraveBasedGenesisRewardPool',
     depositTokenName: 'BASED',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -187,11 +187,11 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 7,
     closedForStaking: true,
   },
-  GraveMagikRewardPool: {
+  GraveMagikGenesisRewardPool: {
     name: 'Earn GRAVE by staking MAGIK',
     poolId: 8,
     sectionInUI: 0,
-    contract: 'GraveMagikRewardPool',
+    contract: 'GraveMagikGenesisRewardPool',
     depositTokenName: 'MAGIK',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -201,11 +201,12 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 8,
     closedForStaking: true,
   },
+
   GraveFtmLPGraveRewardPool: {
     name: 'Earn GRAVE by GRAVE-FTM LP',
     poolId: 0,
     sectionInUI: 1,
-    contract: 'GraveFtmLpGraveRewardPool',
+    contract: 'GraveUsdcLpGraveRewardPool',
     depositTokenName: 'GRAVE-USDC-LP',
     earnTokenName: 'GRAVE',
     finished: false,
@@ -215,46 +216,33 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 7,
     closedForStaking: true,
   },
-  GraveFtmLPGraveRewardPoolOld: {
-    name: 'Earn GRAVE by GRAVE-FTM LP',
-    poolId: 0,
-    sectionInUI: 1,
-    contract: 'GraveFtmLpGraveRewardPoolOld',
-    depositTokenName: 'GRAVE-USDC-LP',
-    earnTokenName: 'GRAVE',
-    finished: true,
-    multiplier: '0',
-    buyLink: '',
-    site: '',
-    sort: 9,
-    closedForStaking: true,
-  },
-  GraveFtmLPXShareRewardPool: {
+
+  GraveUsdcLPXShareRewardPool: {
     name: 'Earn XSHARES by GRAVE-USDC LP',
     poolId: 0,
     sectionInUI: 2,
-    contract: 'GraveFtmLPXShareRewardPool',
+    contract: 'GraveUsdcLPXShareRewardPool',
     depositTokenName: 'GRAVE-USDC LP',
     earnTokenName: 'XSHARES',
     finished: false,
     multiplier: '21600x',
-    buyLink: 'https://spookyswap.finance/add/FTM/0x14DEf7584A6c52f470Ca4F4b9671056b22f4FfDE',
+    buyLink: 'https://spookyswap.finance/add/FTM/0x14DEf7584A6c52f470Ca4F4b9671056b22f4FfDE',  // URL must be changed
     site: '/',
-    sort: 8,
+    sort: 0,
     closedForStaking: false,
   },
-  XshareFtmLPXShareRewardPool: {
+  XshareUsdcLPXShareRewardPool: {
     name: 'Earn XSHARES by XSHARE-USDC LP',
     poolId: 1,
     sectionInUI: 2,
-    contract: 'XshareFtmLPXShareRewardPool',
+    contract: 'XshareUsdcLPXShareRewardPool',
     depositTokenName: 'XSHARES-USDC LP',
     earnTokenName: 'XSHARES',
     finished: false,
     multiplier: '14400x',
-    buyLink: 'https://spookyswap.finance/add/FTM/0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7',
+    buyLink: 'https://spookyswap.finance/add/FTM/0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7', // URL must be changed
     site: '/',
-    sort: 9,
+    sort: 1,
     closedForStaking: false,
   },
   // TwoshareFtmLPXShareRewardPool: {
