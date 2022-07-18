@@ -48,9 +48,9 @@ contract GraveGenesisRewardPool {
     uint256 public poolEndTime;
 
     // MAINNET
-    uint256 public gravePerSecond = 0.09645 ether; // 25000 GRAVE / (72h * 60min * 60s)
+    uint256 public gravePerSecond = 0.16596 ether; // 43018 GRAVE / (72h * 60min * 60s)
     uint256 public runningTime = 3 days; // 1 days
-    uint256 public constant TOTAL_REWARDS = 25000 ether;
+    uint256 public constant TOTAL_REWARDS = 43018 ether;
     // END MAINNET
 
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);

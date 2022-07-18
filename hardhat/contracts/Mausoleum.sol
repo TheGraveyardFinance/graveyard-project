@@ -126,8 +126,8 @@ contract Mausoleum is ShareWrapper, ContractGuard {
         MausoleumSnapshot memory genesisSnapshot = MausoleumSnapshot({time : block.number, rewardReceived : 0, rewardPerShare : 0});
         mausoleumHistory.push(genesisSnapshot);
 
-        withdrawLockupEpochs = 3; // Lock for 6 epochs (36h) before release withdraw
-        rewardLockupEpochs = 1; // Lock for 3 epochs (18h) before release claimReward
+        withdrawLockupEpochs = 6; // Lock for 6 epochs (36h) before release withdraw
+        rewardLockupEpochs = 3; // Lock for 3 epochs (18h) before release claimReward
 
         initialized = true;
         operator = msg.sender;

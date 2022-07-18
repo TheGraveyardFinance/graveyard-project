@@ -13,9 +13,9 @@ contract Grave is ERC20Burnable, Operator {
     using SafeMath8 for uint8;
     using SafeMath for uint256;
 
-    // Initial distribution for the first 24h genesis pools
-    uint256 public constant INITIAL_GENESIS_POOL_DISTRIBUTION = 25000 ether;
-    // Initial distribution for the day 2-5 GRAVE-WFTM LP -> GRAVE pool
+    // Initial distribution for the first 72h genesis pools
+    uint256 public constant INITIAL_GENESIS_POOL_DISTRIBUTION = 43018 ether;
+    // Initial distribution for the day 4-7 GRAVE-USDC LP -> GRAVE pool
     uint256 public constant INITIAL_GRAVE_POOL_DISTRIBUTION = 0 ether;
     // Distribution for airdrops wallet
     uint256 public constant INITIAL_AIRDROP_WALLET_DISTRIBUTION = 0 ether;
