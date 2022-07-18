@@ -25,6 +25,13 @@ import bloomLogo from '../../assets/img/BLOOM.jpg';
 import TwoombLPLogo from '../../assets/img/2OMB-USDC.png';
 import TwosharesLPLogo from '../../assets/img/2SHARES-USDC.png';
 import TwoombTwosharesLPLogo from '../../assets/img/2OMB-2SHARES.png';
+import BASED from '../../assets/token/based.svg';
+import COFFIN from '../../assets/token/COFFIN.png';
+import CoUSD from '../../assets/token/CoUSD.png';
+import fUSD from '../../assets/token/FUSD.png';
+import MAGIK from '../../assets/token/MAGIK.png';
+import pFTM from '../../assets/token/pFTM.png';
+import xCOFFIN from '../../assets/token/xCOFFIN.png';
 
 import UsdcLogo from '../../assets/img/USDC.png';
 
@@ -47,6 +54,13 @@ const logosBySymbol: { [title: string]: string } = {
   MIM: mimLogo,
   USDC: UsdcLogo,
   BLOOM: bloomLogo,
+  CoUSD: CoUSD,
+  COFFIN: COFFIN,
+  xCOFFIN: xCOFFIN,
+  fUSD: fUSD,
+  pFTM: pFTM,
+  BASED: BASED,
+  MAGIK: MAGIK,
   '2OMB-USDC LP': TwoombLPLogo,
   '2SHARES-USDC LP': TwosharesLPLogo,
   '2OMB-2SHARES LP': TwoombTwosharesLPLogo,

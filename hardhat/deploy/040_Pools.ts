@@ -44,7 +44,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const COUSD = GraveDeployConfig.COUSD;
   const COFFIN = GraveDeployConfig.COFFIN;
   const XCOFFIN = GraveDeployConfig.XCOFFIN;
-  const FUSD = GraveDeployConfig.FUSD;
+  const fUSD = GraveDeployConfig.fUSD;
   const WFTM = GraveDeployConfig.WFTM;
   const PFTM = GraveDeployConfig.PFTM;
   const BASED = GraveDeployConfig.BASED;
@@ -118,7 +118,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       await GraveGenesisRewardPool.add("5018", XCOFFIN, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("3000", FUSD, false, 0)
+      await GraveGenesisRewardPool.add("3000", fUSD, false, 0)
     ).wait();
     await (
       await GraveGenesisRewardPool.add("3000", WFTM, false, 0)
