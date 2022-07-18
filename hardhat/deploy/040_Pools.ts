@@ -20,12 +20,14 @@ export async function mydeploy(
 ) {
   console.log("mydeploy: " + contractName + "\n");
   await ethers.getContractFactory(contractName);
+  console.log("mydeploy1: " + contractName + "\n");
   const ret = await hre.deployments.deploy(contractName, {
     from: from,
     args: args,
     log: log,
     gasLimit: gasLimit,
   });
+  console.log("mydeploy2: " + contractName + "\n");
   return await ethers.getContractAt(ret.abi, ret.address);
 }
 
@@ -76,7 +78,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       GraveGenesisRewardPool.address +
       " " +
       GraveAddress +
-      " " +
       " " +
       poolStartTimeForGraveGenesisRewardPool +
       " " +
