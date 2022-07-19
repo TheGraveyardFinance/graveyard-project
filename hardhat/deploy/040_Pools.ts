@@ -20,12 +20,14 @@ export async function mydeploy(
 ) {
   console.log("mydeploy: " + contractName + "\n");
   await ethers.getContractFactory(contractName);
+  console.log("mydeploy1: " + contractName + "\n");
   const ret = await hre.deployments.deploy(contractName, {
     from: from,
     args: args,
     log: log,
     gasLimit: gasLimit,
   });
+  console.log("mydeploy2: " + contractName + "\n");
   return await ethers.getContractAt(ret.abi, ret.address);
 }
 
@@ -39,6 +41,14 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const gasLimit = 5000000;
   console.log("deployer = " + deployer);
   const USDCAddress = GraveDeployConfig.WETH;
+  const COUSD = GraveDeployConfig.COUSD;
+  const COFFIN = GraveDeployConfig.COFFIN;
+  const XCOFFIN = GraveDeployConfig.XCOFFIN;
+  const fUSD = GraveDeployConfig.fUSD;
+  const WFTM = GraveDeployConfig.WFTM;
+  const PFTM = GraveDeployConfig.PFTM;
+  const BASED = GraveDeployConfig.BASED;
+  const MAGIK = GraveDeployConfig.MAGIK;
 
   // GraveGenesisRewardPool
   const poolStartTimeForGraveGenesisRewardPool =
@@ -50,7 +60,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const UniswapV2FactoryAddress = GraveDeployConfig.UniswapV2Factory;
   const UniswapV2RouterAddress = GraveDeployConfig.UniswapV2Router;
 
-  // const poolStartTimeForGraveRewardPool = ""; // DAY 2-5 & Day 6-10
+  // const poolStartTimeForGraveRewardPool = ""; // Day 4-8
   //////////////////////////////////////////////////////////////////////////////////////////
   const GraveGenesisRewardPool = await mydeploy(
     hre,
@@ -69,7 +79,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       " " +
       GraveAddress +
       " " +
-      " " +
       poolStartTimeForGraveGenesisRewardPool +
       " " +
       " --contract contracts/distribution/GraveGenesisRewardPool.sol:GraveGenesisRewardPool "
@@ -83,23 +92,48 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       "\n"
   );
 
-  // console.log(
-  //   "GraveGenesisRewardPool.poolInfo(0): " +
-  //     (await GraveGenesisRewardPool.poolInfo(0))
-  // );
-  // console.log(
-  //   "GraveGenesisRewardPool.poolInfo(0): " +
-  //     (await GraveGenesisRewardPool.poolInfo(0).token)
-  // );
+  const UniswapV2Factory = await ethers.getContractAt(
+    UniswapV2FactoryAbi,
+    UniswapV2FactoryAddress
+  );
+  let GraveUsdcPair = await UniswapV2Factory.getPair(
+    GraveAddress,
+    USDCAddress
+  );
+  console.log("GraveUsdcPair: " + GraveUsdcPair);
 
-  // console.log(
-  //   "GraveGenesisRewardPool.poolInfo(0): " +
-  //     (await GraveGenesisRewardPool.poolInfo(0))
-  // );
+
   if ((await GraveGenesisRewardPool.totalAllocPoint()) == 0) {
     //
     await (
-      await GraveGenesisRewardPool.add("100", USDCAddress, false, 0)
+      await GraveGenesisRewardPool.add("4500", USDCAddress, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("6000", COUSD, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("5000", COFFIN, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("5018", XCOFFIN, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("3000", fUSD, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("3000", WFTM, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("2500", PFTM, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("2500", BASED, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("2500", MAGIK, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("9000", GraveUsdcPair, false, 0)
     ).wait();
   }
 
@@ -136,18 +170,10 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       (await GraveRewardPool.totalAllocPoint())
   );
 
-  const UniswapV2Factory = await ethers.getContractAt(
-    UniswapV2FactoryAbi,
-    UniswapV2FactoryAddress
-  );
-  let GraveUsdcPair = await UniswapV2Factory.getPair(
-    GraveAddress,
-    USDCAddress
-  );
+  
   console.log("UniswapV2FactoryAddress: " + UniswapV2FactoryAddress);
   console.log("GraveAddress: " + GraveAddress);
   console.log("USDCAddress: " + USDCAddress);
-  console.log("GraveUsdcPair: " + GraveUsdcPair);
   const GraveUsdcLP = await ethers.getContractAt(ERC20Abi, GraveUsdcPair);
   if (
     GraveUsdcPair == "0x0000000000000000000000000000000000000000" ||
@@ -186,52 +212,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   }
   if ((await GraveRewardPool.totalAllocPoint()) == 0) {
     //
-    await (await GraveRewardPool.add("140000", GraveUsdcPair, false, 0)).wait();
+    await (await GraveRewardPool.add("0", GraveUsdcPair, false, 0)).wait();
   }
-
-  //////////////////////////////
-  // const XShareAddress = GraveDeployConfig.XShareAddress;
-  // const startTimeXSharePool = GraveDeployConfig.startTimeXShare;
-
-  // const XShareRewardPool = await mydeploy(
-  //   hre,
-  //   "XShareRewardPool",
-  //   deployer,
-  //   [XShareAddress, startTimeXSharePool],
-  //   true,
-  //   gasLimit
-  // );
-  // console.log("#XShareRewardPool");
-  // console.log(
-  //   "npx hardhat verify --network " +
-  //     hre.network.name +
-  //     " " +
-  //     XShareRewardPool.address +
-  //     " " +
-  //     XShareAddress +
-  //     " " +
-  //     " " +
-  //     startTimeXSharePool +
-  //     " " +
-  //     " --contract contracts/distribution/XShareRewardPool.sol:XShareRewardPool "
-  // );
-  // fs.writeFileSync(
-  //   "../addresses/" + hre.network.name + "/XShareRewardPool.ts",
-  //   'export const XShareRewardPool = "' + XShareRewardPool.address + '";' + "\n"
-  // );
-
-  // console.log(
-  //   "XShareRewardPool.poolLength: " + (await XShareRewardPool.poolLength())
-  // );
-  // const XShareUsdcPair = await UniswapV2Factory.getPair(
-  //   XShareAddress,
-  //   USDCAddress
-  // );
-  // if ((await XShareRewardPool.poolLength()) == 0) {
-  //   //
-  //   await (await XShareRewardPool.add("100", GraveUsdcPair, false, 0)).wait();
-  //   await (await XShareRewardPool.add("100", XShareUsdcPair, false, 0)).wait();
-  // }
 };
 
 func.tags = ["Pools"];

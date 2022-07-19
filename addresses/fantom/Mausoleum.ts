@@ -1,1 +1,1 @@
-export const Mausoleum = "0x3275f7f4Eb9a910AB9f5E75516d5449FBC20d811";
+export const Mausoleum = "0x65c23f15d930AE66a0D2F6D46f01ab94915dB876";

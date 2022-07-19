@@ -44,7 +44,7 @@ contract GraveRewardPool {
     // The time when GRAVE mining starts.
     uint256 public poolStartTime;
 
-    uint256[] public epochTotalRewards = [80000 ether, 60000 ether];
+    uint256[] public epochTotalRewards = [0 ether, 0 ether];
 
     // Time when each epoch ends.
     uint256[3] public epochEndTimes;

@@ -42,13 +42,12 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const startTimeXShare = GraveDeployConfig.startTimeXShare;
   const communityFund = GraveDeployConfig.communityFund;
   const devFund = GraveDeployConfig.devFund;
-  const treasuryFund = GraveDeployConfig.treasuryFund;
 
   const XShare = await mydeploy(
     hre,
     "XShare",
     deployer,
-    [startTimeXShare, communityFund, devFund, treasuryFund],
+    [startTimeXShare, communityFund, devFund],
     true,
     gasLimit
   );
@@ -64,8 +63,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       communityFund +
       " " +
       devFund +
-      " " +
-      treasuryFund +
       " " +
       " --contract contracts/XShare.sol:XShare"
   );

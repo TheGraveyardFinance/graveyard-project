@@ -1,1 +1,1 @@
-export const XShareRewardPool = "0xD7b7231E79571B0FB3F9f9BF2e7d536Ea1b85ED8";
+export const XShareRewardPool = "0xA082934461B6308fBcA0c0d51820B4a49c2460cE";

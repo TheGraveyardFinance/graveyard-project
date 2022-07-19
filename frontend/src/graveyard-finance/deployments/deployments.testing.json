@@ -2996,7 +2996,7 @@
             "type": "uint256"
           }
         ],
-        "name": "MasonryFunded",
+        "name": "MausoleumFunded",
         "type": "event"
       },
       {
@@ -3673,7 +3673,7 @@
             "type": "address"
           }
         ],
-        "name": "setMasonry",
+        "name": "setMausoleum",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -4015,7 +4015,7 @@
       }
     ]
   },
-  "Masonry": {
+  "Mausoleum": {
     "address": "0x2A1AcA8221267016d01502240c912e1491Ef4802",
     "abi": [
       {
@@ -4567,7 +4567,7 @@
       }
     ]
   },
-  "GraveFtmRewardPool": {
+  "GraveRewardPool": {
     "address": "0xFb392431c0dd8d7f21315aA63bA60C6Bd10A0fcd",
     "abi": [
       {
@@ -6511,7 +6511,7 @@
       }
     ]
   },
-  "GraveFtmLpGraveRewardPool": {
+  "GraveRewardPool": {
     "address": "0x96Ddab71d6074f09267A653FE9490ea16D20e20f",
     "abi": [
       {
@@ -7002,7 +7002,7 @@
       }
     ]
   },
-  "GraveFtmLpGraveRewardPoolOld": {
+  "GraveRewardPoolOld": {
     "address": "0x52618Fa2364ae23f29B88c4De5bc9d28BCc34dE5",
     "abi": [
       {
@@ -7493,7 +7493,7 @@
       }
     ]
   },
-  "GraveFtmLPXShareRewardPool": {
+  "GraveUsdcLPXShareRewardPool": {
     "address": "0xE9A9242b5aBd050ec714EDfF53ff08dfA066aaf0",
     "abi": [
       {
@@ -7979,7 +7979,7 @@
       }
     ]
   },
-  "XshareFtmLPXShareRewardPool": {
+  "XshareUsdcLPXShareRewardPool": {
     "address": "0xE9A9242b5aBd050ec714EDfF53ff08dfA066aaf0",
     "abi": [
       {

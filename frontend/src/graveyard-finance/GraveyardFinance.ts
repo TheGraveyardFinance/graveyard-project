@@ -48,7 +48,7 @@ export class GraveyardFinance {
     }
     this.GRAVE = new ERC20(deployments.grave.address, provider, 'GRAVE');
     this.XSHARE = new ERC20(deployments.xShare.address, provider, 'XSHARE');
-    this.XBOND = new ERC20(deployments.tBond.address, provider, 'XBOND');
+    this.XBOND = new ERC20(deployments.xBond.address, provider, 'XBOND');
     this.FTM = this.externalTokens['USDC'];
 
     // Uniswap V2 Pair
@@ -75,7 +75,7 @@ export class GraveyardFinance {
     }
     this.GRAVEUSDC_LP = this.GRAVEUSDC_LP.connect(this.signer);
     console.log(`🔓 Wallet is unlocked. Welcome, ${account}!`);
-    this.fetchMasonryVersionOfUser()
+    this.fetchMausoleumVersionOfUser()
       .then((version) => (this.masonryVersionOfUser = version))
       .catch((err) => {
         console.error(`Failed to fetch masonry version: ${err.stack}`);
@@ -94,15 +94,11 @@ export class GraveyardFinance {
   //===================================================================
 
   async getGraveStat(): Promise<TokenStat> {
-    const { GraveFtmRewardPool, GraveFtmLpGraveRewardPool, GraveFtmLpGraveRewardPoolOld } = this.contracts;
+    const { GraveRewardPool } = this.contracts;
     const supply = await this.GRAVE.totalSupply();
-    const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveFtmRewardPool.address);
-    const graveRewardPoolSupply2 = await this.GRAVE.balanceOf(GraveFtmLpGraveRewardPool.address);
-    const graveRewardPoolSupplyOld = await this.GRAVE.balanceOf(GraveFtmLpGraveRewardPoolOld.address);
+    const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveRewardPool.address);
     const graveCirculatingSupply = supply
       .sub(graveRewardPoolSupply)
-      .sub(graveRewardPoolSupply2)
-      .sub(graveRewardPoolSupplyOld);
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.GRAVE);
     console.log("price in ftm:", priceInFTM)
     const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
@@ -177,13 +173,13 @@ export class GraveyardFinance {
    * TotalSupply
    * CirculatingSupply (always equal to total supply for bonds)
    */
-  async gexShareStat(): Promise<TokenStat> {
-    const { GraveFtmLPXShareRewardPool } = this.contracts;
+  async getShareStat(): Promise<TokenStat> {
+    const { GraveUsdcLPXShareRewardPool } = this.contracts;
 
     const supply = await this.XSHARE.totalSupply();
 
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.XSHARE);
-    const graveRewardPoolSupply = await this.XSHARE.balanceOf(GraveFtmLPXShareRewardPool.address);
+    const graveRewardPoolSupply = await this.XSHARE.balanceOf(GraveUsdcLPXShareRewardPool.address);
     const xShareCirculatingSupply = supply.sub(graveRewardPoolSupply);
     const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
     const priceOfSharesInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
@@ -197,11 +193,11 @@ export class GraveyardFinance {
   }
 
   async getGraveStatInEstimatedTWAP(): Promise<TokenStat> {
-    const { SeigniorageOracle, GraveFtmRewardPool } = this.contracts;
+    const { SeigniorageOracle, GraveRewardPool } = this.contracts;
     const expectedPrice = await SeigniorageOracle.twap(this.GRAVE.address, ethers.utils.parseEther('1'));
 
     const supply = await this.GRAVE.totalSupply();
-    const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveFtmRewardPool.address);
+    const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveRewardPool.address);
     const graveCirculatingSupply = supply.sub(graveRewardPoolSupply);
     return {
       tokenInFtm: getDisplayBalance(expectedPrice),
@@ -234,7 +230,7 @@ export class GraveyardFinance {
     console.log("deposit token price:", depositTokenPrice)
     const stakeInPool = await depositToken.balanceOf(bank.address);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const stat = bank.earnTokenName === 'GRAVE' ? await this.getGraveStat() : await this.gexShareStat();
+    const stat = bank.earnTokenName === 'GRAVE' ? await this.getGraveStat() : await this.getShareStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
@@ -393,8 +389,8 @@ export class GraveyardFinance {
       totalValue += poolValue;
     }
 
-    const XSHAREPrice = (await this.gexShareStat()).priceInDollars;
-    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(this.currentMasonry().address);
+    const XSHAREPrice = (await this.getShareStat()).priceInDollars;
+    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(this.currentMausoleum().address);
     const masonryTVL = Number(getDisplayBalance(masonryxShareBalanceOf, this.XSHARE.decimal)) * Number(XSHAREPrice);
 
     return totalValue + masonryTVL;
@@ -412,7 +408,7 @@ export class GraveyardFinance {
     const totalSupply = getFullDisplayBalance(await lpToken.totalSupply(), lpToken.decimal);
     //Get amount of tokenA
     const tokenSupply = getFullDisplayBalance(await token.balanceOf(lpToken.address), token.decimal);
-    const stat = isFake === true ? isGrave === true ? await this.get2ombStatFake() : await this.get2ShareStatFake() : isGrave === true ? await this.getGraveStat() : await this.gexShareStat();
+    const stat = isGrave === true ? await this.getGraveStat() : await this.getShareStat();
     const priceOfToken = stat.priceInDollars;
     const tokenInLP = Number(tokenSupply) / Number(totalSupply);
     const tokenPrice = (Number(priceOfToken) * tokenInLP * 2) //We multiply by 2 since half the price of the lp token is the price of each piece of the pair. So twice gives the total
@@ -426,56 +422,48 @@ export class GraveyardFinance {
     return { priceInDollars: price["2omb-finance"].usd }
   }
 
-  async gexShareStatFake() {
+  async getShareStatFake() {
     const price = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=2share&vs_currencies=usd").then(res => res.json())
     return { priceInDollars: price["2share"].usd }
   }
 */
-async get2ombStatFake(): Promise<TokenStat> {
-  const { TwoOmbFtmRewardPool, TwoOmbFtmLpGraveRewardPool, TwoOmbFtmLpGraveRewardPoolOld } = this.contracts;
-  const GRAVE = new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB")
-  const supply = await GRAVE.totalSupply();
-  const graveRewardPoolSupply = await GRAVE.balanceOf(TwoOmbFtmRewardPool.address);
-  const graveRewardPoolSupply2 = await GRAVE.balanceOf(TwoOmbFtmLpGraveRewardPool.address);
-  const graveRewardPoolSupplyOld = await GRAVE.balanceOf(TwoOmbFtmLpGraveRewardPoolOld.address);
-  const graveCirculatingSupply = supply
-    .sub(graveRewardPoolSupply)
-    .sub(graveRewardPoolSupply2)
-    .sub(graveRewardPoolSupplyOld);
-  const priceInFTM = await this.getTokenPriceFromPancakeswap(GRAVE);
-  const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
-  const priceOfGraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+// async get2ombStatFake(): Promise<TokenStat> {
+//   const { TwoOmbFtmRewardPool, TwoOmbFtmLpGraveRewardPool } = this.contracts;
+//   const GRAVE = new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB")
+//   const supply = await GRAVE.totalSupply();
+//   const graveRewardPoolSupply = await GRAVE.balanceOf(TwoOmbFtmRewardPool.address);
+//   const graveCirculatingSupply = supply
+//     .sub(graveRewardPoolSupply)
+//   const priceInFTM = await this.getTokenPriceFromPancakeswap(GRAVE);
+//   const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
+//   const priceOfGraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
-  return {
-    tokenInFtm: priceInFTM,
-    priceInDollars: priceOfGraveInDollars,
-    totalSupply: getDisplayBalance(supply, GRAVE.decimal, 0),
-    circulatingSupply: getDisplayBalance(graveCirculatingSupply, GRAVE.decimal, 0),
-  };
-}
+//   return {
+//     tokenInFtm: priceInFTM,
+//     priceInDollars: priceOfGraveInDollars,
+//     totalSupply: getDisplayBalance(supply, GRAVE.decimal, 0),
+//     circulatingSupply: getDisplayBalance(graveCirculatingSupply, GRAVE.decimal, 0),
+//   };
+// }
 
-async get2ShareStatFake(): Promise<TokenStat> {
-  const { TwoOmbFtmRewardPool, TwoOmbFtmLpGraveRewardPool, TwoOmbFtmLpGraveRewardPoolOld } = this.contracts;
-  const XSHARE = new ERC20("0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca", this.provider, "2SHARES")
-  const supply = await XSHARE.totalSupply();
-  const graveRewardPoolSupply = await XSHARE.balanceOf(TwoOmbFtmRewardPool.address);
-  const graveRewardPoolSupply2 = await XSHARE.balanceOf(TwoOmbFtmLpGraveRewardPool.address);
-  const graveRewardPoolSupplyOld = await XSHARE.balanceOf(TwoOmbFtmLpGraveRewardPoolOld.address);
-  const graveCirculatingSupply = supply
-    .sub(graveRewardPoolSupply)
-    .sub(graveRewardPoolSupply2)
-    .sub(graveRewardPoolSupplyOld);
-  const priceInFTM = await this.getTokenPriceFromPancakeswap(XSHARE);
-  const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
-  const priceOfGraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+// async get2ShareStatFake(): Promise<TokenStat> {
+//   const { TwoOmbFtmRewardPool, TwoOmbFtmLpGraveRewardPool } = this.contracts;
+//   const XSHARE = new ERC20("0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca", this.provider, "2SHARES")
+//   const supply = await XSHARE.totalSupply();
+//   const graveRewardPoolSupply = await XSHARE.balanceOf(TwoOmbFtmRewardPool.address);
+//   const graveCirculatingSupply = supply
+//     .sub(graveRewardPoolSupply)
+//   const priceInFTM = await this.getTokenPriceFromPancakeswap(XSHARE);
+//   const priceOfOneFTM = await this.getUSDCPriceFromPancakeswap();
+//   const priceOfGraveInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
-  return {
-    tokenInFtm: priceInFTM,
-    priceInDollars: priceOfGraveInDollars,
-    totalSupply: getDisplayBalance(supply, XSHARE.decimal, 0),
-    circulatingSupply: getDisplayBalance(graveCirculatingSupply, XSHARE.decimal, 0),
-  };
-}
+//   return {
+//     tokenInFtm: priceInFTM,
+//     priceInDollars: priceOfGraveInDollars,
+//     totalSupply: getDisplayBalance(supply, XSHARE.decimal, 0),
+//     circulatingSupply: getDisplayBalance(graveCirculatingSupply, XSHARE.decimal, 0),
+//   };
+// }
 
   async earnedFromBank(
     poolName: ContractName,
@@ -547,18 +535,18 @@ async get2ShareStatFake(): Promise<TokenStat> {
     return await pool.withdraw(poolId, userInfo.amount);
   }
 
-  async fetchMasonryVersionOfUser(): Promise<string> {
+  async fetchMausoleumVersionOfUser(): Promise<string> {
     return 'latest';
   }
 
-  currentMasonry(): Contract {
+  currentMausoleum(): Contract {
     if (!this.masonryVersionOfUser) {
       //throw new Error('you must unlock the wallet to continue.');
     }
-    return this.contracts.Masonry;
+    return this.contracts.Mausoleum;
   }
 
-  isOldMasonryMember(): boolean {
+  isOldMausoleumMember(): boolean {
     return this.masonryVersionOfUser !== 'latest';
   }
 
@@ -626,98 +614,98 @@ async get2ShareStatFake(): Promise<TokenStat> {
   //===================================================================
   //===================================================================
 
-  async getMasonryAPR() {
-    const Masonry = this.currentMasonry();
-    const latestSnapshotIndex = await Masonry.latestSnapshotIndex();
-    const lastHistory = await Masonry.masonryHistory(latestSnapshotIndex);
+  async getMausoleumAPR() {
+    const Mausoleum = this.currentMausoleum();
+    const latestSnapshotIndex = await Mausoleum.latestSnapshotIndex();
+    const lastHistory = await Mausoleum.masonryHistory(latestSnapshotIndex);
 
     const lastRewardsReceived = lastHistory[1];
 
-    const XSHAREPrice = (await this.gexShareStat()).priceInDollars;
+    const XSHAREPrice = (await this.getShareStat()).priceInDollars;
     const GRAVEPrice = (await this.getGraveStat()).priceInDollars;
     const epochRewardsPerShare = lastRewardsReceived / 1e18;
 
     //Mgod formula
     const amountOfRewardsPerDay = epochRewardsPerShare * Number(GRAVEPrice) * 4;
-    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(Masonry.address);
+    const masonryxShareBalanceOf = await this.XSHARE.balanceOf(Mausoleum.address);
     const masonryTVL = Number(getDisplayBalance(masonryxShareBalanceOf, this.XSHARE.decimal)) * Number(XSHAREPrice);
     const realAPR = ((amountOfRewardsPerDay * 100) / masonryTVL) * 365;
     return realAPR;
   }
 
   /**
-   * Checks if the user is allowed to retrieve their reward from the Masonry
+   * Checks if the user is allowed to retrieve their reward from the Mausoleum
    * @returns true if user can withdraw reward, false if they can't
    */
-  async canUserClaimRewardFromMasonry(): Promise<boolean> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.canClaimReward(this.myAccount);
+  async canUserClaimRewardFromMausoleum(): Promise<boolean> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.canClaimReward(this.myAccount);
   }
 
   /**
-   * Checks if the user is allowed to retrieve their reward from the Masonry
+   * Checks if the user is allowed to retrieve their reward from the Mausoleum
    * @returns true if user can withdraw reward, false if they can't
    */
-  async canUserUnstakeFromMasonry(): Promise<boolean> {
-    const Masonry = this.currentMasonry();
-    const canWithdraw = await Masonry.canWithdraw(this.myAccount);
-    const stakedAmount = await this.getStakedSharesOnMasonry();
+  async canUserUnstakeFromMausoleum(): Promise<boolean> {
+    const Mausoleum = this.currentMausoleum();
+    const canWithdraw = await Mausoleum.canWithdraw(this.myAccount);
+    const stakedAmount = await this.getStakedSharesOnMausoleum();
     const notStaked = Number(getDisplayBalance(stakedAmount, this.XSHARE.decimal)) === 0;
     const result = notStaked ? true : canWithdraw;
     return result;
   }
 
-  async timeUntilClaimRewardFromMasonry(): Promise<BigNumber> {
-    // const Masonry = this.currentMasonry();
-    // const mason = await Masonry.masons(this.myAccount);
+  async timeUntilClaimRewardFromMausoleum(): Promise<BigNumber> {
+    // const Mausoleum = this.currentMausoleum();
+    // const mason = await Mausoleum.masons(this.myAccount);
     return BigNumber.from(0);
   }
 
-  async getTotalStakedInMasonry(): Promise<BigNumber> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.totalSupply();
+  async getTotalStakedInMausoleum(): Promise<BigNumber> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.totalSupply();
   }
 
-  async stakeShareToMasonry(amount: string): Promise<TransactionResponse> {
-    if (this.isOldMasonryMember()) {
+  async stakeShareToMausoleum(amount: string): Promise<TransactionResponse> {
+    if (this.isOldMausoleumMember()) {
       throw new Error("you're using old masonry. please withdraw and deposit the XSHARE again.");
     }
-    const Masonry = this.currentMasonry();
-    return await Masonry.stake(decimalToBalance(amount));
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.stake(decimalToBalance(amount));
   }
 
-  async getStakedSharesOnMasonry(): Promise<BigNumber> {
-    const Masonry = this.currentMasonry();
+  async getStakedSharesOnMausoleum(): Promise<BigNumber> {
+    const Mausoleum = this.currentMausoleum();
     if (this.masonryVersionOfUser === 'v1') {
-      return await Masonry.gexShareOf(this.myAccount);
+      return await Mausoleum.gexShareOf(this.myAccount);
     }
-    return await Masonry.balanceOf(this.myAccount);
+    return await Mausoleum.balanceOf(this.myAccount);
   }
 
-  async getEarningsOnMasonry(): Promise<BigNumber> {
-    const Masonry = this.currentMasonry();
+  async getEarningsOnMausoleum(): Promise<BigNumber> {
+    const Mausoleum = this.currentMausoleum();
     if (this.masonryVersionOfUser === 'v1') {
-      return await Masonry.getCashEarningsOf(this.myAccount);
+      return await Mausoleum.getCashEarningsOf(this.myAccount);
     }
-    return await Masonry.earned(this.myAccount);
+    return await Mausoleum.earned(this.myAccount);
   }
 
-  async withdrawShareFromMasonry(amount: string): Promise<TransactionResponse> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.withdraw(decimalToBalance(amount));
+  async withdrawShareFromMausoleum(amount: string): Promise<TransactionResponse> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.withdraw(decimalToBalance(amount));
   }
 
-  async harvestCashFromMasonry(): Promise<TransactionResponse> {
-    const Masonry = this.currentMasonry();
+  async harvestCashFromMausoleum(): Promise<TransactionResponse> {
+    const Mausoleum = this.currentMausoleum();
     if (this.masonryVersionOfUser === 'v1') {
-      return await Masonry.claimDividends();
+      return await Mausoleum.claimDividends();
     }
-    return await Masonry.claimReward();
+    return await Mausoleum.claimReward();
   }
 
-  async exitFromMasonry(): Promise<TransactionResponse> {
-    const Masonry = this.currentMasonry();
-    return await Masonry.exit();
+  async exitFromMausoleum(): Promise<TransactionResponse> {
+    const Mausoleum = this.currentMausoleum();
+    return await Mausoleum.exit();
   }
 
   async getTreasuryNextAllocationTime(): Promise<AllocationTime> {
@@ -735,14 +723,14 @@ async get2ShareStatFake(): Promise<TokenStat> {
    * @returns Promise<AllocationTime>
    */
   async getUserClaimRewardTime(): Promise<AllocationTime> {
-    const { Masonry, Treasury } = this.contracts;
-    const nextEpochTimestamp = await Masonry.nextEpochPoint(); //in unix timestamp
-    const currentEpoch = await Masonry.epoch();
-    const mason = await Masonry.masons(this.myAccount);
+    const { Mausoleum, Treasury } = this.contracts;
+    const nextEpochTimestamp = await Mausoleum.nextEpochPoint(); //in unix timestamp
+    const currentEpoch = await Mausoleum.epoch();
+    const mason = await Mausoleum.mausoles(this.myAccount);
     const startTimeEpoch = mason.epochTimerStart;
     const period = await Treasury.PERIOD();
     const periodInHours = period / 60 / 60; // 6 hours, period is displayed in seconds which is 21600
-    const rewardLockupEpochs = await Masonry.rewardLockupEpochs();
+    const rewardLockupEpochs = await Mausoleum.rewardLockupEpochs();
     const targetEpochForClaimUnlock = Number(startTimeEpoch) + Number(rewardLockupEpochs);
 
     const fromDate = new Date(Date.now());
@@ -764,21 +752,21 @@ async get2ShareStatFake(): Promise<TokenStat> {
   /**
    * This method calculates and returns in a from to to format
    * the period the user needs to wait before being allowed to unstake
-   * from the masonry
+   * from the Mausoleum
    * @returns Promise<AllocationTime>
    */
   async getUserUnstakeTime(): Promise<AllocationTime> {
-    const { Masonry, Treasury } = this.contracts;
-    const nextEpochTimestamp = await Masonry.nextEpochPoint();
-    const currentEpoch = await Masonry.epoch();
-    const mason = await Masonry.masons(this.myAccount);
+    const { Mausoleum, Treasury } = this.contracts;
+    const nextEpochTimestamp = await Mausoleum.nextEpochPoint();
+    const currentEpoch = await Mausoleum.epoch();
+    const mason = await Mausoleum.mausoles(this.myAccount);
     const startTimeEpoch = mason.epochTimerStart;
     const period = await Treasury.PERIOD();
     const PeriodInHours = period / 60 / 60;
-    const withdrawLockupEpochs = await Masonry.withdrawLockupEpochs();
+    const withdrawLockupEpochs = await Mausoleum.withdrawLockupEpochs();
     const fromDate = new Date(Date.now());
     const targetEpochForClaimUnlock = Number(startTimeEpoch) + Number(withdrawLockupEpochs);
-    const stakedAmount = await this.getStakedSharesOnMasonry();
+    const stakedAmount = await this.getStakedSharesOnMausoleum();
     if (currentEpoch <= targetEpochForClaimUnlock && Number(stakedAmount) === 0) {
       return { from: fromDate, to: fromDate };
     } else if (targetEpochForClaimUnlock - currentEpoch === 1) {
@@ -853,12 +841,12 @@ async get2ShareStatFake(): Promise<TokenStat> {
 
     const treasuryDaoFundedFilter = Treasury.filters.DaoFundFunded();
     const treasuryDevFundedFilter = Treasury.filters.DevFundFunded();
-    const treasuryMasonryFundedFilter = Treasury.filters.MasonryFunded();
+    const treasuryMausoleumFundedFilter = Treasury.filters.MausoleumFunded();
     const boughtBondsFilter = Treasury.filters.BoughtBonds();
     const redeemBondsFilter = Treasury.filters.RedeemedBonds();
 
     let epochBlocksRanges: any[] = [];
-    let masonryFundEvents = await Treasury.queryFilter(treasuryMasonryFundedFilter);
+    let masonryFundEvents = await Treasury.queryFilter(treasuryMausoleumFundedFilter);
     var events: any[] = [];
     masonryFundEvents.forEach(function callback(value, index) {
       events.push({ epoch: index + 1 });
