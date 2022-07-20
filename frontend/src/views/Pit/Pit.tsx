@@ -62,7 +62,7 @@ const Pit: React.FC = () => {
     [graveyardFinance, addTransaction],
   );
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
-  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
+  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInUsdc) < 1.01, [bondStat]);
 
   return (
     <Switch>
@@ -103,7 +103,7 @@ const Pit: React.FC = () => {
                 <ExchangeStat
                   tokenName="XBOND"
                   description="Current Price: (GRAVE)^2"
-                  price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
+                  price={Number(bondStat?.tokenInUsdc).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
               <StyledCardWrapper>

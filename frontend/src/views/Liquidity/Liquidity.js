@@ -39,8 +39,8 @@ const ProvideLiquidity = () => {
   const graveUsdcLpStats = useLpStats('GRAVE-USDC-LP');
 
   const graveLPStats = useMemo(() => (graveUsdcLpStats ? graveUsdcLpStats : null), [graveUsdcLpStats]);
-  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(2) : null), [graveStats]);
-  const usdcPriceInGRAVE = useMemo(() => (graveStats ? Number(1 / graveStats.tokenInFtm).toFixed(2) : null), [graveStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInUsdc).toFixed(2) : null), [graveStats]);
+  const usdcPriceInGRAVE = useMemo(() => (graveStats ? Number(1 / graveStats.tokenInUsdc).toFixed(2) : null), [graveStats]);
   // const classes = useStyles();
 
   const handleGraveChange = async (e) => {

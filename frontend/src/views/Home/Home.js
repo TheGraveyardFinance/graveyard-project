@@ -80,7 +80,7 @@ const Home = () => {
     () => (graveStats ? Number(graveStats.priceInDollars).toFixed(2) : null),
     [graveStats],
   );
-  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(4) : null), [graveStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInUsdc).toFixed(4) : null), [graveStats]);
   const graveCirculatingSupply = useMemo(() => (graveStats ? String(graveStats.circulatingSupply) : null), [graveStats]);
   const graveTotalSupply = useMemo(() => (graveStats ? String(graveStats.totalSupply) : null), [graveStats]);
 
@@ -89,7 +89,7 @@ const Home = () => {
     [xShareStats],
   );
   const xSharePriceInFTM = useMemo(
-    () => (xShareStats ? Number(xShareStats.tokenInFtm).toFixed(4) : null),
+    () => (xShareStats ? Number(xShareStats.tokenInUsdc).toFixed(4) : null),
     [xShareStats],
   );
   const xShareCirculatingSupply = useMemo(
@@ -102,7 +102,7 @@ const Home = () => {
     () => (xBondStats ? Number(xBondStats.priceInDollars).toFixed(2) : null),
     [xBondStats],
   );
-  const xBondPriceInUSDC = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
+  const xBondPriceInUSDC = useMemo(() => (xBondStats ? Number(xBondStats.tokenInUsdc).toFixed(4) : null), [xBondStats]);
   const xBondCirculatingSupply = useMemo(
     () => (xBondStats ? String(xBondStats.circulatingSupply) : null),
     [xBondStats],

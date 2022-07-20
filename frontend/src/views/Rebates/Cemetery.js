@@ -52,7 +52,7 @@ const Cemetery = () => {
 
   console.log(cashStat)
 
-  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(4) : null), [graveStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInUsdc).toFixed(4) : null), [graveStats]);
 
   const rebateStats = useRebateTreasury()
   console.log(rebateStats)
