@@ -26,13 +26,13 @@ const assetList = [
     depositTokenName: '2SHARES-USDC LP',
   },
   {
-    depositTokenName: 'GRAVE-USDC LP',
+    depositTokenName: 'GRAVE-USDC-LP',
   },
   {
     depositTokenName: 'XSHARES',
   },
   {
-    depositTokenName: 'XSHARES-USDC LP',
+    depositTokenName: 'XSHARE-USDC LP',
   },
 ]
 
@@ -128,7 +128,7 @@ const Cemetery = () => {
                       </CardContent>
                       <CardContent align="center">
                         <Typography variant="h5">
-                          XSHARES-USDC LP:
+                          XSHARE-USDC LP:
                         </Typography>
                         <CountUp style={{ fontSize: '25px' }} end={balance_3shares_wftm} separator="," prefix="$" />
                       </CardContent>

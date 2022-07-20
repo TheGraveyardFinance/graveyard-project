@@ -65,9 +65,6 @@ const logosBySymbol: { [title: string]: string } = {
   '2SHARES-USDC LP': TwosharesLPLogo,
   '2OMB-2SHARES LP': TwoombTwosharesLPLogo,
 
-  'GRAVE-USDC LP': ThreeombLPLogo,
-  'XSHARES-USDC LP': ThreesharesLPLogo,
-
 
   'wFTM': wftmLogo,
   '2OMB': twoombLogo,

@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
 import ERC20 from '../graveyard-finance/ERC20';
-import { FTM_TICKER, GRAVE_TICKER, XSHARE_TICKER, ZAPPER_ROUTER_ADDR } from '../utils/constants';
+import { USDC_TICKER, GRAVE_TICKER, XSHARE_TICKER, FTM_TICKER, ZAPPER_ROUTER_ADDR } from '../utils/constants';
 import useGraveyardFinance from './useGraveyardFinance';
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
@@ -20,16 +20,17 @@ export enum ApprovalState {
 function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<void>] {
   const graveyardFinance = useGraveyardFinance();
   let token: ERC20;
-  if (zappingToken === FTM_TICKER) token = graveyardFinance.FTM;
+  if (zappingToken === USDC_TICKER) token = graveyardFinance.USDC;
   else if (zappingToken === GRAVE_TICKER) token = graveyardFinance.GRAVE;
   else if (zappingToken === XSHARE_TICKER) token = graveyardFinance.XSHARE;
+  else if (zappingToken === FTM_TICKER) token = graveyardFinance.FTM;
   const pendingApproval = useHasPendingApproval(token.address, ZAPPER_ROUTER_ADDR);
   const currentAllowance = useAllowance(token, ZAPPER_ROUTER_ADDR, pendingApproval);
 
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     // we might not have enough data to know whether or not we need to approve
-    if (token === graveyardFinance.FTM) return ApprovalState.APPROVED;
+    if (token === graveyardFinance.USDC) return ApprovalState.APPROVED;
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
     // amountToApprove will be defined if currentAllowance is

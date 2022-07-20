@@ -105,11 +105,12 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
 
   let pairName: string;
   let uniswapUrl: string;
+  console.log("@@test");
   if (bank.depositTokenName.includes('GRAVE')) {
     pairName = 'GRAVE-USDC pair';
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + graveAddr;
   } else {
-    pairName = '3SHARE-USDC pair';
+    pairName = 'XSHARE-USDC pair';
     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xshareAddr;
   }
   return (

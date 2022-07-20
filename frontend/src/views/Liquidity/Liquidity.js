@@ -36,9 +36,9 @@ const ProvideLiquidity = () => {
   const graveBalance = useTokenBalance(graveyardFinance.GRAVE);
   const ftmBalance = (balance / 1e18).toFixed(4);
   const { onProvideGraveFtmLP } = useProvideGraveFtmLP();
-  const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
+  const graveUsdcLpStats = useLpStats('GRAVE-USDC-LP');
 
-  const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
+  const graveLPStats = useMemo(() => (graveUsdcLpStats ? graveUsdcLpStats : null), [graveUsdcLpStats]);
   const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(2) : null), [graveStats]);
   const usdcPriceInGRAVE = useMemo(() => (graveStats ? Number(1 / graveStats.tokenInFtm).toFixed(2) : null), [graveStats]);
   // const classes = useStyles();
