@@ -16,7 +16,7 @@ import { parseUnits } from 'ethers/lib/utils';
 import { USDC_TICKER, SPOOKY_ROUTER_ADDR, GRAVE_TICKER } from '../utils/constants';
 import axios from 'axios';
 /**
- * An API module of 2omb Finance contracts.
+ * An API module of Graveyard Finance contracts.
  * All contract-interacting domain logic should be defined in here.
  */
 export class GraveyardFinance {
@@ -100,18 +100,16 @@ export class GraveyardFinance {
     const { GraveRewardPool } = this.contracts;
     const supply = await this.GRAVE.totalSupply();
     const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveRewardPool.address);
-    const graveCirculatingSupply = supply
-      .sub(graveRewardPoolSupply)
-    const priceInUSDC = await this.getTokenPriceFromPancakeswap(this.GRAVE);
-    console.log("price in ftm:", priceInUSDC)
+
     const priceOfOneUSDC = await this.getUSDCPriceFromPancakeswap();
+    const priceInUSDC = await this.getTokenPriceFromPancakeswap(this.GRAVE);
     const priceOfGraveInDollars = (Number(priceInUSDC) * Number(priceOfOneUSDC)).toFixed(2);
 
     return {
-      tokenInFtm: priceInUSDC,
+      tokenInUsdc: priceInUSDC,
       priceInDollars: priceOfGraveInDollars,
       totalSupply: getDisplayBalance(supply, this.GRAVE.decimal, 0),
-      circulatingSupply: getDisplayBalance(graveCirculatingSupply, this.GRAVE.decimal, 0),
+      circulatingSupply: getDisplayBalance(supply, this.GRAVE.decimal, 0),
     };
   }
 
@@ -173,11 +171,11 @@ export class GraveyardFinance {
     const graveStat = await this.getGraveStat();
     const bondGraveRatioBN = await Treasury.getBondPremiumRate();
     const modifier = bondGraveRatioBN / 1e18 > 1 ? bondGraveRatioBN / 1e18 : 1;
-    const bondPriceInUSDC = (Number(graveStat.tokenInFtm) * modifier).toFixed(2);
+    const bondPriceInUSDC = (Number(graveStat.tokenInUsdc) * modifier).toFixed(2);
     const priceOfXBondInDollars = (Number(graveStat.priceInDollars) * modifier).toFixed(2);
     const supply = await this.XBOND.displayedTotalSupply();
     return {
-      tokenInFtm: bondPriceInUSDC,
+      tokenInUsdc: bondPriceInUSDC,
       priceInDollars: priceOfXBondInDollars,
       totalSupply: supply,
       circulatingSupply: supply,
@@ -203,7 +201,7 @@ export class GraveyardFinance {
     const priceOfSharesInDollars = (Number(priceInUSDC) * Number(priceOfOneUSDC)).toFixed(2);
 
     return {
-      tokenInFtm: priceInUSDC,
+      tokenInUsdc: priceInUSDC,
       priceInDollars: priceOfSharesInDollars,
       totalSupply: getDisplayBalance(supply, this.XSHARE.decimal, 0),
       circulatingSupply: getDisplayBalance(xShareCirculatingSupply, this.XSHARE.decimal, 0),
@@ -218,7 +216,7 @@ export class GraveyardFinance {
     const graveRewardPoolSupply = await this.GRAVE.balanceOf(GraveRewardPool.address);
     const graveCirculatingSupply = supply.sub(graveRewardPoolSupply);
     return {
-      tokenInFtm: getDisplayBalance(expectedPrice),
+      tokenInUsdc: getDisplayBalance(expectedPrice),
       priceInDollars: getDisplayBalance(expectedPrice),
       totalSupply: getDisplayBalance(supply, this.GRAVE.decimal, 0),
       circulatingSupply: getDisplayBalance(graveCirculatingSupply, this.GRAVE.decimal, 0),
@@ -285,24 +283,28 @@ export class GraveyardFinance {
     depositTokenName: string,
   ) {
     if (earnTokenName === 'GRAVE') {
-      if (!contractName.endsWith('GraveRewardPool')) {
+      if (!contractName.endsWith('GenesisRewardPool')) {
         const rewardPerSecond = await poolContract.gravePerSecond();
-        if (depositTokenName === '2SHARES') {
-          return rewardPerSecond.mul(7500).div(25000).div(24).mul(20);
-        } else if (depositTokenName === '2OMB') {
-          return rewardPerSecond.mul(5000).div(25000).div(24).mul(20);
-        } else if (depositTokenName === 'BELUGA') {
-          return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
-        } else if (depositTokenName === 'BIFI') {
-          return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
-        } else if (depositTokenName === 'USDC') {
-          return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
-        } else if (depositTokenName === '2OMB-USDC LP') {
-          return rewardPerSecond.mul(6000).div(25000).div(24).mul(20);
-        } else if (depositTokenName === '2SHARES-USDC LP') {
-          return rewardPerSecond.mul(6000).div(25000).div(24).mul(20);
-        } else if (depositTokenName === 'BLOOM') {
-          return rewardPerSecond.mul(500).div(25000).div(24).mul(20);
+        if (depositTokenName === 'USDC') {
+          return rewardPerSecond.mul(4500).div(43018).div(24);
+        } else if (depositTokenName === 'CoUSD') {
+          return rewardPerSecond.mul(6000).div(43018).div(24);
+        } else if (depositTokenName === 'COFFIN') {
+          return rewardPerSecond.mul(5000).div(43018).div(24);
+        } else if (depositTokenName === 'xCOFFIN') {
+          return rewardPerSecond.mul(5018).div(43018).div(24);
+        } else if (depositTokenName === 'fUSD') {
+          return rewardPerSecond.mul(3000).div(43018).div(24);
+        } else if (depositTokenName === 'wFTM') {
+          return rewardPerSecond.mul(3000).div(43018).div(24);
+        } else if (depositTokenName === 'pFTM') {
+          return rewardPerSecond.mul(2500).div(43018).div(24);
+        } else if (depositTokenName === 'BASED') {
+          return rewardPerSecond.mul(2500).div(43018).div(24);
+        } else if (depositTokenName === 'MAGIK') {
+          return rewardPerSecond.mul(2500).div(43018).div(24);
+        } else if (depositTokenName === 'GRAVE-USDC-LP') {
+          return rewardPerSecond.mul(9000).div(43018).div(24);
         }
         return rewardPerSecond.div(24);
       }
@@ -316,9 +318,9 @@ export class GraveyardFinance {
     }
     const rewardPerSecond = await poolContract.xSharePerSecond();
     if (depositTokenName.startsWith('GRAVE')) {
-      return rewardPerSecond.mul(21600).div(45000);
+      return rewardPerSecond.mul(21600).div(36000);
     } else {
-      return rewardPerSecond.mul(14400).div(45000);
+      return rewardPerSecond.mul(14400).div(36000);
     }
   }
 
