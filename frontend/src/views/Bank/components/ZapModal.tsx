@@ -15,7 +15,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance';
 import useGraveyardFinance from '../../../hooks/useGraveyardFinance';
 import { useWallet } from 'use-wallet';
 import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
-import { GRAVE_TICKER, XSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
+import { GRAVE_TICKER, XSHARE_TICKER, USDC_TICKER ,FTM_TICKER } from '../../../utils/constants';
 import { Alert } from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
@@ -35,10 +35,10 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
   const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
-  const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
-  const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
-  const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
+  const graveUsdcLpStats = useLpStats('GRAVE-USDC-LP');
+  const xShareUsdcLpStats = useLpStats('XSHARE-USDC-LP');
+  const graveLPStats = useMemo(() => (graveUsdcLpStats ? graveUsdcLpStats : null), [graveUsdcLpStats]);
+  const xshareLPStats = useMemo(() => (xShareUsdcLpStats ? xShareUsdcLpStats : null), [xShareUsdcLpStats]);
   const usdcAmountPerLP = tokenName.startsWith(GRAVE_TICKER) ? graveLPStats?.usdcAmount : xshareLPStats?.usdcAmount;
   /**
    * Checks if a value is a valid number or not
@@ -117,7 +117,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}
-        ({Number(estimate.token0)} {FTM_TICKER} / {Number(estimate.token1)}{' '}
+        ({Number(estimate.token0)} {USDC_TICKER} / {Number(estimate.token1)}{' '}
         {tokenName.startsWith(GRAVE_TICKER) ? GRAVE_TICKER : XSHARE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>

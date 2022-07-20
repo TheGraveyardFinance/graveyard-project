@@ -50,21 +50,22 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const graveCousdLpStats = useLpStats('GRAVE-USDC-LP');
-  const xShareCousdLpStats = useLpStats('XSHARE-USDC-LP');
+  const graveUsdcLpStats = useLpStats('GRAVE-USDC-LP');
+  const xShareUsdcLpStats = useLpStats('XSHARE-USDC-LP');
   const graveStats = useGraveStats();
   const xShareStats = usexShareStats();
   const xBondStats = useBondStats();
   const graveyardFinance = useGraveyardFinance();
   const { price: usdcPrice, marketCap: usdcMarketCap, priceChange: usdcPriceChange } = useUsdcPrice();
   const { balance: rebatesTVL } = useTotalTreasuryBalance();
-  const totalTVL = TVL + rebatesTVL;
+  const totalTVL = TVL;
+  // const totalTVL = TVL + rebatesTVL;
 
   let grave;
   let xShare;
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    grave = graveTesting;
-    xShare = xShareTesting;
+    grave = graveProd;
+    xShare = xShareProd;
   } else {
     grave = graveProd;
     xShare = xShareProd;
@@ -73,13 +74,13 @@ const Home = () => {
   const buyGraveAddress = 'https://spookyswap.finance/swap?outputCurrency=' + grave.address;
   const buyXShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + xShare.address;
 
-  const graveLPStats = useMemo(() => (graveCousdLpStats ? graveCousdLpStats : null), [graveCousdLpStats]);
-  const xshareLPStats = useMemo(() => (xShareCousdLpStats ? xShareCousdLpStats : null), [xShareCousdLpStats]);
+  const graveLPStats = useMemo(() => (graveUsdcLpStats ? graveUsdcLpStats : null), [graveUsdcLpStats]);
+  const xshareLPStats = useMemo(() => (xShareUsdcLpStats ? xShareUsdcLpStats : null), [xShareUsdcLpStats]);
   const gravePriceInDollars = useMemo(
     () => (graveStats ? Number(graveStats.priceInDollars).toFixed(2) : null),
     [graveStats],
   );
-  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInFtm).toFixed(4) : null), [graveStats]);
+  const gravePriceInUSDC = useMemo(() => (graveStats ? Number(graveStats.tokenInUsdc).toFixed(4) : null), [graveStats]);
   const graveCirculatingSupply = useMemo(() => (graveStats ? String(graveStats.circulatingSupply) : null), [graveStats]);
   const graveTotalSupply = useMemo(() => (graveStats ? String(graveStats.totalSupply) : null), [graveStats]);
 
@@ -88,7 +89,7 @@ const Home = () => {
     [xShareStats],
   );
   const xSharePriceInFTM = useMemo(
-    () => (xShareStats ? Number(xShareStats.tokenInFtm).toFixed(4) : null),
+    () => (xShareStats ? Number(xShareStats.tokenInUsdc).toFixed(4) : null),
     [xShareStats],
   );
   const xShareCirculatingSupply = useMemo(
@@ -101,7 +102,7 @@ const Home = () => {
     () => (xBondStats ? Number(xBondStats.priceInDollars).toFixed(2) : null),
     [xBondStats],
   );
-  const xBondPriceInUSDC = useMemo(() => (xBondStats ? Number(xBondStats.tokenInFtm).toFixed(4) : null), [xBondStats]);
+  const xBondPriceInUSDC = useMemo(() => (xBondStats ? Number(xBondStats.tokenInUsdc).toFixed(4) : null), [xBondStats]);
   const xBondCirculatingSupply = useMemo(
     () => (xBondStats ? String(xBondStats.circulatingSupply) : null),
     [xBondStats],
@@ -154,7 +155,7 @@ const Home = () => {
         <Grid item xs={12} sm={6}>
           <Paper style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <Box p={4}>
-              <h2>Welcome to Graveyard DeFi</h2>
+              <h2>Welcome to Graveyard Finance</h2>
               <p>A Yield-Farming protocol on the Fantom Opera blockchain, pegged 1:1 to USDC</p>
               <p>Combining only the most stable and effective elements of only the longest-running protocols from every major blockchain, we have developed a whale-proof, dump-proof, auto-burning protocol that we believe will not only keep peg, but stay well above it, forever.</p>
               <p>Our mission is to execute the most reliable, stable and most of all self-sustainable Yield Farming Protocol on Fantom.</p>
@@ -221,12 +222,12 @@ const Home = () => {
               <Button variant="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=0x6437adac543583c4b31bf0323a0870430f5cc2e7" style={{ marginRight: '10px' }} className={classes.button}>
                 Buy XSHARE
               </Button>
-              <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0x83a52eff2e9d112e9b022399a9fd22a9db7d33ae" style={{ marginRight: '10px' }} className={classes.button}>
+              {/* <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0x83a52eff2e9d112e9b022399a9fd22a9db7d33ae" style={{ marginRight: '10px' }} className={classes.button}>
                 GRAVE Chart
               </Button>
               <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0xd352dac95a91afefb112dbbb3463ccfa5ec15b65" className={classes.button}>
                 XSHARE Chart
-              </Button>
+              </Button> */}
             </CardContent>
           </Card>
         </Grid>

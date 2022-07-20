@@ -20,7 +20,7 @@ export enum ApprovalState {
 function useApproveTaxOffice(): [ApprovalState, () => Promise<void>] {
   const graveyardFinance = useGraveyardFinance();
   let token: ERC20 = graveyardFinance.GRAVE;
-  // if (zappingToken === FTM_TICKER) token = graveyardFinance.FTM;
+  // if (zappingToken === USDC_TICKER) token = graveyardFinance.USDC;
   // else if (zappingToken === GRAVE_TICKER) token = graveyardFinance.GRAVE;
   // else if (zappingToken === XSHARE_TICKER) token = graveyardFinance.XSHARE;
   const pendingApproval = useHasPendingApproval(token.address, TAX_OFFICE_ADDR);
@@ -29,7 +29,7 @@ function useApproveTaxOffice(): [ApprovalState, () => Promise<void>] {
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     // we might not have enough data to know whether or not we need to approve
-    if (token === graveyardFinance.FTM) return ApprovalState.APPROVED;
+    if (token === graveyardFinance.USDC) return ApprovalState.APPROVED;
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
     // amountToApprove will be defined if currentAllowance is

@@ -62,7 +62,7 @@ const Pit: React.FC = () => {
     [graveyardFinance, addTransaction],
   );
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
-  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
+  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInUsdc) < 1.01, [bondStat]);
 
   return (
     <Switch>
@@ -103,7 +103,7 @@ const Pit: React.FC = () => {
                 <ExchangeStat
                   tokenName="XBOND"
                   description="Current Price: (GRAVE)^2"
-                  price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
+                  price={Number(bondStat?.tokenInUsdc).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
               <StyledCardWrapper>
@@ -116,7 +116,7 @@ const Pit: React.FC = () => {
                   priceDesc={`${getDisplayBalance(bondBalance)} XBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when GRAVE > ${BOND_REDEEM_PRICE}FTM` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when GRAVE > ${BOND_REDEEM_PRICE} USDC` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>
