@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import metamaskLogo from '../../assets/img/metamask-fox.svg';
 import walletConnectLogo from '../../assets/img/wallet-connect.svg';
 import coingBaseLogo from '../../assets/img/coinbase_logo.jpeg';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -51,13 +51,13 @@ const WalletProviderModal = ({ open, handleClose }) => {
 						}}
 						title="Metamask"
 					/>
-					<WalletCard
+					{/* <WalletCard
 						icon={<img src={walletConnectLogo} alt="Wallet Connect logo" style={{ height: 24 }} />}
 						onConnect={() => {
 							connect('walletconnect');
 						}}
 						title="WalletConnect"
-					/>
+					/> */}
 					{/* <WalletCard
             icon={<img src={coingBaseLogo} alt="Coinbase wallet logo" style={{ height: 32 }} />}
             onConnect={() => {

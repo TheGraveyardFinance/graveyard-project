@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 import moment from 'moment';
 import styled from 'styled-components';
 import Spacer from '../../components/Spacer';
@@ -105,7 +105,7 @@ const Mausoleum = () => {
                     <Typography>
                       GRAVE Price<small> (TWAP)</small>
                     </Typography>
-                    <Typography>{rebateStats.gravePrice.toFixed(4)} FTM</Typography>
+                    <Typography>{rebateStats.gravePrice.toFixed(4)} USDC</Typography>
                   </CardContent>
                 </Card>
               </Grid>

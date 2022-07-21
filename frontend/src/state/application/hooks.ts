@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { addPopup, PopupContent, removePopup, toggleWalletModal, toggleSettingsMenu } from './actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../index';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 
 export function useBlockNumber(): number | undefined {
   const { chainId } = useWallet();

@@ -31,7 +31,7 @@ import CoUSD from '../../assets/token/CoUSD.png';
 import fUSD from '../../assets/token/FUSD.png';
 import MAGIK from '../../assets/token/MAGIK.png';
 import pFTM from '../../assets/token/pFTM.png';
-import xCOFFIN from '../../assets/token/xCOFFIN.png';
+
 
 import UsdcLogo from '../../assets/img/USDC.png';
 
@@ -56,7 +56,6 @@ const logosBySymbol: { [title: string]: string } = {
   BLOOM: bloomLogo,
   CoUSD: CoUSD,
   COFFIN: COFFIN,
-  xCOFFIN: xCOFFIN,
   fUSD: fUSD,
   pFTM: pFTM,
   BASED: BASED,

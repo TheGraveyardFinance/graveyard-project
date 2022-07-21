@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { useParams } from 'react-router-dom';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Box, Button, Card, CardContent, Typography, Grid } from '@material-ui/core';
@@ -98,31 +98,31 @@ const Bank: React.FC = () => {
   );
 };
 
-const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
-  const graveyardFinance = useGraveyardFinance();
-  const graveAddr = graveyardFinance.GRAVE.address;
-  const xshareAddr = graveyardFinance.XSHARE.address;
-
-  let pairName: string;
-  let uniswapUrl: string;
-  console.log("@@test");
-  if (bank.depositTokenName.includes('GRAVE')) {
-    pairName = 'GRAVE-USDC pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + graveAddr;
-  } else {
-    pairName = 'XSHARE-USDC pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xshareAddr;
-  }
-  return (
-    <Card>
-      <CardContent>
-        <StyledLink href={uniswapUrl} target="_blank">
-          {`👻 Provide liquidity for ${pairName} now on SpookySwap 👻`}
-        </StyledLink>
-      </CardContent>
-    </Card>
-  );
-};
+// const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
+//   const graveyardFinance = useGraveyardFinance();
+//   const graveAddr = graveyardFinance.GRAVE.address;
+//   const xshareAddr = graveyardFinance.XSHARE.address;
+//   console.log("@@test01");
+//   let pairName: string;
+//   let uniswapUrl: string;
+//   console.log("@@test02");
+//   if (bank.depositTokenName.includes('GRAVE')) {
+//     pairName = 'GRAVE-USDC pair';
+//     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + graveAddr;
+//   } else {
+//     pairName = 'XSHARE-USDC pair';
+//     uniswapUrl = 'https://spookyswap.finance/add/FTM/' + xshareAddr;
+//   }
+//   return (
+//     <Card>
+//       <CardContent>
+//         <StyledLink href={uniswapUrl} target="_blank">
+//           {`👻 Provide liquidity for ${pairName} now on SpookySwap 👻`}
+//         </StyledLink>
+//       </CardContent>
+//     </Card>
+//   );
+// };
 
 const BankNotFound = () => {
   return (

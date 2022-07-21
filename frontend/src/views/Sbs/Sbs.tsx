@@ -3,7 +3,7 @@ import Page from '../../components/Page';
 import PitImage from '../../assets/img/pit.png';
 import { createGlobalStyle } from 'styled-components';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 import UnlockWallet from '../../components/UnlockWallet';
 import PageHeader from '../../components/PageHeader';
 import { Box,/* Paper, Typography,*/ Button, Grid } from '@material-ui/core';

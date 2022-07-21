@@ -10,7 +10,7 @@ export const getDisplayBalance = (
     fractionDigits = 0;
   }
   const number = getBalance(balance, decimals - fractionDigits);
-  const ret = (number / 10 ** fractionDigits).toFixed(fractionDigits);
+  const ret = (number / 10 ** 8).toFixed(8);
   if (ret.length > 12 && isTruncated) {
     return ret.slice(0, 12) + '...';
   }
@@ -24,3 +24,22 @@ export const getFullDisplayBalance = (balance: BigNumber, decimals = 18, isTrunc
 export function getBalance(balance: BigNumber, decimals = 18): number {
   return Number(balance.div(BigNumber.from(10).pow(decimals)));
 }
+
+export const getGraveBalance = (balance: BigNumber, decimals = 18, isTruncated = false) => {
+  try {
+    if (decimals <= 6) {
+      return parseFloat(balance.toString()) / 10 ** decimals;
+    } else if (decimals <= 12) {
+      const rest = decimals - 6;
+      return parseFloat(balance.div(10 ** 6).toString()) / 10 ** rest;
+    } else if (decimals <= 18) {
+      const rest = decimals - 6;
+      return parseFloat(balance.div(10 ** rest).toString()) / 10 ** 6;
+    } else {
+      const rest = decimals - 6;
+      return parseFloat(balance.div(10 ** rest).toString()) / 10 ** 6;
+    }
+  } catch (e) {
+    return parseFloat(balance.toString()) / 10 ** decimals;
+  }
+};

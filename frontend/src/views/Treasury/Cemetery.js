@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import CountUp from 'react-countup';
 import Bank from '../Bank';
@@ -32,7 +32,7 @@ const assetList = [
     depositTokenName: 'XSHARES',
   },
   {
-    depositTokenName: 'XSHARE-USDC LP',
+    depositTokenName: 'XSHARE-USDC-LP',
   },
 ]
 

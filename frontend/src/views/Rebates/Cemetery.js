@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Bank from '../Bank';
 import { makeStyles } from '@material-ui/core/styles';

@@ -27,6 +27,7 @@ import ZapModal from '../Bank/components/ZapModal';
 
 import { makeStyles } from '@material-ui/core/styles';
 import useGraveyardFinance from '../../hooks/useGraveyardFinance';
+import Countdown from 'react-countdown';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -88,7 +89,7 @@ const Home = () => {
     () => (xShareStats ? Number(xShareStats.priceInDollars).toFixed(2) : null),
     [xShareStats],
   );
-  const xSharePriceInFTM = useMemo(
+  const xSharePriceInUSDC = useMemo(
     () => (xShareStats ? Number(xShareStats.tokenInUsdc).toFixed(4) : null),
     [xShareStats],
   );
@@ -152,16 +153,38 @@ const Home = () => {
 		      <Image className="ombImg-home" color="none" style={{ width: '300px', paddingTop: '0px' }} src={CashImage} />
         </Grid>
         {/* Explanation text */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={9}>
           <Paper style={{ backgroundColor: "transparent", boxShadow: "none", border: "1px solid var(--white)" }}>
             <Box p={4}>
               <h2>Welcome to Graveyard Finance</h2>
+              <Countdown
+                date={1658149200 * 1000} // Monday, July 18, 2022 1:00:00 PM GMT
+                intervalDelay={0}
+                precision={3}
+                renderer={(props) => (
+                  <div>
+                    <h3>
+                      Revealing in ....
+                      {props.days} days {props.hours} hours {props.minutes} mins {props.seconds} seconds
+                      <br />
+                      Please{' '}
+                    <a target="_blank" style={{ color: '#ffffff' }} href="https://twitter.com/GraveyardFi">
+                        follow us on Twitter
+                      </a>{' '}
+                      and{' '}
+                      <a target="_blank" style={{ color: '#ffffff' }} href="https://discord.com/invite/8Nmtk8dbra">
+                        join our discord community!!{' '}
+                      </a>
+                    </h3>
+                  </div>
+                )}
+              />
               <p>A Yield-Farming protocol on the Fantom Opera blockchain, pegged 1:1 to USDC</p>
               <p>Combining only the most stable and effective elements of only the longest-running protocols from every major blockchain, we have developed a whale-proof, dump-proof, auto-burning protocol that we believe will not only keep peg, but stay well above it, forever.</p>
               <p>Our mission is to execute the most reliable, stable and most of all self-sustainable Yield Farming Protocol on Fantom.</p>
               <p>
                 Stake your GRAVE-USDC LP in our <StyledLink href="/farms">Farms</StyledLink> to earn XSHARE rewards.
-                Then stake your earned XSHARE in the <StyledLink href="/">Mausoleum</StyledLink> to earn more GRAVE.
+                Then stake your earned XSHARE in the <StyledLink href="/boardroom">Mausoleum</StyledLink> to earn more GRAVE.
               </p>
             </Box>
           </Paper>
@@ -318,7 +341,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{xSharePriceInFTM ? xSharePriceInFTM : '-.----'} USDC</span>
+                <span style={{ fontSize: '30px' }}>{xSharePriceInUSDC ? xSharePriceInUSDC : '-.----'} USDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${xSharePriceInDollars ? xSharePriceInDollars : '-.--'}</span>
@@ -377,11 +400,11 @@ const Home = () => {
                   <TokenSymbol symbol="GRAVE-USDC-LP" />
                 </CardIcon>
               </Box>
-              <Box mt={2}>
+              {/* <Box mt={2}>
                 <Button color="primary" disabled={false} onClick={onPresentGraveZap} variant="contained">
                   Zap In
                 </Button>
-              </Box>
+              </Box> */}
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {graveLPStats?.tokenAmount ? graveLPStats?.tokenAmount : '-.--'} GRAVE /{' '}
@@ -405,11 +428,11 @@ const Home = () => {
                   <TokenSymbol symbol="XSHARE-USDC-LP" />
                 </CardIcon>
               </Box>
-              <Box mt={2}>
+              {/* <Box mt={2}>
                 <Button color="primary" onClick={onPresentXshareZap} variant="contained">
                   Zap In
                 </Button>
-              </Box>
+              </Box> */}
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {xshareLPStats?.tokenAmount ? xshareLPStats?.tokenAmount : '-.--'} XSHARE /{' '}

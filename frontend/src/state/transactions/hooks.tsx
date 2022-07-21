@@ -1,7 +1,7 @@
 import { TransactionResponse } from '@ethersproject/providers';
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 
 import { AppDispatch, AppState } from '../index';
 import { addTransaction, clearAllTransactions } from './actions';
