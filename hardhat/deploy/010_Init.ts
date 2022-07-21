@@ -1,4 +1,4 @@
-// npx hardhat deploy --network astar --tags Init
+// npx hardhat deploy --network fantom--tags Init
 
 import { ethers } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";

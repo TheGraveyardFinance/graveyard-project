@@ -146,7 +146,7 @@ const Nav = () => {
               {/* <a href="https://snapshot.org/#/forgiving.forg.eth" target="_blank" className={classes.link}>
                 Governance
               </a> */}
-              <a href="https://graveyard.gitbook.io/" target="_blank" className={classes.link}>
+              <a href="https://graveyard.gitbook.io/graveyard-finance/" target="_blank" className={classes.link}>
                 Docs
               </a>
               {/* <a href="https://2omb.finance" target="_blank" className={classes.link}>
@@ -205,7 +205,7 @@ const Nav = () => {
                 {/* <ListItem button component="a" href="https://snapshot.org/#/forgiving.forg.eth">
                   <ListItemText>Governance</ListItemText>
                 </ListItem> */}
-                <ListItem button component="a" href="https://graveyard.gitbook.io/">
+                <ListItem button component="a" href="https://graveyard.gitbook.io/graveyard-finance/">
                   <ListItemText>Docs</ListItemText>
                 </ListItem>
                 {/* <ListItem button component="a" href="https://2omb.finance">

@@ -1,1 +1,1 @@
-export const XShareUsdcPair = "0x9C466eD0e2393611955C82636cF363EC1939b445";
+export const XShareUsdcPair = "0x555CaD1a0D607DE3629118cd0467A36d640bCB2a";

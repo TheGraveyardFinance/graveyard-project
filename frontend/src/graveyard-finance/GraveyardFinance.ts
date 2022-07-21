@@ -137,11 +137,11 @@ export class GraveyardFinance {
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
     return {
-      tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
-      usdcAmount: usdcAmountInOneLP.toFixed(2).toString(),
+      tokenAmount: tokenAmountInOneLP.toFixed(8).toString(),
+      usdcAmount: usdcAmountInOneLP.toFixed(8).toString(),
       priceOfOne: lpTokenPriceFixed,
       totalLiquidity: liquidity,
-      totalSupply: lpTokenSupplyBN.toString(),
+      totalSupply: Number(lpTokenSupply).toFixed(8).toString(),
     };
   }
 
@@ -184,8 +184,7 @@ export class GraveyardFinance {
     const priceInUSDC = await this.getTokenPriceFromPancakeswap(this.XSHARE);
     const graveRewardPoolSupply = await this.XSHARE.balanceOf(GraveUsdcLPXShareRewardPool.address);
     const xShareCirculatingSupply = supply.sub(graveRewardPoolSupply);
-    const priceOfOneUSDC = await this.getUSDCPriceFromPancakeswap();
-    const priceOfSharesInDollars = (Number(priceInUSDC) * Number(priceOfOneUSDC)).toFixed(2);
+    const priceOfSharesInDollars = Number(priceInUSDC).toFixed(8);
 
     return {
       tokenInUsdc: priceInUSDC,
@@ -512,7 +511,7 @@ export class GraveyardFinance {
 
     const usdc = new Token(chainId, USDC[0], USDC[1]);
     const token = new Token(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
-    console.log("@@@tokenContract.symbol", tokenContract.symbol);
+
     try {
       if (tokenContract.symbol === "USDC") {
         const { data } = await axios('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=usd-coin');
@@ -520,7 +519,7 @@ export class GraveyardFinance {
       } else {
         const usdcToToken = await Fetcher.fetchPairData(usdc, token, this.provider);
         const priceInBUSD = new Route([usdcToToken], token);
-        return priceInBUSD.midPrice.toFixed(4);
+        return priceInBUSD.midPrice.toFixed(10);
 
       }
       

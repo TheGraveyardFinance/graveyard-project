@@ -1,1 +1,1 @@
-export const XBond = "0x62Af1Ff57f319c9Ad3F1c5a6b793B1ECFa0c541b";
+export const XBond = "0x3A7A44F11167750B0B174dB0208F89070C5c1bC0";

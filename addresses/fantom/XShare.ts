@@ -1,1 +1,1 @@
-export const XShare = "0x644B484304Df029cd81274F2De0Fcee41B0ca401";
+export const XShare = "0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01";

@@ -1,4 +1,4 @@
-// npx hardhat deploy --network astar --tags GraveDistributeRewards
+// npx hardhat deploy --network fantom--tags GraveDistributeRewards
 
 import { ethers } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";

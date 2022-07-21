@@ -32,9 +32,8 @@ const configurations: { [env: string]: Configuration } = {
       '2SHARES-USDC LP': ['0x6398ACBBAB2561553a9e458Ab67dCFbD58944e52',18],
       '2SHARES': ['0xc54A1684fD1bef1f077a336E6be4Bd9a3096a6Ca', 18],
       'XSHARES': ['0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7', 18],
-      'USDT-FTM-LP': ['0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c', 18],
-      'GRAVE-USDC-LP': ['0x671520A66f0161390053C28aCb4E8D051c99b594', 18],
-      'XSHARE-USDC-LP': ['0x9C466eD0e2393611955C82636cF363EC1939b445', 18],
+      'GRAVE-USDC-LP': ['0xFC13b2bFb3523DfE25Ff3e46854882C22F666e90', 18], // TODO Must be changed
+      'XSHARE-USDC-LP': ['0x555CaD1a0D607DE3629118cd0467A36d640bCB2a', 18], // TODO Must be changed
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -60,7 +59,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   */
   GraveUsdcLPGenesisRewardPool: {
     name: 'Earn GRAVE by staking GRAVE/USDC LP',
-    poolId: 9,
+    poolId: 8,
     sectionInUI: 0,
     contract: 'GraveUsdcLPGenesisRewardPool',
     depositTokenName: 'GRAVE-USDC-LP',
@@ -68,7 +67,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     multiplier: '9000x',
     site: "https://2omb.finance",
-    buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x671520A66f0161390053C28aCb4E8D051c99b594', // Must to change
+    buyLink: 'https://spooky.fi/#/swap?outputCurrency=0xFC13b2bFb3523DfE25Ff3e46854882C22F666e90', // TODO Must be changed
     sort: 9,
     closedForStaking: false,
   },
@@ -117,7 +116,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveFusdGenesisRewardPool: {
     name: 'Earn GRAVE by staking fUSD',
-    poolId: 4,
+    poolId: 3,
     sectionInUI: 0,
     contract: 'GraveFusdGenesisRewardPool',
     depositTokenName: 'fUSD',
@@ -131,7 +130,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveWftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking wFTM',
-    poolId: 5,
+    poolId: 4,
     sectionInUI: 0,
     contract: 'GraveWftmGenesisRewardPool',
     depositTokenName: 'wFTM',
@@ -145,7 +144,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GravePftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking pFTM',
-    poolId: 6,
+    poolId: 5,
     sectionInUI: 0,
     contract: 'GravePftmGenesisRewardPool',
     depositTokenName: 'pFTM',
@@ -159,7 +158,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveBasedGenesisRewardPool: {
     name: 'Earn GRAVE by staking BASED',
-    poolId: 7,
+    poolId: 6,
     sectionInUI: 0,
     contract: 'GraveBasedGenesisRewardPool',
     depositTokenName: 'BASED',
@@ -173,7 +172,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveMagikGenesisRewardPool: {
     name: 'Earn GRAVE by staking MAGIK',
-    poolId: 8,
+    poolId: 7,
     sectionInUI: 0,
     contract: 'GraveMagikGenesisRewardPool',
     depositTokenName: 'MAGIK',
