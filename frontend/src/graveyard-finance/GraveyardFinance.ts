@@ -286,25 +286,23 @@ export class GraveyardFinance {
       if (!contractName.endsWith('GenesisRewardPool')) {
         const rewardPerSecond = await poolContract.gravePerSecond();
         if (depositTokenName === 'USDC') {
-          return rewardPerSecond.mul(4500).div(43018).div(24);
+          return rewardPerSecond.mul(4500).div(38000).div(24);
         } else if (depositTokenName === 'CoUSD') {
-          return rewardPerSecond.mul(6000).div(43018).div(24);
+          return rewardPerSecond.mul(6000).div(38000).div(24);
         } else if (depositTokenName === 'COFFIN') {
-          return rewardPerSecond.mul(5000).div(43018).div(24);
-        } else if (depositTokenName === 'xCOFFIN') {
-          return rewardPerSecond.mul(5018).div(43018).div(24);
+          return rewardPerSecond.mul(5000).div(38000).div(24);
         } else if (depositTokenName === 'fUSD') {
-          return rewardPerSecond.mul(3000).div(43018).div(24);
+          return rewardPerSecond.mul(3000).div(38000).div(24);
         } else if (depositTokenName === 'wFTM') {
-          return rewardPerSecond.mul(3000).div(43018).div(24);
+          return rewardPerSecond.mul(3000).div(38000).div(24);
         } else if (depositTokenName === 'pFTM') {
-          return rewardPerSecond.mul(2500).div(43018).div(24);
+          return rewardPerSecond.mul(2500).div(38000).div(24);
         } else if (depositTokenName === 'BASED') {
-          return rewardPerSecond.mul(2500).div(43018).div(24);
+          return rewardPerSecond.mul(2500).div(38000).div(24);
         } else if (depositTokenName === 'MAGIK') {
-          return rewardPerSecond.mul(2500).div(43018).div(24);
+          return rewardPerSecond.mul(2500).div(38000).div(24);
         } else if (depositTokenName === 'GRAVE-USDC-LP') {
-          return rewardPerSecond.mul(9000).div(43018).div(24);
+          return rewardPerSecond.mul(9000).div(38000).div(24);
         }
         return rewardPerSecond.div(24);
       }
@@ -351,9 +349,6 @@ export class GraveyardFinance {
       //   console.log("my token price:", tokenPrice)
       // } else if (tokenName === 'BLOOM') {
       //   tokenPrice = await this.getTokenPriceFromSpiritswap(token);
-      } else if (tokenName === "xCOFFIN") {
-        const data = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=coffin-finance&vs_currencies=usd").then(res => res.json())
-        tokenPrice = data["coffin-finance"].usd
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
         tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();

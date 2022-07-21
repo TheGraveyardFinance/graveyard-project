@@ -43,7 +43,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const USDCAddress = GraveDeployConfig.WETH;
   const COUSD = GraveDeployConfig.COUSD;
   const COFFIN = GraveDeployConfig.COFFIN;
-  const XCOFFIN = GraveDeployConfig.XCOFFIN;
   const fUSD = GraveDeployConfig.fUSD;
   const WFTM = GraveDeployConfig.WFTM;
   const PFTM = GraveDeployConfig.PFTM;
@@ -114,9 +113,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     await (
       await GraveGenesisRewardPool.add("5000", COFFIN, false, 0)
     ).wait();
-    await (
-      await GraveGenesisRewardPool.add("5018", XCOFFIN, false, 0)
-    ).wait();
+    // await (
+    //   await GraveGenesisRewardPool.add("5018", XCOFFIN, false, 0) // exclude from genesis
+    // ).wait();
     await (
       await GraveGenesisRewardPool.add("3000", fUSD, false, 0)
     ).wait();
