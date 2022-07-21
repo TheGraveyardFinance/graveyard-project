@@ -519,7 +519,7 @@ export class GraveyardFinance {
       } else {
         const usdcToToken = await Fetcher.fetchPairData(usdc, token, this.provider);
         const priceInBUSD = new Route([usdcToToken], token);
-        return priceInBUSD.midPrice.toFixed(10);
+        return priceInBUSD.midPrice.toFixed(4);
 
       }
       
