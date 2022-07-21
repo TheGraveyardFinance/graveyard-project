@@ -1,32 +1,31 @@
 # ref
 
-https://docs.librafinance.xyz/welcome-start-here/launch
-https://graveyard.gitbook.io/
+https://graveyard.gitbook.io/graveyard-finance/
 
 
 # note
-day 1-3
+day 1
 - Genesis pool ( $GRAVE reward )
-$GRAVE/$USDC LP 14,333
-Single Staked $CoUSD 11,000
-Single Staked $COFFIN 7,666
-Single Staked $xCOFFIN 6,000
-Single Staked $USDC 4,019
+$GRAVE/USDC LP 9,000
+$CoUSD 6,000
+$COFFIN 5,000
+$USDC 4,500
+$FUSD 3,000
+$WFTM 3,000
+$pFTM 2,500
+$BASED 2,500
+$MAGIK 2,500
 
-day 4-7
+day 2
 - close Genesis pool
-- open $GRAVE-$USDC farm ( $GRAVE reward )
 
-day 8-12
-- $GRAVE-$USDC farm ( $GRAVE reward ) ( going on )
-- $GRAVE-$USDC farm ( $XSHARE reward )
-- $XSHARE-$USDC farm ( $XSHARE reward )
+day 2-6
+- open $GRAVE-$USDC farm ( $XSHARE reward )
+- open $XSHARE-$USDC farm ( $XSHARE reward )
 
-day 13
-- $GRAVE/$USDC to get $GRAVE closed on Day 13
-- $XSHARE stake (boardroom) open on Day13 ( for $GRAVE )
-- $GRAVE/$USDC to get $XSHARE
-- $XSHARE/$USDC to get $XSHARE
+day 7
+- $XSHARE stake (boardroom) open on Day7 ( for $GRAVE )
+
 
 ---
 
