@@ -235,14 +235,14 @@ const Home = () => {
               </Button> */}
               <Button
                 target="_blank"
-                href="https://spookyswap.finance/swap?outputCurrency=0x14def7584a6c52f470ca4f4b9671056b22f4ffde"
+                href="https://spooky.fi/#/swap?outputCurrency=0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6"
                 variant="contained"
                 style={{ marginRight: '10px' }}
                 className={classes.button}
               >
                 Buy GRAVE
               </Button>
-              <Button variant="contained" target="_blank" href="https://spookyswap.finance/swap?outputCurrency=0x6437adac543583c4b31bf0323a0870430f5cc2e7" style={{ marginRight: '10px' }} className={classes.button}>
+              <Button variant="contained" target="_blank" href="https://spooky.fi/#/swap?outputCurrency=0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01" style={{ marginRight: '10px' }} className={classes.button}>
                 Buy XSHARE
               </Button>
               {/* <Button variant="contained" target="_blank" href="https://dexscreener.com/fantom/0x83a52eff2e9d112e9b022399a9fd22a9db7d33ae" style={{ marginRight: '10px' }} className={classes.button}>
