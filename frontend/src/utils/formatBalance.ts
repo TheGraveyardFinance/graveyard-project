@@ -10,7 +10,7 @@ export const getDisplayBalance = (
     fractionDigits = 0;
   }
   const number = getBalance(balance, decimals - fractionDigits);
-  const ret = (number / 10 ** 8).toFixed(8);
+  const ret = (number / 10 ** fractionDigits).toFixed(fractionDigits);
   if (ret.length > 12 && isTruncated) {
     return ret.slice(0, 12) + '...';
   }

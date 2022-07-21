@@ -41,9 +41,6 @@ export class GraveyardFinance {
     // loads contracts from deployments
     this.contracts = {};
     for (const [name, deployment] of Object.entries(deployments)) {
-      console.log('@@grave: deployment.name = ', name);
-      console.log('@@grave: deployment.address = ', deployment.address);
-      console.log('@@grave: deployment.abi = ', deployment.abi);
       this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
     }
     this.externalTokens = {};
@@ -269,7 +266,7 @@ export class GraveyardFinance {
     depositTokenName: string,
   ) {
     if (earnTokenName === 'GRAVE') {
-      if (!contractName.endsWith('GenesisRewardPool')) {
+      if (!contractName.endsWith('GraveRewardPool')) {
         const rewardPerSecond = await poolContract.gravePerSecond();
         if (depositTokenName === 'USDC') {
           return rewardPerSecond.mul(4500).div(38000).div(24);
@@ -519,7 +516,7 @@ export class GraveyardFinance {
       } else {
         const usdcToToken = await Fetcher.fetchPairData(usdc, token, this.provider);
         const priceInBUSD = new Route([usdcToToken], token);
-        return priceInBUSD.midPrice.toFixed(10);
+        return priceInBUSD.midPrice.toFixed(4);
 
       }
       
