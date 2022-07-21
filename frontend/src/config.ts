@@ -68,7 +68,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     multiplier: '9000x',
     site: "https://2omb.finance",
-    buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x8D7d3409881b51466B483B11Ea1B8A03cdEd89ae', // Must to change
+    buyLink: 'https://spooky.fi/#/swap?outputCurrency=0x671520A66f0161390053C28aCb4E8D051c99b594', // Must to change
     sort: 9,
     closedForStaking: false,
   },
@@ -102,7 +102,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
 
   GraveUsdcGenesisRewardPool: {
-    name: 'Earn GRAVE by staking BELUGA',
+    name: 'Earn GRAVE by staking USDC',
     poolId: 0,
     sectionInUI: 0,
     contract: 'GraveUsdcGenesisRewardPool',
@@ -186,8 +186,8 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: false,
   },
 
-  GraveFtmLPGraveRewardPool: {
-    name: 'Earn GRAVE by GRAVE-FTM LP',
+  GraveUsdcLPGraveRewardPool: {
+    name: 'Earn GRAVE by GRAVE-USDC LP',
     poolId: 0,
     sectionInUI: 1,
     contract: 'GraveRewardPool',
@@ -220,7 +220,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     poolId: 1,
     sectionInUI: 2,
     contract: 'XshareUsdcLPXShareRewardPool',
-    depositTokenName: 'XSHARE-USDC LP',
+    depositTokenName: 'XSHARE-USDC-LP',
     earnTokenName: 'XSHARES',
     finished: false,
     multiplier: '14400x',

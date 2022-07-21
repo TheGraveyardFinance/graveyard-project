@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 import Button from '../../Button';
 import { isTransactionRecent, useAllTransactions } from '../../../state/transactions/hooks';
 import useModal from '../../../hooks/useModal';

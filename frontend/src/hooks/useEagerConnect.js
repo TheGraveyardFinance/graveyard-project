@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 // import { connectorLocalStorageKey, ConnectorNames } from '@pancakeswap/uikit'
-import { useWallet } from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 
 const useEagerConnect = () => {
   // const { login } = useAuth()

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider as TP } from '@material-ui/core/styles';
 import { ThemeProvider as TP1 } from 'styled-components';
-import { UseWalletProvider } from 'use-wallet';
+import { UseWalletProvider } from '@librafinance-xyz/use-wallet';
 import usePromptNetwork from './hooks/useNetworkPrompt';
 import BanksProvider from './contexts/Banks';
 import GraveyardFinanceProvider from './contexts/GraveyardFinanceProvider';
@@ -90,7 +90,7 @@ const Providers: React.FC = ({ children }) => {
     <TP1 theme={theme}>
       <TP theme={newTheme}>
         <UseWalletProvider
-          chainId={config.chainId}
+          // chainId={config.chainId}
           connectors={{
             walletconnect: { rpcUrl: config.defaultProvider },
             walletlink: {

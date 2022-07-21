@@ -1,5 +1,4 @@
 // import { Fetcher, Route, Token } from '@uniswap/sdk';
-import { Fetcher as FetcherSpirit, Token as TokenSpirit } from '@spiritswap/sdk';
 import { Fetcher, Route, Token } from '@spookyswap/sdk';
 import { Configuration } from './config';
 import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, XShareSwapperStat } from './types';
@@ -7,7 +6,7 @@ import { BigNumber, Contract, ethers, EventFilter } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
 import ERC20 from './ERC20';
-import { getFullDisplayBalance, getDisplayBalance } from '../utils/formatBalance';
+import { getFullDisplayBalance, getDisplayBalance, getGraveBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
@@ -42,6 +41,9 @@ export class GraveyardFinance {
     // loads contracts from deployments
     this.contracts = {};
     for (const [name, deployment] of Object.entries(deployments)) {
+      console.log('@@grave: deployment.name = ', name);
+      console.log('@@grave: deployment.address = ', deployment.address);
+      console.log('@@grave: deployment.abi = ', deployment.abi);
       this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
     }
     this.externalTokens = {};
@@ -119,42 +121,27 @@ export class GraveyardFinance {
    * @returns
    */
   async getLPStat(name: string): Promise<LPStat> {
-    const lpToken = this.externalTokens[name];
-    console.log("@@@@@test01 lpToken", lpToken);
-    console.log("@@@@@test015 lpToken", lpToken.totalSupply());
-    const lpTokenSupplyBN = await (await lpToken.totalSupply());
-    console.log("@@@@@test02 lpTokenSupplyBN", lpTokenSupplyBN);
+    const lpToken =  this.externalTokens[name];
+    const lpTokenSupplyBN = await lpToken.totalSupply();
     const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
-    console.log("@@@@@test03 lpTokenSupply", lpTokenSupply);
     const token0 = name.startsWith('GRAVE') ? this.GRAVE : this.XSHARE;
-    console.log("@@@@@test04 token0", token0);
     const isGrave = name.startsWith('GRAVE');
-    console.log("@@@@@test05 isGrave", isGrave);
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
-    console.log("@@@@@test06 tokenAmountBN", tokenAmountBN);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
-    console.log("@@@@@test07 tokenAmount", tokenAmount);
     
     const usdcAmountBN = await this.USDC.balanceOf(lpToken.address);
-    console.log("@@@@@test07 usdcAmountBN", usdcAmountBN);    
     const usdcAmount = getDisplayBalance(usdcAmountBN, 6);
-    console.log("@@@@@test08 usdcAmount", usdcAmount);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
-    console.log("@@@@@test09 tokenAmountInOneLP", tokenAmountInOneLP);
     const usdcAmountInOneLP = Number(usdcAmount) / Number(lpTokenSupply);
-    console.log("@@@@@test10 usdcAmountInOneLP", usdcAmountInOneLP);
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isGrave);
-    console.log("@@@@@test11 lpTokenPrice", lpTokenPrice);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
-    console.log("@@@@@test12 lpTokenPriceFixed", lpTokenPriceFixed);
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
-    console.log("@@@@@test13 liquidity", liquidity);
     return {
       tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
       usdcAmount: usdcAmountInOneLP.toFixed(2).toString(),
       priceOfOne: lpTokenPriceFixed,
       totalLiquidity: liquidity,
-      totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
+      totalSupply: lpTokenSupplyBN.toString(),
     };
   }
 
@@ -245,7 +232,7 @@ export class GraveyardFinance {
     const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
     console.log("deposit token price:", depositTokenPrice)
     const stakeInPool = await depositToken.balanceOf(bank.address);
-    const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+    const TVL = Number(depositTokenPrice) * Number(getGraveBalance(stakeInPool, depositToken.decimal));
     const stat = bank.earnTokenName === 'GRAVE' ? await this.getGraveStat() : await this.getShareStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
@@ -598,7 +585,7 @@ export class GraveyardFinance {
   async getMausoleumAPR() {
     const Mausoleum = this.currentMausoleum();
     const latestSnapshotIndex = await Mausoleum.latestSnapshotIndex();
-    const lastHistory = await Mausoleum.masonryHistory(latestSnapshotIndex);
+    const lastHistory = await Mausoleum.mausoleumHistory(latestSnapshotIndex);
 
     const lastRewardsReceived = lastHistory[1];
 
