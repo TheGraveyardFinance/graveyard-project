@@ -21,6 +21,7 @@ export async function mydeploy(
   console.log("mydeploy: " + contractName + "\n");
   await ethers.getContractFactory(contractName);
   console.log("mydeploy1: " + contractName + "\n");
+  
   const ret = await hre.deployments.deploy(contractName, {
     from: from,
     args: args,
@@ -59,7 +60,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const UniswapV2FactoryAddress = GraveDeployConfig.UniswapV2Factory;
   const UniswapV2RouterAddress = GraveDeployConfig.UniswapV2Router;
 
-  // const poolStartTimeForGraveRewardPool = ""; // Day 4-8
+  // const poolStartTimeForGraveRewardPool = ""; // Day 2
   //////////////////////////////////////////////////////////////////////////////////////////
   const GraveGenesisRewardPool = await mydeploy(
     hre,

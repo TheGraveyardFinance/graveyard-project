@@ -158,7 +158,7 @@ const Home = () => {
             <Box p={4}>
               <h2>Welcome to Graveyard Finance</h2>
               <Countdown
-                date={1658388890 * 1000} // Thursday, July 21, 2022 12:00:00 PM GMT
+                date={1658404800 * 1000} // Thursday, July 21, 2022 12:00:00 PM GMT
                 intervalDelay={0}
                 precision={3}
                 renderer={(props) => (

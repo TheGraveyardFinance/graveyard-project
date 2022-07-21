@@ -9,7 +9,7 @@ import { XBond as XBondAddress } from "../../addresses/fantom/XBond";
 import { Oracle as OracleAddress } from "../../addresses/fantom/Oracle";
 
 
-const genesisStartTime = 1658388890; // Thursday, July 21, 2022 12:00:00 PM GMT
+const genesisStartTime = 1658404800; // Thursday, July 21, 2022 12:00:00 PM GMT
 
 
 
