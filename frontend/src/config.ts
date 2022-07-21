@@ -32,8 +32,8 @@ const configurations: { [env: string]: Configuration } = {
       '2SHARES-USDC LP': ['0x6398ACBBAB2561553a9e458Ab67dCFbD58944e52',18],
       '2SHARES': ['0xc54A1684fD1bef1f077a336E6be4Bd9a3096a6Ca', 18],
       'XSHARES': ['0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7', 18],
-      'GRAVE-USDC-LP': ['0xD6232C5737e8F0d2f969Fe98e8616Caaa5Ff3A7F', 18], // TODO Must be changed
-      'XSHARE-USDC-LP': ['0xBBEBCDC340F9681Acdc51462035D7c6BE375B2F8', 18], // TODO Must be changed
+      'GRAVE-USDC-LP': ['0xFC13b2bFb3523DfE25Ff3e46854882C22F666e90', 18], // TODO Must be changed
+      'XSHARE-USDC-LP': ['0x555CaD1a0D607DE3629118cd0467A36d640bCB2a', 18], // TODO Must be changed
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -67,7 +67,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     finished: false,
     multiplier: '9000x',
     site: "https://2omb.finance",
-    buyLink: 'https://spooky.fi/#/swap?outputCurrency=0xD6232C5737e8F0d2f969Fe98e8616Caaa5Ff3A7F', // TODO Must be changed
+    buyLink: 'https://spooky.fi/#/swap?outputCurrency=0xFC13b2bFb3523DfE25Ff3e46854882C22F666e90', // TODO Must be changed
     sort: 9,
     closedForStaking: false,
   },

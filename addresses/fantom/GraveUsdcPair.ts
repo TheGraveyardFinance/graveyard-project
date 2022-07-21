@@ -1,1 +1,1 @@
-export const GraveUsdcPair = "0xD6232C5737e8F0d2f969Fe98e8616Caaa5Ff3A7F";
+export const GraveUsdcPair = "0xFC13b2bFb3523DfE25Ff3e46854882C22F666e90";
