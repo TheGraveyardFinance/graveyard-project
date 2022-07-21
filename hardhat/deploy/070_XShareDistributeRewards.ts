@@ -1,4 +1,4 @@
-// npx hardhat deploy --network astar --tags XShareDistributeRewards
+// npx hardhat deploy --network fantom--tags XShareDistributeRewards
 
 import { ethers } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";

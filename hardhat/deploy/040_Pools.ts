@@ -1,4 +1,4 @@
-// npx hardhat deploy --network astar --tags Pools
+// npx hardhat deploy --network fantom--tags Pools
 
 import { ethers } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
@@ -113,9 +113,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     await (
       await GraveGenesisRewardPool.add("5000", COFFIN, false, 0)
     ).wait();
-    // await (
-    //   await GraveGenesisRewardPool.add("5018", XCOFFIN, false, 0) // exclude from genesis
-    // ).wait();
     await (
       await GraveGenesisRewardPool.add("3000", fUSD, false, 0)
     ).wait();

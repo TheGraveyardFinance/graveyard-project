@@ -60,7 +60,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   */
   GraveUsdcLPGenesisRewardPool: {
     name: 'Earn GRAVE by staking GRAVE/USDC LP',
-    poolId: 9,
+    poolId: 8,
     sectionInUI: 0,
     contract: 'GraveUsdcLPGenesisRewardPool',
     depositTokenName: 'GRAVE-USDC-LP',
@@ -117,7 +117,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveFusdGenesisRewardPool: {
     name: 'Earn GRAVE by staking fUSD',
-    poolId: 4,
+    poolId: 3,
     sectionInUI: 0,
     contract: 'GraveFusdGenesisRewardPool',
     depositTokenName: 'fUSD',
@@ -131,7 +131,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveWftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking wFTM',
-    poolId: 5,
+    poolId: 4,
     sectionInUI: 0,
     contract: 'GraveWftmGenesisRewardPool',
     depositTokenName: 'wFTM',
@@ -145,7 +145,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GravePftmGenesisRewardPool: {
     name: 'Earn GRAVE by staking pFTM',
-    poolId: 6,
+    poolId: 5,
     sectionInUI: 0,
     contract: 'GravePftmGenesisRewardPool',
     depositTokenName: 'pFTM',
@@ -159,7 +159,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveBasedGenesisRewardPool: {
     name: 'Earn GRAVE by staking BASED',
-    poolId: 7,
+    poolId: 6,
     sectionInUI: 0,
     contract: 'GraveBasedGenesisRewardPool',
     depositTokenName: 'BASED',
@@ -173,7 +173,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
   },
   GraveMagikGenesisRewardPool: {
     name: 'Earn GRAVE by staking MAGIK',
-    poolId: 8,
+    poolId: 7,
     sectionInUI: 0,
     contract: 'GraveMagikGenesisRewardPool',
     depositTokenName: 'MAGIK',

@@ -1,4 +1,4 @@
-// npx hardhat deploy --network astar --tags TreasuryInitilize
+// npx hardhat deploy --network fantom--tags TreasuryInitilize
 
 import { ethers } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
