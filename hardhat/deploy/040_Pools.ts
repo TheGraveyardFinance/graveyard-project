@@ -106,31 +106,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   if ((await GraveGenesisRewardPool.totalAllocPoint()) == 0) {
     //
     await (
-      await GraveGenesisRewardPool.add("4500", USDCAddress, false, 0)
+      await GraveGenesisRewardPool.add("10000", COUSD, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("6000", COUSD, false, 0)
+      await GraveGenesisRewardPool.add("13018", COFFIN, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("5000", COFFIN, false, 0)
-    ).wait();
-    await (
-      await GraveGenesisRewardPool.add("3000", fUSD, false, 0)
-    ).wait();
-    await (
-      await GraveGenesisRewardPool.add("3000", WFTM, false, 0)
-    ).wait();
-    await (
-      await GraveGenesisRewardPool.add("2500", PFTM, false, 0)
-    ).wait();
-    await (
-      await GraveGenesisRewardPool.add("2500", BASED, false, 0)
-    ).wait();
-    await (
-      await GraveGenesisRewardPool.add("2500", MAGIK, false, 0)
-    ).wait();
-    await (
-      await GraveGenesisRewardPool.add("9000", GraveUsdcPair, false, 0)
+      await GraveGenesisRewardPool.add("20000", GraveUsdcPair, false, 0)
     ).wait();
   }
 
