@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity 0.6.12;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -14,6 +13,8 @@ contract GraveGenesisRewardPool {
 
     // governance
     address public operator;
+    address public daoFund;
+    uint256 public depositFee;
 
     // Info of each user.
     struct UserInfo {
@@ -60,12 +61,16 @@ contract GraveGenesisRewardPool {
 
     constructor(
         address _grave,
-        uint256 _poolStartTime
+        uint256 _poolStartTime,
+        address _daoFund,
+        uint256 _depositFee
     ) public {
         require(block.timestamp < _poolStartTime, "late");
         if (_grave != address(0)) grave = IERC20(_grave);
         poolStartTime = _poolStartTime;
         poolEndTime = poolStartTime + runningTime;
+        daoFund = _daoFund;
+        depositFee = _depositFee;
         operator = msg.sender;
     }
 
@@ -207,8 +212,15 @@ contract GraveGenesisRewardPool {
             }
         }
         if (_amount > 0) {
-            pool.token.safeTransferFrom(_sender, address(this), _amount);
-            user.amount = user.amount.add(_amount);
+            if (daoFund != address(0) && depositFee != 0) {
+                uint256 feeAmount = _amount.mul(depositFee).div(10000);
+                pool.token.safeTransferFrom(_sender, daoFund, feeAmount);
+                pool.token.safeTransferFrom(_sender, address(this), _amount.sub(feeAmount));
+                user.amount = user.amount.add(_amount.sub(feeAmount));
+            } else {
+                pool.token.safeTransferFrom(_sender, address(this), _amount);
+                user.amount = user.amount.add(_amount);
+            }
         }
         user.rewardDebt = user.amount.mul(pool.accGravePerShare).div(1e18);
         emit Deposit(_sender, _pid, _amount);
