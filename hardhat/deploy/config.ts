@@ -15,11 +15,11 @@ const genesisStartTime = 1658404800; // Thursday, July 21, 2022 12:00:00 PM GMT
 
 // CHECK!!!
 const startTimeXShare = genesisStartTime;
-const startTimeXSharePool = genesisStartTime + 3600 * 24;  // DAY2-
+const startTimeXSharePool = genesisStartTime + 3600 * 24 * 2;  // DAY3-
 // day 1
 const poolStartTimeForGraveGenesisRewardPool = genesisStartTime;
 // day 2-
-const poolStartTimeForGraveRewardPool = genesisStartTime + 3600 * 24;  // DAY2-
+const poolStartTimeForGraveRewardPool = genesisStartTime + 3600 * 24 * 2;  // DAY3-
 const OraclePeriod = 3600; //
 const OracleStartTime = genesisStartTime;
 const TraesuryStartTime = genesisStartTime;
