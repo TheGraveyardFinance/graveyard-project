@@ -44,9 +44,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const USDCAddress = GraveDeployConfig.WETH;
   const COUSD = GraveDeployConfig.COUSD;
   const COFFIN = GraveDeployConfig.COFFIN;
-  const fUSD = GraveDeployConfig.fUSD;
-  const WFTM = GraveDeployConfig.WFTM;
-  const PFTM = GraveDeployConfig.PFTM;
+  const xCOFFIN = GraveDeployConfig.xCOFFIN;
+  const wBTC = GraveDeployConfig.wBTC;
+  const wFTM = GraveDeployConfig.wFTM;
+  const TOMB = GraveDeployConfig.TOMB;
+  const PAE = GraveDeployConfig.PAE;
   const BASED = GraveDeployConfig.BASED;
   const MAGIK = GraveDeployConfig.MAGIK;
 
@@ -106,28 +108,31 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   if ((await GraveGenesisRewardPool.totalAllocPoint()) == 0) {
     //
     await (
-      await GraveGenesisRewardPool.add("4500", USDCAddress, false, 0)
-    ).wait();
-    await (
       await GraveGenesisRewardPool.add("6000", COUSD, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("5000", COFFIN, false, 0)
+      await GraveGenesisRewardPool.add("6000", xCOFFIN, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("3000", fUSD, false, 0)
+      await GraveGenesisRewardPool.add("4000", COFFIN, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("3000", WFTM, false, 0)
+      await GraveGenesisRewardPool.add("4000", wFTM, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("2500", PFTM, false, 0)
+      await GraveGenesisRewardPool.add("4000", wBTC, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("2500", BASED, false, 0)
+      await GraveGenesisRewardPool.add("4000", TOMB, false, 0)
     ).wait();
     await (
-      await GraveGenesisRewardPool.add("2500", MAGIK, false, 0)
+      await GraveGenesisRewardPool.add("3000", PAE, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("2000", BASED, false, 0)
+    ).wait();
+    await (
+      await GraveGenesisRewardPool.add("2000", MAGIK, false, 0)
     ).wait();
     await (
       await GraveGenesisRewardPool.add("9000", GraveUsdcPair, false, 0)
