@@ -1,4 +1,5 @@
 import { Grid } from '@material-ui/core';
+import HomeImage from '../../assets/img/home.png';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import Page from '../../components/Page';
@@ -8,8 +9,8 @@ import { createGlobalStyle } from 'styled-components';
 
 const BackgroundImage = createGlobalStyle`
   body {
+    background: url(${HomeImage}) no-repeat !important;
     background-size: cover !important;
-    background: radial-gradient(circle at 52.1% -29.6%, rgb(144, 17, 105) 0%, rgb(51, 0, 131) 100.2%);
     ;
   }
 `;
@@ -21,7 +22,7 @@ const GraveNodes = () => {
       <BackgroundImage />
       <Switch>
         <Route exact path={path}>
-          <h1 style={{ fontSize: '80px', textAlign: 'center' }}>NODES</h1>
+          <h1 style={{ fontSize: '80px', textAlign: 'center', color: '#ffffff' }}>NODES</h1>
           <Grid container spacing={3} style={{ marginTop: '20px' }}>
             <GraveCard />
           </Grid>
