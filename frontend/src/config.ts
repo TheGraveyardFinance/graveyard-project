@@ -11,6 +11,7 @@ const configurations: { [env: string]: Configuration } = {
     defaultProvider: 'https://rpc.ftm.tools/',
     deployments: require('./graveyard-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
+      GRAVE: ['0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6', 18], // [ToDo] Must be changed after deployed
       USDC: ['0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', 6],
       BOO: ['0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE', 18],
       ZOO: ['0x09e145a1d53c0045f41aeef25d8ff982ae74dd56', 0],

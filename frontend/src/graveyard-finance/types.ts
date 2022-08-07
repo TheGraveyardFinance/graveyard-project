@@ -24,6 +24,8 @@ export interface Bank extends BankInfo {
 }
 
 export type PoolStats = {
+  userDailyBurst?: string;
+  userYearlyBurst?: string;
   dailyAPR: string;
   yearlyAPR: string;
   TVL: string;
