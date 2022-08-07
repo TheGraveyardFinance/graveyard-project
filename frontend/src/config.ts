@@ -229,8 +229,19 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: false,
   },
 
-
-  
+  GraveNode: {
+    name: 'Generate Grave with Nodes',
+    poolId: 0,
+    sectionInUI: 3,
+    contract: 'GraveNode',
+    depositTokenName: 'GRAVE',
+    earnTokenName: 'GRAVE',
+    finished: false,
+    multiplier: '14400x',
+    buyLink: null,
+    site: '/',
+    sort: 2,
+    closedForStaking: false,
+  },
 };
-
 export default configurations['production'];

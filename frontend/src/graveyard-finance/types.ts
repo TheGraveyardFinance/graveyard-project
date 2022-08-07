@@ -29,6 +29,11 @@ export type PoolStats = {
   TVL: string;
 };
 
+export type NodesRewardWalletBalance = {
+  graves: string;
+  xshares: string;
+};
+
 export type TokenStat = {
   tokenInUsdc: string;
   priceInDollars: string;

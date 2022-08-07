@@ -1,7 +1,7 @@
 // import { Fetcher, Route, Token } from '@uniswap/sdk';
 import { Fetcher, Route, Token } from '@spookyswap/sdk';
 import { Configuration } from './config';
-import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, XShareSwapperStat } from './types';
+import { ContractName, TokenStat, AllocationTime, LPStat, Bank, NodesRewardWalletBalance, PoolStats, XShareSwapperStat } from './types';
 import { BigNumber, Contract, ethers, EventFilter } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
@@ -112,6 +112,15 @@ export class GraveyardFinance {
     };
   }
 
+  async getNodesRewardWalletBalance(nodesRewardWallet: string): Promise<NodesRewardWalletBalance> {
+    const graves = await this.GRAVE.balanceOf(nodesRewardWallet);
+    const xshares = await this.XSHARE.balanceOf(nodesRewardWallet);
+    return {
+      graves: getDisplayBalance(graves, 18, 2),
+      xshares: getDisplayBalance(xshares, 18, 2),
+    };
+  }
+
   /**
    * Calculates various stats for the requested LP
    * @param name of the LP token to load stats for
@@ -214,6 +223,27 @@ export class GraveyardFinance {
   async getBondsPurchasable(): Promise<BigNumber> {
     const { Treasury } = this.contracts;
     return Treasury.getBurnableGraveLeft();
+  }
+
+  async getNodes(contract: string, user: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].getNodes(user);
+  }
+
+  async getMaxPayout(contract: string, user: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].maxPayout(user);
+  }
+
+  async getUserDetails(contract: string, user: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].users(user);
+  }
+
+  async getTotalNodes(contract: string): Promise<BigNumber[]> {
+    return await this.contracts[contract].getTotalNodes();
+  }
+
+  async getGraveNodes(): Promise<BigNumber[]> {
+    const { GraveNode } = this.contracts;
+    return await GraveNode.getTotalNodes();
   }
 
   /**
@@ -445,6 +475,27 @@ export class GraveyardFinance {
     }
   }
 
+  async claimedBalanceNode(poolName: ContractName, account = this.myAccount): Promise<BigNumber> {
+    const pool = this.contracts[poolName];
+    try {
+      let userInfo = await pool.users(account);
+      return await userInfo.total_claims;
+    } catch (err) {
+      console.error(`Failed to call userInfo() on pool ${pool.address}: ${err}`);
+      return BigNumber.from(0);
+    }
+  }
+
+  async getNodePrice(poolName: ContractName, poolId: Number): Promise<BigNumber> {
+    const pool = this.contracts[poolName];
+    try {
+      return await pool.tierAmounts(poolId);
+    } catch (err) {
+      console.error(`Failed to call tierAmounts on contract ${pool.address}: ${err}`);
+      return BigNumber.from(0);
+    }
+  }
+
   /**
    * Deposits token to given pool.
    * @param poolName A name of pool contract.
@@ -474,6 +525,12 @@ export class GraveyardFinance {
     const pool = this.contracts[poolName];
     //By passing 0 as the amount, we are asking the contract to only redeem the reward and not the currently staked token
     return await pool.withdraw(poolId, 0);
+  }
+
+  async compound(poolName: ContractName, poolId: Number, sectionInUI: Number): Promise<TransactionResponse> {
+    const pool = this.contracts[poolName];
+    //By passing 0 as the amount, we are asking the contract to only redeem the reward and not the currently staked token
+    return sectionInUI !== 3 ? await pool.withdraw(poolId, 0) : await pool.compound();
   }
 
   /**
