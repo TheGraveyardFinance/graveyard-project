@@ -33,7 +33,7 @@ const GraveCard = ({}) => {
             <Typography variant="h5" component="h2">
               Grave Node
             </Typography>
-            <Typography color="#322f32">
+            <Typography>
               Lock your Graves to earn daily yields<br></br>
               <b>Daily APR:</b> {statsOnPool?.dailyAPR}%<br></br>
               <b>Yearly APR:</b> {statsOnPool?.yearlyAPR}%

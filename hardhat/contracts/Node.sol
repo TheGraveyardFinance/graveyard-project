@@ -1,8 +1,16 @@
+/**
+ *Submitted for verification at snowtrace.io on 2022-04-04
+*/
 
 // SPDX-License-Identifier: MIT
 
+// File @openzeppelin/contracts-old/token/ERC20/IERC20.sol@v3.0.0
+
 pragma solidity ^0.6.0;
 
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
 interface IERC20 {
     /**
      * @dev Returns the amount of tokens in existence.
@@ -377,7 +385,7 @@ contract Node {
     using SafeERC20 for IERC20;
     using SafeMath for uint256;
 
-    IERC20 public constant TOKEN = IERC20(0x5541D83EFaD1f281571B343977648B75d95cdAC2); // [ToDo] Change to Grave contract address
+    IERC20 public constant TOKEN = IERC20(0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6);
     uint256[] public tierAllocPoints = [1 ether, 1 ether, 1 ether];
     uint256[] public tierAmounts = [50 ether, 500 ether, 5000 ether];
     struct User {
@@ -393,6 +401,8 @@ contract Node {
     mapping(address => User) public users;
     mapping(address => mapping(uint256 => uint256)) public nodes;
     mapping(uint256 => uint256) public totalNodes;
+    // Info of each user that stakes LP tokens.
+    mapping(uint256 => mapping(address => User)) public userInfo;
     address[] public userIndices;
 
     uint256 public total_deposited;
@@ -412,8 +422,8 @@ contract Node {
 
     constructor(uint256 _startTime) public {
         maxReturnPercent = 500; 
-        dripRate = 2400000;  // [ToDo] 1400000 is better?
-        treasuryFeePercent = 20;  // [ToDo] 10% is better?
+        dripRate = 2400000; 
+        treasuryFeePercent = 20; 
 
         lastDripTime = _startTime > block.timestamp ? _startTime : block.timestamp;
         startTime = _startTime;

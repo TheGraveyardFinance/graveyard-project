@@ -64,7 +64,7 @@ function useTotalTreasuryBalance() {
         // const { data2shares } = await axios('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=2share')
         // const { dataGRAVE } = await axios('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=30mb-token')
         
-        const { data } = await axios('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=3shares')
+        const { data } = await axios('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=tomb') // [TODO] Need to be changed
         const threeSharesBalance = web3.utils.fromWei(await ThreeShares.methods.balanceOf(treasuryAddress).call())
         const value3shares = threeSharesBalance * data[0].current_price
 

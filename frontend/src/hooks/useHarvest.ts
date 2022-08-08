@@ -9,7 +9,7 @@ const useHarvest = (bank: Bank) => {
 
   const handleReward = useCallback(() => {
     handleTransactionReceipt(
-      graveyardFinance.harvest(bank.contract, bank.poolId),
+      graveyardFinance.harvest(bank.contract, bank.poolId, bank.sectionInUI),
       `Claim ${bank.earnTokenName} from ${bank.contract}`,
     );
   }, [bank, graveyardFinance, handleTransactionReceipt]);
