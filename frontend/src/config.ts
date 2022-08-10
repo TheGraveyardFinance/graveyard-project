@@ -27,12 +27,7 @@ const configurations: { [env: string]: Configuration } = {
       'CoUSD': ['0x0DeF844ED26409C5C46dda124ec28fb064D90D27', 18],
       'wFTM': ['0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', 18],
       'pFTM': ['0x112dF7E3b4B7Ab424F07319D4E92F41e6608c48B', 18],
-      '2OMB': ['0x7a6e4E3CC2ac9924605DCa4bA31d1831c84b44aE', 18],
-      '2OMB-2SHARES LP': ['0xd9B5f00d183df52D717046521152303129F088DD', 18],
-      '2OMB-USDC LP': ['0xbdC7DFb7B88183e87f003ca6B5a2F81202343478',18],
-      '2SHARES-USDC LP': ['0x6398ACBBAB2561553a9e458Ab67dCFbD58944e52',18],
-      '2SHARES': ['0xc54A1684fD1bef1f077a336E6be4Bd9a3096a6Ca', 18],
-      'XSHARES': ['0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7', 18],
+      'XSHARES': ['0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01', 18],
       'GRAVE-USDC-LP': ['0xFC13b2bFb3523DfE25Ff3e46854882C22F666e90', 18], // TODO Must be changed
       'XSHARE-USDC-LP': ['0x555CaD1a0D607DE3629118cd0467A36d640bCB2a', 18], // TODO Must be changed
     },
@@ -210,7 +205,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'XSHARES',
     finished: false,
     multiplier: '21600x',
-    buyLink: 'https://spookyswap.finance/add/FTM/0x14DEf7584A6c52f470Ca4F4b9671056b22f4FfDE',  // URL must be changed
+    buyLink: 'https://spookyswap.finance/add/FTM/0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6',  // URL must be changed
     site: '/',
     sort: 0,
     closedForStaking: false,

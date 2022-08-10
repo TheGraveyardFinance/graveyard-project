@@ -14,7 +14,7 @@ const useNodes = (contract: string, sectionInUI: number, user: string) => {
 
   useEffect(() => {
     if (user && sectionInUI === 3) {
-      fetchNodes().catch((err) => console.error(`Failed to fetch APR info: ${err.stack}`));
+      fetchNodes().catch((err) => console.error(`Failed to fetch useNodes: ${err.stack}`));
       const refreshInterval = setInterval(fetchNodes, config.refreshInterval);
       return () => clearInterval(refreshInterval);
     }

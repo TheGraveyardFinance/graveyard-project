@@ -12,7 +12,6 @@ import { getBalance, getDisplayBalance, getFullDisplayBalance } from '../../../u
 import { BigNumber } from 'ethers';
 import { BigNumber as BigNumberJS } from 'bignumber.js';
 import useNodeText from '../../../hooks/useNodeText';
-import useNodePrice from '../../../hooks/useNodePrice';
 import { Bank } from '../../../graveyard-finance';
 import { AddIcon, RemoveIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
@@ -20,7 +19,6 @@ import IconButton from '../../../components/IconButton';
 const DepositModal = ({ bank, max, decimals, onConfirm, onDismiss, tokenName = '' }) => {
   const [val, setVal] = useState('');
   const { getNodeText } = useNodeText();
-  const nodePrice = useNodePrice(bank.contract, bank.poolId, bank.sectionInUI);
   const [width, setWidth] = useState(window.innerWidth);
   const [amount, setAmount] = useState(1);
 

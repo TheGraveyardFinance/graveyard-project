@@ -18,11 +18,12 @@ export const getDisplayBalance = (
 };
 
 export const getFullDisplayBalance = (balance: BigNumber, decimals = 18, isTruncated = false) => {
-  return getDisplayBalance(balance, decimals, 4, isTruncated);
+  return getDisplayBalance(balance, decimals, 10, isTruncated);
 };
 
 export function getBalance(balance: BigNumber, decimals = 18): number {
-  return Number(balance.div(BigNumber.from(10).pow(decimals)));
+  if (!balance) return;
+  return Number(balance.div(BigNumber.from(10).pow(10)));
 }
 
 export const getGraveBalance = (balance: BigNumber, decimals = 18, isTruncated = false) => {
@@ -40,6 +41,6 @@ export const getGraveBalance = (balance: BigNumber, decimals = 18, isTruncated =
       return parseFloat(balance.div(10 ** rest).toString()) / 10 ** 6;
     }
   } catch (e) {
-    return parseFloat(balance.toString()) / 10 ** decimals;
+    console.error(e);
   }
 };

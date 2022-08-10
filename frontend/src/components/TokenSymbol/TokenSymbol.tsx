@@ -36,7 +36,6 @@ import pFTM from '../../assets/token/pFTM.png';
 import UsdcLogo from '../../assets/img/USDC.png';
 
 import ThreeombLPLogo from '../../assets/img/GRAVE-USDC.png';
-import ThreesharesLPLogo from '../../assets/img/xSHARES-USDC.png';
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
@@ -60,9 +59,6 @@ const logosBySymbol: { [title: string]: string } = {
   pFTM: pFTM,
   BASED: BASED,
   MAGIK: MAGIK,
-  '2OMB-USDC LP': TwoombLPLogo,
-  '2SHARES-USDC LP': TwosharesLPLogo,
-  '2OMB-2SHARES LP': TwoombTwosharesLPLogo,
 
 
   'wFTM': wftmLogo,

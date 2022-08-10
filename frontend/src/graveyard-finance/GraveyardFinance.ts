@@ -6,7 +6,7 @@ import { BigNumber, Contract, ethers, EventFilter } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
 import ERC20 from './ERC20';
-import { getFullDisplayBalance, getDisplayBalance, getGraveBalance } from '../utils/formatBalance';
+import { getFullDisplayBalance, getDisplayBalance} from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
@@ -270,7 +270,7 @@ export class GraveyardFinance {
         const stakeAmount = Number(getDisplayBalance(tierAmount));
         const dailyDrip =
           totalPoints && +totalPoints > 0
-            ? getDisplayBalance(poolBalance.mul(BigNumber.from(86400)).mul(points).div(totalPoints).div(dripRate))
+            ? getDisplayBalance(poolBalance.mul(BigNumber.from(0)).mul(points).div(totalPoints).div(dripRate))
             : 0;
         const dailyDripAPR = (Number(dailyDrip) / stakeAmount) * 100;
         const yearlyDripAPR = ((Number(dailyDrip) * 365) / stakeAmount) * 100;
@@ -288,51 +288,58 @@ export class GraveyardFinance {
           TVL: TVL.toFixed(2).toString(),
         };
     } else {
-        const [dailyUserDrip] =
-          await Promise.all([
-            this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken),
-            poolContract.tierAllocPoints(bank.poolId),
-            poolContract.totalAllocPoints(),
-            poolContract.tierAmounts(bank.poolId),
-            poolContract.getBalancePool(),
-            depositToken.balanceOf(bank.address),
-            poolContract.dripRate(),
-            poolContract.getDayDripEstimate(this.myAccount),
-          ]);
-        
-        const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
+      const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
+      const stakeInPool = await depositToken.balanceOf(bank.address);
+      const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
   
-        const stakeInPool = await depositToken.balanceOf(bank.address);
+      const stat = bank.earnTokenName === 'GRAVE' ? await this.getGraveStat() : await this.getShareStat();
+      const totalAllocPoint = await poolContract.totalAllocPoint();
+      const poolinfo = await poolContract.poolInfo(bank.poolId);
+      let rewardPerSecond = BigNumber.from(0);
+      let poolRewardPerSecond = BigNumber.from(0);
+      if (bank.earnTokenName === 'GRAVE') {
+        if (bank.contract.endsWith('GraveRewardPool')) {
+          // GraeveRewardPool
+          const utime = Math.floor(Date.now() / 1000);
+          const first = await poolContract.epochEndTimes(0);
+          const second = await poolContract.epochEndTimes(1);
+          const emission1 = await poolContract.epochGravePerSecond(0);
+          const emission2 = await poolContract.epochGravePerSecond(1);
+          if (utime <= first) {
+            rewardPerSecond = emission1;
+          } else if (utime <= second) {
+            rewardPerSecond = emission2;
+          } else {
+            rewardPerSecond = BigNumber.from(0);
+          }
+          poolRewardPerSecond = rewardPerSecond.mul(poolinfo['allocPoint']).div(totalAllocPoint);
+        } else {
+          rewardPerSecond = await poolContract.gravePerSecond();
+          poolRewardPerSecond = rewardPerSecond.mul(poolinfo['allocPoint']).div(totalAllocPoint);
+        }
+      } else {
+        rewardPerSecond = await poolContract.xSharePerSecond();
+        const totalAllocApoint = await poolContract.totalAllocPoint();
+        poolRewardPerSecond = rewardPerSecond.mul(poolinfo['allocPoint']).div(totalAllocApoint);
   
-        const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+      }
   
-        let stat = bank.earnTokenName === 'GRAVE' ? await this.getGraveStat() : await this.getShareStat();
+      // 1日排出
+      const poolRewardPerDay = poolRewardPerSecond.mul(3600).mul(24);
+      // 年間
+      const poolRewardPerYear = poolRewardPerDay.mul(365);
+      //  トークン価格
+      const price = stat.priceInDollars;
+      // APR
+      const blockscouturl = 'https://blockscout.com/astar/address/' + poolContract.address;
+      const dailyAPR = Number(getDisplayBalance(poolRewardPerDay, 18)) * Number(price);
+      const yearlyAPR = Number(getDisplayBalance(poolRewardPerYear, 18)) * Number(price);
   
-        const tokenPerSecond = await this.getTokenPerSecond(
-          bank.earnTokenName,
-          bank.contract,
-          poolContract,
-          bank.depositTokenName,
-        );
-  
-        let tokenPerHour = tokenPerSecond.mul(60).mul(60);
-  
-        const totalRewardPricePerYear =
-          Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-  
-        const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
-  
-        const totalStakingTokenInPool =
-          Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-  
-        const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
-  
-        const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
-        return {
-          dailyAPR: dailyAPR.toFixed(2).toString(),
-          yearlyAPR: yearlyAPR.toFixed(2).toString(),
-          TVL: TVL.toFixed(2).toString(),
-        };
+      return {
+        dailyAPR: dailyAPR.toString(),
+        yearlyAPR: yearlyAPR.toString(),
+        TVL: TVL.toFixed(2).toString(),
+      };
     }
   }
 
@@ -409,7 +416,7 @@ export class GraveyardFinance {
       } else if (tokenName === 'XSHARE-USDC-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.XSHARE, false);
       // } else if (tokenName === "2SHARES-USDC LP") {
-      //   tokenPrice = await this.getLPTokenPrice(token, new ERC20("0xc54a1684fd1bef1f077a336e6be4bd9a3096a6ca", this.provider, "2SHARES"), false);
+      //   tokenPrice = await this.getLPTokenPrice(token, new ERC20("0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01", this.provider, "2SHARES"), false);
       // } else if (tokenName === "2OMB-USDC LP") {
       //   console.log("getting the LP token price here")
       //   tokenPrice = await this.getLPTokenPrice(token, new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB"), true);
