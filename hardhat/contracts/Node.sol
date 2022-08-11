@@ -432,7 +432,7 @@ contract Node {
     }
 
     receive() external payable {
-        revert("Do not send AVAX.");
+        revert("Do not send FTM.");
     }
 
     modifier onlyDev() {
@@ -591,7 +591,7 @@ contract Node {
         }
     }
 
-       function _compound(uint256 nodeTier, uint256 numNodes) internal {
+    function _compound(uint256 nodeTier, uint256 numNodes) internal {
         address _sender = msg.sender;
         require(enabled && block.timestamp >= startTime, "Disabled");
         require(nodeTier < tierAllocPoints.length && nodeTier < tierAmounts.length, "Invalid nodeTier");
