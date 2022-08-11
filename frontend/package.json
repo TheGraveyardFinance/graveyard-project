@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/helper-string-parser": "^7.18.10",
     "@ethersproject/providers": "^5.4.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@librafinance-xyz/use-wallet": "0.13.5-h",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
@@ -42,7 +44,6 @@
     "redux-localstorage-simple": "^2.3.1",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.7",
-    "@librafinance-xyz/use-wallet": "0.13.5-h",
     "web3": "^1.2.11"
   },
   "scripts": {

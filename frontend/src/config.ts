@@ -11,6 +11,7 @@ const configurations: { [env: string]: Configuration } = {
     defaultProvider: 'https://rpc.ftm.tools/',
     deployments: require('./graveyard-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
+      GRAVE: ['0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6', 18], // [ToDo] Must be changed after deployed
       USDC: ['0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', 6],
       BOO: ['0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE', 18],
       ZOO: ['0x09e145a1d53c0045f41aeef25d8ff982ae74dd56', 0],
@@ -30,12 +31,7 @@ const configurations: { [env: string]: Configuration } = {
       'wFTM': ['0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83', 18],
       'wBTC': ['0x321162Cd933E2Be498Cd2267a90534A804051b11', 8],
       'pFTM': ['0x112dF7E3b4B7Ab424F07319D4E92F41e6608c48B', 18],
-      '2OMB': ['0x7a6e4E3CC2ac9924605DCa4bA31d1831c84b44aE', 18],
-      '2OMB-2SHARES LP': ['0xd9B5f00d183df52D717046521152303129F088DD', 18],
-      '2OMB-USDC LP': ['0xbdC7DFb7B88183e87f003ca6B5a2F81202343478',18],
-      '2SHARES-USDC LP': ['0x6398ACBBAB2561553a9e458Ab67dCFbD58944e52',18],
-      '2SHARES': ['0xc54A1684fD1bef1f077a336E6be4Bd9a3096a6Ca', 18],
-      'XSHARES': ['0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7', 18],
+      'XSHARES': ['0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01', 18],
       'GRAVE-USDC-LP': ['0xFC13b2bFb3523DfE25Ff3e46854882C22F666e90', 18], // TODO Must be changed
       'XSHARE-USDC-LP': ['0x555CaD1a0D607DE3629118cd0467A36d640bCB2a', 18], // TODO Must be changed
     },
@@ -227,7 +223,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'XSHARES',
     finished: false,
     multiplier: '21600x',
-    buyLink: 'https://spookyswap.finance/add/FTM/0x14DEf7584A6c52f470Ca4F4b9671056b22f4FfDE',  // URL must be changed
+    buyLink: 'https://spookyswap.finance/add/FTM/0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6',  // URL must be changed
     site: '/',
     sort: 0,
     closedForStaking: false,
@@ -247,8 +243,19 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     closedForStaking: false,
   },
 
-
-  
+  GraveNode: {
+    name: 'Generate Grave with Nodes',
+    poolId: 0,
+    sectionInUI: 3,
+    contract: 'GraveNode',
+    depositTokenName: 'GRAVE',
+    earnTokenName: 'GRAVE',
+    finished: false,
+    multiplier: '14400x',
+    buyLink: null,
+    site: '/',
+    sort: 2,
+    closedForStaking: false,
+  },
 };
-
 export default configurations['production'];

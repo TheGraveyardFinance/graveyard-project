@@ -6,10 +6,10 @@ const ERC20ABI = [{ "constant": true, "inputs": [], "name": "name", "outputs": [
 
 const web3 = new Web3("https://rpc.ftm.tools")
 const RebateTreasury = new web3.eth.Contract(RebateTreasuryABI, "0x8f555E00ea0FAc871b3Aa70C015915dB094E7f88")
-const Threeomb = new web3.eth.Contract(ERC20ABI, "0x14DEf7584A6c52f470Ca4F4b9671056b22f4FfDE")
+const Threeomb = new web3.eth.Contract(ERC20ABI, "0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6")
 
 const assetList = [
-    "0xc54A1684fD1bef1f077a336E6be4Bd9a3096a6Ca", // 2shares
+    "0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01", // 2shares
     "0x6398ACBBAB2561553a9e458Ab67dCFbD58944e52", // 2shares/FTM LP
     "0x83A52eff2E9D112E9B022399A9fD22a9DB7d33Ae", // XSHARE/wftm
     "0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7", //3shares

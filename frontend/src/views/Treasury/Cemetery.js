@@ -20,12 +20,6 @@ import HomeImage from '../../assets/img/home.png';
 
 const assetList = [
   {
-    depositTokenName: '2SHARES',
-  },
-  {
-    depositTokenName: '2SHARES-USDC LP',
-  },
-  {
     depositTokenName: 'GRAVE-USDC-LP',
   },
   {
@@ -69,7 +63,7 @@ const Cemetery = () => {
   const { path } = useRouteMatch();
   const { account } = useWallet();
   const activeBanks = banks.filter((bank) => !bank.finished);
-  const { balance, balance_2shares_wftm, balance_GRAVE_wftm, balance_3shares_wftm, balance_GRAVE, balance_3shares, balance_2shares } = useTotalTreasuryBalance();
+  const { balance, balance_Xshares_usdc, balance_GRAVE_usdc, balance_GRAVE, balance_Xshares} = useTotalTreasuryBalance();
   return (
     <Switch>
       <Page>
@@ -124,13 +118,13 @@ const Cemetery = () => {
                         <Typography variant="h5">
                           GRAVE-USDC LP:
                         </Typography>
-                        <CountUp style={{ fontSize: '25px' }} end={balance_GRAVE_wftm} separator="," prefix="$" />
+                        <CountUp style={{ fontSize: '25px' }} end={balance_GRAVE_usdc} separator="," prefix="$" />
                       </CardContent>
                       <CardContent align="center">
                         <Typography variant="h5">
                           XSHARE-USDC LP:
                         </Typography>
-                        <CountUp style={{ fontSize: '25px' }} end={balance_3shares_wftm} separator="," prefix="$" />
+                        <CountUp style={{ fontSize: '25px' }} end={balance_Xshares_usdc} separator="," prefix="$" />
                       </CardContent>
                       
                     </Card>
@@ -147,7 +141,7 @@ const Cemetery = () => {
                         <Typography variant="h5">
                           XSHARES:
                         </Typography>
-                        <CountUp style={{ fontSize: '25px' }} end={balance_3shares} separator="," prefix="$" />
+                        <CountUp style={{ fontSize: '25px' }} end={balance_Xshares} separator="," prefix="$" />
                       </CardContent>
 
                     </Card>

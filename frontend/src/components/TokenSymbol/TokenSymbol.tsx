@@ -36,7 +36,6 @@ import pFTM from '../../assets/token/pFTM.png';
 import UsdcLogo from '../../assets/img/USDC.png';
 
 import ThreeombLPLogo from '../../assets/img/GRAVE-USDC.png';
-import ThreesharesLPLogo from '../../assets/img/xSHARES-USDC.png';
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
@@ -60,9 +59,6 @@ const logosBySymbol: { [title: string]: string } = {
   pFTM: pFTM,
   BASED: BASED,
   MAGIK: MAGIK,
-  '2OMB-USDC LP': TwoombLPLogo,
-  '2SHARES-USDC LP': TwosharesLPLogo,
-  '2OMB-2SHARES LP': TwoombTwosharesLPLogo,
 
 
   'wFTM': wftmLogo,
@@ -75,14 +71,22 @@ const logosBySymbol: { [title: string]: string } = {
 type LogoProps = {
   symbol: string;
   size?: number;
+  height?: number;
 };
 
-const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64 }) => {
+const TokenSymbol: React.FC<LogoProps> = ({ symbol, size, height }) => {
   if (!logosBySymbol[symbol]) {
-    return <img src={logosBySymbol['GRAVE']} alt={`${symbol} Logo`} width={size} height={size} />
+    return <img src={logosBySymbol['GRAVE']} alt={`${symbol} Logo`} width={size} height={height} />
     // throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
-  return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={size} />;
+  if (!size) {
+    size = 60;
+  }
+
+  if (!height) {
+    height = 60;
+  }
+  return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={height} />;
 };
 
 export default TokenSymbol;

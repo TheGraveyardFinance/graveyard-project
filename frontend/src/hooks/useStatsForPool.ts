@@ -14,7 +14,7 @@ const useStatsForPool = (bank: Bank) => {
   }, [graveyardFinance, bank]);
 
   useEffect(() => {
-    fetchAPRsForPool().catch((err) => console.error(`Failed to fetch XBOND price: ${err.stack}`));
+    fetchAPRsForPool().catch((err) => console.error(`Failed to fetch pool APR price: ${err.stack}`));
     const refreshInterval = setInterval(fetchAPRsForPool, config.refreshInterval);
     return () => clearInterval(refreshInterval);
   }, [setPoolAPRs, graveyardFinance, fetchAPRsForPool]);

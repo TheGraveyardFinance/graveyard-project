@@ -3,18 +3,18 @@ import useGraveyardFinance from './useGraveyardFinance';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 import { Bank } from '../graveyard-finance';
 
-const useHarvest = (bank: Bank) => {
+const useCompound = (bank: Bank) => {
   const graveyardFinance = useGraveyardFinance();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleReward = useCallback(() => {
     handleTransactionReceipt(
-      graveyardFinance.harvest(bank.contract, bank.poolId, bank.sectionInUI),
-      `Claim ${bank.earnTokenName} from ${bank.contract}`,
+        graveyardFinance.compound(bank.contract, bank.poolId, bank.sectionInUI),
+      `Compound Node rewards`,
     );
   }, [bank, graveyardFinance, handleTransactionReceipt]);
 
-  return { onReward: handleReward };
+  return { onCompound: handleReward };
 };
 
-export default useHarvest;
+export default useCompound;

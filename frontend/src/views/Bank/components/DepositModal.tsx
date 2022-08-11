@@ -7,7 +7,7 @@ import ModalActions from '../../../components/ModalActions';
 import ModalTitle from '../../../components/ModalTitle';
 import TokenInput from '../../../components/TokenInput';
 
-import { getFullDisplayBalance } from '../../../utils/formatBalance';
+import { getFullDisplayBalance, getDisplayBalance } from '../../../utils/formatBalance';
 import { BigNumber } from 'ethers';
 
 interface DepositModalProps extends ModalProps {
