@@ -42,7 +42,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
         style={{backgroundColor: 'rgba(255, 255, 255, 0.1)', borderTopLeftRadius: 5, borderBottomLeftRadius: 5}}
       >
         <div style={{padding: '5px'}}>
-          <TokenSymbol symbol={bank.depositTokenName} height={50} width={50} />
+          <TokenSymbol symbol={bank.depositTokenName} height={50} size={50} />
         </div>
       </Grid>
       <Grid
@@ -83,7 +83,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
         <h5 style={{padding: 0, margin: 0}}>Stats</h5>
       </Grid>
       <Grid item xs={10}>
-        <Grid container spacing={1} justifyContent="flex-end">
+        <Grid container spacing={1} justify-content="flex-end">
           {showAPRCalc && (
             <Grid item>
               <Button
@@ -99,7 +99,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
         </Grid>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
-        <Grid container justifyContent="space-between">
+        <Grid container justify-content="space-between">
           <Grid item>
             <span className="card-info-text">TVL</span>
           </Grid>
@@ -112,7 +112,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
         </Grid>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
-        <Grid container alignItems="baseline" justifyContent="space-between">
+        <Grid container alignItems="baseline" justify-content="space-between">
           <Grid item>
             <span className="card-info-text">APR</span>
           </Grid>
@@ -122,7 +122,7 @@ const PoolCardHeader: React.FC<PoolCardHeaderProps> = ({bank, statsOnPool, stake
         </Grid>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>
-        <Grid container alignItems="baseline" justifyContent="space-between">
+        <Grid container alignItems="baseline" justify-content="space-between">
           <Grid item>
             <span className="card-info-text">Daily</span>
           </Grid>

@@ -8,7 +8,7 @@ import usegraveStats from '../../hooks/useGraveStats';
 import {Bank} from '../../graveyard-finance';
 import {useGetMultiplierForNode} from '../../utils/constants';
 import {Link} from 'react-router-dom';
-import {useWallet} from 'use-wallet';
+import { useWallet } from '@librafinance-xyz/use-wallet';
 import useNodes from '../../hooks/useNodes';
 import {PoolStats} from '../../graveyard-finance/types';
 
@@ -50,7 +50,7 @@ const NodeCardContent: React.FC<NodeCardContentProps> = ({bank, statsOnPool}) =>
             <h5 style={{padding: 0, margin: 0}}>Your stats</h5>
           </Grid>
           <Grid item>
-            <Grid container justifyContent="space-between">
+            <Grid container justify-content="space-between">
               <Grid item>
                 <span className="card-info-text">Your Nodes / Airdrop Tickets</span>
               </Grid>
@@ -67,7 +67,7 @@ const NodeCardContent: React.FC<NodeCardContentProps> = ({bank, statsOnPool}) =>
       {Number(nodeCount) === 0 && (
         <>
           <Grid item>
-            <Grid container justifyContent="space-between">
+            <Grid container justify-content="space-between">
               <Grid item>
                 <span className="card-info-text">Airdrop Tickets</span>
               </Grid>
@@ -82,7 +82,7 @@ const NodeCardContent: React.FC<NodeCardContentProps> = ({bank, statsOnPool}) =>
       {Number(nodeCount) > 0 && (
         <>
           <Grid item>
-            <Grid container justifyContent="space-between">
+            <Grid container justify-content="space-between">
               <Grid item>
                 <span className="card-info-text">Earned</span>
               </Grid>
@@ -92,7 +92,7 @@ const NodeCardContent: React.FC<NodeCardContentProps> = ({bank, statsOnPool}) =>
             </Grid>
           </Grid>
           <Grid item>
-            <Grid container justifyContent="space-between">
+            <Grid container justify-content="space-between">
               <Grid item>
                 <span className="card-info-text">Earned $</span>
               </Grid>

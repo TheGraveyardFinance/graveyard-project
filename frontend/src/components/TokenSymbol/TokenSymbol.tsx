@@ -71,14 +71,22 @@ const logosBySymbol: { [title: string]: string } = {
 type LogoProps = {
   symbol: string;
   size?: number;
+  height?: number;
 };
 
-const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64 }) => {
+const TokenSymbol: React.FC<LogoProps> = ({ symbol, size, height }) => {
   if (!logosBySymbol[symbol]) {
-    return <img src={logosBySymbol['GRAVE']} alt={`${symbol} Logo`} width={size} height={size} />
+    return <img src={logosBySymbol['GRAVE']} alt={`${symbol} Logo`} width={size} height={height} />
     // throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
-  return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={size} />;
+  if (!size) {
+    size = 60;
+  }
+
+  if (!height) {
+    height = 60;
+  }
+  return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={height} />;
 };
 
 export default TokenSymbol;
