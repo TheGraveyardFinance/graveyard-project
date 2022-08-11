@@ -8,11 +8,12 @@ import GraveNode from '../GraveNode';
 import useBank from '../../hooks/useBank';
 import {createGlobalStyle} from 'styled-components';
 import NodesInfoCard from '../../components/NodesInfoCard';
+import HomeImage from '../../assets/img/home.png';
 
 const BackgroundImage = createGlobalStyle`
   body {
     background-size: cover !important;
-    background: linear-gradient(90deg, rgba(144,17,105,1) 0%, rgba(95,17,144,1) 100%);
+    background: url(${HomeImage}) no-repeat !important;
     ;
   }
 `;

@@ -61,14 +61,14 @@ const GraveNode = () => {
   return bank ? (
     <>
       <PageHeader icon="🏦" subtitle={''} title={bank?.name} />
-      <Button onClick={setTierValues}>Set Tier Values</Button>
+      {/* <Button onClick={setTierValues}>Set Tier Values</Button> */}
       <Box>
         <Alert variant="filled" severity="info">
           Please read our{' '}
           <a
             style={{ color: '#fff' }}
             target={'_blank'}
-            href="https://grapefinance.gitbook.io/grape-finance-docs/unique-features/locked-staking-grape-nodes"
+            href="https://krynetix.gitbook.io/graveyard-finance/benefits-of-lp-nodes"
           >
             Node Docs & Strategy
           </a>{' '}
