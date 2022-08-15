@@ -1,1 +1,1 @@
-export const GraveGenesisRewardPool = "0x85908104b5b969898AdEb75C1704C74c2dBFed77";
+export const GraveGenesisRewardPool = "0xe5F6ee1DCE971D2A9706390033459579AF62273c";

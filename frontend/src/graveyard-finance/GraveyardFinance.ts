@@ -418,7 +418,7 @@ export class GraveyardFinance {
       } else if (tokenName === 'XSHARE-USDC-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.XSHARE, false);
       // } else if (tokenName === "2SHARES-USDC LP") {
-      //   tokenPrice = await this.getLPTokenPrice(token, new ERC20("0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01", this.provider, "2SHARES"), false);
+      //   tokenPrice = await this.getLPTokenPrice(token, new ERC20("0x93a069E3368ADB428A9AB1AE125667B9780F388c", this.provider, "2SHARES"), false);
       // } else if (tokenName === "2OMB-USDC LP") {
       //   console.log("getting the LP token price here")
       //   tokenPrice = await this.getLPTokenPrice(token, new ERC20("0x7a6e4e3cc2ac9924605dca4ba31d1831c84b44ae", this.provider, "2OMB"), true);

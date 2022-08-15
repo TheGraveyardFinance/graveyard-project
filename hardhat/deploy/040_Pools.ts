@@ -1,4 +1,4 @@
-// npx hardhat deploy --network fantom--tags Pools
+// npx hardhat deploy --network fantom --tags Pools
 
 import { ethers } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
@@ -40,6 +40,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const deployer = signers[0].address;
   const gasLimit = 5000000;
+  const depositFee = 200;
+  const communityFund = GraveDeployConfig.communityFund;
   console.log("deployer = " + deployer);
   const USDCAddress = GraveDeployConfig.WETH;
   const COUSD = GraveDeployConfig.COUSD;
@@ -68,7 +70,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     hre,
     "GraveGenesisRewardPool",
     deployer,
-    [GraveAddress, poolStartTimeForGraveGenesisRewardPool],
+    [GraveAddress, poolStartTimeForGraveGenesisRewardPool, communityFund, depositFee],
     true,
     gasLimit
   );

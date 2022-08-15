@@ -1,6 +1,6 @@
 /**
  *Submitted for verification at snowtrace.io on 2022-04-04
-*/
+ */
 
 // SPDX-License-Identifier: MIT
 
@@ -29,7 +29,9 @@ interface IERC20 {
      *
      * Emits a {Transfer} event.
      */
-    function transfer(address recipient, uint256 amount) external returns (bool);
+    function transfer(address recipient, uint256 amount)
+        external
+        returns (bool);
 
     /**
      * @dev Returns the remaining number of tokens that `spender` will be
@@ -38,7 +40,10 @@ interface IERC20 {
      *
      * This value changes when {approve} or {transferFrom} are called.
      */
-    function allowance(address owner, address spender) external view returns (uint256);
+    function allowance(address owner, address spender)
+        external
+        view
+        returns (uint256);
 
     /**
      * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
@@ -65,7 +70,11 @@ interface IERC20 {
      *
      * Emits a {Transfer} event.
      */
-    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
 
     /**
      * @dev Emitted when `value` tokens are moved from one account (`from`) to
@@ -79,9 +88,12 @@ interface IERC20 {
      * @dev Emitted when the allowance of a `spender` for an `owner` is set by
      * a call to {approve}. `value` is the new allowance.
      */
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
 }
-
 
 // File @openzeppelin/contracts-old/math/SafeMath.sol@v3.0.0
 
@@ -139,7 +151,11 @@ library SafeMath {
      * Requirements:
      * - Subtraction cannot overflow.
      */
-    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function sub(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         require(b <= a, errorMessage);
         uint256 c = a - b;
 
@@ -195,7 +211,11 @@ library SafeMath {
      * Requirements:
      * - The divisor cannot be zero.
      */
-    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function div(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0, errorMessage);
         uint256 c = a / b;
@@ -230,12 +250,15 @@ library SafeMath {
      * Requirements:
      * - The divisor cannot be zero.
      */
-    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+    function mod(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
         require(b != 0, errorMessage);
         return a % b;
     }
 }
-
 
 // File @openzeppelin/contracts-old/utils/Address.sol@v3.0.0
 
@@ -269,7 +292,9 @@ library Address {
         bytes32 codehash;
         bytes32 accountHash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
         // solhint-disable-next-line no-inline-assembly
-        assembly { codehash := extcodehash(account) }
+        assembly {
+            codehash := extcodehash(account)
+        }
         return (codehash != accountHash && codehash != 0x0);
     }
 
@@ -290,20 +315,23 @@ library Address {
      * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
      */
     function sendValue(address payable recipient, uint256 amount) internal {
-        require(address(this).balance >= amount, "Address: insufficient balance");
+        require(
+            address(this).balance >= amount,
+            "Address: insufficient balance"
+        );
 
         // solhint-disable-next-line avoid-low-level-calls, avoid-call-value
-        (bool success, ) = recipient.call{ value: amount }("");
-        require(success, "Address: unable to send value, recipient may have reverted");
+        (bool success, ) = recipient.call{value: amount}("");
+        require(
+            success,
+            "Address: unable to send value, recipient may have reverted"
+        );
     }
 }
-
 
 // File @openzeppelin/contracts-old/token/ERC20/SafeERC20.sol@v3.0.0
 
 pragma solidity ^0.6.0;
-
-
 
 /**
  * @title SafeERC20
@@ -318,33 +346,83 @@ library SafeERC20 {
     using SafeMath for uint256;
     using Address for address;
 
-    function safeTransfer(IERC20 token, address to, uint256 value) internal {
-        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+    function safeTransfer(
+        IERC20 token,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(
+            token,
+            abi.encodeWithSelector(token.transfer.selector, to, value)
+        );
     }
 
-    function safeTransferFrom(IERC20 token, address from, address to, uint256 value) internal {
-        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
+    function safeTransferFrom(
+        IERC20 token,
+        address from,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(
+            token,
+            abi.encodeWithSelector(token.transferFrom.selector, from, to, value)
+        );
     }
 
-    function safeApprove(IERC20 token, address spender, uint256 value) internal {
+    function safeApprove(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
         // safeApprove should only be called when setting an initial allowance,
         // or when resetting it to zero. To increase and decrease it, use
         // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
         // solhint-disable-next-line max-line-length
-        require((value == 0) || (token.allowance(address(this), spender) == 0),
+        require(
+            (value == 0) || (token.allowance(address(this), spender) == 0),
             "SafeERC20: approve from non-zero to non-zero allowance"
         );
-        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
+        _callOptionalReturn(
+            token,
+            abi.encodeWithSelector(token.approve.selector, spender, value)
+        );
     }
 
-    function safeIncreaseAllowance(IERC20 token, address spender, uint256 value) internal {
-        uint256 newAllowance = token.allowance(address(this), spender).add(value);
-        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+    function safeIncreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        uint256 newAllowance = token.allowance(address(this), spender).add(
+            value
+        );
+        _callOptionalReturn(
+            token,
+            abi.encodeWithSelector(
+                token.approve.selector,
+                spender,
+                newAllowance
+            )
+        );
     }
 
-    function safeDecreaseAllowance(IERC20 token, address spender, uint256 value) internal {
-        uint256 newAllowance = token.allowance(address(this), spender).sub(value, "SafeERC20: decreased allowance below zero");
-        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+    function safeDecreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        uint256 newAllowance = token.allowance(address(this), spender).sub(
+            value,
+            "SafeERC20: decreased allowance below zero"
+        );
+        _callOptionalReturn(
+            token,
+            abi.encodeWithSelector(
+                token.approve.selector,
+                spender,
+                newAllowance
+            )
+        );
     }
 
     /**
@@ -368,13 +446,16 @@ library SafeERC20 {
         (bool success, bytes memory returndata) = address(token).call(data);
         require(success, "SafeERC20: low-level call failed");
 
-        if (returndata.length > 0) { // Return data is optional
+        if (returndata.length > 0) {
+            // Return data is optional
             // solhint-disable-next-line max-line-length
-            require(abi.decode(returndata, (bool)), "SafeERC20: ERC20 operation did not succeed");
+            require(
+                abi.decode(returndata, (bool)),
+                "SafeERC20: ERC20 operation did not succeed"
+            );
         }
     }
 }
-
 
 // File contracts/distribution/Node.sol
 
@@ -385,7 +466,8 @@ contract Node {
     using SafeERC20 for IERC20;
     using SafeMath for uint256;
 
-    IERC20 public constant TOKEN = IERC20(0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6);
+    IERC20 public constant TOKEN =
+        IERC20(0x56C68a33e6F20aBC6Bcb46695f1811fE5cbF92Fe);
     uint256[] public tierAllocPoints = [1 ether, 1 ether, 1 ether];
     uint256[] public tierAmounts = [50 ether, 500 ether, 5000 ether];
     struct User {
@@ -397,7 +479,7 @@ contract Node {
     event CreateNode(uint256 timestamp, address account, uint256 num);
 
     address private dev;
-    
+
     mapping(address => User) public users;
     mapping(address => mapping(uint256 => uint256)) public nodes;
     mapping(uint256 => uint256) public totalNodes;
@@ -419,13 +501,14 @@ contract Node {
     bool public enabled;
     uint256 public constant MULTIPLIER = 10e18;
 
-
     constructor(uint256 _startTime) public {
-        maxReturnPercent = 500; 
-        dripRate = 2400000; 
-        treasuryFeePercent = 20; 
+        maxReturnPercent = 500;
+        dripRate = 2400000;
+        treasuryFeePercent = 20;
 
-        lastDripTime = _startTime > block.timestamp ? _startTime : block.timestamp;
+        lastDripTime = _startTime > block.timestamp
+            ? _startTime
+            : block.timestamp;
         startTime = _startTime;
         enabled = true;
         dev = msg.sender;
@@ -449,13 +532,13 @@ contract Node {
         if (treasury_rewards > 0) {
             TOKEN.safeTransfer(dev, treasury_rewards);
             treasury_rewards = 0;
-        }   
+        }
     }
 
     function setStartTime(uint256 _startTime) external onlyDev {
         startTime = _startTime;
     }
-    
+
     function setEnabled(bool _enabled) external onlyDev {
         enabled = _enabled;
     }
@@ -467,7 +550,7 @@ contract Node {
     function setDripRate(uint256 rate) external onlyDev {
         dripRate = rate;
     }
-    
+
     function setLastDripTime(uint256 timestamp) external onlyDev {
         lastDripTime = timestamp;
     }
@@ -476,22 +559,32 @@ contract Node {
         maxReturnPercent = percent;
     }
 
-    function setTierValues(uint256[] memory _tierAllocPoints, uint256[] memory _tierAmounts) external onlyDev {
-        require(_tierAllocPoints.length == _tierAmounts.length, "Length mismatch");
+    function setTierValues(
+        uint256[] memory _tierAllocPoints,
+        uint256[] memory _tierAmounts
+    ) external onlyDev {
+        require(
+            _tierAllocPoints.length == _tierAmounts.length,
+            "Length mismatch"
+        );
         tierAllocPoints = _tierAllocPoints;
         tierAmounts = _tierAmounts;
     }
 
     function setUser(address _addr, User memory _user) external onlyDev {
-        total_deposited = total_deposited.sub(users[_addr].total_deposits).add(_user.total_deposits);
-        total_claimed = total_claimed.sub(users[_addr].total_claims).add(_user.total_claims);
+        total_deposited = total_deposited.sub(users[_addr].total_deposits).add(
+            _user.total_deposits
+        );
+        total_claimed = total_claimed.sub(users[_addr].total_claims).add(
+            _user.total_claims
+        );
         users[_addr].total_deposits = _user.total_deposits;
         users[_addr].total_claims = _user.total_claims;
     }
 
     function setNodes(address _user, uint256[] memory _nodes) external onlyDev {
-        for(uint256 i = 0; i < _nodes.length; i++) {
-            totalNodes[i] = totalNodes[i].sub(nodes[_user][i]).add( _nodes[i]);
+        for (uint256 i = 0; i < _nodes.length; i++) {
+            totalNodes[i] = totalNodes[i].sub(nodes[_user][i]).add(_nodes[i]);
             nodes[_user][i] = _nodes[i];
         }
     }
@@ -512,53 +605,72 @@ contract Node {
         return total;
     }
 
-    function getDistributionRewards(address account) public view returns (uint256) {
+    function getDistributionRewards(address account)
+        public
+        view
+        returns (uint256)
+    {
         if (isMaxPayout(account)) return 0;
 
-        uint256 newDividendPoints = totalDistributePoints.sub(users[account].last_distPoints);
-        uint256 distribute = allocPoints(account).mul(newDividendPoints).div(MULTIPLIER);
+        uint256 newDividendPoints = totalDistributePoints.sub(
+            users[account].last_distPoints
+        );
+        uint256 distribute = allocPoints(account).mul(newDividendPoints).div(
+            MULTIPLIER
+        );
         return distribute > total_rewards ? total_rewards : distribute;
     }
-    
+
     function getTotalRewards(address _sender) public view returns (uint256) {
-        if (users[_sender].total_deposits == 0) 
-            return 0;
-        
-        uint256 rewards = getDistributionRewards(_sender).add(getRewardDrip().mul(allocPoints(_sender)).div(totalAllocPoints()));
+        if (users[_sender].total_deposits == 0) return 0;
+
+        uint256 rewards = getDistributionRewards(_sender).add(
+            getRewardDrip().mul(allocPoints(_sender)).div(totalAllocPoints())
+        );
         uint256 totalClaims = users[_sender].total_claims;
         uint256 maxPay = maxPayout(_sender);
 
         // Payout remaining if exceeds max payout
-        return totalClaims.add(rewards) > maxPay ? maxPay.sub(totalClaims) : rewards;
+        return
+            totalClaims.add(rewards) > maxPay
+                ? maxPay.sub(totalClaims)
+                : rewards;
     }
-
 
     function create(uint256 nodeTier, uint256 numNodes) external {
         address _sender = msg.sender;
         require(enabled && block.timestamp >= startTime, "Disabled");
-        require(nodeTier < tierAllocPoints.length && nodeTier < tierAmounts.length, "Invalid nodeTier");
+        require(
+            nodeTier < tierAllocPoints.length && nodeTier < tierAmounts.length,
+            "Invalid nodeTier"
+        );
 
         if (users[_sender].total_deposits == 0) {
             userIndices.push(_sender); // New user
             users[_sender].last_distPoints = totalDistributePoints;
-        } 
+        }
         if (users[_sender].total_deposits != 0 && isMaxPayout(_sender)) {
             users[_sender].last_distPoints = totalDistributePoints;
         }
 
         uint256 tierPrice = tierAmounts[nodeTier].mul(numNodes);
-        
+
         require(TOKEN.balanceOf(_sender) >= tierPrice, "Insufficient balance");
-        require(TOKEN.allowance(_sender, address(this)) >= tierPrice, "Insufficient allowance");
+        require(
+            TOKEN.allowance(_sender, address(this)) >= tierPrice,
+            "Insufficient allowance"
+        );
         TOKEN.safeTransferFrom(_sender, address(this), tierPrice);
 
-        users[_sender].total_deposits = users[_sender].total_deposits.add(tierPrice);
-        
+        users[_sender].total_deposits = users[_sender].total_deposits.add(
+            tierPrice
+        );
+
         total_deposited = total_deposited.add(tierPrice);
         treasury_rewards = treasury_rewards.add(
             tierPrice.mul(treasuryFeePercent).div(100)
         );
-        
+
         nodes[_sender][nodeTier] = nodes[_sender][nodeTier].add(numNodes);
         totalNodes[nodeTier] = totalNodes[nodeTier].add(numNodes);
 
@@ -570,23 +682,24 @@ contract Node {
 
         address _sender = msg.sender;
         uint256 _rewards = getDistributionRewards(_sender);
-        
+
         if (_rewards > 0) {
-            
             total_rewards = total_rewards.sub(_rewards);
             uint256 totalClaims = users[_sender].total_claims;
             uint256 maxPay = maxPayout(_sender);
 
             // Payout remaining if exceeds max payout
-            if(totalClaims.add(_rewards) > maxPay) {
+            if (totalClaims.add(_rewards) > maxPay) {
                 _rewards = maxPay.sub(totalClaims);
             }
 
-            users[_sender].total_claims = users[_sender].total_claims.add(_rewards);
+            users[_sender].total_claims = users[_sender].total_claims.add(
+                _rewards
+            );
             total_claimed = total_claimed.add(_rewards);
 
             IERC20(TOKEN).safeTransfer(_sender, _rewards);
-            
+
             users[_sender].last_distPoints = totalDistributePoints;
         }
     }
@@ -594,29 +707,37 @@ contract Node {
     function _compound(uint256 nodeTier, uint256 numNodes) internal {
         address _sender = msg.sender;
         require(enabled && block.timestamp >= startTime, "Disabled");
-        require(nodeTier < tierAllocPoints.length && nodeTier < tierAmounts.length, "Invalid nodeTier");
+        require(
+            nodeTier < tierAllocPoints.length && nodeTier < tierAmounts.length,
+            "Invalid nodeTier"
+        );
 
         if (users[_sender].total_deposits == 0) {
             userIndices.push(_sender); // New user
             users[_sender].last_distPoints = totalDistributePoints;
-        } 
+        }
         if (users[_sender].total_deposits != 0 && isMaxPayout(_sender)) {
             users[_sender].last_distPoints = totalDistributePoints;
         }
 
         uint256 tierPrice = tierAmounts[nodeTier].mul(numNodes);
-        
+
         require(TOKEN.balanceOf(_sender) >= tierPrice, "Insufficient balance");
-        require(TOKEN.allowance(_sender, address(this)) >= tierPrice, "Insufficient allowance");
+        require(
+            TOKEN.allowance(_sender, address(this)) >= tierPrice,
+            "Insufficient allowance"
+        );
         TOKEN.safeTransferFrom(_sender, address(this), tierPrice);
 
-        users[_sender].total_deposits = users[_sender].total_deposits.add(tierPrice);
-        
+        users[_sender].total_deposits = users[_sender].total_deposits.add(
+            tierPrice
+        );
+
         total_deposited = total_deposited.add(tierPrice);
         treasury_rewards = treasury_rewards.add(
             tierPrice.mul(treasuryFeePercent).div(100)
         );
-        
+
         nodes[_sender][nodeTier] = nodes[_sender][nodeTier].add(numNodes);
         totalNodes[nodeTier] = totalNodes[nodeTier].add(numNodes);
 
@@ -624,13 +745,12 @@ contract Node {
     }
 
     function compound() public {
-      uint256 rewardsPending = getTotalRewards(msg.sender);  
-      require(rewardsPending >= tierAmounts[0], "Not enough to compound");  
-      uint256 numPossible = rewardsPending.div(tierAmounts[0]);
-      claim();
-      _compound(0, numPossible);
+        uint256 rewardsPending = getTotalRewards(msg.sender);
+        require(rewardsPending >= tierAmounts[0], "Not enough to compound");
+        uint256 numPossible = rewardsPending.div(tierAmounts[0]);
+        claim();
+        _compound(0, numPossible);
     }
-
 
     function maxPayout(address _sender) public view returns (uint256) {
         return users[_sender].total_deposits.mul(maxReturnPercent).div(100);
@@ -641,8 +761,10 @@ contract Node {
     }
 
     function _disperse(uint256 amount) internal {
-        if (amount > 0 ) {
-            totalDistributePoints = totalDistributePoints.add(amount.mul(MULTIPLIER).div(totalAllocPoints()));
+        if (amount > 0) {
+            totalDistributePoints = totalDistributePoints.add(
+                amount.mul(MULTIPLIER).div(totalAllocPoints())
+            );
             totalDistributeRewards = totalDistributeRewards.add(amount);
             total_rewards = total_rewards.add(amount);
         }
@@ -687,18 +809,26 @@ contract Node {
         return userIndices.length;
     }
 
-    function numNodes(address _sender, uint256 _nodeId) external view returns (uint256) {
+    function numNodes(address _sender, uint256 _nodeId)
+        external
+        view
+        returns (uint256)
+    {
         return nodes[_sender][_nodeId];
     }
 
-    function getNodes(address _sender) external view returns (uint256[] memory) {
+    function getNodes(address _sender)
+        external
+        view
+        returns (uint256[] memory)
+    {
         uint256[] memory userNodes = new uint256[](tierAllocPoints.length);
         for (uint256 i = 0; i < tierAllocPoints.length; i++) {
             userNodes[i] = userNodes[i].add(nodes[_sender][i]);
         }
         return userNodes;
     }
-    
+
     function getTotalNodes() external view returns (uint256[] memory) {
         uint256[] memory totals = new uint256[](tierAllocPoints.length);
         for (uint256 i = 0; i < tierAllocPoints.length; i++) {
@@ -711,7 +841,7 @@ contract Node {
         return IERC20(TOKEN).balanceOf(address(this));
     }
 
-     function getBalancePool() public view returns (uint256) {
+    function getBalancePool() public view returns (uint256) {
         return getBalance().sub(total_rewards).sub(treasury_rewards);
     }
 

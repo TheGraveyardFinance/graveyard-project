@@ -10,7 +10,7 @@ const ERC20ABI = [{ "constant": true, "inputs": [], "name": "name", "outputs": [
 const treasuryAddress = "0xB8be57502Ff91CC20BF172FA2dDeef8de117ed59" // Graveyard Finance TODO
 
 // const assetList = [
-//     "0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01", // 2shares
+//     "0x93a069E3368ADB428A9AB1AE125667B9780F388c", // 2shares
 //     "0x6398ACBBAB2561553a9e458Ab67dCFbD58944e52", // 2shares/FTM LP
 //     "0x83A52eff2E9D112E9B022399A9fD22a9DB7d33Ae", // GRAVE/wftm
 //     "0x6437ADAC543583C4b31Bf0323A0870430F5CC2e7", // 3shares
@@ -37,7 +37,7 @@ const treasuryAddress = "0xB8be57502Ff91CC20BF172FA2dDeef8de117ed59" // Graveyar
 // }
 
 function useTotalTreasuryBalance() {
-    const XShares = new web3.eth.Contract(ERC20ABI, '0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01')
+    const XShares = new web3.eth.Contract(ERC20ABI, '0x93a069E3368ADB428A9AB1AE125667B9780F388c')
     const USDC = new web3.eth.Contract(ERC20ABI, '0x04068DA6C83AFCFA0e13ba15A6696662335D5B75')
     const [balance, setBalance] = useState(0)
     const [balance_GRAVE_usdc, setBalance_GRAVE_usdc] = useState(0)
@@ -76,8 +76,8 @@ function useTotalTreasuryBalance() {
 
         console.log(`xShares USD: $${valueXshares}`)
         console.log(`2Shares + GRAVE: $${dataXsharesAndGRAVE.data.usd_value}`)
-        const LP_GRAVE_usdc = await getLPPrice('0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', '0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6')
-        const LP_Xshares_usdc = await getLPPrice('0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', '0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01')
+        const LP_GRAVE_usdc = await getLPPrice('0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', '0x56C68a33e6F20aBC6Bcb46695f1811fE5cbF92Fe')
+        const LP_Xshares_usdc = await getLPPrice('0x04068DA6C83AFCFA0e13ba15A6696662335D5B75', '0x93a069E3368ADB428A9AB1AE125667B9780F388c')
         setBalance(dataXsharesAndGRAVE.data.usd_value + valueXshares + LP_Xshares_usdc + LP_GRAVE_usdc)
         setBalance_GRAVE_usdc(LP_GRAVE_usdc)
         setBalance_Xshares_usdc(LP_Xshares_usdc)
@@ -86,16 +86,16 @@ function useTotalTreasuryBalance() {
     }
 
     async function getGRAVEBalance() {
-        const tokenGRAVE = new web3.eth.Contract(ERC20ABI, '0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6')
-        const { data } = await axios(`https://fantom.api.0x.org/swap/v1/quote?buyToken=USDC&sellToken=0xbEF13A4C2b0543B66fa365f318efA3e4aedde2B6&sellAmount=100000000000000000`)
+        const tokenGRAVE = new web3.eth.Contract(ERC20ABI, '0x56C68a33e6F20aBC6Bcb46695f1811fE5cbF92Fe')
+        const { data } = await axios(`https://fantom.api.0x.org/swap/v1/quote?buyToken=USDC&sellToken=0x56C68a33e6F20aBC6Bcb46695f1811fE5cbF92Fe&sellAmount=100000000000000000`)
         const usdValue = Number(web3.utils.fromWei(await tokenGRAVE.methods.balanceOf(treasuryAddress).call())) * Number(data.price)
 
         return usdValue
     }
 
     async function getXsharesBalance() {
-        const tokenXshares = new web3.eth.Contract(ERC20ABI, '0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01')
-        const { data } = await axios(`https://fantom.api.0x.org/swap/v1/quote?buyToken=USDC&sellToken=0x526b98C956a70E962D75Bc1434eDeB4b15fdCB01&sellAmount=100000000000000000`)
+        const tokenXshares = new web3.eth.Contract(ERC20ABI, '0x93a069E3368ADB428A9AB1AE125667B9780F388c')
+        const { data } = await axios(`https://fantom.api.0x.org/swap/v1/quote?buyToken=USDC&sellToken=0x93a069E3368ADB428A9AB1AE125667B9780F388c&sellAmount=100000000000000000`)
         const usdValue = Number(web3.utils.fromWei(await tokenXshares.methods.balanceOf(treasuryAddress).call())) * Number(data.price)
 
         return usdValue
