@@ -49,7 +49,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const GraveAddress = GraveDeployConfig.GraveAddress;
   const UniswapV2FactoryAddress = GraveDeployConfig.UniswapV2Factory;
   const UniswapV2RouterAddress = GraveDeployConfig.UniswapV2Router;
-
+  const communityFund = GraveDeployConfig.communityFund;
   // // const poolStartTimeForGraveRewardPool = ""; // DAY 2-5 & Day 6-10
   // //////////////////////////////////////////////////////////////////////////////////////////
   // const GraveGenesisRewardPool = await mydeploy(
@@ -154,7 +154,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     hre,
     "XShareRewardPool",
     deployer,
-    [XShareAddress, startTimeXSharePool],
+    [XShareAddress, communityFund, startTimeXSharePool],
     true,
     gasLimit
   );

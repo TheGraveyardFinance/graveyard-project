@@ -9,8 +9,7 @@ import { XBond as XBondAddress } from "../../addresses/fantom/XBond";
 import { Oracle as OracleAddress } from "../../addresses/fantom/Oracle";
 
 
-const genesisStartTime = 1658404800; // Thursday, July 21, 2022 12:00:00 PM GMT
-
+const genesisStartTime = 1660572000; // Monday, August 15, 2022 2:00:00 PM
 
 
 // CHECK!!!
@@ -18,7 +17,7 @@ const startTimeXShare = genesisStartTime;
 const startTimeXSharePool = genesisStartTime + 3600 * 24 * 2;  // DAY3-
 // day 1
 const poolStartTimeForGraveGenesisRewardPool = genesisStartTime;
-// day 2-
+// day 3
 const poolStartTimeForGraveRewardPool = genesisStartTime + 3600 * 24 * 2;  // DAY3-
 const OraclePeriod = 3600; //
 const OracleStartTime = genesisStartTime;

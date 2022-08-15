@@ -1,4 +1,4 @@
-// npx hardhat deploy --network fantom--tags Oracle
+// npx hardhat deploy --network fantom --tags Oracle
 
 import { ethers } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
