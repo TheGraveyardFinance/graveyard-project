@@ -31,7 +31,9 @@ import CoUSD from '../../assets/token/CoUSD.png';
 import fUSD from '../../assets/token/FUSD.png';
 import MAGIK from '../../assets/token/MAGIK.png';
 import pFTM from '../../assets/token/pFTM.png';
-
+import xCOFFIN from '../../assets/token/xCOFFIN.png';
+import wBTC from '../../assets/token/wBTC.png';
+import PAE from '../../assets/token/PAE.png';
 
 import UsdcLogo from '../../assets/img/USDC.png';
 
@@ -59,6 +61,9 @@ const logosBySymbol: { [title: string]: string } = {
   pFTM: pFTM,
   BASED: BASED,
   MAGIK: MAGIK,
+  'xCOFFIN': xCOFFIN,
+  'wBTC': wBTC,
+  PAE: PAE,
 
 
   'wFTM': wftmLogo,
