@@ -85,6 +85,10 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       " " +
       poolStartTimeForGraveGenesisRewardPool +
       " " +
+      communityFund +
+      " " +
+      depositFee +
+      " " +
       " --contract contracts/distribution/GraveGenesisRewardPool.sol:GraveGenesisRewardPool "
   );
 
