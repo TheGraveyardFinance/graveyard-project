@@ -80,11 +80,11 @@ const TokenSymbol: React.FC<LogoProps> = ({ symbol, size, height }) => {
     // throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }
   if (!size) {
-    size = 60;
+    size = 32;
   }
 
   if (!height) {
-    height = 60;
+    height = 32;
   }
   return <img src={logosBySymbol[symbol]} alt={`${symbol} Logo`} width={size} height={height} />;
 };
