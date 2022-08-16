@@ -22,7 +22,7 @@ import useStakedTokenPriceInDollars from '../../../hooks/useStakedTokenPriceInDo
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useWithdraw from '../../../hooks/useWithdraw';
 
-import { getDisplayBalance } from '../../../utils/formatBalance';
+import { getDisplayBalance, getGraveBalance } from '../../../utils/formatBalance';
 
 import DepositModal from './DepositModal';
 import WithdrawModal from './WithdrawModal';
@@ -40,6 +40,9 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
   const { color: themeColor } = useContext(ThemeContext);
   const tokenBalance = useTokenBalance(bank.depositToken);
   const stakedBalance = useStakedBalance(bank.contract, bank.poolId);
+  console.log("@@@2.1", bank.contract);
+  console.log("@@@2.2", bank.poolId);
+  console.log("@@@2.3", stakedBalance);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
   const tokenPriceInDollars = useMemo(
     () => (stakedTokenPriceInDollars ? stakedTokenPriceInDollars : null),
@@ -47,8 +50,12 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
   );
 
   const earnedInDollars = (
-    Number(tokenPriceInDollars) * Number(getDisplayBalance(stakedBalance, bank.depositToken.decimal))
+    Number(tokenPriceInDollars) * Number(getGraveBalance(stakedBalance, bank.depositToken.decimal))
   ).toFixed(4);
+  console.log("@@@1 Number(tokenPriceInDollars)", Number(tokenPriceInDollars));
+  console.log("@@@2 Number(getGraveBalance(stakedBalance, bank.depositToken.decimal)", Number(getGraveBalance(stakedBalance, bank.depositToken.decimal)));
+  console.log("@@@3 stakedBalance", stakedBalance);
+  console.log("@@@4 bank.depositToken.decimal", bank.depositToken.decimal);
   const { onStake } = useStake(bank);
   const { onZap } = useZap(bank);
   const { onWithdraw } = useWithdraw(bank);

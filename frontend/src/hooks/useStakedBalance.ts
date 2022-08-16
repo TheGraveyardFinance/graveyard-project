@@ -10,6 +10,10 @@ const useStakedBalance = (poolName: ContractName, poolId: Number) => {
   const graveyardFinance = useGraveyardFinance();
   const isUnlocked = graveyardFinance?.isUnlocked;
 
+  console.log("@@@3.1", poolName);
+  console.log("@@@3.2", poolId);
+  console.log("@@@3.3", graveyardFinance.myAccount);
+
   const fetchBalance = useCallback(async () => {
     const balance = await graveyardFinance.stakedBalanceOnBank(poolName, poolId, graveyardFinance.myAccount);
     setBalance(balance);
@@ -23,6 +27,7 @@ const useStakedBalance = (poolName: ContractName, poolId: Number) => {
       return () => clearInterval(refreshBalance);
     }
   }, [isUnlocked, poolName, setBalance, graveyardFinance, fetchBalance]);
+  
 
   return balance;
 };

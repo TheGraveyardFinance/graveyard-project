@@ -533,7 +533,9 @@ export class GraveyardFinance {
     const pool = this.contracts[poolName];
     try {
       let userInfo = await pool.userInfo(poolId, account);
-      return await userInfo.total_deposits;
+      console.log("@@@4.1 userInfo", userInfo);
+      console.log("@@@4.2 userInfo.total_deposits", userInfo.total_deposits);
+      return await userInfo.amount; // total_deposit??
     } catch (err) {
       console.error(`Failed to call balanceOf() on pool ${pool.address}: ${err.stack}`);
       return BigNumber.from(0);
